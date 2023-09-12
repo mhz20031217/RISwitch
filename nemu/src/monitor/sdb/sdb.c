@@ -13,6 +13,8 @@
 * See the Mulan PSL v2 for more details.
 ***************************************************************************************/
 
+#include <errno.h>
+
 #include <isa.h>
 #include <cpu/cpu.h>
 #include <readline/readline.h>
@@ -54,6 +56,27 @@ static int cmd_q(char *args) {
 
 static int cmd_help(char *args);
 
+static int cmd_si(char *args);
+
+static int cmd_info(char *args);
+
+static int cmd_x(char *args);
+
+static int cmd_p(char *args) {
+  bool success;
+  word_t result = expr(args, &success);
+  if (!success) {
+    Info("Invalid EXPR: %s", args);
+  } else {
+    printf("%u 0x%x\n", result, result);
+  }
+  return 0;
+}
+
+static int cmd_w(char *args);
+
+static int cmd_d(char *args);
+
 static struct {
   const char *name;
   const char *description;
@@ -62,9 +85,15 @@ static struct {
   { "help", "Display information about all supported commands", cmd_help },
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
-
+  { "si", "Step execution for [N] steps", cmd_si },
+  { "info", "Print program status\n"
+            "info r - List of integer registers and their contents, for selected stack frame.\n"
+            "info w - Status of specified watchpoints (all watchpoints if no argument).", cmd_info },
+  { "p", "Evaluate an expression.", cmd_p },
+  { "x", "Scan memeory. x [N] EXPR scan N QWORDs staring from address EXPR.", cmd_x },
+  { "w", "Set watchpoint.", cmd_w },
+  { "d", "Remove watchpoint", cmd_d },
   /* TODO: Add more commands */
-
 };
 
 #define NR_CMD ARRLEN(cmd_table)
@@ -91,6 +120,104 @@ static int cmd_help(char *args) {
   }
   return 0;
 }
+
+static int cmd_si(char *args) {
+  char *arg = strtok(NULL, " ");
+  
+  uint64_t steps;
+  if (arg == NULL) { // no arguments given
+    steps = 1;
+  } else {
+    errno = 0;
+    steps = strtoull(arg, NULL, 10);
+    if (errno) { // an error ocurred
+      Info("Invalid parameter: '%s'", arg);
+      return 0;
+    }
+  }
+
+  cpu_exec(steps);
+  return 0;
+}
+
+static int cmd_info(char* args) {
+  char *arg = strtok(NULL, " ");
+
+  if (arg == NULL) {
+    Info("No subcmd provided.");
+    return 0;
+  } else if (strcmp(arg, "r") == 0) {
+    isa_reg_display();
+  } else if (strcmp(arg, "w") == 0) {
+    void watchpoint_list();
+    watchpoint_list();
+  } else {
+    Info("Invalid subcmd.");
+  }
+  return 0;
+}
+
+static int cmd_x(char* args) {
+  char* arg = strtok(NULL, " ");
+
+  if (arg == NULL) {
+    Info("No N provided.");
+    return 0;
+  }
+  
+  errno = 0;
+  int N = strtol(arg, NULL, 10);
+  if (errno) { // an error ocurred
+    Info("Invalid parameter as N: '%s'", arg);
+    return 0;
+  }
+
+  arg = strtok(NULL, "");
+  if (arg == NULL) {
+    Info("No EXPR provided.");
+    return 0;
+  }
+
+  bool success = 1;
+  paddr_t st_addr = expr(arg, &success);
+  if (!success) {
+    Info("Invalid EXPR.");
+    return 0;
+  }
+
+  word_t paddr_read(paddr_t, int);
+  while (N--) {
+    printf("0x%x ", paddr_read(st_addr, 4));
+    st_addr += 4;
+  }
+  printf("\n");
+
+  return 0;  
+}
+
+static int cmd_w(char* args) {
+  int id;
+  int watchpoint_add(char *expression);
+  if ((id = watchpoint_add(args)) == -1) {
+    Info("Add watchpoint failed.");
+    return 0;
+  }
+  Info("Watchpoint %d added: %s", id, args);
+  return 0;
+}
+
+static int cmd_d(char* args) {
+  int id = strtol(args, NULL, 10);
+  if (errno) {
+    Info("Invalid watchpoint id: %s", args);
+    errno = 0;
+    return 0;
+  }
+  void watchpoint_remove(int index);
+  watchpoint_remove(id);
+  return 0;
+}
+
 
 void sdb_set_batch_mode() {
   is_batch_mode = true;

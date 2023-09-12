@@ -6,4 +6,7 @@ simple macros to keep (simply expand to the argument) or ignore (to discard
 the argument).
 
 Secondly, how does `MUX%` determine the state of the macro? In
-`MUX_MACRO_PROPERTY`, the property is concatenated the the macro name. Then, 
+`MUX_MACRO_PROPERTY`, the property is concatenated in the macro name through
+macro `MUX_WITH_COMMA` and `CHOOSE2nd` (in concatenation, a comma is added
+after the property, thus CHOOSE2nd will choose code snippet X when the
+property is defined, else Y);
