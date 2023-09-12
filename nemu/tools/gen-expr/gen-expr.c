@@ -21,8 +21,8 @@
 #include <string.h>
 
 // this should be enough
-static char buf[65536] = {};
-static char code_buf[65536 + 128] = {}; // a little larger than `buf`
+static char buf[1048576] = {};
+static char code_buf[1048576 + 128] = {}; // a little larger than `buf`
 static char *code_format =
 "#include <stdio.h>\n"
 "int main() { "
@@ -31,8 +31,59 @@ static char *code_format =
 "  return 0; "
 "}";
 
-static void gen_rand_expr() {
-  buf[0] = '\0';
+static const int MAX_DEPTH = 10;
+
+int pt;
+
+static void gen(char ch) {
+  buf[pt ++] = ch;
+}
+
+static void gen_num() {
+  unsigned short num = rand();
+
+  if (num == 0) {
+    buf[pt ++] = '0';
+    return;
+  }
+
+  char n_buf[16] = {0};
+  int cur = 0;
+  while (num > 0) {
+    n_buf[cur ++] = num % 10 + '0';
+    num /= 10;
+  }
+
+  while (cur > 0) {
+    buf[pt ++] = n_buf[-- cur];
+  }
+}
+
+static void gen_rand_op() {
+  char choice = rand() % 4;
+  
+  switch (choice) {
+    case 0: choice = '+'; break;
+    case 1: choice = '-'; break;
+    case 2: choice = '*'; break;
+    case 3: choice = '/'; break;
+    default: choice = '+'; break;
+  }
+
+  buf[pt ++] = choice;
+}
+
+static void gen_rand_expr(int depth) {
+  if (depth == MAX_DEPTH) {
+    gen_num();
+    return;
+  }
+  int choice = rand() % 3;
+  switch (choice) {
+    case 0: gen_num(); break;
+    case 1: gen('('); gen_rand_expr(depth + 1); gen(')'); break;
+    default: gen_rand_expr(depth + 1); gen_rand_op(); gen_rand_expr(depth + 1); break;
+  }
 }
 
 int main(int argc, char *argv[]) {
@@ -44,7 +95,9 @@ int main(int argc, char *argv[]) {
   }
   int i;
   for (i = 0; i < loop; i ++) {
-    gen_rand_expr();
+    pt = 0;
+    gen_rand_expr(0);
+    buf[pt] = '\0';
 
     sprintf(code_buf, code_format, buf);
 
@@ -53,8 +106,11 @@ int main(int argc, char *argv[]) {
     fputs(code_buf, fp);
     fclose(fp);
 
-    int ret = system("gcc /tmp/.code.c -o /tmp/.expr");
-    if (ret != 0) continue;
+    int ret = system("gcc -Wall -Werror /tmp/.code.c -o /tmp/.expr");
+    if (ret != 0) {
+      -- i;
+      continue;
+    }
 
     fp = popen("/tmp/.expr", "r");
     assert(fp != NULL);
