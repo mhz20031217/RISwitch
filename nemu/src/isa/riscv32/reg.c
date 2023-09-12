@@ -14,6 +14,8 @@
 ***************************************************************************************/
 
 #include <isa.h>
+#include <stdbool.h>
+#include <string.h>
 #include "local-include/reg.h"
 
 const char *regs[] = {
@@ -24,8 +26,22 @@ const char *regs[] = {
 };
 
 void isa_reg_display() {
+  for(int i = 0; i < MUXDEF(CONFIG_RVE, 16, 32); i++) {
+    printf("%s\t0x%x\t%ull\n", reg_name(i), gpr(i), gpr(i));
+  }
 }
 
 word_t isa_reg_str2val(const char *s, bool *success) {
+  if (strcmp(s, "pc") == 0) {
+    *success = true;
+    return cpu.pc;
+  }
+  for (int i = 0; i < MUXDEF(CONFIG_RVE, 16, 32); i++) {
+    if (strcmp(s, regs[i]) == 0) {
+      *success = true;
+      return cpu.gpr[i];
+    }
+  }
+  *success = false;
   return 0;
 }
