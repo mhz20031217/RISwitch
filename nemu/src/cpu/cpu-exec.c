@@ -32,12 +32,55 @@ static bool g_print_step = false;
 
 void device_update();
 
+/* Instruction ringbuf */
+#define MAX_IRINGBUF_ENTRY 32
+static char iringbuf[MAX_IRINGBUF_ENTRY][128];
+static int iringbuf_l = 0, iringbuf_r = 0, iringbuf_size = 0;
+#define iringbuf_size() iringbuf_size
+#define iringbuf_empty() (iringbuf_size == 0)
+#define iringbuf_move(var) do { \
+  if (iringbuf_ ## var == MAX_IRINGBUF_ENTRY - 1) { \
+    iringbuf_ ## var = 0; \
+  } else { \
+    iringbuf_ ## var ++; \
+  } \
+} while (0)
+#define iringbuf_push(s) do { \
+  if (iringbuf_size == MAX_IRINGBUF_ENTRY) { \
+    strcpy(iringbuf[iringbuf_l], (s)); \
+    iringbuf_move(l); \
+    iringbuf_move(r); \
+  } else { \
+    strcpy(iringbuf[iringbuf_r], (s)); \
+    iringbuf_move(r); \
+    iringbuf_size ++; \
+  } \
+} while (0)
+#define iringbuf_pop() do { \
+  if (iringbuf_size != 0) { \
+    iringbuf_move(l); \
+    iringbuf_size --; \
+  } \
+} while (0)
+#define iringbuf_front() (iringbuf[iringbuf_l])
+
+
 static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
 #ifdef CONFIG_ITRACE_COND
-  if (ITRACE_COND) { log_write("%s\n", _this->logbuf); }
+  if (ITRACE_COND) { 
+    log_write("%s\n", _this->logbuf);
+    iringbuf_push(_this->logbuf);
+  }
 #endif
   if (g_print_step) { IFDEF(CONFIG_ITRACE, puts(_this->logbuf)); }
   IFDEF(CONFIG_DIFFTEST, difftest_step(_this->pc, dnpc));
+
+  /* watchpoint */
+  bool watchpoint_scan();
+  if (watchpoint_scan()) {
+    Info("Watchpoint hit.");
+    nemu_state.state = NEMU_STOP;
+  }
 }
 
 static void exec_once(Decode *s, vaddr_t pc) {
@@ -122,6 +165,13 @@ void cpu_exec(uint64_t n) {
            (nemu_state.halt_ret == 0 ? ANSI_FMT("HIT GOOD TRAP", ANSI_FG_GREEN) :
             ANSI_FMT("HIT BAD TRAP", ANSI_FG_RED))),
           nemu_state.halt_pc);
+      if (nemu_state.halt_ret != 0) {
+        log_write("Most recent instructions:\n");
+        while (!iringbuf_empty()) {
+          log_write("%s\n", iringbuf_front());
+          iringbuf_pop();
+        }
+      }
       // fall through
     case NEMU_QUIT: statistic();
   }
