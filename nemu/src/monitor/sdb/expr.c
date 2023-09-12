@@ -273,9 +273,12 @@ static int operator_level(token_type o) {
     // level 2 (unary)
     case TK_POS: case TK_NEG:
       l = 2; break;
-    // level 4 (binary arith)
-    case TK_ADD: case TK_MINUS: case TK_MUL: case TK_DIV:
+    // level 3 (binary arith: mul, div)
+    case TK_MUL: case TK_DIV:
       l = 3; break;
+    // level 4 (binary arith: add, sub)
+    case TK_ADD: case TK_MINUS:
+      l = 4; break;
     // level 8 (equation)
     case TK_EQ: case TK_NE:
       l = 8; break;
