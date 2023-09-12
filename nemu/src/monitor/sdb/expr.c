@@ -342,7 +342,7 @@ static int64_t eval(Token tokens[], int length) {
     } else{
       Log("case 5");
       token_type nop = token->type;
-      while (!empty_op() && peek_op() != TK_LPAR && compare_operator_level(nop, peek_op()) <= 0) {
+      while (!empty_op() && peek_op() != TK_LPAR && compare_operator_level(nop, peek_op()) >= 0) {
         apply();
         if (errno) goto error;
       }
