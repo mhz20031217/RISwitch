@@ -1,0 +1,6 @@
+1. The function `init_monitor` is better structured and more human readable to
+use function calls.;
+2. The init implementations of each module should be written in its own file,
+not monitor.c. This approach ensures that the abstraction layer is not
+broken.;
+

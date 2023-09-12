@@ -1,0 +1,9 @@
+Firstly, When a macro `IF%` is expanded, it is expanded to `MUX%`. The details
+of `MUX%` is explained in the next paragraph. The function of `MUX%` is to
+choose from the two options followed in the argument list according to the
+property of the macro. `IF%` is defined to `__KEEP` or `__IGNORE`, which are
+simple macros to keep (simply expand to the argument) or ignore (to discard
+the argument).
+
+Secondly, how does `MUX%` determine the state of the macro? In
+`MUX_MACRO_PROPERTY`, the property is concatenated the the macro name. Then, 

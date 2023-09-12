@@ -1,0 +1,2 @@
+Forever, for -1 is 0xffffffff (int), and the argument type is uint64_t. It'll
+be converted to 0xffffffffffffffff (uint64_t) (roughly +inf).

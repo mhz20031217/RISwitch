@@ -1,0 +1,2189 @@
+execve("/usr/bin/make", ["make"], 0x7ffe4e6ecd10 /* 76 vars */) = 0
+brk(NULL)                               = 0x5584c0b32000
+arch_prctl(0x3001 /* ARCH_??? */, 0x7fff054a6d10) = -1 EINVAL (Invalid argument)
+mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f35595b6000
+access("/etc/ld.so.preload", R_OK)      = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+newfstatat(3, "", {st_mode=S_IFREG|0644, st_size=211611, ...}, AT_EMPTY_PATH) = 0
+mmap(NULL, 211611, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f3559582000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0P\237\2\0\0\0\0\0"..., 832) = 832
+pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+pread64(3, "\4\0\0\0 \0\0\0\5\0\0\0GNU\0\2\0\0\300\4\0\0\0\3\0\0\0\0\0\0\0"..., 48, 848) = 48
+pread64(3, "\4\0\0\0\24\0\0\0\3\0\0\0GNU\0i8\235HZ\227\223\333\350s\360\352,\223\340."..., 68, 896) = 68
+newfstatat(3, "", {st_mode=S_IFREG|0644, st_size=2216304, ...}, AT_EMPTY_PATH) = 0
+pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+mmap(NULL, 2260560, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7f355935a000
+mmap(0x7f3559382000, 1658880, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x28000) = 0x7f3559382000
+mmap(0x7f3559517000, 360448, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1bd000) = 0x7f3559517000
+mmap(0x7f355956f000, 24576, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x214000) = 0x7f355956f000
+mmap(0x7f3559575000, 52816, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7f3559575000
+close(3)                                = 0
+mmap(NULL, 12288, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f3559357000
+arch_prctl(ARCH_SET_FS, 0x7f3559357740) = 0
+set_tid_address(0x7f3559357a10)         = 3094835
+set_robust_list(0x7f3559357a20, 24)     = 0
+rseq(0x7f35593580e0, 0x20, 0, 0x53053053) = 0
+mprotect(0x7f355956f000, 16384, PROT_READ) = 0
+mprotect(0x5584bf408000, 8192, PROT_READ) = 0
+mprotect(0x7f35595f0000, 8192, PROT_READ) = 0
+prlimit64(0, RLIMIT_STACK, NULL, {rlim_cur=8192*1024, rlim_max=RLIM64_INFINITY}) = 0
+munmap(0x7f3559582000, 211611)          = 0
+getrandom("\x30\x9f\xd1\xaa\x71\x9b\x64\x42", 8, GRND_NONBLOCK) = 8
+brk(NULL)                               = 0x5584c0b32000
+brk(0x5584c0b53000)                     = 0x5584c0b53000
+openat(AT_FDCWD, "/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC) = 3
+newfstatat(3, "", {st_mode=S_IFREG|0644, st_size=13724368, ...}, AT_EMPTY_PATH) = 0
+mmap(NULL, 13724368, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f3558640000
+close(3)                                = 0
+rt_sigaction(SIGHUP, {sa_handler=0x5584bf3dfcd0, sa_mask=[HUP], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f355939c520}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGQUIT, {sa_handler=0x5584bf3dfcd0, sa_mask=[QUIT], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f355939c520}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGINT, {sa_handler=0x5584bf3dfcd0, sa_mask=[INT], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f355939c520}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGTERM, {sa_handler=0x5584bf3dfcd0, sa_mask=[TERM], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f355939c520}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGXCPU, {sa_handler=0x5584bf3dfcd0, sa_mask=[XCPU], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f355939c520}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGXFSZ, {sa_handler=0x5584bf3dfcd0, sa_mask=[XFSZ], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f355939c520}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+rt_sigaction(SIGCHLD, {sa_handler=SIG_DFL, sa_mask=[CHLD], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f355939c520}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+fcntl(1, F_GETFL)                       = 0x80402 (flags O_RDWR|O_APPEND|O_CLOEXEC)
+fcntl(1, F_SETFL, O_RDWR|O_APPEND|O_CLOEXEC) = 0
+fcntl(2, F_GETFL)                       = 0x80402 (flags O_RDWR|O_APPEND|O_CLOEXEC)
+fcntl(2, F_SETFL, O_RDWR|O_APPEND|O_CLOEXEC) = 0
+fcntl(1, F_GETFD)                       = 0
+getcwd("/home/pc/Learning/02.IT/5.ICS/ics2023/nemu", 4096) = 43
+ioctl(1, TCGETS, {B38400 opost isig icanon echo ...}) = 0
+ioctl(1, TCGETS, {B38400 opost isig icanon echo ...}) = 0
+ioctl(1, TCGETS, {B38400 opost isig icanon echo ...}) = 0
+newfstatat(1, "", {st_mode=S_IFCHR|0620, st_rdev=makedev(0x88, 0x4), ...}, AT_EMPTY_PATH) = 0
+readlink("/proc/self/fd/1", "/dev/pts/4", 4095) = 10
+newfstatat(AT_FDCWD, "/dev/pts/4", {st_mode=S_IFCHR|0620, st_rdev=makedev(0x88, 0x4), ...}, 0) = 0
+ioctl(2, TCGETS, {B38400 opost isig icanon echo ...}) = 0
+ioctl(2, TCGETS, {B38400 opost isig icanon echo ...}) = 0
+ioctl(2, TCGETS, {B38400 opost isig icanon echo ...}) = 0
+newfstatat(2, "", {st_mode=S_IFCHR|0620, st_rdev=makedev(0x88, 0x4), ...}, AT_EMPTY_PATH) = 0
+readlink("/proc/self/fd/2", "/dev/pts/4", 4095) = 10
+newfstatat(AT_FDCWD, "/dev/pts/4", {st_mode=S_IFCHR|0620, st_rdev=makedev(0x88, 0x4), ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/gnu/include", 0x7fff054a5450, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/include", {st_mode=S_IFDIR|0755, st_size=4096, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/include", {st_mode=S_IFDIR|0755, st_size=20480, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/include", {st_mode=S_IFDIR|0755, st_size=20480, ...}, 0) = 0
+rt_sigaction(SIGCHLD, {sa_handler=0x5584bf3e5dc0, sa_mask=[CHLD], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f355939c520}, {sa_handler=SIG_DFL, sa_mask=[CHLD], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f355939c520}, 8) = 0
+rt_sigprocmask(SIG_SETMASK, [CHLD], NULL, 8) = 0
+rt_sigaction(SIGUSR1, {sa_handler=0x5584bf3e5a90, sa_mask=[USR1], sa_flags=SA_RESTORER|SA_RESTART, sa_restorer=0x7f355939c520}, {sa_handler=SIG_DFL, sa_mask=[], sa_flags=0}, 8) = 0
+brk(0x5584c0b74000)                     = 0x5584c0b74000
+newfstatat(AT_FDCWD, ".", {st_mode=S_IFDIR|S_ISGID|0775, st_size=4096, ...}, 0) = 0
+openat(AT_FDCWD, ".", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3
+newfstatat(3, "", {st_mode=S_IFDIR|S_ISGID|0775, st_size=4096, ...}, AT_EMPTY_PATH) = 0
+getdents64(3, 0x5584c0b56cb0 /* 15 entries */, 32768) = 456
+getdents64(3, 0x5584c0b56cb0 /* 0 entries */, 32768) = 0
+close(3)                                = 0
+openat(AT_FDCWD, "Makefile", O_RDONLY)  = 3
+fcntl(3, F_GETFD)                       = 0
+fcntl(3, F_SETFD, FD_CLOEXEC)           = 0
+newfstatat(3, "", {st_mode=S_IFREG|0664, st_size=2365, ...}, AT_EMPTY_PATH) = 0
+read(3, "#*******************************"..., 4096) = 2365
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/src/nemu-main.c", {st_mode=S_IFREG|0664, st_size=1063, ...}, AT_SYMLINK_NOFOLLOW) = 0
+openat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/include/config/auto.conf", O_RDONLY) = 4
+fcntl(4, F_GETFD)                       = 0
+fcntl(4, F_SETFD, FD_CLOEXEC)           = 0
+newfstatat(4, "", {st_mode=S_IFREG|0664, st_size=610, ...}, AT_EMPTY_PATH) = 0
+read(4, "#\n# Automatically generated file"..., 4096) = 610
+read(4, "", 4096)                       = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/include/config/auto.conf.cmd", O_RDONLY) = 4
+fcntl(4, F_GETFD)                       = 0
+fcntl(4, F_SETFD, FD_CLOEXEC)           = 0
+newfstatat(4, "", {st_mode=S_IFREG|0664, st_size=205, ...}, AT_EMPTY_PATH) = 0
+read(4, "deps_config := \\\n\tsrc/device/Kco"..., 4096) = 205
+read(4, "", 4096)                       = 0
+close(4)                                = 0
+pipe2([4, 5], 0)                        = 0
+fcntl(5, F_GETFD)                       = 0
+fcntl(5, F_SETFD, FD_CLOEXEC)           = 0
+fcntl(4, F_GETFD)                       = 0
+fcntl(4, F_SETFD, FD_CLOEXEC)           = 0
+prlimit64(0, RLIMIT_NOFILE, NULL, {rlim_cur=1024, rlim_max=1024*1024}) = 0
+prlimit64(0, RLIMIT_NOFILE, NULL, {rlim_cur=1024, rlim_max=1024*1024}) = 0
+newfstatat(AT_FDCWD, "/bin/sh", {st_mode=S_IFREG|0755, st_size=1396520, ...}, 0) = 0
+geteuid()                               = 1000
+getegid()                               = 1000
+getuid()                                = 1000
+getgid()                                = 1000
+access("/bin/sh", X_OK)                 = 0
+mmap(NULL, 36864, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS|MAP_STACK, -1, 0) = 0x7f35595ad000
+rt_sigprocmask(SIG_BLOCK, ~[], [CHLD], 8) = 0
+clone3({flags=CLONE_VM|CLONE_VFORK, exit_signal=SIGCHLD, stack=0x7f35595ad000, stack_size=0x9000}, 88) = 3094838
+munmap(0x7f35595ad000, 36864)           = 0
+rt_sigprocmask(SIG_SETMASK, [CHLD], NULL, 8) = 0
+close(5)                                = 0
+read(4, "./src/utils/filelist.mk\n./src/de"..., 200) = 114
+read(4, "", 86)                         = 0
+close(4)                                = 0
+wait4(-1, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 3094838
+openat(AT_FDCWD, "src/utils/filelist.mk", O_RDONLY) = 4
+fcntl(4, F_GETFD)                       = 0
+fcntl(4, F_SETFD, FD_CLOEXEC)           = 0
+newfstatat(4, "", {st_mode=S_IFREG|0664, st_size=871, ...}, AT_EMPTY_PATH) = 0
+read(4, "#*******************************"..., 4096) = 871
+read(4, "", 4096)                       = 0
+close(4)                                = 0
+openat(AT_FDCWD, "src/device/filelist.mk", O_RDONLY) = 4
+fcntl(4, F_GETFD)                       = 0
+fcntl(4, F_SETFD, FD_CLOEXEC)           = 0
+newfstatat(4, "", {st_mode=S_IFREG|0664, st_size=1277, ...}, AT_EMPTY_PATH) = 0
+read(4, "#*******************************"..., 4096) = 1277
+read(4, "", 4096)                       = 0
+close(4)                                = 0
+openat(AT_FDCWD, "src/filelist.mk", O_RDONLY) = 4
+fcntl(4, F_GETFD)                       = 0
+fcntl(4, F_SETFD, FD_CLOEXEC)           = 0
+newfstatat(4, "", {st_mode=S_IFREG|0664, st_size=1097, ...}, AT_EMPTY_PATH) = 0
+read(4, "#*******************************"..., 4096) = 1097
+read(4, "", 4096)                       = 0
+close(4)                                = 0
+openat(AT_FDCWD, "src/engine/filelist.mk", O_RDONLY) = 4
+fcntl(4, F_GETFD)                       = 0
+fcntl(4, F_SETFD, FD_CLOEXEC)           = 0
+newfstatat(4, "", {st_mode=S_IFREG|0664, st_size=785, ...}, AT_EMPTY_PATH) = 0
+read(4, "#*******************************"..., 4096) = 785
+read(4, "", 4096)                       = 0
+close(4)                                = 0
+openat(AT_FDCWD, "src/isa/filelist.mk", O_RDONLY) = 4
+fcntl(4, F_GETFD)                       = 0
+fcntl(4, F_SETFD, FD_CLOEXEC)           = 0
+newfstatat(4, "", {st_mode=S_IFREG|0664, st_size=793, ...}, AT_EMPTY_PATH) = 0
+read(4, "#*******************************"..., 4096) = 793
+read(4, "", 4096)                       = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/scripts/config.mk", O_RDONLY) = 4
+fcntl(4, F_GETFD)                       = 0
+fcntl(4, F_SETFD, FD_CLOEXEC)           = 0
+newfstatat(4, "", {st_mode=S_IFREG|0664, st_size=2206, ...}, AT_EMPTY_PATH) = 0
+read(4, "#*******************************"..., 4096) = 2206
+pipe2([5, 6], 0)                        = 0
+fcntl(6, F_GETFD)                       = 0
+fcntl(6, F_SETFD, FD_CLOEXEC)           = 0
+fcntl(5, F_GETFD)                       = 0
+fcntl(5, F_SETFD, FD_CLOEXEC)           = 0
+prlimit64(0, RLIMIT_NOFILE, NULL, {rlim_cur=1024, rlim_max=1024*1024}) = 0
+prlimit64(0, RLIMIT_NOFILE, NULL, {rlim_cur=1024, rlim_max=1024*1024}) = 0
+newfstatat(AT_FDCWD, "/bin/sh", {st_mode=S_IFREG|0755, st_size=1396520, ...}, 0) = 0
+geteuid()                               = 1000
+getegid()                               = 1000
+getuid()                                = 1000
+getgid()                                = 1000
+access("/bin/sh", X_OK)                 = 0
+mmap(NULL, 36864, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS|MAP_STACK, -1, 0) = 0x7f35595ad000
+rt_sigprocmask(SIG_BLOCK, ~[], [CHLD], 8) = 0
+clone3({flags=CLONE_VM|CLONE_VFORK, exit_signal=SIGCHLD, stack=0x7f35595ad000, stack_size=0x9000}, 88) = 3094839
+munmap(0x7f35595ad000, 36864)           = 0
+rt_sigprocmask(SIG_SETMASK, [CHLD], NULL, 8) = 0
+close(6)                                = 0
+read(5, "\\033[1;31m\n", 200)           = 11
+read(5, "", 189)                        = 0
+close(5)                                = 0
+wait4(-1, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 3094839
+pipe2([5, 6], 0)                        = 0
+fcntl(6, F_GETFD)                       = 0
+fcntl(6, F_SETFD, FD_CLOEXEC)           = 0
+fcntl(5, F_GETFD)                       = 0
+fcntl(5, F_SETFD, FD_CLOEXEC)           = 0
+prlimit64(0, RLIMIT_NOFILE, NULL, {rlim_cur=1024, rlim_max=1024*1024}) = 0
+prlimit64(0, RLIMIT_NOFILE, NULL, {rlim_cur=1024, rlim_max=1024*1024}) = 0
+newfstatat(AT_FDCWD, "/bin/sh", {st_mode=S_IFREG|0755, st_size=1396520, ...}, 0) = 0
+geteuid()                               = 1000
+getegid()                               = 1000
+getuid()                                = 1000
+getgid()                                = 1000
+access("/bin/sh", X_OK)                 = 0
+mmap(NULL, 36864, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS|MAP_STACK, -1, 0) = 0x7f35595ad000
+rt_sigprocmask(SIG_BLOCK, ~[], [CHLD], 8) = 0
+clone3({flags=CLONE_VM|CLONE_VFORK, exit_signal=SIGCHLD, stack=0x7f35595ad000, stack_size=0x9000}, 88) = 3094840
+munmap(0x7f35595ad000, 36864)           = 0
+rt_sigprocmask(SIG_SETMASK, [CHLD], NULL, 8) = 0
+close(6)                                = 0
+read(5, "\\033[0m\n", 200)              = 8
+read(5, "", 192)                        = 0
+close(5)                                = 0
+wait4(-1, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 3094840
+newfstatat(AT_FDCWD, "./.config", {st_mode=S_IFREG|0664, st_size=1452, ...}, AT_SYMLINK_NOFOLLOW) = 0
+read(4, "", 4096)                       = 0
+close(4)                                = 0
+openat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/scripts/native.mk", O_RDONLY) = 4
+fcntl(4, F_GETFD)                       = 0
+fcntl(4, F_SETFD, FD_CLOEXEC)           = 0
+newfstatat(4, "", {st_mode=S_IFREG|0664, st_size=1505, ...}, AT_EMPTY_PATH) = 0
+read(4, "#*******************************"..., 4096) = 1505
+openat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/../Makefile", O_RDONLY) = 5
+fcntl(5, F_GETFD)                       = 0
+fcntl(5, F_SETFD, FD_CLOEXEC)           = 0
+newfstatat(5, "", {st_mode=S_IFREG|0664, st_size=618, ...}, AT_EMPTY_PATH) = 0
+read(5, "STUID = 221830012\nSTUNAME = \350\214\206\345"..., 4096) = 618
+read(5, "", 4096)                       = 0
+close(5)                                = 0
+openat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/scripts/build.mk", O_RDONLY) = 5
+fcntl(5, F_GETFD)                       = 0
+fcntl(5, F_SETFD, FD_CLOEXEC)           = 0
+newfstatat(5, "", {st_mode=S_IFREG|0664, st_size=1142, ...}, AT_EMPTY_PATH) = 0
+read(5, ".DEFAULT_GOAL = app\n\n# Add neces"..., 4096) = 1142
+pipe2([6, 7], 0)                        = 0
+fcntl(7, F_GETFD)                       = 0
+fcntl(7, F_SETFD, FD_CLOEXEC)           = 0
+fcntl(6, F_GETFD)                       = 0
+fcntl(6, F_SETFD, FD_CLOEXEC)           = 0
+prlimit64(0, RLIMIT_NOFILE, NULL, {rlim_cur=1024, rlim_max=1024*1024}) = 0
+prlimit64(0, RLIMIT_NOFILE, NULL, {rlim_cur=1024, rlim_max=1024*1024}) = 0
+newfstatat(AT_FDCWD, "/home/pc/.cargo/bin/pwd", 0x7fff054a45c0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/Qt-5.15.9/bin/pwd", 0x7fff054a45c0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/pc/.local/bin/pwd", 0x7fff054a45c0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/sbin/pwd", 0x7fff054a45c0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/bin/pwd", 0x7fff054a45c0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/sbin/pwd", 0x7fff054a45c0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/bin/pwd", {st_mode=S_IFREG|0755, st_size=35328, ...}, 0) = 0
+geteuid()                               = 1000
+getegid()                               = 1000
+getuid()                                = 1000
+getgid()                                = 1000
+access("/usr/bin/pwd", X_OK)            = 0
+mmap(NULL, 36864, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS|MAP_STACK, -1, 0) = 0x7f35595ad000
+rt_sigprocmask(SIG_BLOCK, ~[], [CHLD], 8) = 0
+clone3({flags=CLONE_VM|CLONE_VFORK, exit_signal=SIGCHLD, stack=0x7f35595ad000, stack_size=0x9000}, 88) = 3094841
+munmap(0x7f35595ad000, 36864)           = 0
+rt_sigprocmask(SIG_SETMASK, [CHLD], NULL, 8) = 0
+close(7)                                = 0
+read(6, "/home/pc/Learning/02.IT/5.ICS/ic"..., 200) = 43
+read(6, "", 157)                        = 0
+close(6)                                = 0
+wait4(-1, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 3094841
+pipe2([6, 7], 0)                        = 0
+fcntl(7, F_GETFD)                       = 0
+fcntl(7, F_SETFD, FD_CLOEXEC)           = 0
+fcntl(6, F_GETFD)                       = 0
+fcntl(6, F_SETFD, FD_CLOEXEC)           = 0
+prlimit64(0, RLIMIT_NOFILE, NULL, {rlim_cur=1024, rlim_max=1024*1024}) = 0
+prlimit64(0, RLIMIT_NOFILE, NULL, {rlim_cur=1024, rlim_max=1024*1024}) = 0
+newfstatat(AT_FDCWD, "/home/pc/.cargo/bin/pwd", 0x7fff054a44d0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/Qt-5.15.9/bin/pwd", 0x7fff054a44d0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/pc/.local/bin/pwd", 0x7fff054a44d0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/sbin/pwd", 0x7fff054a44d0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/bin/pwd", 0x7fff054a44d0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/sbin/pwd", 0x7fff054a44d0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/bin/pwd", {st_mode=S_IFREG|0755, st_size=35328, ...}, 0) = 0
+geteuid()                               = 1000
+getegid()                               = 1000
+getuid()                                = 1000
+getgid()                                = 1000
+access("/usr/bin/pwd", X_OK)            = 0
+mmap(NULL, 36864, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS|MAP_STACK, -1, 0) = 0x7f35595ad000
+rt_sigprocmask(SIG_BLOCK, ~[], [CHLD], 8) = 0
+clone3({flags=CLONE_VM|CLONE_VFORK, exit_signal=SIGCHLD, stack=0x7f35595ad000, stack_size=0x9000}, 88) = 3094842
+munmap(0x7f35595ad000, 36864)           = 0
+rt_sigprocmask(SIG_SETMASK, [CHLD], NULL, 8) = 0
+close(7)                                = 0
+read(6, "/home/pc/Learning/02.IT/5.ICS/ic"..., 200) = 43
+read(6, "", 157)                        = 0
+close(6)                                = 0
+wait4(-1, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 3094842
+pipe2([6, 7], 0)                        = 0
+fcntl(7, F_GETFD)                       = 0
+fcntl(7, F_SETFD, FD_CLOEXEC)           = 0
+fcntl(6, F_GETFD)                       = 0
+fcntl(6, F_SETFD, FD_CLOEXEC)           = 0
+prlimit64(0, RLIMIT_NOFILE, NULL, {rlim_cur=1024, rlim_max=1024*1024}) = 0
+prlimit64(0, RLIMIT_NOFILE, NULL, {rlim_cur=1024, rlim_max=1024*1024}) = 0
+newfstatat(AT_FDCWD, "/home/pc/.cargo/bin/pwd", 0x7fff054a44d0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/Qt-5.15.9/bin/pwd", 0x7fff054a44d0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/pc/.local/bin/pwd", 0x7fff054a44d0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/sbin/pwd", 0x7fff054a44d0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/bin/pwd", 0x7fff054a44d0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/sbin/pwd", 0x7fff054a44d0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/bin/pwd", {st_mode=S_IFREG|0755, st_size=35328, ...}, 0) = 0
+geteuid()                               = 1000
+getegid()                               = 1000
+getuid()                                = 1000
+getgid()                                = 1000
+access("/usr/bin/pwd", X_OK)            = 0
+mmap(NULL, 36864, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS|MAP_STACK, -1, 0) = 0x7f35595ad000
+rt_sigprocmask(SIG_BLOCK, ~[], [CHLD], 8) = 0
+clone3({flags=CLONE_VM|CLONE_VFORK, exit_signal=SIGCHLD, stack=0x7f35595ad000, stack_size=0x9000}, 88) = 3094843
+munmap(0x7f35595ad000, 36864)           = 0
+rt_sigprocmask(SIG_SETMASK, [CHLD], NULL, 8) = 0
+close(7)                                = 0
+read(6, "/home/pc/Learning/02.IT/5.ICS/ic"..., 200) = 43
+read(6, "", 157)                        = 0
+close(6)                                = 0
+wait4(-1, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 3094843
+pipe2([6, 7], 0)                        = 0
+fcntl(7, F_GETFD)                       = 0
+fcntl(7, F_SETFD, FD_CLOEXEC)           = 0
+fcntl(6, F_GETFD)                       = 0
+fcntl(6, F_SETFD, FD_CLOEXEC)           = 0
+prlimit64(0, RLIMIT_NOFILE, NULL, {rlim_cur=1024, rlim_max=1024*1024}) = 0
+prlimit64(0, RLIMIT_NOFILE, NULL, {rlim_cur=1024, rlim_max=1024*1024}) = 0
+newfstatat(AT_FDCWD, "/home/pc/.cargo/bin/pwd", 0x7fff054a42b0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/Qt-5.15.9/bin/pwd", 0x7fff054a42b0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/pc/.local/bin/pwd", 0x7fff054a42b0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/sbin/pwd", 0x7fff054a42b0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/bin/pwd", 0x7fff054a42b0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/sbin/pwd", 0x7fff054a42b0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/bin/pwd", {st_mode=S_IFREG|0755, st_size=35328, ...}, 0) = 0
+geteuid()                               = 1000
+getegid()                               = 1000
+getuid()                                = 1000
+getgid()                                = 1000
+access("/usr/bin/pwd", X_OK)            = 0
+mmap(NULL, 36864, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS|MAP_STACK, -1, 0) = 0x7f35595ad000
+rt_sigprocmask(SIG_BLOCK, ~[], [CHLD], 8) = 0
+clone3({flags=CLONE_VM|CLONE_VFORK, exit_signal=SIGCHLD, stack=0x7f35595ad000, stack_size=0x9000}, 88) = 3094844
+munmap(0x7f35595ad000, 36864)           = 0
+rt_sigprocmask(SIG_SETMASK, [CHLD], NULL, 8) = 0
+close(7)                                = 0
+read(6, "/home/pc/Learning/02.IT/5.ICS/ic"..., 200) = 43
+read(6, "", 157)                        = 0
+close(6)                                = 0
+wait4(-1, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 3094844
+pipe2([6, 7], 0)                        = 0
+fcntl(7, F_GETFD)                       = 0
+fcntl(7, F_SETFD, FD_CLOEXEC)           = 0
+fcntl(6, F_GETFD)                       = 0
+fcntl(6, F_SETFD, FD_CLOEXEC)           = 0
+prlimit64(0, RLIMIT_NOFILE, NULL, {rlim_cur=1024, rlim_max=1024*1024}) = 0
+prlimit64(0, RLIMIT_NOFILE, NULL, {rlim_cur=1024, rlim_max=1024*1024}) = 0
+newfstatat(AT_FDCWD, "/bin/sh", {st_mode=S_IFREG|0755, st_size=1396520, ...}, 0) = 0
+geteuid()                               = 1000
+getegid()                               = 1000
+getuid()                                = 1000
+getgid()                                = 1000
+access("/bin/sh", X_OK)                 = 0
+mmap(NULL, 36864, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS|MAP_STACK, -1, 0) = 0x7f35595ad000
+rt_sigprocmask(SIG_BLOCK, ~[], [CHLD], 8) = 0
+clone3({flags=CLONE_VM|CLONE_VFORK, exit_signal=SIGCHLD, stack=0x7f35595ad000, stack_size=0x9000}, 88) = 3094845
+munmap(0x7f35595ad000, 36864)           = 0
+rt_sigprocmask(SIG_SETMASK, [CHLD], NULL, 8) = 0
+close(7)                                = 0
+read(6, "./resource/sdcard/nemu.c\n./src/m"..., 200) = 200
+read(6, "ate.c\n./src/device/keyboard.c\n./"..., 512) = 512
+read(6, "\n./src/isa/riscv64/inst.c\n./src/"..., 512) = 512
+read(6, "reg.c\n./src/isa/riscv32/difftest"..., 512) = 512
+read(6, "lxdialog/inputbox.c\n./tools/kcon"..., 512) = 441
+read(6, "", 71)                         = 0
+close(6)                                = 0
+wait4(-1, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 3094845
+pipe2([6, 7], 0)                        = 0
+fcntl(7, F_GETFD)                       = 0
+fcntl(7, F_SETFD, FD_CLOEXEC)           = 0
+fcntl(6, F_GETFD)                       = 0
+fcntl(6, F_SETFD, FD_CLOEXEC)           = 0
+prlimit64(0, RLIMIT_NOFILE, NULL, {rlim_cur=1024, rlim_max=1024*1024}) = 0
+prlimit64(0, RLIMIT_NOFILE, NULL, {rlim_cur=1024, rlim_max=1024*1024}) = 0
+newfstatat(AT_FDCWD, "/bin/sh", {st_mode=S_IFREG|0755, st_size=1396520, ...}, 0) = 0
+geteuid()                               = 1000
+getegid()                               = 1000
+getuid()                                = 1000
+getgid()                                = 1000
+access("/bin/sh", X_OK)                 = 0
+mmap(NULL, 36864, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS|MAP_STACK, -1, 0) = 0x7f35595ad000
+rt_sigprocmask(SIG_BLOCK, ~[], [CHLD], 8) = 0
+clone3({flags=CLONE_VM|CLONE_VFORK, exit_signal=SIGCHLD, stack=0x7f35595ad000, stack_size=0x9000}, 88) = 3094846
+munmap(0x7f35595ad000, 36864)           = 0
+rt_sigprocmask(SIG_SETMASK, [CHLD], NULL, 8) = 0
+close(7)                                = 0
+read(6, "src/device/io/map.c\nsrc/device/i"..., 200) = 200
+read(6, "r.c\nsrc/monitor/monitor.c\nsrc/ut"..., 512) = 378
+read(6, "", 134)                        = 0
+close(6)                                = 0
+wait4(-1, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 3094846
+pipe2([6, 7], 0)                        = 0
+fcntl(7, F_GETFD)                       = 0
+fcntl(7, F_SETFD, FD_CLOEXEC)           = 0
+fcntl(6, F_GETFD)                       = 0
+fcntl(6, F_SETFD, FD_CLOEXEC)           = 0
+prlimit64(0, RLIMIT_NOFILE, NULL, {rlim_cur=1024, rlim_max=1024*1024}) = 0
+prlimit64(0, RLIMIT_NOFILE, NULL, {rlim_cur=1024, rlim_max=1024*1024}) = 0
+newfstatat(AT_FDCWD, "/home/pc/.cargo/bin/pwd", 0x7fff054a4230, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/Qt-5.15.9/bin/pwd", 0x7fff054a4230, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/pc/.local/bin/pwd", 0x7fff054a4230, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/sbin/pwd", 0x7fff054a4230, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/bin/pwd", 0x7fff054a4230, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/sbin/pwd", 0x7fff054a4230, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/bin/pwd", {st_mode=S_IFREG|0755, st_size=35328, ...}, 0) = 0
+geteuid()                               = 1000
+getegid()                               = 1000
+getuid()                                = 1000
+getgid()                                = 1000
+access("/usr/bin/pwd", X_OK)            = 0
+mmap(NULL, 36864, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS|MAP_STACK, -1, 0) = 0x7f35595ad000
+rt_sigprocmask(SIG_BLOCK, ~[], [CHLD], 8) = 0
+clone3({flags=CLONE_VM|CLONE_VFORK, exit_signal=SIGCHLD, stack=0x7f35595ad000, stack_size=0x9000}, 88) = 3094847
+munmap(0x7f35595ad000, 36864)           = 0
+rt_sigprocmask(SIG_SETMASK, [CHLD], NULL, 8) = 0
+close(7)                                = 0
+read(6, "/home/pc/Learning/02.IT/5.ICS/ic"..., 200) = 43
+read(6, "", 157)                        = 0
+close(6)                                = 0
+wait4(-1, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 3094847
+openat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/nemu-main.d", O_RDONLY) = 6
+fcntl(6, F_GETFD)                       = 0
+fcntl(6, F_SETFD, FD_CLOEXEC)           = 0
+newfstatat(6, "", {st_mode=S_IFREG|0664, st_size=1110, ...}, AT_EMPTY_PATH) = 0
+read(6, "cmd_/home/pc/Learning/02.IT/5.IC"..., 4096) = 1110
+newfstatat(AT_FDCWD, "include/config/target/am.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/mbase.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/msize.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/isa64.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/target/native/elf.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+read(6, "", 4096)                       = 0
+close(6)                                = 0
+openat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/device/io/map.d", O_RDONLY) = 6
+fcntl(6, F_GETFD)                       = 0
+fcntl(6, F_SETFD, FD_CLOEXEC)           = 0
+newfstatat(6, "", {st_mode=S_IFREG|0664, st_size=1980, ...}, AT_EMPTY_PATH) = 0
+read(6, "cmd_/home/pc/Learning/02.IT/5.IC"..., 4096) = 1980
+newfstatat(AT_FDCWD, "include/config/rve.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/rv64.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/target/am.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/mbase.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/msize.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/isa64.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/target/native/elf.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/rt/check.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/difftest.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/isa/x86.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/isa/mips32.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/isa/riscv.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/isa/loongarch32r.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+read(6, "", 4096)                       = 0
+close(6)                                = 0
+openat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/device/io/port-io.d", O_RDONLY) = 6
+fcntl(6, F_GETFD)                       = 0
+fcntl(6, F_SETFD, FD_CLOEXEC)           = 0
+newfstatat(6, "", {st_mode=S_IFREG|0664, st_size=1683, ...}, AT_EMPTY_PATH) = 0
+read(6, "cmd_/home/pc/Learning/02.IT/5.IC"..., 4096) = 1683
+newfstatat(AT_FDCWD, "include/config/difftest.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/target/am.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/mbase.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/msize.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/isa64.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/target/native/elf.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/isa/x86.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/isa/mips32.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/isa/riscv.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/rv64.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/rve.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/isa/loongarch32r.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+read(6, "", 4096)                       = 0
+close(6)                                = 0
+openat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/device/io/mmio.d", O_RDONLY) = 6
+fcntl(6, F_GETFD)                       = 0
+fcntl(6, F_SETFD, FD_CLOEXEC)           = 0
+newfstatat(6, "", {st_mode=S_IFREG|0664, st_size=1783, ...}, AT_EMPTY_PATH) = 0
+read(6, "cmd_/home/pc/Learning/02.IT/5.IC"..., 4096) = 1783
+newfstatat(AT_FDCWD, "include/config/difftest.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/target/am.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/mbase.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/msize.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/isa64.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/target/native/elf.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/isa/x86.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/isa/mips32.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/isa/riscv.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/rv64.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/rve.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/isa/loongarch32r.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/pc/reset/offset.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+read(6, "", 4096)                       = 0
+close(6)                                = 0
+openat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/cpu/cpu-exec.d", O_RDONLY) = 6
+fcntl(6, F_GETFD)                       = 0
+fcntl(6, F_SETFD, FD_CLOEXEC)           = 0
+newfstatat(6, "", {st_mode=S_IFREG|0664, st_size=1986, ...}, AT_EMPTY_PATH) = 0
+read(6, "cmd_/home/pc/Learning/02.IT/5.IC"..., 4096) = 1986
+newfstatat(AT_FDCWD, "include/config/itrace/cond.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/itrace.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/difftest.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/isa/x86.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/isa/loongarch32r.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/device.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/target/am.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/mbase.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/msize.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/isa64.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/target/native/elf.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/rve.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/rv64.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/isa/mips32.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/isa/riscv.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+read(6, "", 4096)                       = 0
+close(6)                                = 0
+openat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/cpu/difftest/dut.d", O_RDONLY) = 6
+fcntl(6, F_GETFD)                       = 0
+fcntl(6, F_SETFD, FD_CLOEXEC)           = 0
+newfstatat(6, "", {st_mode=S_IFREG|0664, st_size=1866, ...}, AT_EMPTY_PATH) = 0
+read(6, "cmd_/home/pc/Learning/02.IT/5.IC"..., 4096) = 1866
+newfstatat(AT_FDCWD, "include/config/difftest.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/rve.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/rv64.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/target/am.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/mbase.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/msize.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/isa64.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/target/native/elf.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/pc/reset/offset.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/isa/x86.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/isa/mips32.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/isa/riscv.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/isa/loongarch32r.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+read(6, "", 4096)                       = 0
+close(6)                                = 0
+openat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/cpu/difftest/ref.d", O_RDONLY) = 6
+fcntl(6, F_GETFD)                       = 0
+fcntl(6, F_SETFD, FD_CLOEXEC)           = 0
+newfstatat(6, "", {st_mode=S_IFREG|0664, st_size=1822, ...}, AT_EMPTY_PATH) = 0
+read(6, "cmd_/home/pc/Learning/02.IT/5.IC"..., 4096) = 1822
+newfstatat(AT_FDCWD, "include/config/rve.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/rv64.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/target/am.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/mbase.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/msize.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/isa64.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/target/native/elf.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/isa/x86.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/isa/mips32.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/isa/riscv.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/isa/loongarch32r.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/pc/reset/offset.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+read(6, "", 4096)                       = 0
+close(6)                                = 0
+openat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/monitor/sdb/sdb.d", O_RDONLY) = 6
+fcntl(6, F_GETFD)                       = 0
+fcntl(6, F_SETFD, FD_CLOEXEC)           = 0
+newfstatat(6, "", {st_mode=S_IFREG|0664, st_size=1506, ...}, AT_EMPTY_PATH) = 0
+read(6, "cmd_/home/pc/Learning/02.IT/5.IC"..., 4096) = 1506
+newfstatat(AT_FDCWD, "include/config/device.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/rve.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/rv64.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/target/am.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/mbase.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/msize.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/isa64.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/target/native/elf.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+read(6, "", 4096)                       = 0
+close(6)                                = 0
+openat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/monitor/sdb/watchpoint.d", O_RDONLY) = 6
+fcntl(6, F_GETFD)                       = 0
+fcntl(6, F_SETFD, FD_CLOEXEC)           = 0
+newfstatat(6, "", {st_mode=S_IFREG|0664, st_size=1227, ...}, AT_EMPTY_PATH) = 0
+read(6, "cmd_/home/pc/Learning/02.IT/5.IC"..., 4096) = 1227
+newfstatat(AT_FDCWD, "include/config/target/am.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/mbase.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/msize.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/isa64.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/target/native/elf.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+read(6, "", 4096)                       = 0
+close(6)                                = 0
+openat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/monitor/sdb/expr.d", O_RDONLY) = 6
+fcntl(6, F_GETFD)                       = 0
+fcntl(6, F_SETFD, FD_CLOEXEC)           = 0
+newfstatat(6, "", {st_mode=S_IFREG|0664, st_size=1380, ...}, AT_EMPTY_PATH) = 0
+read(6, "cmd_/home/pc/Learning/02.IT/5.IC"..., 4096) = 1380
+newfstatat(AT_FDCWD, "include/config/rve.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/rv64.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/target/am.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/mbase.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/msize.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/isa64.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/target/native/elf.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+read(6, "", 4096)                       = 0
+close(6)                                = 0
+openat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/monitor/monitor.d", O_RDONLY) = 6
+fcntl(6, F_GETFD)                       = 0
+fcntl(6, F_SETFD, FD_CLOEXEC)           = 0
+newfstatat(6, "", {st_mode=S_IFREG|0664, st_size=1805, ...}, AT_EMPTY_PATH) = 0
+read(6, "cmd_/home/pc/Learning/02.IT/5.IC"..., 4096) = 1805
+newfstatat(AT_FDCWD, "include/config/trace.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/target/am.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/device.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/isa/loongarch32r.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/itrace.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/isa/x86.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/isa/mips32.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/isa/riscv.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/rv64.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/rve.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/mbase.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/msize.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/isa64.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/target/native/elf.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/pc/reset/offset.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+read(6, "", 4096)                       = 0
+close(6)                                = 0
+openat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/utils/log.d", O_RDONLY) = 6
+fcntl(6, F_GETFD)                       = 0
+fcntl(6, F_SETFD, FD_CLOEXEC)           = 0
+newfstatat(6, "", {st_mode=S_IFREG|0664, st_size=1243, ...}, AT_EMPTY_PATH) = 0
+read(6, "cmd_/home/pc/Learning/02.IT/5.IC"..., 4096) = 1243
+newfstatat(AT_FDCWD, "include/config/trace.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/trace/start.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/trace/end.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/target/am.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/mbase.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/msize.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/isa64.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/target/native/elf.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+read(6, "", 4096)                       = 0
+close(6)                                = 0
+openat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/utils/rand.d", O_RDONLY) = 6
+fcntl(6, F_GETFD)                       = 0
+fcntl(6, F_SETFD, FD_CLOEXEC)           = 0
+newfstatat(6, "", {st_mode=S_IFREG|0664, st_size=1117, ...}, AT_EMPTY_PATH) = 0
+brk(0x5584c0b95000)                     = 0x5584c0b95000
+read(6, "cmd_/home/pc/Learning/02.IT/5.IC"..., 4096) = 1117
+newfstatat(AT_FDCWD, "include/config/target/am.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/mbase.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/msize.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/isa64.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/target/native/elf.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+read(6, "", 4096)                       = 0
+close(6)                                = 0
+brk(0x5584c0b94000)                     = 0x5584c0b94000
+openat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/utils/timer.d", O_RDONLY) = 6
+fcntl(6, F_GETFD)                       = 0
+fcntl(6, F_SETFD, FD_CLOEXEC)           = 0
+newfstatat(6, "", {st_mode=S_IFREG|0664, st_size=1233, ...}, AT_EMPTY_PATH) = 0
+read(6, "cmd_/home/pc/Learning/02.IT/5.IC"..., 4096) = 1233
+newfstatat(AT_FDCWD, "include/config/timer/gettimeofday.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/timer/clock/gettime.h", 0x7fff054a3f10, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/target/am.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/mbase.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/msize.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/isa64.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/target/native/elf.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+read(6, "", 4096)                       = 0
+close(6)                                = 0
+openat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/utils/state.d", O_RDONLY) = 6
+fcntl(6, F_GETFD)                       = 0
+fcntl(6, F_SETFD, FD_CLOEXEC)           = 0
+newfstatat(6, "", {st_mode=S_IFREG|0664, st_size=1124, ...}, AT_EMPTY_PATH) = 0
+read(6, "cmd_/home/pc/Learning/02.IT/5.IC"..., 4096) = 1124
+newfstatat(AT_FDCWD, "include/config/target/native/elf.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/target/am.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/mbase.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/msize.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/isa64.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+read(6, "", 4096)                       = 0
+close(6)                                = 0
+openat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/memory/paddr.d", O_RDONLY) = 6
+fcntl(6, F_GETFD)                       = 0
+fcntl(6, F_SETFD, FD_CLOEXEC)           = 0
+newfstatat(6, "", {st_mode=S_IFREG|0664, st_size=1837, ...}, AT_EMPTY_PATH) = 0
+read(6, "cmd_/home/pc/Learning/02.IT/5.IC"..., 4096) = 1837
+newfstatat(AT_FDCWD, "include/config/pmem/malloc.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/pmem/garray.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/msize.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/mbase.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/mem/random.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/device.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/isa64.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/rt/check.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/target/am.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/target/native/elf.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/pc/reset/offset.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/rve.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/rv64.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+read(6, "", 4096)                       = 0
+close(6)                                = 0
+openat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/memory/vaddr.d", O_RDONLY) = 6
+fcntl(6, F_GETFD)                       = 0
+fcntl(6, F_SETFD, FD_CLOEXEC)           = 0
+newfstatat(6, "", {st_mode=S_IFREG|0664, st_size=1473, ...}, AT_EMPTY_PATH) = 0
+read(6, "cmd_/home/pc/Learning/02.IT/5.IC"..., 4096) = 1473
+newfstatat(AT_FDCWD, "include/config/rve.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/rv64.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/target/am.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/mbase.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/msize.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/isa64.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/target/native/elf.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/pc/reset/offset.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+read(6, "", 4096)                       = 0
+close(6)                                = 0
+openat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/engine/interpreter/hostcall.d", O_RDONLY) = 6
+fcntl(6, F_GETFD)                       = 0
+fcntl(6, F_SETFD, FD_CLOEXEC)           = 0
+newfstatat(6, "", {st_mode=S_IFREG|0664, st_size=1965, ...}, AT_EMPTY_PATH) = 0
+read(6, "cmd_/home/pc/Learning/02.IT/5.IC"..., 4096) = 1965
+newfstatat(AT_FDCWD, "include/config/target/native/elf.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/target/am.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/mbase.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/msize.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/isa64.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/rve.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/rv64.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/difftest.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/isa/x86.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/isa/mips32.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/isa/riscv.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/isa/loongarch32r.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+read(6, "", 4096)                       = 0
+close(6)                                = 0
+openat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/engine/interpreter/init.d", O_RDONLY) = 6
+fcntl(6, F_GETFD)                       = 0
+fcntl(6, F_SETFD, FD_CLOEXEC)           = 0
+newfstatat(6, "", {st_mode=S_IFREG|0664, st_size=1273, ...}, AT_EMPTY_PATH) = 0
+read(6, "cmd_/home/pc/Learning/02.IT/5.IC"..., 4096) = 1273
+newfstatat(AT_FDCWD, "include/config/target/am.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/mbase.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/msize.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/isa64.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/target/native/elf.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+read(6, "", 4096)                       = 0
+close(6)                                = 0
+openat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/isa/riscv32/difftest/dut.d", O_RDONLY) = 6
+fcntl(6, F_GETFD)                       = 0
+fcntl(6, F_SETFD, FD_CLOEXEC)           = 0
+newfstatat(6, "", {st_mode=S_IFREG|0664, st_size=1902, ...}, AT_EMPTY_PATH) = 0
+read(6, "cmd_/home/pc/Learning/02.IT/5.IC"..., 4096) = 1902
+newfstatat(AT_FDCWD, "include/config/rve.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/rv64.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/target/am.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/mbase.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/msize.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/isa64.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/target/native/elf.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/difftest.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/isa/x86.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/isa/mips32.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/isa/riscv.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/isa/loongarch32r.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/rt/check.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+read(6, "", 4096)                       = 0
+close(6)                                = 0
+openat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/isa/riscv32/system/mmu.d", O_RDONLY) = 6
+fcntl(6, F_GETFD)                       = 0
+fcntl(6, F_SETFD, FD_CLOEXEC)           = 0
+newfstatat(6, "", {st_mode=S_IFREG|0664, st_size=1613, ...}, AT_EMPTY_PATH) = 0
+read(6, "cmd_/home/pc/Learning/02.IT/5.IC"..., 4096) = 1613
+newfstatat(AT_FDCWD, "include/config/rve.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/rv64.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/target/am.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/mbase.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/msize.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/isa64.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/target/native/elf.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/pc/reset/offset.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+read(6, "", 4096)                       = 0
+close(6)                                = 0
+openat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/isa/riscv32/system/intr.d", O_RDONLY) = 6
+fcntl(6, F_GETFD)                       = 0
+fcntl(6, F_SETFD, FD_CLOEXEC)           = 0
+newfstatat(6, "", {st_mode=S_IFREG|0664, st_size=1429, ...}, AT_EMPTY_PATH) = 0
+read(6, "cmd_/home/pc/Learning/02.IT/5.IC"..., 4096) = 1429
+newfstatat(AT_FDCWD, "include/config/rve.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/rv64.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/target/am.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/mbase.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/msize.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/isa64.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/target/native/elf.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+read(6, "", 4096)                       = 0
+close(6)                                = 0
+openat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/isa/riscv32/inst.d", O_RDONLY) = 6
+fcntl(6, F_GETFD)                       = 0
+fcntl(6, F_SETFD, FD_CLOEXEC)           = 0
+newfstatat(6, "", {st_mode=S_IFREG|0664, st_size=1777, ...}, AT_EMPTY_PATH) = 0
+read(6, "cmd_/home/pc/Learning/02.IT/5.IC"..., 4096) = 1777
+newfstatat(AT_FDCWD, "include/config/rt/check.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/rve.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/target/am.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/mbase.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/msize.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/isa64.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/target/native/elf.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/itrace.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/rv64.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+read(6, "", 4096)                       = 0
+close(6)                                = 0
+openat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/isa/riscv32/logo.d", O_RDONLY) = 6
+fcntl(6, F_GETFD)                       = 0
+fcntl(6, F_SETFD, FD_CLOEXEC)           = 0
+newfstatat(6, "", {st_mode=S_IFREG|0664, st_size=685, ...}, AT_EMPTY_PATH) = 0
+read(6, "cmd_/home/pc/Learning/02.IT/5.IC"..., 4096) = 685
+read(6, "", 4096)                       = 0
+close(6)                                = 0
+openat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/isa/riscv32/init.d", O_RDONLY) = 6
+fcntl(6, F_GETFD)                       = 0
+fcntl(6, F_SETFD, FD_CLOEXEC)           = 0
+newfstatat(6, "", {st_mode=S_IFREG|0664, st_size=1501, ...}, AT_EMPTY_PATH) = 0
+read(6, "cmd_/home/pc/Learning/02.IT/5.IC"..., 4096) = 1501
+newfstatat(AT_FDCWD, "include/config/rve.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/rv64.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/target/am.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/mbase.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/msize.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/isa64.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/target/native/elf.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/pc/reset/offset.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+read(6, "", 4096)                       = 0
+close(6)                                = 0
+openat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/isa/riscv32/reg.d", O_RDONLY) = 6
+fcntl(6, F_GETFD)                       = 0
+fcntl(6, F_SETFD, FD_CLOEXEC)           = 0
+newfstatat(6, "", {st_mode=S_IFREG|0664, st_size=1457, ...}, AT_EMPTY_PATH) = 0
+read(6, "cmd_/home/pc/Learning/02.IT/5.IC"..., 4096) = 1457
+newfstatat(AT_FDCWD, "include/config/rve.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/rv64.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/target/am.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/mbase.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/msize.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/isa64.h", 0x7fff054a3f20, AT_SYMLINK_NOFOLLOW) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/target/native/elf.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+newfstatat(AT_FDCWD, "include/config/rt/check.h", {st_mode=S_IFREG|0644, st_size=0, ...}, AT_SYMLINK_NOFOLLOW) = 0
+read(6, "", 4096)                       = 0
+close(6)                                = 0
+openat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/utils/disasm.d", O_RDONLY) = 6
+fcntl(6, F_GETFD)                       = 0
+fcntl(6, F_SETFD, FD_CLOEXEC)           = 0
+newfstatat(6, "", {st_mode=S_IFREG|0664, st_size=7804, ...}, AT_EMPTY_PATH) = 0
+read(6, "cmd_/home/pc/Learning/02.IT/5.IC"..., 4096) = 4096
+read(6, "llvm-14/include/llvm/BinaryForma"..., 4096) = 3708
+read(6, "", 4096)                       = 0
+close(6)                                = 0
+pipe2([6, 7], 0)                        = 0
+fcntl(7, F_GETFD)                       = 0
+fcntl(7, F_SETFD, FD_CLOEXEC)           = 0
+fcntl(6, F_GETFD)                       = 0
+fcntl(6, F_SETFD, FD_CLOEXEC)           = 0
+prlimit64(0, RLIMIT_NOFILE, NULL, {rlim_cur=1024, rlim_max=1024*1024}) = 0
+prlimit64(0, RLIMIT_NOFILE, NULL, {rlim_cur=1024, rlim_max=1024*1024}) = 0
+newfstatat(AT_FDCWD, "/home/pc/.cargo/bin/pwd", 0x7fff054a44d0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/Qt-5.15.9/bin/pwd", 0x7fff054a44d0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/pc/.local/bin/pwd", 0x7fff054a44d0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/sbin/pwd", 0x7fff054a44d0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/bin/pwd", 0x7fff054a44d0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/sbin/pwd", 0x7fff054a44d0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/bin/pwd", {st_mode=S_IFREG|0755, st_size=35328, ...}, 0) = 0
+geteuid()                               = 1000
+getegid()                               = 1000
+getuid()                                = 1000
+getgid()                                = 1000
+access("/usr/bin/pwd", X_OK)            = 0
+mmap(NULL, 36864, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS|MAP_STACK, -1, 0) = 0x7f35595ad000
+rt_sigprocmask(SIG_BLOCK, ~[], [CHLD], 8) = 0
+clone3({flags=CLONE_VM|CLONE_VFORK, exit_signal=SIGCHLD, stack=0x7f35595ad000, stack_size=0x9000}, 88) = 3094848
+munmap(0x7f35595ad000, 36864)           = 0
+rt_sigprocmask(SIG_SETMASK, [CHLD], NULL, 8) = 0
+close(7)                                = 0
+read(6, "/home/pc/Learning/02.IT/5.ICS/ic"..., 200) = 43
+read(6, "", 157)                        = 0
+close(6)                                = 0
+wait4(-1, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 3094848
+pipe2([6, 7], 0)                        = 0
+fcntl(7, F_GETFD)                       = 0
+fcntl(7, F_SETFD, FD_CLOEXEC)           = 0
+fcntl(6, F_GETFD)                       = 0
+fcntl(6, F_SETFD, FD_CLOEXEC)           = 0
+prlimit64(0, RLIMIT_NOFILE, NULL, {rlim_cur=1024, rlim_max=1024*1024}) = 0
+prlimit64(0, RLIMIT_NOFILE, NULL, {rlim_cur=1024, rlim_max=1024*1024}) = 0
+newfstatat(AT_FDCWD, "/home/pc/.cargo/bin/pwd", 0x7fff054a44d0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/Qt-5.15.9/bin/pwd", 0x7fff054a44d0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/pc/.local/bin/pwd", 0x7fff054a44d0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/sbin/pwd", 0x7fff054a44d0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/bin/pwd", 0x7fff054a44d0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/sbin/pwd", 0x7fff054a44d0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/bin/pwd", {st_mode=S_IFREG|0755, st_size=35328, ...}, 0) = 0
+geteuid()                               = 1000
+getegid()                               = 1000
+getuid()                                = 1000
+getgid()                                = 1000
+access("/usr/bin/pwd", X_OK)            = 0
+mmap(NULL, 36864, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS|MAP_STACK, -1, 0) = 0x7f35595ad000
+rt_sigprocmask(SIG_BLOCK, ~[], [CHLD], 8) = 0
+clone3({flags=CLONE_VM|CLONE_VFORK, exit_signal=SIGCHLD, stack=0x7f35595ad000, stack_size=0x9000}, 88) = 3094849
+munmap(0x7f35595ad000, 36864)           = 0
+rt_sigprocmask(SIG_SETMASK, [CHLD], NULL, 8) = 0
+close(7)                                = 0
+read(6, "/home/pc/Learning/02.IT/5.ICS/ic"..., 200) = 43
+read(6, "", 157)                        = 0
+close(6)                                = 0
+wait4(-1, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 3094849
+pipe2([6, 7], 0)                        = 0
+fcntl(7, F_GETFD)                       = 0
+fcntl(7, F_SETFD, FD_CLOEXEC)           = 0
+fcntl(6, F_GETFD)                       = 0
+fcntl(6, F_SETFD, FD_CLOEXEC)           = 0
+prlimit64(0, RLIMIT_NOFILE, NULL, {rlim_cur=1024, rlim_max=1024*1024}) = 0
+prlimit64(0, RLIMIT_NOFILE, NULL, {rlim_cur=1024, rlim_max=1024*1024}) = 0
+newfstatat(AT_FDCWD, "/home/pc/.cargo/bin/pwd", 0x7fff054a42b0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/Qt-5.15.9/bin/pwd", 0x7fff054a42b0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/pc/.local/bin/pwd", 0x7fff054a42b0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/sbin/pwd", 0x7fff054a42b0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/bin/pwd", 0x7fff054a42b0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/sbin/pwd", 0x7fff054a42b0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/bin/pwd", {st_mode=S_IFREG|0755, st_size=35328, ...}, 0) = 0
+geteuid()                               = 1000
+getegid()                               = 1000
+getuid()                                = 1000
+getgid()                                = 1000
+access("/usr/bin/pwd", X_OK)            = 0
+mmap(NULL, 36864, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS|MAP_STACK, -1, 0) = 0x7f35595ad000
+rt_sigprocmask(SIG_BLOCK, ~[], [CHLD], 8) = 0
+clone3({flags=CLONE_VM|CLONE_VFORK, exit_signal=SIGCHLD, stack=0x7f35595ad000, stack_size=0x9000}, 88) = 3094850
+munmap(0x7f35595ad000, 36864)           = 0
+rt_sigprocmask(SIG_SETMASK, [CHLD], NULL, 8) = 0
+close(7)                                = 0
+read(6, "/home/pc/Learning/02.IT/5.ICS/ic"..., 200) = 43
+read(6, "", 157)                        = 0
+close(6)                                = 0
+wait4(-1, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 3094850
+pipe2([6, 7], 0)                        = 0
+fcntl(7, F_GETFD)                       = 0
+fcntl(7, F_SETFD, FD_CLOEXEC)           = 0
+fcntl(6, F_GETFD)                       = 0
+fcntl(6, F_SETFD, FD_CLOEXEC)           = 0
+prlimit64(0, RLIMIT_NOFILE, NULL, {rlim_cur=1024, rlim_max=1024*1024}) = 0
+prlimit64(0, RLIMIT_NOFILE, NULL, {rlim_cur=1024, rlim_max=1024*1024}) = 0
+newfstatat(AT_FDCWD, "/bin/sh", {st_mode=S_IFREG|0755, st_size=1396520, ...}, 0) = 0
+geteuid()                               = 1000
+getegid()                               = 1000
+getuid()                                = 1000
+getgid()                                = 1000
+access("/bin/sh", X_OK)                 = 0
+mmap(NULL, 36864, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS|MAP_STACK, -1, 0) = 0x7f35595ad000
+rt_sigprocmask(SIG_BLOCK, ~[], [CHLD], 8) = 0
+clone3({flags=CLONE_VM|CLONE_VFORK, exit_signal=SIGCHLD, stack=0x7f35595ad000, stack_size=0x9000}, 88) = 3094851
+munmap(0x7f35595ad000, 36864)           = 0
+rt_sigprocmask(SIG_SETMASK, [CHLD], NULL, 8) = 0
+close(7)                                = 0
+read(6, "./resource/sdcard/nemu.c\n./src/m"..., 200) = 200
+read(6, "ate.c\n./src/device/keyboard.c\n./"..., 512) = 512
+read(6, "\n./src/isa/riscv64/inst.c\n./src/"..., 512) = 512
+read(6, "reg.c\n./src/isa/riscv32/difftest"..., 512) = 512
+read(6, "lxdialog/inputbox.c\n./tools/kcon"..., 512) = 441
+read(6, "", 71)                         = 0
+close(6)                                = 0
+wait4(-1, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 3094851
+pipe2([6, 7], 0)                        = 0
+fcntl(7, F_GETFD)                       = 0
+fcntl(7, F_SETFD, FD_CLOEXEC)           = 0
+fcntl(6, F_GETFD)                       = 0
+fcntl(6, F_SETFD, FD_CLOEXEC)           = 0
+prlimit64(0, RLIMIT_NOFILE, NULL, {rlim_cur=1024, rlim_max=1024*1024}) = 0
+prlimit64(0, RLIMIT_NOFILE, NULL, {rlim_cur=1024, rlim_max=1024*1024}) = 0
+newfstatat(AT_FDCWD, "/bin/sh", {st_mode=S_IFREG|0755, st_size=1396520, ...}, 0) = 0
+geteuid()                               = 1000
+getegid()                               = 1000
+getuid()                                = 1000
+getgid()                                = 1000
+access("/bin/sh", X_OK)                 = 0
+mmap(NULL, 36864, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS|MAP_STACK, -1, 0) = 0x7f35595ad000
+rt_sigprocmask(SIG_BLOCK, ~[], [CHLD], 8) = 0
+clone3({flags=CLONE_VM|CLONE_VFORK, exit_signal=SIGCHLD, stack=0x7f35595ad000, stack_size=0x9000}, 88) = 3094852
+munmap(0x7f35595ad000, 36864)           = 0
+rt_sigprocmask(SIG_SETMASK, [CHLD], NULL, 8) = 0
+close(7)                                = 0
+read(6, "src/device/io/map.c\nsrc/device/i"..., 200) = 200
+read(6, "r.c\nsrc/monitor/monitor.c\nsrc/ut"..., 512) = 378
+read(6, "", 134)                        = 0
+close(6)                                = 0
+wait4(-1, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 3094852
+pipe2([6, 7], 0)                        = 0
+fcntl(7, F_GETFD)                       = 0
+fcntl(7, F_SETFD, FD_CLOEXEC)           = 0
+fcntl(6, F_GETFD)                       = 0
+fcntl(6, F_SETFD, FD_CLOEXEC)           = 0
+prlimit64(0, RLIMIT_NOFILE, NULL, {rlim_cur=1024, rlim_max=1024*1024}) = 0
+prlimit64(0, RLIMIT_NOFILE, NULL, {rlim_cur=1024, rlim_max=1024*1024}) = 0
+newfstatat(AT_FDCWD, "/home/pc/.cargo/bin/pwd", 0x7fff054a4230, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/Qt-5.15.9/bin/pwd", 0x7fff054a4230, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/pc/.local/bin/pwd", 0x7fff054a4230, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/sbin/pwd", 0x7fff054a4230, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/bin/pwd", 0x7fff054a4230, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/sbin/pwd", 0x7fff054a4230, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/bin/pwd", {st_mode=S_IFREG|0755, st_size=35328, ...}, 0) = 0
+geteuid()                               = 1000
+getegid()                               = 1000
+getuid()                                = 1000
+getgid()                                = 1000
+access("/usr/bin/pwd", X_OK)            = 0
+mmap(NULL, 36864, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS|MAP_STACK, -1, 0) = 0x7f35595ad000
+rt_sigprocmask(SIG_BLOCK, ~[], [CHLD], 8) = 0
+clone3({flags=CLONE_VM|CLONE_VFORK, exit_signal=SIGCHLD, stack=0x7f35595ad000, stack_size=0x9000}, 88) = 3094853
+munmap(0x7f35595ad000, 36864)           = 0
+rt_sigprocmask(SIG_SETMASK, [CHLD], NULL, 8) = 0
+close(7)                                = 0
+read(6, "/home/pc/Learning/02.IT/5.ICS/ic"..., 200) = 43
+read(6, "", 157)                        = 0
+close(6)                                = 0
+wait4(-1, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 3094853
+read(5, "", 4096)                       = 0
+close(5)                                = 0
+openat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/tools/difftest.mk", O_RDONLY) = 5
+fcntl(5, F_GETFD)                       = 0
+fcntl(5, F_SETFD, FD_CLOEXEC)           = 0
+newfstatat(5, "", {st_mode=S_IFREG|0664, st_size=1132, ...}, AT_EMPTY_PATH) = 0
+read(5, "#*******************************"..., 4096) = 1132
+read(5, "", 4096)                       = 0
+close(5)                                = 0
+pipe2([5, 6], 0)                        = 0
+fcntl(6, F_GETFD)                       = 0
+fcntl(6, F_SETFD, FD_CLOEXEC)           = 0
+fcntl(5, F_GETFD)                       = 0
+fcntl(5, F_SETFD, FD_CLOEXEC)           = 0
+prlimit64(0, RLIMIT_NOFILE, NULL, {rlim_cur=1024, rlim_max=1024*1024}) = 0
+prlimit64(0, RLIMIT_NOFILE, NULL, {rlim_cur=1024, rlim_max=1024*1024}) = 0
+newfstatat(AT_FDCWD, "/home/pc/.cargo/bin/pwd", 0x7fff054a4730, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/Qt-5.15.9/bin/pwd", 0x7fff054a4730, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/pc/.local/bin/pwd", 0x7fff054a4730, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/sbin/pwd", 0x7fff054a4730, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/bin/pwd", 0x7fff054a4730, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/sbin/pwd", 0x7fff054a4730, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/bin/pwd", {st_mode=S_IFREG|0755, st_size=35328, ...}, 0) = 0
+geteuid()                               = 1000
+getegid()                               = 1000
+getuid()                                = 1000
+getgid()                                = 1000
+access("/usr/bin/pwd", X_OK)            = 0
+mmap(NULL, 36864, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS|MAP_STACK, -1, 0) = 0x7f35595ad000
+rt_sigprocmask(SIG_BLOCK, ~[], [CHLD], 8) = 0
+clone3({flags=CLONE_VM|CLONE_VFORK, exit_signal=SIGCHLD, stack=0x7f35595ad000, stack_size=0x9000}, 88) = 3094854
+munmap(0x7f35595ad000, 36864)           = 0
+rt_sigprocmask(SIG_SETMASK, [CHLD], NULL, 8) = 0
+close(6)                                = 0
+read(5, "/home/pc/Learning/02.IT/5.ICS/ic"..., 200) = 43
+read(5, "", 157)                        = 0
+close(5)                                = 0
+wait4(-1, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 3094854
+pipe2([5, 6], 0)                        = 0
+fcntl(6, F_GETFD)                       = 0
+fcntl(6, F_SETFD, FD_CLOEXEC)           = 0
+fcntl(5, F_GETFD)                       = 0
+fcntl(5, F_SETFD, FD_CLOEXEC)           = 0
+prlimit64(0, RLIMIT_NOFILE, NULL, {rlim_cur=1024, rlim_max=1024*1024}) = 0
+prlimit64(0, RLIMIT_NOFILE, NULL, {rlim_cur=1024, rlim_max=1024*1024}) = 0
+newfstatat(AT_FDCWD, "/home/pc/.cargo/bin/pwd", 0x7fff054a4600, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/Qt-5.15.9/bin/pwd", 0x7fff054a4600, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/pc/.local/bin/pwd", 0x7fff054a4600, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/sbin/pwd", 0x7fff054a4600, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/bin/pwd", 0x7fff054a4600, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/sbin/pwd", 0x7fff054a4600, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/bin/pwd", {st_mode=S_IFREG|0755, st_size=35328, ...}, 0) = 0
+geteuid()                               = 1000
+getegid()                               = 1000
+getuid()                                = 1000
+getgid()                                = 1000
+access("/usr/bin/pwd", X_OK)            = 0
+mmap(NULL, 36864, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS|MAP_STACK, -1, 0) = 0x7f35595ad000
+rt_sigprocmask(SIG_BLOCK, ~[], [CHLD], 8) = 0
+clone3({flags=CLONE_VM|CLONE_VFORK, exit_signal=SIGCHLD, stack=0x7f35595ad000, stack_size=0x9000}, 88) = 3094855
+munmap(0x7f35595ad000, 36864)           = 0
+rt_sigprocmask(SIG_SETMASK, [CHLD], NULL, 8) = 0
+close(6)                                = 0
+read(5, "/home/pc/Learning/02.IT/5.ICS/ic"..., 200) = 43
+read(5, "", 157)                        = 0
+close(5)                                = 0
+wait4(-1, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 3094855
+pipe2([5, 6], 0)                        = 0
+fcntl(6, F_GETFD)                       = 0
+fcntl(6, F_SETFD, FD_CLOEXEC)           = 0
+fcntl(5, F_GETFD)                       = 0
+fcntl(5, F_SETFD, FD_CLOEXEC)           = 0
+prlimit64(0, RLIMIT_NOFILE, NULL, {rlim_cur=1024, rlim_max=1024*1024}) = 0
+prlimit64(0, RLIMIT_NOFILE, NULL, {rlim_cur=1024, rlim_max=1024*1024}) = 0
+newfstatat(AT_FDCWD, "/home/pc/.cargo/bin/pwd", 0x7fff054a4600, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/Qt-5.15.9/bin/pwd", 0x7fff054a4600, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/pc/.local/bin/pwd", 0x7fff054a4600, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/sbin/pwd", 0x7fff054a4600, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/bin/pwd", 0x7fff054a4600, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/sbin/pwd", 0x7fff054a4600, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/bin/pwd", {st_mode=S_IFREG|0755, st_size=35328, ...}, 0) = 0
+geteuid()                               = 1000
+getegid()                               = 1000
+getuid()                                = 1000
+getgid()                                = 1000
+access("/usr/bin/pwd", X_OK)            = 0
+mmap(NULL, 36864, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS|MAP_STACK, -1, 0) = 0x7f35595ad000
+rt_sigprocmask(SIG_BLOCK, ~[], [CHLD], 8) = 0
+clone3({flags=CLONE_VM|CLONE_VFORK, exit_signal=SIGCHLD, stack=0x7f35595ad000, stack_size=0x9000}, 88) = 3094856
+munmap(0x7f35595ad000, 36864)           = 0
+rt_sigprocmask(SIG_SETMASK, [CHLD], NULL, 8) = 0
+close(6)                                = 0
+read(5, "/home/pc/Learning/02.IT/5.ICS/ic"..., 200) = 43
+read(5, "", 157)                        = 0
+close(5)                                = 0
+wait4(-1, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 3094856
+pipe2([5, 6], 0)                        = 0
+fcntl(6, F_GETFD)                       = 0
+fcntl(6, F_SETFD, FD_CLOEXEC)           = 0
+fcntl(5, F_GETFD)                       = 0
+fcntl(5, F_SETFD, FD_CLOEXEC)           = 0
+prlimit64(0, RLIMIT_NOFILE, NULL, {rlim_cur=1024, rlim_max=1024*1024}) = 0
+prlimit64(0, RLIMIT_NOFILE, NULL, {rlim_cur=1024, rlim_max=1024*1024}) = 0
+newfstatat(AT_FDCWD, "/home/pc/.cargo/bin/pwd", 0x7fff054a4730, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/Qt-5.15.9/bin/pwd", 0x7fff054a4730, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/pc/.local/bin/pwd", 0x7fff054a4730, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/sbin/pwd", 0x7fff054a4730, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/bin/pwd", 0x7fff054a4730, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/sbin/pwd", 0x7fff054a4730, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/bin/pwd", {st_mode=S_IFREG|0755, st_size=35328, ...}, 0) = 0
+geteuid()                               = 1000
+getegid()                               = 1000
+getuid()                                = 1000
+getgid()                                = 1000
+access("/usr/bin/pwd", X_OK)            = 0
+mmap(NULL, 36864, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS|MAP_STACK, -1, 0) = 0x7f35595ad000
+rt_sigprocmask(SIG_BLOCK, ~[], [CHLD], 8) = 0
+clone3({flags=CLONE_VM|CLONE_VFORK, exit_signal=SIGCHLD, stack=0x7f35595ad000, stack_size=0x9000}, 88) = 3094857
+munmap(0x7f35595ad000, 36864)           = 0
+rt_sigprocmask(SIG_SETMASK, [CHLD], NULL, 8) = 0
+close(6)                                = 0
+read(5, "/home/pc/Learning/02.IT/5.ICS/ic"..., 200) = 43
+read(5, "", 157)                        = 0
+close(5)                                = 0
+wait4(-1, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 3094857
+pipe2([5, 6], 0)                        = 0
+fcntl(6, F_GETFD)                       = 0
+fcntl(6, F_SETFD, FD_CLOEXEC)           = 0
+fcntl(5, F_GETFD)                       = 0
+fcntl(5, F_SETFD, FD_CLOEXEC)           = 0
+prlimit64(0, RLIMIT_NOFILE, NULL, {rlim_cur=1024, rlim_max=1024*1024}) = 0
+prlimit64(0, RLIMIT_NOFILE, NULL, {rlim_cur=1024, rlim_max=1024*1024}) = 0
+newfstatat(AT_FDCWD, "/bin/sh", {st_mode=S_IFREG|0755, st_size=1396520, ...}, 0) = 0
+geteuid()                               = 1000
+getegid()                               = 1000
+getuid()                                = 1000
+getgid()                                = 1000
+access("/bin/sh", X_OK)                 = 0
+mmap(NULL, 36864, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS|MAP_STACK, -1, 0) = 0x7f35595ad000
+rt_sigprocmask(SIG_BLOCK, ~[], [CHLD], 8) = 0
+clone3({flags=CLONE_VM|CLONE_VFORK, exit_signal=SIGCHLD, stack=0x7f35595ad000, stack_size=0x9000}, 88) = 3094858
+munmap(0x7f35595ad000, 36864)           = 0
+rt_sigprocmask(SIG_SETMASK, [CHLD], NULL, 8) = 0
+close(6)                                = 0
+read(5, "./tools/gen-expr/Makefile\n./tool"..., 200) = 156
+read(5, "", 44)                         = 0
+close(5)                                = 0
+wait4(-1, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 3094858
+pipe2([5, 6], 0)                        = 0
+fcntl(6, F_GETFD)                       = 0
+fcntl(6, F_SETFD, FD_CLOEXEC)           = 0
+fcntl(5, F_GETFD)                       = 0
+fcntl(5, F_SETFD, FD_CLOEXEC)           = 0
+prlimit64(0, RLIMIT_NOFILE, NULL, {rlim_cur=1024, rlim_max=1024*1024}) = 0
+prlimit64(0, RLIMIT_NOFILE, NULL, {rlim_cur=1024, rlim_max=1024*1024}) = 0
+newfstatat(AT_FDCWD, "/bin/sh", {st_mode=S_IFREG|0755, st_size=1396520, ...}, 0) = 0
+geteuid()                               = 1000
+getegid()                               = 1000
+getuid()                                = 1000
+getgid()                                = 1000
+access("/bin/sh", X_OK)                 = 0
+mmap(NULL, 36864, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS|MAP_STACK, -1, 0) = 0x7f35595ad000
+rt_sigprocmask(SIG_BLOCK, ~[], [CHLD], 8) = 0
+clone3({flags=CLONE_VM|CLONE_VFORK, exit_signal=SIGCHLD, stack=0x7f35595ad000, stack_size=0x9000}, 88) = 3094859
+munmap(0x7f35595ad000, 36864)           = 0
+rt_sigprocmask(SIG_SETMASK, [CHLD], NULL, 8) = 0
+close(6)                                = 0
+read(5, "./tools/gen-expr/Makefile\n./tool"..., 200) = 156
+read(5, "", 44)                         = 0
+close(5)                                = 0
+wait4(-1, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 3094859
+pipe2([5, 6], 0)                        = 0
+fcntl(6, F_GETFD)                       = 0
+fcntl(6, F_SETFD, FD_CLOEXEC)           = 0
+fcntl(5, F_GETFD)                       = 0
+fcntl(5, F_SETFD, FD_CLOEXEC)           = 0
+prlimit64(0, RLIMIT_NOFILE, NULL, {rlim_cur=1024, rlim_max=1024*1024}) = 0
+prlimit64(0, RLIMIT_NOFILE, NULL, {rlim_cur=1024, rlim_max=1024*1024}) = 0
+newfstatat(AT_FDCWD, "/bin/sh", {st_mode=S_IFREG|0755, st_size=1396520, ...}, 0) = 0
+geteuid()                               = 1000
+getegid()                               = 1000
+getuid()                                = 1000
+getgid()                                = 1000
+access("/bin/sh", X_OK)                 = 0
+mmap(NULL, 36864, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS|MAP_STACK, -1, 0) = 0x7f35595ad000
+rt_sigprocmask(SIG_BLOCK, ~[], [CHLD], 8) = 0
+clone3({flags=CLONE_VM|CLONE_VFORK, exit_signal=SIGCHLD, stack=0x7f35595ad000, stack_size=0x9000}, 88) = 3094860
+munmap(0x7f35595ad000, 36864)           = 0
+rt_sigprocmask(SIG_SETMASK, [CHLD], NULL, 8) = 0
+close(6)                                = 0
+read(5, "./tools/gen-expr/Makefile\n./tool"..., 200) = 156
+read(5, "", 44)                         = 0
+close(5)                                = 0
+wait4(-1, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 3094860
+read(4, "", 4096)                       = 0
+close(4)                                = 0
+read(3, "", 4096)                       = 0
+close(3)                                = 0
+newfstatat(AT_FDCWD, "RCS", 0x7fff054a53e0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "SCCS", 0x7fff054a53e0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/tools/difftest.mk", {st_mode=S_IFREG|0664, st_size=1132, ...}, 0) = 0
+clock_gettime(CLOCK_REALTIME, {tv_sec=1694351003, tv_nsec=857761212}) = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/utils/disasm.d", {st_mode=S_IFREG|0664, st_size=7804, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/isa/riscv32/reg.d", {st_mode=S_IFREG|0664, st_size=1457, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/isa/riscv32/init.d", {st_mode=S_IFREG|0664, st_size=1501, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/isa/riscv32/logo.d", {st_mode=S_IFREG|0664, st_size=685, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/isa/riscv32/inst.d", {st_mode=S_IFREG|0664, st_size=1777, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/isa/riscv32/system/intr.d", {st_mode=S_IFREG|0664, st_size=1429, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/isa/riscv32/system/mmu.d", {st_mode=S_IFREG|0664, st_size=1613, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/isa/riscv32/difftest/dut.d", {st_mode=S_IFREG|0664, st_size=1902, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/engine/interpreter/init.d", {st_mode=S_IFREG|0664, st_size=1273, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/engine/interpreter/hostcall.d", {st_mode=S_IFREG|0664, st_size=1965, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/memory/vaddr.d", {st_mode=S_IFREG|0664, st_size=1473, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/memory/paddr.d", {st_mode=S_IFREG|0664, st_size=1837, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/utils/state.d", {st_mode=S_IFREG|0664, st_size=1124, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/utils/timer.d", {st_mode=S_IFREG|0664, st_size=1233, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/utils/rand.d", {st_mode=S_IFREG|0664, st_size=1117, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/utils/log.d", {st_mode=S_IFREG|0664, st_size=1243, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/monitor/monitor.d", {st_mode=S_IFREG|0664, st_size=1805, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/monitor/sdb/expr.d", {st_mode=S_IFREG|0664, st_size=1380, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/monitor/sdb/watchpoint.d", {st_mode=S_IFREG|0664, st_size=1227, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/monitor/sdb/sdb.d", {st_mode=S_IFREG|0664, st_size=1506, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/cpu/difftest/ref.d", {st_mode=S_IFREG|0664, st_size=1822, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/cpu/difftest/dut.d", {st_mode=S_IFREG|0664, st_size=1866, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/cpu/cpu-exec.d", {st_mode=S_IFREG|0664, st_size=1986, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/device/io/mmio.d", {st_mode=S_IFREG|0664, st_size=1783, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/device/io/port-io.d", {st_mode=S_IFREG|0664, st_size=1683, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/device/io/map.d", {st_mode=S_IFREG|0664, st_size=1980, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/nemu-main.d", {st_mode=S_IFREG|0664, st_size=1110, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/scripts/build.mk", {st_mode=S_IFREG|0664, st_size=1142, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/../Makefile", {st_mode=S_IFREG|0664, st_size=618, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/scripts/native.mk", {st_mode=S_IFREG|0664, st_size=1505, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/scripts/config.mk", {st_mode=S_IFREG|0664, st_size=2206, ...}, 0) = 0
+newfstatat(AT_FDCWD, "src/isa/filelist.mk", {st_mode=S_IFREG|0664, st_size=793, ...}, 0) = 0
+newfstatat(AT_FDCWD, "src/engine/filelist.mk", {st_mode=S_IFREG|0664, st_size=785, ...}, 0) = 0
+newfstatat(AT_FDCWD, "src/filelist.mk", {st_mode=S_IFREG|0664, st_size=1097, ...}, 0) = 0
+newfstatat(AT_FDCWD, "src/device/filelist.mk", {st_mode=S_IFREG|0664, st_size=1277, ...}, 0) = 0
+newfstatat(AT_FDCWD, "src/utils/filelist.mk", {st_mode=S_IFREG|0664, st_size=871, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/include/config/auto.conf.cmd", {st_mode=S_IFREG|0664, st_size=205, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/include/config/auto.conf", {st_mode=S_IFREG|0664, st_size=610, ...}, 0) = 0
+newfstatat(AT_FDCWD, "Makefile", {st_mode=S_IFREG|0664, st_size=2365, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/tools", {st_mode=S_IFDIR|S_ISGID|0775, st_size=4096, ...}, 0) = 0
+openat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/tools", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3
+newfstatat(3, "", {st_mode=S_IFDIR|S_ISGID|0775, st_size=4096, ...}, AT_EMPTY_PATH) = 0
+brk(0x5584c0bb9000)                     = 0x5584c0bb9000
+getdents64(3, 0x5584c0b90e00 /* 9 entries */, 32768) = 272
+getdents64(3, 0x5584c0b90e00 /* 0 entries */, 32768) = 0
+brk(0x5584c0bb1000)                     = 0x5584c0bb1000
+close(3)                                = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/tools/RCS", 0x7fff054a3f10, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/tools/SCCS", 0x7fff054a3f10, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/utils", {st_mode=S_IFDIR|S_ISGID|0775, st_size=4096, ...}, 0) = 0
+openat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/utils", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3
+newfstatat(3, "", {st_mode=S_IFDIR|S_ISGID|0775, st_size=4096, ...}, AT_EMPTY_PATH) = 0
+getdents64(3, 0x5584c0b92ee0 /* 12 entries */, 32768) = 368
+getdents64(3, 0x5584c0b92ee0 /* 0 entries */, 32768) = 0
+close(3)                                = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/utils/RCS", 0x7fff054a3e90, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/utils/SCCS", 0x7fff054a3e90, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "src/utils", {st_mode=S_IFDIR|S_ISGID|0775, st_size=4096, ...}, 0) = 0
+openat(AT_FDCWD, "src/utils", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3
+newfstatat(3, "", {st_mode=S_IFDIR|S_ISGID|0775, st_size=4096, ...}, AT_EMPTY_PATH) = 0
+getdents64(3, 0x5584c0b94ee0 /* 8 entries */, 32768) = 240
+getdents64(3, 0x5584c0b94ee0 /* 0 entries */, 32768) = 0
+close(3)                                = 0
+newfstatat(AT_FDCWD, "src/utils/RCS", 0x7fff054a1940, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "src/utils/SCCS", 0x7fff054a1940, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/isa/riscv32", {st_mode=S_IFDIR|S_ISGID|0775, st_size=4096, ...}, 0) = 0
+openat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/isa/riscv32", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3
+newfstatat(3, "", {st_mode=S_IFDIR|S_ISGID|0775, st_size=4096, ...}, AT_EMPTY_PATH) = 0
+getdents64(3, 0x5584c0b992f0 /* 12 entries */, 32768) = 368
+getdents64(3, 0x5584c0b992f0 /* 0 entries */, 32768) = 0
+close(3)                                = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/isa/riscv32/RCS", 0x7fff054a3e80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/isa/riscv32/SCCS", 0x7fff054a3e80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "src/isa/riscv32", {st_mode=S_IFDIR|S_ISGID|0775, st_size=4096, ...}, 0) = 0
+openat(AT_FDCWD, "src/isa/riscv32", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3
+newfstatat(3, "", {st_mode=S_IFDIR|S_ISGID|0775, st_size=4096, ...}, AT_EMPTY_PATH) = 0
+getdents64(3, 0x5584c0b992f0 /* 11 entries */, 32768) = 344
+getdents64(3, 0x5584c0b992f0 /* 0 entries */, 32768) = 0
+close(3)                                = 0
+newfstatat(AT_FDCWD, "src/isa/riscv32/RCS", 0x7fff054a1930, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "src/isa/riscv32/SCCS", 0x7fff054a1930, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/isa/riscv32/system", {st_mode=S_IFDIR|S_ISGID|0775, st_size=4096, ...}, 0) = 0
+openat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/isa/riscv32/system", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3
+newfstatat(3, "", {st_mode=S_IFDIR|S_ISGID|0775, st_size=4096, ...}, AT_EMPTY_PATH) = 0
+getdents64(3, 0x5584c0ba8ad0 /* 6 entries */, 32768) = 176
+getdents64(3, 0x5584c0ba8ad0 /* 0 entries */, 32768) = 0
+close(3)                                = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/isa/riscv32/system/RCS", 0x7fff054a3e70, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/isa/riscv32/system/SCCS", 0x7fff054a3e70, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "src/isa/riscv32/system", {st_mode=S_IFDIR|S_ISGID|0775, st_size=4096, ...}, 0) = 0
+openat(AT_FDCWD, "src/isa/riscv32/system", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3
+newfstatat(3, "", {st_mode=S_IFDIR|S_ISGID|0775, st_size=4096, ...}, AT_EMPTY_PATH) = 0
+getdents64(3, 0x5584c0ba8ad0 /* 4 entries */, 32768) = 112
+getdents64(3, 0x5584c0ba8ad0 /* 0 entries */, 32768) = 0
+close(3)                                = 0
+newfstatat(AT_FDCWD, "src/isa/riscv32/system/RCS", 0x7fff054a1920, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "src/isa/riscv32/system/SCCS", 0x7fff054a1920, 0) = -1 ENOENT (No such file or directory)
+brk(0x5584c0bd2000)                     = 0x5584c0bd2000
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/isa/riscv32/difftest", {st_mode=S_IFDIR|S_ISGID|0775, st_size=4096, ...}, 0) = 0
+openat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/isa/riscv32/difftest", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3
+newfstatat(3, "", {st_mode=S_IFDIR|S_ISGID|0775, st_size=4096, ...}, AT_EMPTY_PATH) = 0
+getdents64(3, 0x5584c0bb16c0 /* 4 entries */, 32768) = 112
+getdents64(3, 0x5584c0bb16c0 /* 0 entries */, 32768) = 0
+close(3)                                = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/isa/riscv32/difftest/RCS", 0x7fff054a3e70, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/isa/riscv32/difftest/SCCS", 0x7fff054a3e70, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "src/isa/riscv32/difftest", {st_mode=S_IFDIR|S_ISGID|0775, st_size=4096, ...}, 0) = 0
+openat(AT_FDCWD, "src/isa/riscv32/difftest", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3
+newfstatat(3, "", {st_mode=S_IFDIR|S_ISGID|0775, st_size=4096, ...}, AT_EMPTY_PATH) = 0
+getdents64(3, 0x5584c0bb16c0 /* 3 entries */, 32768) = 80
+getdents64(3, 0x5584c0bb16c0 /* 0 entries */, 32768) = 0
+close(3)                                = 0
+newfstatat(AT_FDCWD, "src/isa/riscv32/difftest/RCS", 0x7fff054a1910, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "src/isa/riscv32/difftest/SCCS", 0x7fff054a1910, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/engine/interpreter", {st_mode=S_IFDIR|S_ISGID|0775, st_size=4096, ...}, 0) = 0
+openat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/engine/interpreter", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3
+newfstatat(3, "", {st_mode=S_IFDIR|S_ISGID|0775, st_size=4096, ...}, AT_EMPTY_PATH) = 0
+getdents64(3, 0x5584c0bb62b0 /* 6 entries */, 32768) = 176
+getdents64(3, 0x5584c0bb62b0 /* 0 entries */, 32768) = 0
+close(3)                                = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/engine/interpreter/RCS", 0x7fff054a3e70, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/engine/interpreter/SCCS", 0x7fff054a3e70, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "src/engine/interpreter", {st_mode=S_IFDIR|S_ISGID|0775, st_size=4096, ...}, 0) = 0
+openat(AT_FDCWD, "src/engine/interpreter", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3
+newfstatat(3, "", {st_mode=S_IFDIR|S_ISGID|0775, st_size=4096, ...}, AT_EMPTY_PATH) = 0
+getdents64(3, 0x5584c0bb62b0 /* 4 entries */, 32768) = 112
+getdents64(3, 0x5584c0bb62b0 /* 0 entries */, 32768) = 0
+close(3)                                = 0
+newfstatat(AT_FDCWD, "src/engine/interpreter/RCS", 0x7fff054a1920, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "src/engine/interpreter/SCCS", 0x7fff054a1920, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/memory", {st_mode=S_IFDIR|S_ISGID|0775, st_size=4096, ...}, 0) = 0
+openat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/memory", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3
+newfstatat(3, "", {st_mode=S_IFDIR|S_ISGID|0775, st_size=4096, ...}, AT_EMPTY_PATH) = 0
+getdents64(3, 0x5584c0bbcea0 /* 6 entries */, 32768) = 176
+getdents64(3, 0x5584c0bbcea0 /* 0 entries */, 32768) = 0
+close(3)                                = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/memory/RCS", 0x7fff054a3e90, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/memory/SCCS", 0x7fff054a3e90, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "src/memory", {st_mode=S_IFDIR|S_ISGID|0775, st_size=4096, ...}, 0) = 0
+openat(AT_FDCWD, "src/memory", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3
+newfstatat(3, "", {st_mode=S_IFDIR|S_ISGID|0775, st_size=4096, ...}, AT_EMPTY_PATH) = 0
+getdents64(3, 0x5584c0bbeea0 /* 5 entries */, 32768) = 144
+getdents64(3, 0x5584c0bbeea0 /* 0 entries */, 32768) = 0
+close(3)                                = 0
+newfstatat(AT_FDCWD, "src/memory/RCS", 0x7fff054a1940, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "src/memory/SCCS", 0x7fff054a1940, 0) = -1 ENOENT (No such file or directory)
+brk(0x5584c0bf4000)                     = 0x5584c0bf4000
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/monitor", {st_mode=S_IFDIR|S_ISGID|0775, st_size=4096, ...}, 0) = 0
+openat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/monitor", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3
+newfstatat(3, "", {st_mode=S_IFDIR|S_ISGID|0775, st_size=4096, ...}, AT_EMPTY_PATH) = 0
+getdents64(3, 0x5584c0bd3270 /* 5 entries */, 32768) = 136
+getdents64(3, 0x5584c0bd3270 /* 0 entries */, 32768) = 0
+close(3)                                = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/monitor/RCS", 0x7fff054a3e80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/monitor/SCCS", 0x7fff054a3e80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "src/monitor", {st_mode=S_IFDIR|S_ISGID|0775, st_size=4096, ...}, 0) = 0
+openat(AT_FDCWD, "src/monitor", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3
+newfstatat(3, "", {st_mode=S_IFDIR|S_ISGID|0775, st_size=4096, ...}, AT_EMPTY_PATH) = 0
+getdents64(3, 0x5584c0bd3270 /* 4 entries */, 32768) = 104
+getdents64(3, 0x5584c0bd3270 /* 0 entries */, 32768) = 0
+close(3)                                = 0
+newfstatat(AT_FDCWD, "src/monitor/RCS", 0x7fff054a1930, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "src/monitor/SCCS", 0x7fff054a1930, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/monitor/sdb", {st_mode=S_IFDIR|S_ISGID|0775, st_size=4096, ...}, 0) = 0
+openat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/monitor/sdb", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3
+newfstatat(3, "", {st_mode=S_IFDIR|S_ISGID|0775, st_size=4096, ...}, AT_EMPTY_PATH) = 0
+getdents64(3, 0x5584c0bd7ed0 /* 8 entries */, 32768) = 240
+getdents64(3, 0x5584c0bd7ed0 /* 0 entries */, 32768) = 0
+close(3)                                = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/monitor/sdb/RCS", 0x7fff054a3e80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/monitor/sdb/SCCS", 0x7fff054a3e80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "src/monitor/sdb", {st_mode=S_IFDIR|S_ISGID|0775, st_size=4096, ...}, 0) = 0
+openat(AT_FDCWD, "src/monitor/sdb", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3
+newfstatat(3, "", {st_mode=S_IFDIR|S_ISGID|0775, st_size=4096, ...}, AT_EMPTY_PATH) = 0
+getdents64(3, 0x5584c0bd7ed0 /* 6 entries */, 32768) = 176
+getdents64(3, 0x5584c0bd7ed0 /* 0 entries */, 32768) = 0
+close(3)                                = 0
+newfstatat(AT_FDCWD, "src/monitor/sdb/RCS", 0x7fff054a1930, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "src/monitor/sdb/SCCS", 0x7fff054a1930, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/cpu/difftest", {st_mode=S_IFDIR|S_ISGID|0775, st_size=4096, ...}, 0) = 0
+openat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/cpu/difftest", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3
+newfstatat(3, "", {st_mode=S_IFDIR|S_ISGID|0775, st_size=4096, ...}, AT_EMPTY_PATH) = 0
+getdents64(3, 0x5584c0be3750 /* 6 entries */, 32768) = 176
+getdents64(3, 0x5584c0be3750 /* 0 entries */, 32768) = 0
+close(3)                                = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/cpu/difftest/RCS", 0x7fff054a3e80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/cpu/difftest/SCCS", 0x7fff054a3e80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "src/cpu/difftest", {st_mode=S_IFDIR|S_ISGID|0775, st_size=4096, ...}, 0) = 0
+openat(AT_FDCWD, "src/cpu/difftest", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3
+newfstatat(3, "", {st_mode=S_IFDIR|S_ISGID|0775, st_size=4096, ...}, AT_EMPTY_PATH) = 0
+getdents64(3, 0x5584c0be3750 /* 4 entries */, 32768) = 112
+getdents64(3, 0x5584c0be3750 /* 0 entries */, 32768) = 0
+close(3)                                = 0
+newfstatat(AT_FDCWD, "src/cpu/difftest/RCS", 0x7fff054a1930, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "src/cpu/difftest/SCCS", 0x7fff054a1930, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/cpu", {st_mode=S_IFDIR|S_ISGID|0775, st_size=4096, ...}, 0) = 0
+openat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/cpu", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3
+newfstatat(3, "", {st_mode=S_IFDIR|S_ISGID|0775, st_size=4096, ...}, AT_EMPTY_PATH) = 0
+getdents64(3, 0x5584c0bea340 /* 5 entries */, 32768) = 144
+getdents64(3, 0x5584c0bea340 /* 0 entries */, 32768) = 0
+close(3)                                = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/cpu/RCS", 0x7fff054a3ea0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/cpu/SCCS", 0x7fff054a3ea0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "src/cpu", {st_mode=S_IFDIR|S_ISGID|0775, st_size=4096, ...}, 0) = 0
+openat(AT_FDCWD, "src/cpu", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3
+newfstatat(3, "", {st_mode=S_IFDIR|S_ISGID|0775, st_size=4096, ...}, AT_EMPTY_PATH) = 0
+brk(0x5584c0c15000)                     = 0x5584c0c15000
+getdents64(3, 0x5584c0bec340 /* 4 entries */, 32768) = 112
+getdents64(3, 0x5584c0bec340 /* 0 entries */, 32768) = 0
+brk(0x5584c0c0d000)                     = 0x5584c0c0d000
+close(3)                                = 0
+newfstatat(AT_FDCWD, "src/cpu/RCS", 0x7fff054a1960, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "src/cpu/SCCS", 0x7fff054a1960, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/device/io", {st_mode=S_IFDIR|S_ISGID|0775, st_size=4096, ...}, 0) = 0
+openat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/device/io", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3
+newfstatat(3, "", {st_mode=S_IFDIR|S_ISGID|0775, st_size=4096, ...}, AT_EMPTY_PATH) = 0
+getdents64(3, 0x5584c0befb20 /* 8 entries */, 32768) = 240
+getdents64(3, 0x5584c0befb20 /* 0 entries */, 32768) = 0
+close(3)                                = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/device/io/RCS", 0x7fff054a3e80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/device/io/SCCS", 0x7fff054a3e80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "src/device/io", {st_mode=S_IFDIR|S_ISGID|0775, st_size=4096, ...}, 0) = 0
+openat(AT_FDCWD, "src/device/io", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3
+newfstatat(3, "", {st_mode=S_IFDIR|S_ISGID|0775, st_size=4096, ...}, AT_EMPTY_PATH) = 0
+getdents64(3, 0x5584c0befb20 /* 5 entries */, 32768) = 144
+getdents64(3, 0x5584c0befb20 /* 0 entries */, 32768) = 0
+close(3)                                = 0
+newfstatat(AT_FDCWD, "src/device/io/RCS", 0x7fff054a1930, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "src/device/io/SCCS", 0x7fff054a1930, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src", {st_mode=S_IFDIR|S_ISGID|0775, st_size=4096, ...}, 0) = 0
+openat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3
+newfstatat(3, "", {st_mode=S_IFDIR|S_ISGID|0775, st_size=4096, ...}, AT_EMPTY_PATH) = 0
+getdents64(3, 0x5584c0bf9b20 /* 11 entries */, 32768) = 320
+getdents64(3, 0x5584c0bf9b20 /* 0 entries */, 32768) = 0
+close(3)                                = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/RCS", 0x7fff054a3eb0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/SCCS", 0x7fff054a3eb0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "src", {st_mode=S_IFDIR|S_ISGID|0775, st_size=4096, ...}, 0) = 0
+openat(AT_FDCWD, "src", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3
+newfstatat(3, "", {st_mode=S_IFDIR|S_ISGID|0775, st_size=4096, ...}, AT_EMPTY_PATH) = 0
+getdents64(3, 0x5584c0bf9b20 /* 12 entries */, 32768) = 352
+getdents64(3, 0x5584c0bf9b20 /* 0 entries */, 32768) = 0
+close(3)                                = 0
+newfstatat(AT_FDCWD, "src/RCS", 0x7fff054a1990, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "src/SCCS", 0x7fff054a1980, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/scripts", {st_mode=S_IFDIR|S_ISGID|0775, st_size=4096, ...}, 0) = 0
+openat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/scripts", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3
+newfstatat(3, "", {st_mode=S_IFDIR|S_ISGID|0775, st_size=4096, ...}, AT_EMPTY_PATH) = 0
+getdents64(3, 0x5584c0c01c20 /* 5 entries */, 32768) = 144
+getdents64(3, 0x5584c0c01c20 /* 0 entries */, 32768) = 0
+close(3)                                = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/scripts/RCS", 0x7fff054a3f10, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/scripts/SCCS", 0x7fff054a3f10, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/..", {st_mode=S_IFDIR|S_ISGID|0775, st_size=4096, ...}, 0) = 0
+openat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/..", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3
+newfstatat(3, "", {st_mode=S_IFDIR|S_ISGID|0775, st_size=4096, ...}, AT_EMPTY_PATH) = 0
+getdents64(3, 0x5584c0c03c20 /* 11 entries */, 32768) = 320
+getdents64(3, 0x5584c0c03c20 /* 0 entries */, 32768) = 0
+close(3)                                = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/../RCS", 0x7fff054a3f10, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/../SCCS", 0x7fff054a3f10, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "src/isa", {st_mode=S_IFDIR|S_ISGID|0775, st_size=4096, ...}, 0) = 0
+openat(AT_FDCWD, "src/isa", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3
+newfstatat(3, "", {st_mode=S_IFDIR|S_ISGID|0775, st_size=4096, ...}, AT_EMPTY_PATH) = 0
+brk(0x5584c0c32000)                     = 0x5584c0c32000
+getdents64(3, 0x5584c0c09c20 /* 7 entries */, 32768) = 208
+getdents64(3, 0x5584c0c09c20 /* 0 entries */, 32768) = 0
+brk(0x5584c0c2a000)                     = 0x5584c0c2a000
+close(3)                                = 0
+newfstatat(AT_FDCWD, "src/isa/RCS", 0x7fff054a3f70, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "src/isa/SCCS", 0x7fff054a3f70, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "src/engine", {st_mode=S_IFDIR|S_ISGID|0775, st_size=4096, ...}, 0) = 0
+openat(AT_FDCWD, "src/engine", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3
+newfstatat(3, "", {st_mode=S_IFDIR|S_ISGID|0775, st_size=4096, ...}, AT_EMPTY_PATH) = 0
+getdents64(3, 0x5584c0c09c20 /* 4 entries */, 32768) = 112
+getdents64(3, 0x5584c0c09c20 /* 0 entries */, 32768) = 0
+close(3)                                = 0
+newfstatat(AT_FDCWD, "src/engine/RCS", 0x7fff054a3f70, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "src/engine/SCCS", 0x7fff054a3f70, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "src/device", {st_mode=S_IFDIR|S_ISGID|0775, st_size=4096, ...}, 0) = 0
+openat(AT_FDCWD, "src/device", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3
+newfstatat(3, "", {st_mode=S_IFDIR|S_ISGID|0775, st_size=4096, ...}, AT_EMPTY_PATH) = 0
+getdents64(3, 0x5584c0c0bc20 /* 16 entries */, 32768) = 488
+getdents64(3, 0x5584c0c0bc20 /* 0 entries */, 32768) = 0
+close(3)                                = 0
+newfstatat(AT_FDCWD, "src/device/RCS", 0x7fff054a3f70, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "src/device/SCCS", 0x7fff054a3f70, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/include/config", {st_mode=S_IFDIR|S_ISGID|0755, st_size=4096, ...}, 0) = 0
+openat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/include/config", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3
+newfstatat(3, "", {st_mode=S_IFDIR|S_ISGID|0755, st_size=4096, ...}, AT_EMPTY_PATH) = 0
+getdents64(3, 0x5584c0c0f400 /* 24 entries */, 32768) = 696
+getdents64(3, 0x5584c0c0f400 /* 0 entries */, 32768) = 0
+close(3)                                = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/include/config/RCS", 0x7fff054a3ee0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/include/config/SCCS", 0x7fff054a3ee0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/riscv32-nemu-interpreter", {st_mode=S_IFREG|0775, st_size=66608, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/nemu-main.o", {st_mode=S_IFREG|0664, st_size=1576, ...}, 0) = 0
+sysinfo({uptime=1044551, loads=[15456, 23360, 30016], totalram=16098045952, freeram=3297222656, sharedram=75243520, bufferram=1126727680, totalswap=11867779072, freeswap=11857555456, procs=1351, totalhigh=0, freehigh=0, mem_unit=1}) = 0
+newfstatat(AT_FDCWD, "src/nemu-main.c", {st_mode=S_IFREG|0664, st_size=1063, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/include/common.h", {st_mode=S_IFREG|0664, st_size=1439, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/include", {st_mode=S_IFDIR|S_ISGID|0775, st_size=4096, ...}, 0) = 0
+openat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/include", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3
+newfstatat(3, "", {st_mode=S_IFDIR|S_ISGID|0775, st_size=4096, ...}, AT_EMPTY_PATH) = 0
+getdents64(3, 0x5584c0c13ff0 /* 13 entries */, 32768) = 400
+getdents64(3, 0x5584c0c13ff0 /* 0 entries */, 32768) = 0
+close(3)                                = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/include/RCS", 0x7fff054a3bb0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/include/SCCS", 0x7fff054a3bb0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/mbase.h", {st_mode=S_IFREG|0644, st_size=0, ...}, 0) = 0
+newfstatat(AT_FDCWD, "include/config", {st_mode=S_IFDIR|S_ISGID|0755, st_size=4096, ...}, 0) = 0
+newfstatat(AT_FDCWD, "include/config/RCS", 0x7fff054a3c10, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/SCCS", 0x7fff054a3c10, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/msize.h", {st_mode=S_IFREG|0644, st_size=0, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/include/macro.h", {st_mode=S_IFREG|0664, st_size=4298, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/include/debug.h", {st_mode=S_IFREG|0664, st_size=1506, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/include/utils.h", {st_mode=S_IFREG|0664, st_size=2079, ...}, 0) = 0
+newfstatat(AT_FDCWD, "include/config/target/native/elf.h", {st_mode=S_IFREG|0644, st_size=0, ...}, 0) = 0
+newfstatat(AT_FDCWD, "include/config/target/native", {st_mode=S_IFDIR|S_ISGID|0755, st_size=4096, ...}, 0) = 0
+openat(AT_FDCWD, "include/config/target/native", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3
+newfstatat(3, "", {st_mode=S_IFDIR|S_ISGID|0755, st_size=4096, ...}, AT_EMPTY_PATH) = 0
+getdents64(3, 0x5584c0c13ff0 /* 3 entries */, 32768) = 80
+getdents64(3, 0x5584c0c13ff0 /* 0 entries */, 32768) = 0
+close(3)                                = 0
+newfstatat(AT_FDCWD, "include/config/target/native/RCS", 0x7fff054a3be0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/target/native/SCCS", 0x7fff054a3be0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/device/io/map.o", {st_mode=S_IFREG|0664, st_size=5672, ...}, 0) = 0
+newfstatat(AT_FDCWD, "src/device/io/map.c", {st_mode=S_IFREG|0664, st_size=2298, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/include/isa.h", {st_mode=S_IFREG|0664, st_size=1819, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/src/isa/riscv32/include/isa-def.h", {st_mode=S_IFREG|0664, st_size=1109, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/src/isa/riscv32/include", {st_mode=S_IFDIR|S_ISGID|0775, st_size=4096, ...}, 0) = 0
+openat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/src/isa/riscv32/include", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3
+newfstatat(3, "", {st_mode=S_IFDIR|S_ISGID|0775, st_size=4096, ...}, AT_EMPTY_PATH) = 0
+getdents64(3, 0x5584c0c15ff0 /* 3 entries */, 32768) = 80
+getdents64(3, 0x5584c0c15ff0 /* 0 entries */, 32768) = 0
+close(3)                                = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/src/isa/riscv32/include/RCS", 0x7fff054a3b80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/src/isa/riscv32/include/SCCS", 0x7fff054a3b80, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/include/memory/host.h", {st_mode=S_IFREG|0664, st_size=1442, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/include/memory", {st_mode=S_IFDIR|S_ISGID|0775, st_size=4096, ...}, 0) = 0
+openat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/include/memory", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3
+newfstatat(3, "", {st_mode=S_IFDIR|S_ISGID|0775, st_size=4096, ...}, AT_EMPTY_PATH) = 0
+getdents64(3, 0x5584c0c15ff0 /* 5 entries */, 32768) = 144
+getdents64(3, 0x5584c0c15ff0 /* 0 entries */, 32768) = 0
+close(3)                                = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/include/memory/RCS", 0x7fff054a3b90, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/include/memory/SCCS", 0x7fff054a3b90, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/rt/check.h", {st_mode=S_IFREG|0644, st_size=0, ...}, 0) = 0
+newfstatat(AT_FDCWD, "include/config/rt", {st_mode=S_IFDIR|S_ISGID|0755, st_size=4096, ...}, 0) = 0
+openat(AT_FDCWD, "include/config/rt", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3
+newfstatat(3, "", {st_mode=S_IFDIR|S_ISGID|0755, st_size=4096, ...}, AT_EMPTY_PATH) = 0
+getdents64(3, 0x5584c0c15ff0 /* 3 entries */, 32768) = 80
+getdents64(3, 0x5584c0c15ff0 /* 0 entries */, 32768) = 0
+close(3)                                = 0
+newfstatat(AT_FDCWD, "include/config/rt/RCS", 0x7fff054a3c10, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/rt/SCCS", 0x7fff054a3c10, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/include/memory/vaddr.h", {st_mode=S_IFREG|0664, st_size=1050, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/include/device/map.h", {st_mode=S_IFREG|0664, st_size=1706, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/include/device", {st_mode=S_IFDIR|S_ISGID|0775, st_size=4096, ...}, 0) = 0
+openat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/include/device", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3
+newfstatat(3, "", {st_mode=S_IFDIR|S_ISGID|0775, st_size=4096, ...}, AT_EMPTY_PATH) = 0
+getdents64(3, 0x5584c0c15ff0 /* 5 entries */, 32768) = 144
+getdents64(3, 0x5584c0c15ff0 /* 0 entries */, 32768) = 0
+close(3)                                = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/include/device/RCS", 0x7fff054a3b90, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/include/device/SCCS", 0x7fff054a3b90, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/include/cpu/difftest.h", {st_mode=S_IFREG|0664, st_size=1992, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/include/cpu", {st_mode=S_IFDIR|S_ISGID|0775, st_size=4096, ...}, 0) = 0
+openat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/include/cpu", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3
+newfstatat(3, "", {st_mode=S_IFDIR|S_ISGID|0775, st_size=4096, ...}, AT_EMPTY_PATH) = 0
+getdents64(3, 0x5584c0c15ff0 /* 6 entries */, 32768) = 176
+getdents64(3, 0x5584c0c15ff0 /* 0 entries */, 32768) = 0
+close(3)                                = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/include/cpu/RCS", 0x7fff054a3b90, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/include/cpu/SCCS", 0x7fff054a3b90, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/include/difftest-def.h", {st_mode=S_IFREG|0664, st_size=1539, ...}, 0) = 0
+newfstatat(AT_FDCWD, "include/config/isa/riscv.h", {st_mode=S_IFREG|0644, st_size=0, ...}, 0) = 0
+newfstatat(AT_FDCWD, "include/config/isa", {st_mode=S_IFDIR|S_ISGID|0755, st_size=4096, ...}, 0) = 0
+openat(AT_FDCWD, "include/config/isa", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3
+newfstatat(3, "", {st_mode=S_IFDIR|S_ISGID|0755, st_size=4096, ...}, AT_EMPTY_PATH) = 0
+getdents64(3, 0x5584c0c15ff0 /* 3 entries */, 32768) = 80
+getdents64(3, 0x5584c0c15ff0 /* 0 entries */, 32768) = 0
+close(3)                                = 0
+newfstatat(AT_FDCWD, "include/config/isa/RCS", 0x7fff054a3c10, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/isa/SCCS", 0x7fff054a3c10, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/device/io/port-io.o", {st_mode=S_IFREG|0664, st_size=4448, ...}, 0) = 0
+newfstatat(AT_FDCWD, "src/device/io/port-io.c", {st_mode=S_IFREG|0664, st_size=1760, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/device/io/mmio.o", {st_mode=S_IFREG|0664, st_size=4696, ...}, 0) = 0
+newfstatat(AT_FDCWD, "src/device/io/mmio.c", {st_mode=S_IFREG|0664, st_size=2266, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/include/memory/paddr.h", {st_mode=S_IFREG|0664, st_size=1410, ...}, 0) = 0
+newfstatat(AT_FDCWD, "include/config/pc/reset/offset.h", {st_mode=S_IFREG|0644, st_size=0, ...}, 0) = 0
+newfstatat(AT_FDCWD, "include/config/pc/reset", {st_mode=S_IFDIR|S_ISGID|0755, st_size=4096, ...}, 0) = 0
+openat(AT_FDCWD, "include/config/pc/reset", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3
+newfstatat(3, "", {st_mode=S_IFDIR|S_ISGID|0755, st_size=4096, ...}, AT_EMPTY_PATH) = 0
+getdents64(3, 0x5584c0c1e850 /* 3 entries */, 32768) = 80
+getdents64(3, 0x5584c0c1e850 /* 0 entries */, 32768) = 0
+close(3)                                = 0
+newfstatat(AT_FDCWD, "include/config/pc/reset/RCS", 0x7fff054a3bf0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/pc/reset/SCCS", 0x7fff054a3bf0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/cpu/cpu-exec.o", {st_mode=S_IFREG|0664, st_size=7616, ...}, 0) = 0
+newfstatat(AT_FDCWD, "src/cpu/cpu-exec.c", {st_mode=S_IFREG|0664, st_size=4151, ...}, 0) = 0
+newfstatat(AT_FDCWD, "include/config/itrace/cond.h", {st_mode=S_IFREG|0644, st_size=0, ...}, 0) = 0
+newfstatat(AT_FDCWD, "include/config/itrace", {st_mode=S_IFDIR|S_ISGID|0755, st_size=4096, ...}, 0) = 0
+openat(AT_FDCWD, "include/config/itrace", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3
+newfstatat(3, "", {st_mode=S_IFDIR|S_ISGID|0755, st_size=4096, ...}, AT_EMPTY_PATH) = 0
+getdents64(3, 0x5584c0c1e850 /* 3 entries */, 32768) = 80
+getdents64(3, 0x5584c0c1e850 /* 0 entries */, 32768) = 0
+close(3)                                = 0
+newfstatat(AT_FDCWD, "include/config/itrace/RCS", 0x7fff054a3c00, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/itrace/SCCS", 0x7fff054a3c00, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/itrace.h", {st_mode=S_IFREG|0644, st_size=0, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/include/cpu/cpu.h", {st_mode=S_IFREG|0664, st_size=1015, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/include/cpu/decode.h", {st_mode=S_IFREG|0664, st_size=3296, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/cpu/difftest/dut.o", {st_mode=S_IFREG|0664, st_size=1392, ...}, 0) = 0
+newfstatat(AT_FDCWD, "src/cpu/difftest/dut.c", {st_mode=S_IFREG|0664, st_size=4367, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/cpu/difftest/ref.o", {st_mode=S_IFREG|0664, st_size=2944, ...}, 0) = 0
+newfstatat(AT_FDCWD, "src/cpu/difftest/ref.c", {st_mode=S_IFREG|0664, st_size=1229, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/monitor/sdb/sdb.o", {st_mode=S_IFREG|0664, st_size=5288, ...}, 0) = 0
+newfstatat(AT_FDCWD, "src/monitor/sdb/sdb.c", {st_mode=S_IFREG|0664, st_size=3289, ...}, 0) = 0
+newfstatat(AT_FDCWD, "src/monitor/sdb/sdb.h", {st_mode=S_IFREG|0664, st_size=811, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/monitor/sdb/watchpoint.o", {st_mode=S_IFREG|0664, st_size=1472, ...}, 0) = 0
+newfstatat(AT_FDCWD, "src/monitor/sdb/watchpoint.c", {st_mode=S_IFREG|0664, st_size=1182, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/monitor/sdb/expr.o", {st_mode=S_IFREG|0664, st_size=5632, ...}, 0) = 0
+newfstatat(AT_FDCWD, "src/monitor/sdb/expr.c", {st_mode=S_IFREG|0664, st_size=3099, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/monitor/monitor.o", {st_mode=S_IFREG|0664, st_size=9912, ...}, 0) = 0
+newfstatat(AT_FDCWD, "src/monitor/monitor.c", {st_mode=S_IFREG|0664, st_size=4843, ...}, 0) = 0
+newfstatat(AT_FDCWD, "include/config/trace.h", {st_mode=S_IFREG|0644, st_size=0, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/utils/log.o", {st_mode=S_IFREG|0664, st_size=3424, ...}, 0) = 0
+newfstatat(AT_FDCWD, "src/utils/log.c", {st_mode=S_IFREG|0664, st_size=1189, ...}, 0) = 0
+newfstatat(AT_FDCWD, "include/config/trace/start.h", {st_mode=S_IFREG|0644, st_size=0, ...}, 0) = 0
+newfstatat(AT_FDCWD, "include/config/trace", {st_mode=S_IFDIR|S_ISGID|0755, st_size=4096, ...}, 0) = 0
+openat(AT_FDCWD, "include/config/trace", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3
+newfstatat(3, "", {st_mode=S_IFDIR|S_ISGID|0755, st_size=4096, ...}, AT_EMPTY_PATH) = 0
+getdents64(3, 0x5584c0c1e850 /* 4 entries */, 32768) = 112
+getdents64(3, 0x5584c0c1e850 /* 0 entries */, 32768) = 0
+close(3)                                = 0
+newfstatat(AT_FDCWD, "include/config/trace/RCS", 0x7fff054a3c00, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/trace/SCCS", 0x7fff054a3c00, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/trace/end.h", {st_mode=S_IFREG|0644, st_size=0, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/utils/rand.o", {st_mode=S_IFREG|0664, st_size=1408, ...}, 0) = 0
+newfstatat(AT_FDCWD, "src/utils/rand.c", {st_mode=S_IFREG|0664, st_size=847, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/utils/timer.o", {st_mode=S_IFREG|0664, st_size=1696, ...}, 0) = 0
+newfstatat(AT_FDCWD, "src/utils/timer.c", {st_mode=S_IFREG|0664, st_size=1596, ...}, 0) = 0
+newfstatat(AT_FDCWD, "include/config/timer/gettimeofday.h", {st_mode=S_IFREG|0644, st_size=0, ...}, 0) = 0
+newfstatat(AT_FDCWD, "include/config/timer", {st_mode=S_IFDIR|S_ISGID|0755, st_size=4096, ...}, 0) = 0
+openat(AT_FDCWD, "include/config/timer", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3
+newfstatat(3, "", {st_mode=S_IFDIR|S_ISGID|0755, st_size=4096, ...}, AT_EMPTY_PATH) = 0
+getdents64(3, 0x5584c0c1e850 /* 3 entries */, 32768) = 88
+getdents64(3, 0x5584c0c1e850 /* 0 entries */, 32768) = 0
+close(3)                                = 0
+newfstatat(AT_FDCWD, "include/config/timer/RCS", 0x7fff054a3bf0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/timer/SCCS", 0x7fff054a3bf0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/utils/state.o", {st_mode=S_IFREG|0664, st_size=1416, ...}, 0) = 0
+newfstatat(AT_FDCWD, "src/utils/state.c", {st_mode=S_IFREG|0664, st_size=933, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/memory/paddr.o", {st_mode=S_IFREG|0664, st_size=8008, ...}, 0) = 0
+newfstatat(AT_FDCWD, "src/memory/paddr.c", {st_mode=S_IFREG|0664, st_size=2287, ...}, 0) = 0
+newfstatat(AT_FDCWD, "include/config/pmem/garray.h", {st_mode=S_IFREG|0644, st_size=0, ...}, 0) = 0
+newfstatat(AT_FDCWD, "include/config/pmem", {st_mode=S_IFDIR|S_ISGID|0755, st_size=4096, ...}, 0) = 0
+openat(AT_FDCWD, "include/config/pmem", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3
+newfstatat(3, "", {st_mode=S_IFDIR|S_ISGID|0755, st_size=4096, ...}, AT_EMPTY_PATH) = 0
+getdents64(3, 0x5584c0c1e850 /* 3 entries */, 32768) = 80
+getdents64(3, 0x5584c0c1e850 /* 0 entries */, 32768) = 0
+close(3)                                = 0
+newfstatat(AT_FDCWD, "include/config/pmem/RCS", 0x7fff054a3c10, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/pmem/SCCS", 0x7fff054a3c00, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/mem/random.h", {st_mode=S_IFREG|0644, st_size=0, ...}, 0) = 0
+newfstatat(AT_FDCWD, "include/config/mem", {st_mode=S_IFDIR|S_ISGID|0755, st_size=4096, ...}, 0) = 0
+openat(AT_FDCWD, "include/config/mem", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3
+newfstatat(3, "", {st_mode=S_IFDIR|S_ISGID|0755, st_size=4096, ...}, AT_EMPTY_PATH) = 0
+getdents64(3, 0x5584c0c1e850 /* 3 entries */, 32768) = 80
+getdents64(3, 0x5584c0c1e850 /* 0 entries */, 32768) = 0
+close(3)                                = 0
+newfstatat(AT_FDCWD, "include/config/mem/RCS", 0x7fff054a3c10, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "include/config/mem/SCCS", 0x7fff054a3c10, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/include/device/mmio.h", {st_mode=S_IFREG|0664, st_size=884, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/memory/vaddr.o", {st_mode=S_IFREG|0664, st_size=1624, ...}, 0) = 0
+newfstatat(AT_FDCWD, "src/memory/vaddr.c", {st_mode=S_IFREG|0664, st_size=999, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/engine/interpreter/hostcall.o", {st_mode=S_IFREG|0664, st_size=2920, ...}, 0) = 0
+newfstatat(AT_FDCWD, "src/engine/interpreter/hostcall.c", {st_mode=S_IFREG|0664, st_size=2005, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/include/cpu/ifetch.h", {st_mode=S_IFREG|0664, st_size=902, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/engine/interpreter/init.o", {st_mode=S_IFREG|0664, st_size=1352, ...}, 0) = 0
+newfstatat(AT_FDCWD, "src/engine/interpreter/init.c", {st_mode=S_IFREG|0664, st_size=883, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/isa/riscv32/difftest/dut.o", {st_mode=S_IFREG|0664, st_size=1328, ...}, 0) = 0
+newfstatat(AT_FDCWD, "src/isa/riscv32/difftest/dut.c", {st_mode=S_IFREG|0664, st_size=896, ...}, 0) = 0
+newfstatat(AT_FDCWD, "src/isa/riscv32/difftest/../local-include/reg.h", {st_mode=S_IFREG|0664, st_size=1086, ...}, 0) = 0
+newfstatat(AT_FDCWD, "src/isa/riscv32/difftest/../local-include", {st_mode=S_IFDIR|S_ISGID|0775, st_size=4096, ...}, 0) = 0
+openat(AT_FDCWD, "src/isa/riscv32/difftest/../local-include", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3
+newfstatat(3, "", {st_mode=S_IFDIR|S_ISGID|0775, st_size=4096, ...}, AT_EMPTY_PATH) = 0
+getdents64(3, 0x5584c0c1e850 /* 3 entries */, 32768) = 80
+getdents64(3, 0x5584c0c1e850 /* 0 entries */, 32768) = 0
+close(3)                                = 0
+newfstatat(AT_FDCWD, "src/isa/riscv32/difftest/../local-include/RCS", 0x7fff054a3bc0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "src/isa/riscv32/difftest/../local-include/SCCS", 0x7fff054a3bc0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/isa/riscv32/system/mmu.o", {st_mode=S_IFREG|0664, st_size=1224, ...}, 0) = 0
+newfstatat(AT_FDCWD, "src/isa/riscv32/system/mmu.c", {st_mode=S_IFREG|0664, st_size=865, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/isa/riscv32/system/intr.o", {st_mode=S_IFREG|0664, st_size=1312, ...}, 0) = 0
+newfstatat(AT_FDCWD, "src/isa/riscv32/system/intr.c", {st_mode=S_IFREG|0664, st_size=964, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/isa/riscv32/inst.o", {st_mode=S_IFREG|0664, st_size=2824, ...}, 0) = 0
+newfstatat(AT_FDCWD, "src/isa/riscv32/inst.c", {st_mode=S_IFREG|0664, st_size=2595, ...}, 0) = 0
+mmap(NULL, 135168, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f3559595000
+newfstatat(AT_FDCWD, "src/isa/riscv32/local-include/reg.h", {st_mode=S_IFREG|0664, st_size=1086, ...}, 0) = 0
+newfstatat(AT_FDCWD, "src/isa/riscv32/local-include", {st_mode=S_IFDIR|S_ISGID|0775, st_size=4096, ...}, 0) = 0
+newfstatat(AT_FDCWD, "src/isa/riscv32/local-include/RCS", 0x7fff054a3be0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "src/isa/riscv32/local-include/SCCS", 0x7fff054a3be0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/isa/riscv32/logo.o", {st_mode=S_IFREG|0664, st_size=1368, ...}, 0) = 0
+newfstatat(AT_FDCWD, "src/isa/riscv32/logo.c", {st_mode=S_IFREG|0664, st_size=3771, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/isa/riscv32/init.o", {st_mode=S_IFREG|0664, st_size=1624, ...}, 0) = 0
+newfstatat(AT_FDCWD, "src/isa/riscv32/init.c", {st_mode=S_IFREG|0664, st_size=1374, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/isa/riscv32/reg.o", {st_mode=S_IFREG|0664, st_size=2728, ...}, 0) = 0
+newfstatat(AT_FDCWD, "src/isa/riscv32/reg.c", {st_mode=S_IFREG|0664, st_size=1082, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/utils/disasm.o", {st_mode=S_IFREG|0664, st_size=16328, ...}, 0) = 0
+newfstatat(AT_FDCWD, "src/utils/disasm.cc", {st_mode=S_IFREG|0664, st_size=3659, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/MC/MCAsmInfo.h", {st_mode=S_IFREG|0644, st_size=33732, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/MC", {st_mode=S_IFDIR|0755, st_size=12288, ...}, 0) = 0
+openat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/MC", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3
+newfstatat(3, "", {st_mode=S_IFDIR|0755, st_size=12288, ...}, AT_EMPTY_PATH) = 0
+getdents64(3, 0x5584c0b38070 /* 78 entries */, 32768) = 2984
+getdents64(3, 0x5584c0b38070 /* 0 entries */, 32768) = 0
+close(3)                                = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/MC/RCS", 0x7fff054a3be0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/MC/SCCS", 0x7fff054a3be0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/ADT/StringRef.h", {st_mode=S_IFREG|0644, st_size=34473, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/ADT", {st_mode=S_IFDIR|0755, st_size=16384, ...}, 0) = 0
+openat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/ADT", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3
+newfstatat(3, "", {st_mode=S_IFDIR|0755, st_size=16384, ...}, AT_EMPTY_PATH) = 0
+getdents64(3, 0x5584c0b38070 /* 95 entries */, 32768) = 3528
+getdents64(3, 0x5584c0b38070 /* 0 entries */, 32768) = 0
+close(3)                                = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/ADT/RCS", 0x7fff054a3be0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/ADT/SCCS", 0x7fff054a3be0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/ADT/DenseMapInfo.h", {st_mode=S_IFREG|0644, st_size=9711, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/ADT/STLFunctionalExtras.h", {st_mode=S_IFREG|0644, st_size=2706, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/ADT/STLForwardCompat.h", {st_mode=S_IFREG|0644, st_size=2770, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/ADT/iterator_range.h", {st_mode=S_IFREG|0644, st_size=2252, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/Support/Compiler.h", {st_mode=S_IFREG|0644, st_size=20339, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/Support", {st_mode=S_IFDIR|0755, st_size=28672, ...}, 0) = 0
+openat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/Support", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3
+newfstatat(3, "", {st_mode=S_IFDIR|0755, st_size=28672, ...}, AT_EMPTY_PATH) = 0
+getdents64(3, 0x5584c0b38070 /* 195 entries */, 32768) = 7312
+getdents64(3, 0x5584c0b38070 /* 0 entries */, 32768) = 0
+close(3)                                = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/Support/RCS", 0x7fff054a3bd0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/Support/SCCS", 0x7fff054a3bd0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/Config/llvm-config.h", {st_mode=S_IFREG|0644, st_size=3975, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/Config", {st_mode=S_IFDIR|0755, st_size=4096, ...}, 0) = 0
+openat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/Config", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3
+newfstatat(3, "", {st_mode=S_IFDIR|0755, st_size=4096, ...}, AT_EMPTY_PATH) = 0
+getdents64(3, 0x5584c0b38070 /* 9 entries */, 32768) = 320
+getdents64(3, 0x5584c0b38070 /* 0 entries */, 32768) = 0
+close(3)                                = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/Config/RCS", 0x7fff054a3bc0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/Config/SCCS", 0x7fff054a3bc0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/MC/MCDirectives.h", {st_mode=S_IFREG|0644, st_size=3198, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/MC/MCTargetOptions.h", {st_mode=S_IFREG|0644, st_size=2407, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/ADT/ArrayRef.h", {st_mode=S_IFREG|0644, st_size=20066, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/ADT/Hashing.h", {st_mode=S_IFREG|0644, st_size=26896, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/Support/DataTypes.h", {st_mode=S_IFREG|0644, st_size=878, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm-c/DataTypes.h", {st_mode=S_IFREG|0644, st_size=2956, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm-c", {st_mode=S_IFDIR|0755, st_size=4096, ...}, 0) = 0
+openat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm-c", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3
+newfstatat(3, "", {st_mode=S_IFDIR|0755, st_size=4096, ...}, AT_EMPTY_PATH) = 0
+getdents64(3, 0x5584c0b38070 /* 30 entries */, 32768) = 992
+getdents64(3, 0x5584c0b38070 /* 0 entries */, 32768) = 0
+close(3)                                = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm-c/RCS", 0x7fff054a3be0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm-c/SCCS", 0x7fff054a3be0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/Support/ErrorHandling.h", {st_mode=S_IFREG|0644, st_size=6371, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/Support/SwapByteOrder.h", {st_mode=S_IFREG|0644, st_size=4942, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/Support/type_traits.h", {st_mode=S_IFREG|0644, st_size=6912, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/ADT/None.h", {st_mode=S_IFREG|0644, st_size=998, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/ADT/SmallVector.h", {st_mode=S_IFREG|0644, st_size=45824, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/ADT/STLExtras.h", {st_mode=S_IFREG|0644, st_size=79356, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/ADT/Optional.h", {st_mode=S_IFREG|0644, st_size=13242, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/ADT/STLArrayExtras.h", {st_mode=S_IFREG|0644, st_size=1108, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/ADT/identity.h", {st_mode=S_IFREG|0644, st_size=909, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/ADT/iterator.h", {st_mode=S_IFREG|0644, st_size=13977, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/Config/abi-breaking.h", {st_mode=S_IFREG|0644, st_size=2512, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/MC/MCContext.h", {st_mode=S_IFREG|0644, st_size=36182, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/ADT/DenseMap.h", {st_mode=S_IFREG|0644, st_size=44115, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/ADT/EpochTracker.h", {st_mode=S_IFREG|0644, st_size=3292, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/Support/AlignOf.h", {st_mode=S_IFREG|0644, st_size=1199, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/Support/MathExtras.h", {st_mode=S_IFREG|0644, st_size=33594, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/Support/MemAlloc.h", {st_mode=S_IFREG|0644, st_size=3291, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/Support/ReverseIteration.h", {st_mode=S_IFREG|0644, st_size=360, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/Support/PointerLikeTypeTraits.h", {st_mode=S_IFREG|0644, st_size=5822, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/ADT/SetVector.h", {st_mode=S_IFREG|0644, st_size=9755, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/ADT/DenseSet.h", {st_mode=S_IFREG|0644, st_size=9823, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/ADT/SmallString.h", {st_mode=S_IFREG|0644, st_size=8646, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/ADT/StringMap.h", {st_mode=S_IFREG|0644, st_size=16733, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/ADT/StringMapEntry.h", {st_mode=S_IFREG|0644, st_size=5664, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/Support/AllocatorBase.h", {st_mode=S_IFREG|0644, st_size=3990, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/ADT/Twine.h", {st_mode=S_IFREG|0644, st_size=18781, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/BinaryFormat/Dwarf.h", {st_mode=S_IFREG|0644, st_size=24355, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/BinaryFormat", {st_mode=S_IFDIR|0755, st_size=4096, ...}, 0) = 0
+openat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/BinaryFormat", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3
+newfstatat(3, "", {st_mode=S_IFDIR|0755, st_size=4096, ...}, AT_EMPTY_PATH) = 0
+getdents64(3, 0x5584c0c20850 /* 25 entries */, 32768) = 856
+getdents64(3, 0x5584c0c20850 /* 0 entries */, 32768) = 0
+close(3)                                = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/BinaryFormat/RCS", 0x7fff054a3bb0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/BinaryFormat/SCCS", 0x7fff054a3bb0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/Support/Format.h", {st_mode=S_IFREG|0644, st_size=9678, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/Support/FormatVariadicDetails.h", {st_mode=S_IFREG|0644, st_size=5458, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/Support/raw_ostream.h", {st_mode=S_IFREG|0644, st_size=26490, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/ADT/Triple.h", {st_mode=S_IFREG|0644, st_size=31114, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/Support/VersionTuple.h", {st_mode=S_IFREG|0644, st_size=6838, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/Support/HashBuilder.h", {st_mode=S_IFREG|0644, st_size=15608, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/Support/Endian.h", {st_mode=S_IFREG|0644, st_size=14627, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/BinaryFormat/Dwarf.def", {st_mode=S_IFREG|0644, st_size=48519, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/BinaryFormat/ELF.h", {st_mode=S_IFREG|0644, st_size=65502, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/BinaryFormat/ELFRelocs/x86_64.def", {st_mode=S_IFREG|0644, st_size=1507, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/BinaryFormat/ELFRelocs", {st_mode=S_IFDIR|0755, st_size=4096, ...}, 0) = 0
+openat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/BinaryFormat/ELFRelocs", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3
+newfstatat(3, "", {st_mode=S_IFDIR|0755, st_size=4096, ...}, AT_EMPTY_PATH) = 0
+getdents64(3, 0x5584c0c20850 /* 22 entries */, 32768) = 696
+getdents64(3, 0x5584c0c20850 /* 0 entries */, 32768) = 0
+close(3)                                = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/BinaryFormat/ELFRelocs/RCS", 0x7fff054a3ba0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/BinaryFormat/ELFRelocs/SCCS", 0x7fff054a3ba0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/BinaryFormat/ELFRelocs/i386.def", {st_mode=S_IFREG|0644, st_size=1559, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/BinaryFormat/ELFRelocs/PowerPC.def", {st_mode=S_IFREG|0644, st_size=5220, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/BinaryFormat/ELFRelocs/PowerPC64.def", {st_mode=S_IFREG|0644, st_size=7529, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/BinaryFormat/ELFRelocs/AArch64.def", {st_mode=S_IFREG|0644, st_size=13131, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/BinaryFormat/ELFRelocs/ARM.def", {st_mode=S_IFREG|0644, st_size=6297, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/BinaryFormat/ELFRelocs/ARC.def", {st_mode=S_IFREG|0644, st_size=2960, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/BinaryFormat/ELFRelocs/AVR.def", {st_mode=S_IFREG|0644, st_size=1574, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/BinaryFormat/ELFRelocs/Mips.def", {st_mode=S_IFREG|0644, st_size=4747, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/BinaryFormat/ELFRelocs/Hexagon.def", {st_mode=S_IFREG|0644, st_size=4169, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/BinaryFormat/ELFRelocs/Lanai.def", {st_mode=S_IFREG|0644, st_size=542, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/BinaryFormat/ELFRelocs/RISCV.def", {st_mode=S_IFREG|0644, st_size=2153, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/BinaryFormat/ELFRelocs/SystemZ.def", {st_mode=S_IFREG|0644, st_size=2306, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/BinaryFormat/ELFRelocs/Sparc.def", {st_mode=S_IFREG|0644, st_size=3140, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/BinaryFormat/ELFRelocs/AMDGPU.def", {st_mode=S_IFREG|0644, st_size=593, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/BinaryFormat/ELFRelocs/BPF.def", {st_mode=S_IFREG|0644, st_size=270, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/BinaryFormat/ELFRelocs/M68k.def", {st_mode=S_IFREG|0644, st_size=2281, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/BinaryFormat/ELFRelocs/MSP430.def", {st_mode=S_IFREG|0644, st_size=525, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/BinaryFormat/ELFRelocs/VE.def", {st_mode=S_IFREG|0644, st_size=1494, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/BinaryFormat/ELFRelocs/CSKY.def", {st_mode=S_IFREG|0644, st_size=3581, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/BinaryFormat/DynamicTags.def", {st_mode=S_IFREG|0644, st_size=13687, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/BinaryFormat/XCOFF.h", {st_mode=S_IFREG|0644, st_size=18185, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/MC/MCAsmMacro.h", {st_mode=S_IFREG|0644, st_size=4927, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/ADT/APInt.h", {st_mode=S_IFREG|0644, st_size=77348, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/Support/Debug.h", {st_mode=S_IFREG|0644, st_size=4331, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/Support/SMLoc.h", {st_mode=S_IFREG|0644, st_size=1821, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/MC/MCDwarf.h", {st_mode=S_IFREG|0644, st_size=23833, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/ADT/MapVector.h", {st_mode=S_IFREG|0644, st_size=7999, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/MC/MCSection.h", {st_mode=S_IFREG|0644, st_size=6709, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/ADT/ilist.h", {st_mode=S_IFREG|0644, st_size=14041, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/ADT/simple_ilist.h", {st_mode=S_IFREG|0644, st_size=11025, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/ADT/ilist_base.h", {st_mode=S_IFREG|0644, st_size=2781, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/ADT/ilist_node_base.h", {st_mode=S_IFREG|0644, st_size=1741, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/ADT/PointerIntPair.h", {st_mode=S_IFREG|0644, st_size=8962, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/ADT/ilist_iterator.h", {st_mode=S_IFREG|0644, st_size=7386, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/ADT/ilist_node.h", {st_mode=S_IFREG|0644, st_size=10095, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/ADT/ilist_node_options.h", {st_mode=S_IFREG|0644, st_size=5187, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/MC/MCFragment.h", {st_mode=S_IFREG|0644, st_size=20551, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/MC/MCFixup.h", {st_mode=S_IFREG|0644, st_size=5453, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/MC/MCInst.h", {st_mode=S_IFREG|0644, st_size=7112, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/ADT/bit.h", {st_mode=S_IFREG|0644, st_size=2328, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/Support/Alignment.h", {st_mode=S_IFREG|0644, st_size=12777, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/Support/Casting.h", {st_mode=S_IFREG|0644, st_size=14249, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/MC/SectionKind.h", {st_mode=S_IFREG|0644, st_size=8007, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/MC/StringTableBuilder.h", {st_mode=S_IFREG|0644, st_size=2601, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/ADT/CachedHashString.h", {st_mode=S_IFREG|0644, st_size=6055, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/Support/Error.h", {st_mode=S_IFREG|0644, st_size=46210, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm-c/Error.h", {st_mode=S_IFREG|0644, st_size=2531, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm-c/ExternC.h", {st_mode=S_IFREG|0644, st_size=1945, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/ADT/StringExtras.h", {st_mode=S_IFREG|0644, st_size=20163, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/ADT/APSInt.h", {st_mode=S_IFREG|0644, st_size=12427, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/Support/ErrorOr.h", {st_mode=S_IFREG|0644, st_size=7647, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/Support/MD5.h", {st_mode=S_IFREG|0644, st_size=3920, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/MC/MCPseudoProbe.h", {st_mode=S_IFREG|0644, st_size=14538, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/IR/PseudoProbe.h", {st_mode=S_IFREG|0644, st_size=2951, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/IR", {st_mode=S_IFDIR|0755, st_size=20480, ...}, 0) = 0
+openat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/IR", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3
+newfstatat(3, "", {st_mode=S_IFDIR|0755, st_size=20480, ...}, AT_EMPTY_PATH) = 0
+getdents64(3, 0x5584c0c20850 /* 139 entries */, 32768) = 5328
+getdents64(3, 0x5584c0c20850 /* 0 entries */, 32768) = 0
+close(3)                                = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/IR/RCS", 0x7fff054a3be0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/IR/SCCS", 0x7fff054a3be0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/MC/MCSubtargetInfo.h", {st_mode=S_IFREG|0644, st_size=10735, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/MC/MCInstrItineraries.h", {st_mode=S_IFREG|0644, st_size=9239, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/MC/MCSchedule.h", {st_mode=S_IFREG|0644, st_size=16631, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/MC/SubtargetFeature.h", {st_mode=S_IFREG|0644, st_size=7321, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/Support/Allocator.h", {st_mode=S_IFREG|0644, st_size=16934, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/MC/MCDisassembler/MCDisassembler.h", {st_mode=S_IFREG|0644, st_size=7838, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/MC/MCDisassembler", {st_mode=S_IFDIR|0755, st_size=4096, ...}, 0) = 0
+openat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/MC/MCDisassembler", O_RDONLY|O_NONBLOCK|O_CLOEXEC|O_DIRECTORY) = 3
+newfstatat(3, "", {st_mode=S_IFDIR|0755, st_size=4096, ...}, AT_EMPTY_PATH) = 0
+brk(0x5584c0c52000)                     = 0x5584c0c52000
+getdents64(3, 0x5584c0c290a0 /* 6 entries */, 32768) = 216
+getdents64(3, 0x5584c0c290a0 /* 0 entries */, 32768) = 0
+brk(0x5584c0c4a000)                     = 0x5584c0c4a000
+close(3)                                = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/MC/MCDisassembler/RCS", 0x7fff054a3bb0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/MC/MCDisassembler/SCCS", 0x7fff054a3bb0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/MC/MCDisassembler/MCSymbolizer.h", {st_mode=S_IFREG|0644, st_size=4235, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/MC/MCDisassembler/MCRelocationInfo.h", {st_mode=S_IFREG|0644, st_size=1599, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/MC/MCInstPrinter.h", {st_mode=S_IFREG|0644, st_size=6660, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/MC/TargetRegistry.h", {st_mode=S_IFREG|0644, st_size=54852, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm-c/DisassemblerTypes.h", {st_mode=S_IFREG|0644, st_size=7835, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/MC/MCObjectFileInfo.h", {st_mode=S_IFREG|0644, st_size=18677, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/BinaryFormat/Swift.h", {st_mode=S_IFREG|0644, st_size=663, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/BinaryFormat/Swift.def", {st_mode=S_IFREG|0644, st_size=1177, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/MC/MCSymbol.h", {st_mode=S_IFREG|0644, st_size=14284, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/MC/MCExpr.h", {st_mode=S_IFREG|0644, st_size=22167, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/Support/CodeGen.h", {st_mode=S_IFREG|0644, st_size=1987, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/Support/FormattedStream.h", {st_mode=S_IFREG|0644, st_size=6574, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/Support/TargetSelect.h", {st_mode=S_IFREG|0644, st_size=6858, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/Config/Targets.def", {st_mode=S_IFREG|0644, st_size=2091, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/Config/AsmPrinters.def", {st_mode=S_IFREG|0644, st_size=2282, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/Config/AsmParsers.def", {st_mode=S_IFREG|0644, st_size=2214, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/Config/Disassemblers.def", {st_mode=S_IFREG|0644, st_size=2279, ...}, 0) = 0
+newfstatat(AT_FDCWD, "/usr/lib/llvm-14/include/llvm/Config/TargetMCAs.def", {st_mode=S_IFREG|0644, st_size=1838, ...}, 0) = 0
+newfstatat(AT_FDCWD, "compile_git", 0x7fff054a2fa0, 0) = -1 ENOENT (No such file or directory)
+rt_sigprocmask(SIG_BLOCK, [HUP INT QUIT TERM XCPU XFSZ], NULL, 8) = 0
+newfstatat(AT_FDCWD, "/home/pc/.cargo/bin/git", 0x7fff054a4b30, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/Qt-5.15.9/bin/git", 0x7fff054a4b30, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/pc/.local/bin/git", 0x7fff054a4b30, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/sbin/git", 0x7fff054a4b30, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/bin/git", 0x7fff054a4b30, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/sbin/git", 0x7fff054a4b30, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/bin/git", {st_mode=S_IFREG|0755, st_size=3702168, ...}, 0) = 0
+geteuid()                               = 1000
+getegid()                               = 1000
+getuid()                                = 1000
+getgid()                                = 1000
+access("/usr/bin/git", X_OK)            = 0
+mmap(NULL, 36864, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS|MAP_STACK, -1, 0) = 0x7f355958c000
+rt_sigprocmask(SIG_BLOCK, ~[], [HUP INT QUIT TERM CHLD XCPU XFSZ], 8) = 0
+clone3({flags=CLONE_VM|CLONE_VFORK, exit_signal=SIGCHLD, stack=0x7f355958c000, stack_size=0x9000}, 88) = 3094861
+munmap(0x7f355958c000, 36864)           = 0
+rt_sigprocmask(SIG_SETMASK, [HUP INT QUIT TERM CHLD XCPU XFSZ], NULL, 8) = 0
+rt_sigprocmask(SIG_UNBLOCK, [HUP INT QUIT TERM XCPU XFSZ], NULL, 8) = 0
+wait4(-1, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 3094861
+rt_sigprocmask(SIG_BLOCK, [HUP INT QUIT TERM XCPU XFSZ], NULL, 8) = 0
+newfstatat(AT_FDCWD, "/bin/sh", {st_mode=S_IFREG|0755, st_size=1396520, ...}, 0) = 0
+geteuid()                               = 1000
+getegid()                               = 1000
+getuid()                                = 1000
+getgid()                                = 1000
+access("/bin/sh", X_OK)                 = 0
+mmap(NULL, 36864, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS|MAP_STACK, -1, 0) = 0x7f355958c000
+rt_sigprocmask(SIG_BLOCK, ~[], [HUP INT QUIT TERM CHLD XCPU XFSZ], 8) = 0
+clone3({flags=CLONE_VM|CLONE_VFORK, exit_signal=SIGCHLD, stack=0x7f355958c000, stack_size=0x9000}, 88) = 3094862
+munmap(0x7f355958c000, 36864)           = 0
+rt_sigprocmask(SIG_SETMASK, [HUP INT QUIT TERM CHLD XCPU XFSZ], NULL, 8) = 0
+rt_sigprocmask(SIG_UNBLOCK, [HUP INT QUIT TERM XCPU XFSZ], NULL, 8) = 0
+wait4(-1, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 3094862
+rt_sigprocmask(SIG_BLOCK, [HUP INT QUIT TERM XCPU XFSZ], NULL, 8) = 0
+newfstatat(AT_FDCWD, "/bin/sh", {st_mode=S_IFREG|0755, st_size=1396520, ...}, 0) = 0
+geteuid()                               = 1000
+getegid()                               = 1000
+getuid()                                = 1000
+getgid()                                = 1000
+access("/bin/sh", X_OK)                 = 0
+mmap(NULL, 36864, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS|MAP_STACK, -1, 0) = 0x7f355958c000
+rt_sigprocmask(SIG_BLOCK, ~[], [HUP INT QUIT TERM CHLD XCPU XFSZ], 8) = 0
+clone3({flags=CLONE_VM|CLONE_VFORK, exit_signal=SIGCHLD, stack=0x7f355958c000, stack_size=0x9000}, 88) = 3094864
+munmap(0x7f355958c000, 36864)           = 0
+rt_sigprocmask(SIG_SETMASK, [HUP INT QUIT TERM CHLD XCPU XFSZ], NULL, 8) = 0
+rt_sigprocmask(SIG_UNBLOCK, [HUP INT QUIT TERM XCPU XFSZ], NULL, 8) = 0
+wait4(-1, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 3094864
+rt_sigprocmask(SIG_BLOCK, [HUP INT QUIT TERM XCPU XFSZ], NULL, 8) = 0
+newfstatat(AT_FDCWD, "/home/pc/.cargo/bin/sync", 0x7fff054a4ad0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/Qt-5.15.9/bin/sync", 0x7fff054a4ad0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/pc/.local/bin/sync", 0x7fff054a4ad0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/sbin/sync", 0x7fff054a4ad0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/bin/sync", 0x7fff054a4ad0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/sbin/sync", 0x7fff054a4ad0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/bin/sync", {st_mode=S_IFREG|0755, st_size=35232, ...}, 0) = 0
+geteuid()                               = 1000
+getegid()                               = 1000
+getuid()                                = 1000
+getgid()                                = 1000
+access("/usr/bin/sync", X_OK)           = 0
+mmap(NULL, 36864, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS|MAP_STACK, -1, 0) = 0x7f355958c000
+rt_sigprocmask(SIG_BLOCK, ~[], [HUP INT QUIT TERM CHLD XCPU XFSZ], 8) = 0
+clone3({flags=CLONE_VM|CLONE_VFORK, exit_signal=SIGCHLD, stack=0x7f355958c000, stack_size=0x9000}, 88) = 3094870
+munmap(0x7f355958c000, 36864)           = 0
+rt_sigprocmask(SIG_SETMASK, [HUP INT QUIT TERM CHLD XCPU XFSZ], NULL, 8) = 0
+rt_sigprocmask(SIG_UNBLOCK, [HUP INT QUIT TERM XCPU XFSZ], NULL, 8) = 0
+wait4(-1, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 3094870
+rt_sigprocmask(SIG_BLOCK, [HUP INT QUIT TERM XCPU XFSZ], NULL, 8) = 0
+rt_sigprocmask(SIG_UNBLOCK, [HUP INT QUIT TERM XCPU XFSZ], NULL, 8) = 0
+newfstatat(AT_FDCWD, "compile_git", 0x7fff054a2f20, 0) = -1 ENOENT (No such file or directory)
+pipe2([3, 4], 0)                        = 0
+fcntl(4, F_GETFD)                       = 0
+fcntl(4, F_SETFD, FD_CLOEXEC)           = 0
+fcntl(3, F_GETFD)                       = 0
+fcntl(3, F_SETFD, FD_CLOEXEC)           = 0
+prlimit64(0, RLIMIT_NOFILE, NULL, {rlim_cur=1024, rlim_max=1024*1024}) = 0
+prlimit64(0, RLIMIT_NOFILE, NULL, {rlim_cur=1024, rlim_max=1024*1024}) = 0
+newfstatat(AT_FDCWD, "/home/pc/.cargo/bin/pwd", 0x7fff054a4610, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/Qt-5.15.9/bin/pwd", 0x7fff054a4610, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/pc/.local/bin/pwd", 0x7fff054a4610, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/sbin/pwd", 0x7fff054a4610, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/bin/pwd", 0x7fff054a4610, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/sbin/pwd", 0x7fff054a4610, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/bin/pwd", {st_mode=S_IFREG|0755, st_size=35328, ...}, 0) = 0
+geteuid()                               = 1000
+getegid()                               = 1000
+getuid()                                = 1000
+getgid()                                = 1000
+access("/usr/bin/pwd", X_OK)            = 0
+mmap(NULL, 36864, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS|MAP_STACK, -1, 0) = 0x7f355958c000
+rt_sigprocmask(SIG_BLOCK, ~[], [CHLD], 8) = 0
+clone3({flags=CLONE_VM|CLONE_VFORK, exit_signal=SIGCHLD, stack=0x7f355958c000, stack_size=0x9000}, 88) = 3094871
+munmap(0x7f355958c000, 36864)           = 0
+rt_sigprocmask(SIG_SETMASK, [CHLD], NULL, 8) = 0
+close(4)                                = 0
+read(3, "/home/pc/Learning/02.IT/5.ICS/ic"..., 200) = 43
+read(3, "", 157)                        = 0
+close(3)                                = 0
+wait4(-1, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 3094871
+pipe2([3, 4], 0)                        = 0
+fcntl(4, F_GETFD)                       = 0
+fcntl(4, F_SETFD, FD_CLOEXEC)           = 0
+fcntl(3, F_GETFD)                       = 0
+fcntl(3, F_SETFD, FD_CLOEXEC)           = 0
+prlimit64(0, RLIMIT_NOFILE, NULL, {rlim_cur=1024, rlim_max=1024*1024}) = 0
+prlimit64(0, RLIMIT_NOFILE, NULL, {rlim_cur=1024, rlim_max=1024*1024}) = 0
+newfstatat(AT_FDCWD, "/bin/sh", {st_mode=S_IFREG|0755, st_size=1396520, ...}, 0) = 0
+geteuid()                               = 1000
+getegid()                               = 1000
+getuid()                                = 1000
+getgid()                                = 1000
+access("/bin/sh", X_OK)                 = 0
+mmap(NULL, 36864, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS|MAP_STACK, -1, 0) = 0x7f355958c000
+rt_sigprocmask(SIG_BLOCK, ~[], [CHLD], 8) = 0
+clone3({flags=CLONE_VM|CLONE_VFORK, exit_signal=SIGCHLD, stack=0x7f355958c000, stack_size=0x9000}, 88) = 3094872
+munmap(0x7f355958c000, 36864)           = 0
+rt_sigprocmask(SIG_SETMASK, [CHLD], NULL, 8) = 0
+close(4)                                = 0
+read(3, "./resource/sdcard/nemu.c\n./src/m"..., 200) = 200
+read(3, "ate.c\n./src/device/keyboard.c\n./"..., 512) = 512
+read(3, "\n./src/isa/riscv64/inst.c\n./src/"..., 512) = 512
+read(3, "reg.c\n./src/isa/riscv32/difftest"..., 512) = 512
+read(3, "lxdialog/inputbox.c\n./tools/kcon"..., 512) = 441
+read(3, "", 71)                         = 0
+close(3)                                = 0
+wait4(-1, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 3094872
+pipe2([3, 4], 0)                        = 0
+fcntl(4, F_GETFD)                       = 0
+fcntl(4, F_SETFD, FD_CLOEXEC)           = 0
+fcntl(3, F_GETFD)                       = 0
+fcntl(3, F_SETFD, FD_CLOEXEC)           = 0
+prlimit64(0, RLIMIT_NOFILE, NULL, {rlim_cur=1024, rlim_max=1024*1024}) = 0
+prlimit64(0, RLIMIT_NOFILE, NULL, {rlim_cur=1024, rlim_max=1024*1024}) = 0
+newfstatat(AT_FDCWD, "/bin/sh", {st_mode=S_IFREG|0755, st_size=1396520, ...}, 0) = 0
+geteuid()                               = 1000
+getegid()                               = 1000
+getuid()                                = 1000
+getgid()                                = 1000
+access("/bin/sh", X_OK)                 = 0
+mmap(NULL, 36864, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS|MAP_STACK, -1, 0) = 0x7f355958c000
+rt_sigprocmask(SIG_BLOCK, ~[], [CHLD], 8) = 0
+clone3({flags=CLONE_VM|CLONE_VFORK, exit_signal=SIGCHLD, stack=0x7f355958c000, stack_size=0x9000}, 88) = 3094873
+munmap(0x7f355958c000, 36864)           = 0
+rt_sigprocmask(SIG_SETMASK, [CHLD], NULL, 8) = 0
+close(4)                                = 0
+read(3, "src/device/io/map.c\nsrc/device/i"..., 200) = 200
+read(3, "r.c\nsrc/monitor/monitor.c\nsrc/ut"..., 512) = 378
+read(3, "", 134)                        = 0
+close(3)                                = 0
+wait4(-1, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 3094873
+pipe2([3, 4], 0)                        = 0
+fcntl(4, F_GETFD)                       = 0
+fcntl(4, F_SETFD, FD_CLOEXEC)           = 0
+fcntl(3, F_GETFD)                       = 0
+fcntl(3, F_SETFD, FD_CLOEXEC)           = 0
+prlimit64(0, RLIMIT_NOFILE, NULL, {rlim_cur=1024, rlim_max=1024*1024}) = 0
+prlimit64(0, RLIMIT_NOFILE, NULL, {rlim_cur=1024, rlim_max=1024*1024}) = 0
+newfstatat(AT_FDCWD, "/home/pc/.cargo/bin/pwd", 0x7fff054a4590, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/Qt-5.15.9/bin/pwd", 0x7fff054a4590, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/pc/.local/bin/pwd", 0x7fff054a4590, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/sbin/pwd", 0x7fff054a4590, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/bin/pwd", 0x7fff054a4590, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/sbin/pwd", 0x7fff054a4590, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/bin/pwd", {st_mode=S_IFREG|0755, st_size=35328, ...}, 0) = 0
+geteuid()                               = 1000
+getegid()                               = 1000
+getuid()                                = 1000
+getgid()                                = 1000
+access("/usr/bin/pwd", X_OK)            = 0
+mmap(NULL, 36864, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS|MAP_STACK, -1, 0) = 0x7f355958c000
+rt_sigprocmask(SIG_BLOCK, ~[], [CHLD], 8) = 0
+clone3({flags=CLONE_VM|CLONE_VFORK, exit_signal=SIGCHLD, stack=0x7f355958c000, stack_size=0x9000}, 88) = 3094874
+munmap(0x7f355958c000, 36864)           = 0
+rt_sigprocmask(SIG_SETMASK, [CHLD], NULL, 8) = 0
+close(4)                                = 0
+read(3, "/home/pc/Learning/02.IT/5.ICS/ic"..., 200) = 43
+read(3, "", 157)                        = 0
+close(3)                                = 0
+wait4(-1, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 3094874
+pipe2([3, 4], 0)                        = 0
+fcntl(4, F_GETFD)                       = 0
+fcntl(4, F_SETFD, FD_CLOEXEC)           = 0
+fcntl(3, F_GETFD)                       = 0
+fcntl(3, F_SETFD, FD_CLOEXEC)           = 0
+prlimit64(0, RLIMIT_NOFILE, NULL, {rlim_cur=1024, rlim_max=1024*1024}) = 0
+prlimit64(0, RLIMIT_NOFILE, NULL, {rlim_cur=1024, rlim_max=1024*1024}) = 0
+newfstatat(AT_FDCWD, "/home/pc/.cargo/bin/llvm-config", 0x7fff054a4a50, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/Qt-5.15.9/bin/llvm-config", 0x7fff054a4a50, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/pc/.local/bin/llvm-config", 0x7fff054a4a50, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/sbin/llvm-config", 0x7fff054a4a50, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/bin/llvm-config", 0x7fff054a4a50, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/sbin/llvm-config", 0x7fff054a4a50, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/bin/llvm-config", {st_mode=S_IFREG|0755, st_size=451176, ...}, 0) = 0
+geteuid()                               = 1000
+getegid()                               = 1000
+getuid()                                = 1000
+getgid()                                = 1000
+access("/usr/bin/llvm-config", X_OK)    = 0
+mmap(NULL, 36864, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS|MAP_STACK, -1, 0) = 0x7f355958c000
+rt_sigprocmask(SIG_BLOCK, ~[], [CHLD], 8) = 0
+clone3({flags=CLONE_VM|CLONE_VFORK, exit_signal=SIGCHLD, stack=0x7f355958c000, stack_size=0x9000}, 88) = 3094875
+munmap(0x7f355958c000, 36864)           = 0
+rt_sigprocmask(SIG_SETMASK, [CHLD], NULL, 8) = 0
+close(4)                                = 0
+read(3, "-lLLVM-14\n", 200)             = 10
+read(3, "", 190)                        = 0
+close(3)                                = 0
+wait4(-1, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 3094875
+rt_sigprocmask(SIG_BLOCK, [HUP INT QUIT TERM XCPU XFSZ], NULL, 8) = 0
+newfstatat(AT_FDCWD, "/home/pc/.cargo/bin/echo", 0x7fff054a4c50, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/Qt-5.15.9/bin/echo", 0x7fff054a4c50, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/pc/.local/bin/echo", 0x7fff054a4c50, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/sbin/echo", 0x7fff054a4c50, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/bin/echo", 0x7fff054a4c50, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/sbin/echo", 0x7fff054a4c50, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/bin/echo", {st_mode=S_IFREG|0755, st_size=35120, ...}, 0) = 0
+geteuid()                               = 1000
+getegid()                               = 1000
+getuid()                                = 1000
+getgid()                                = 1000
+access("/usr/bin/echo", X_OK)           = 0
+mmap(NULL, 36864, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS|MAP_STACK, -1, 0) = 0x7f355958c000
+rt_sigprocmask(SIG_BLOCK, ~[], [HUP INT QUIT TERM CHLD XCPU XFSZ], 8) = 0
+clone3({flags=CLONE_VM|CLONE_VFORK, exit_signal=SIGCHLD, stack=0x7f355958c000, stack_size=0x9000}, 88) = 3094876
+munmap(0x7f355958c000, 36864)           = 0
+rt_sigprocmask(SIG_SETMASK, [HUP INT QUIT TERM CHLD XCPU XFSZ], NULL, 8) = 0
+rt_sigprocmask(SIG_UNBLOCK, [HUP INT QUIT TERM XCPU XFSZ], NULL, 8) = 0
+wait4(-1, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 3094876
+rt_sigprocmask(SIG_BLOCK, [HUP INT QUIT TERM XCPU XFSZ], NULL, 8) = 0
+newfstatat(AT_FDCWD, "/home/pc/.cargo/bin/g++", 0x7fff054a4bf0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/Qt-5.15.9/bin/g++", 0x7fff054a4bf0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/pc/.local/bin/g++", 0x7fff054a4bf0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/sbin/g++", 0x7fff054a4bf0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/local/bin/g++", 0x7fff054a4bf0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/sbin/g++", 0x7fff054a4bf0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/usr/bin/g++", {st_mode=S_IFREG|0755, st_size=932680, ...}, 0) = 0
+geteuid()                               = 1000
+getegid()                               = 1000
+getuid()                                = 1000
+getgid()                                = 1000
+access("/usr/bin/g++", X_OK)            = 0
+mmap(NULL, 36864, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS|MAP_STACK, -1, 0) = 0x7f355958c000
+rt_sigprocmask(SIG_BLOCK, ~[], [HUP INT QUIT TERM CHLD XCPU XFSZ], 8) = 0
+clone3({flags=CLONE_VM|CLONE_VFORK, exit_signal=SIGCHLD, stack=0x7f355958c000, stack_size=0x9000}, 88) = 3094877
+munmap(0x7f355958c000, 36864)           = 0
+rt_sigprocmask(SIG_SETMASK, [HUP INT QUIT TERM CHLD XCPU XFSZ], NULL, 8) = 0
+rt_sigprocmask(SIG_UNBLOCK, [HUP INT QUIT TERM XCPU XFSZ], NULL, 8) = 0
+wait4(-1, [{WIFEXITED(s) && WEXITSTATUS(s) == 0}], 0, NULL) = 3094877
+rt_sigprocmask(SIG_BLOCK, [HUP INT QUIT TERM XCPU XFSZ], NULL, 8) = 0
+rt_sigprocmask(SIG_UNBLOCK, [HUP INT QUIT TERM XCPU XFSZ], NULL, 8) = 0
+newfstatat(AT_FDCWD, "/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/riscv32-nemu-interpreter", {st_mode=S_IFREG|0775, st_size=66608, ...}, 0) = 0
+chdir("/home/pc/Learning/02.IT/5.ICS/ics2023/nemu") = 0
+close(1)                                = 0
+exit_group(0)                           = ?
++++ exited with 0 +++

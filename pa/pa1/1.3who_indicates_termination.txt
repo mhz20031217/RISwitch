@@ -1,0 +1,7 @@
+The main function is called by `_start()`, which receives the return value and
+perform some clean up. When `main()` returns or `exit()` is called, the
+registered `atexit()` functions (the maximum number is at least 32) are called
+in the invert sequence that they are registered.
+
+I can prove that by using GDB, using `bt` and `step`.
+
