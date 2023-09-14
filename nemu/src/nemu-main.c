@@ -41,9 +41,11 @@ int test_eval() {
   char buf[1048576];
 
   while (fscanf(file, "%u %[^\n]", &ans, buf) != EOF) {
+    fprintf(stderr, "Calling eval() with argument:\n buf: %s", buf);
     res = expr(buf, &success);
     if (res != ans) {
       fprintf(stderr, "Eval answer error: res: %u, ans: %u\n", res, ans);
+      fflush(stderr);
       return 2;
     }
     buf[0] = '\0';
