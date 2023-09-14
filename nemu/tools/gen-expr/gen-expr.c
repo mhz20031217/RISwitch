@@ -106,7 +106,7 @@ int main(int argc, char *argv[]) {
     fputs(code_buf, fp);
     fclose(fp);
 
-    int ret = system("gcc -Wall -Werror /tmp/.code.c -o /tmp/.expr");
+    int ret = system("gcc -Werror /tmp/.code.c -o /tmp/.expr");
     if (ret != 0) {
       -- i;
       continue;
