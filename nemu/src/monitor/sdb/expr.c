@@ -355,14 +355,14 @@ static int64_t eval(Token tokens[], int length) {
       push_op(nop);
     }
 
-   for (int i = 0; i < pt_operator; ++i) {
-     fprintf(stderr, "%d ", st_operator[i]);
-   }
-   fprintf(stderr, "\n");
-   for (int i = 0; i < pt_operand; ++i) {
-     fprintf(stderr, "%ld ", st_operand[i]);
-   }
-   fprintf(stderr, "\n");
+  //  for (int i = 0; i < pt_operator; ++i) {
+  //    fprintf(stderr, "%d ", st_operator[i]);
+  //  }
+  //  fprintf(stderr, "\n");
+  //  for (int i = 0; i < pt_operand; ++i) {
+  //    fprintf(stderr, "%ld ", st_operand[i]);
+  //  }
+  //  fprintf(stderr, "\n");
   }
 
   while (!empty_op()) {
@@ -381,7 +381,7 @@ error:
   if (st_operator != NULL) free(st_operator);
   pt_operand = pt_operator = 0;
   errno = EINVAL;
-  // Error("syntax error near token number: %d", p);
+  Error("syntax error near token number: %d", p);
   return 0;
 }
 
@@ -397,7 +397,7 @@ error:
 #undef empty_val
 
 word_t expr(char *e, bool *success) {
-  memset(tokens, 0, sizeof(tokens));
+  memset(tokens, 0, sizeof(*tokens));
   // Log("evaluating expression: %s", e);
   if (!make_token(e)) {
     *success = false;
