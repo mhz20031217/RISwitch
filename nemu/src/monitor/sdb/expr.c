@@ -27,13 +27,25 @@
 
 
 typedef enum {
-  TK_NOTYPE = 256, TK_EQ, TK_NE,
-  TK_POS, TK_NEG,
-  TK_ADD, TK_MINUS, TK_MUL, TK_DIV,
+  TK_NOTYPE,
+  
+  TK_SPECIAL_START,
   TK_LPAR, TK_RPAR,
-  TK_AND, TK_OR, TK_DREF,
+  TK_SPECIAL_END,
 
-  TK_NUM, TK_HEX, TK_REG
+  TK_UNARY_OP_START,
+  TK_DREF, TK_POS, TK_NEG,
+  TK_UNARY_OP_END,
+
+  TK_BINARY_OP_START,
+  TK_EQ, TK_NE, 
+  TK_ADD, TK_MINUS, TK_MUL, TK_DIV,
+  TK_AND, TK_OR, 
+  TK_BINARY_OP_END,
+
+  TK_ATOM_START,
+  TK_NUM, TK_HEX, TK_REG,
+  TK_ATOM_END,
   /* TODO: Add more token types */
 
 } token_type;
@@ -256,17 +268,19 @@ static int64_t apply_binary(token_type op, int64_t a, int64_t b) {
 static void apply() {
   if (empty_op()) goto error;
   token_type op = peek_op(); pop_op();
-  if (op == TK_POS || op == TK_NEG || op == TK_DREF) {
+  if (TK_UNARY_OP_START < op && op < TK_UNARY_OP_END) {
     if (empty_val()) goto error;
     int64_t x = peek_val(); pop_val();
     push_val(apply_unary(op, x));
-  } else {
+  } else if (TK_BINARY_OP_START < op && op < TK_BINARY_OP_END){
     int64_t a, b;
     if (empty_val()) goto error;
     b = peek_val(); pop_val();
     if (empty_val()) goto error;
     a = peek_val(); pop_val();
     push_val(apply_binary(op, a, b));
+  } else {
+    goto error;
   }
   return;
 error:
@@ -352,7 +366,8 @@ static int64_t eval(Token tokens[], int length) {
     } else{
       Log("case 5");
       token_type nop = token->type;
-      while (!empty_op() && peek_op() != TK_LPAR && compare_operator_level(nop, peek_op()) >= 0) {
+      while (!empty_op() && peek_op() != TK_LPAR && compare_operator_level(nop, peek_op()) >= 0
+             && !(TK_UNARY_OP_START < nop && nop < TK_UNARY_OP_END && peek_op() == nop)) {
         apply();
         if (errno) goto error;
       }
@@ -408,7 +423,6 @@ word_t expr(char *e, bool *success) {
     Error("make_token failed.");
     return 0;
   }
-
   /* TODO: Insert codes to evaluate the expression. */
   int replace_count = 
     pos_neg_dref_patch(tokens, nr_token);
