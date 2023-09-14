@@ -168,10 +168,6 @@ static bool make_token(char *e) {
 static int binary_to_unary_patch(Token tokens[], int length, token_type a, token_type b) {
   if (length == 0) return 0;
   int count = 0;
-  if (tokens[0].type == a) {
-    tokens[0].type = b;
-    ++count;
-  }
   for (int i = 1; i < length; ++i) {
     if (tokens[i].type == a) {
       if (!(tokens[i - 1].type == TK_NUM || tokens[i - 1].type == TK_HEX 
@@ -180,6 +176,10 @@ static int binary_to_unary_patch(Token tokens[], int length, token_type a, token
         ++count;
       }
     }
+  }
+  if (tokens[0].type == a) {
+    tokens[0].type = b;
+    ++count;
   }
   return count;
 }
@@ -324,33 +324,33 @@ static int64_t eval(Token tokens[], int length) {
 
   for (p = 0; p < length; ++p) {
     Token *token = &tokens[p];
-    // Log("evaluating tokens[%d]: %d %s", p, token->type, token->str);
+    Log("evaluating tokens[%d]: %d %s", p, token->type, token->str);
 
     if (token->type == TK_NUM) {
-      // Log("case 1");
+      Log("case 1");
       push_val(strtoul(token->str, NULL, 10));
       if (errno) goto error;
     } else if (token->type == TK_HEX) {
       push_val(strtoul(token->str, NULL, 16));
       if (errno) goto error;
     } else if (token->type == TK_LPAR) {
-      // Log("case 2");
+      Log("case 2");
       push_op(TK_LPAR);
     } else if (token->type == TK_RPAR) {
-      // Log("case 3");
+      Log("case 3");
       while (!empty_op() && peek_op() != TK_LPAR) {
         apply();
         if (errno) goto error;
       }
       if (!empty_op()) pop_op();
     } else if (token->type == TK_REG) {
-      // Log("case 4");
+      Log("case 4");
       bool success = 0;
       word_t result = isa_reg_str2val(token->str, &success);
       if (!success) goto error;
       push_val(result);
     } else{
-      // Log("case 5");
+      Log("case 5");
       token_type nop = token->type;
       while (!empty_op() && peek_op() != TK_LPAR && compare_operator_level(nop, peek_op()) >= 0) {
         apply();
@@ -359,14 +359,14 @@ static int64_t eval(Token tokens[], int length) {
       push_op(nop);
     }
 
-  //  for (int i = 0; i < pt_operator; ++i) {
-  //    fprintf(stderr, "%d ", st_operator[i]);
-  //  }
-  //  fprintf(stderr, "\n");
-  //  for (int i = 0; i < pt_operand; ++i) {
-  //    fprintf(stderr, "%ld ", st_operand[i]);
-  //  }
-  //  fprintf(stderr, "\n");
+   for (int i = 0; i < pt_operator; ++i) {
+     fprintf(stderr, "%d ", st_operator[i]);
+   }
+   fprintf(stderr, "\n");
+   for (int i = 0; i < pt_operand; ++i) {
+     fprintf(stderr, "%ld ", st_operand[i]);
+   }
+   fprintf(stderr, "\n");
   }
 
   while (!empty_op()) {
@@ -402,7 +402,7 @@ error:
 
 word_t expr(char *e, bool *success) {
   memset(tokens, 0, sizeof(*tokens));
-  // Log("evaluating expression: %s", e);
+  Log("evaluating expression: %s", e);
   if (!make_token(e)) {
     *success = false;
     Error("make_token failed.");
@@ -410,13 +410,13 @@ word_t expr(char *e, bool *success) {
   }
 
   /* TODO: Insert codes to evaluate the expression. */
-  // int replace_count = 
+  int replace_count = 
     pos_neg_dref_patch(tokens, nr_token);
-  // Log("replaced %d TK_ADD (TK_MINUS) to TK_ADD (TK_NEG).", replace_count);
+  Log("replaced %d TK_ADD (TK_MINUS) to TK_ADD (TK_NEG).", replace_count);
 
-  // Log("tokenizing and patching done, now tokens:");
+  Log("tokenizing and patching done, now tokens:");
   for (int i = 0; i < nr_token; ++i) {
-    // Log("Token %d: %d %s", i, tokens[i].type, tokens[i].str);
+    Log("Token %d: %d %s", i, tokens[i].type, tokens[i].str);
   }
 
   errno = 0;
@@ -427,7 +427,7 @@ word_t expr(char *e, bool *success) {
     errno = 0;
     return 0;
   }
-  // Log("eval succeed. value: %ld, converted to %u", result, (word_t) result);
+  Log("eval succeed. value: %ld, converted to %u", result, (word_t) result);
   *success = true;
   return result;
 }
