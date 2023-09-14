@@ -53,7 +53,7 @@ int test_eval() {
   return 0;
 }
 
-struct {
+static struct {
   const char* name;
   int (*test_func)(void);
 } tests [] = {
