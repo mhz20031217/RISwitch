@@ -40,7 +40,7 @@ static void gen(char ch) {
 }
 
 static void gen_num() {
-  unsigned short num = rand();
+  unsigned int num = rand();
 
   if (num == 0) {
     buf[pt ++] = '0';
