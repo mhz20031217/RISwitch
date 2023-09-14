@@ -116,6 +116,7 @@ static bool make_token(char *e) {
         switch (rules[i].token_type) {
           case TK_REG:
             // excluding '$'
+            memset(tokens[nr_token].str, 0, sizeof(tokens[nr_token].str));
             strncpy(tokens[nr_token].str, substr_start + 1, substr_len - 1);
             tokens[nr_token].type = rules[i].token_type;
             nr_token++;
@@ -127,6 +128,7 @@ static bool make_token(char *e) {
             nr_token++;
             break;
           case TK_HEX:
+            memset(tokens[nr_token].str, 0, sizeof(tokens[nr_token].str));
             strncpy(tokens[nr_token].str, substr_start, substr_len);
             tokens[nr_token].type = rules[i].token_type;
             nr_token++;

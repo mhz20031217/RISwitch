@@ -63,7 +63,7 @@ static struct {
 int run_all_tests() {
   int number_of_tests = ARRLEN(tests);
 
-  int flag = 1;
+  int flag = 0;
   for (int i = 0; i < number_of_tests; i ++) {
     fprintf(stderr, "\nRunning test: #%d: %s\n", i, tests[i].name);
 
@@ -72,7 +72,7 @@ int run_all_tests() {
     fprintf(stderr, "\nTest #%d finished, ret: %d\n", i, ret);
     if (ret != 0) {
       fprintf(stderr, "Test failed!");
-      flag = 0;
+      flag = 1;
     }
   }
   return flag;
