@@ -39,6 +39,12 @@ static void gen(char ch) {
   buf[pt ++] = ch;
 }
 
+static void gen_blank(int count) {
+  while (count --) {
+    buf[pt ++] = ' ';
+  }
+}
+
 static void gen_num() {
   unsigned int num = rand();
 
@@ -79,11 +85,14 @@ static void gen_rand_expr(int depth) {
     return;
   }
   int choice = rand() % 3;
+  int nob1 = rand() % 5, nob2 = rand() % 5;
+  gen_blank(nob1);
   switch (choice) {
     case 0: gen_num(); break;
     case 1: gen('('); gen_rand_expr(depth + 1); gen(')'); break;
     default: gen_rand_expr(depth + 1); gen_rand_op(); gen_rand_expr(depth + 1); break;
   }
+  gen_blank(nob2);
 }
 
 int main(int argc, char *argv[]) {
