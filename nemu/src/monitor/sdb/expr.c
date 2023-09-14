@@ -46,7 +46,7 @@ static struct rule {
    * Pay attention to the precedence level of different rules.
    */
 
-  {" +", TK_NOTYPE},    // spaces
+  {"[ \t\n]+", TK_NOTYPE},    // spaces
   {"==", TK_EQ},        // equal
   {"\\+", TK_ADD},
   {"-", TK_MINUS},
