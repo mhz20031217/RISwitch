@@ -15,6 +15,7 @@
 
 #include "macro.h"
 #include <common.h>
+#include <stdbool.h>
 #include <stdio.h>
 
 void init_monitor(int, char *[]);
@@ -55,9 +56,10 @@ struct {
   {"Eval test", test_eval}
 };
 
-void run_all_tests() {
+int run_all_tests() {
   int number_of_tests = ARRLEN(tests);
 
+  int flag = 1;
   for (int i = 0; i < number_of_tests; i ++) {
     fprintf(stderr, "\nRunning test: #%d: %s\n", i, tests[i].name);
 
@@ -66,8 +68,10 @@ void run_all_tests() {
     fprintf(stderr, "\nTest #%d finished, ret: %d\n", i, ret);
     if (ret != 0) {
       fprintf(stderr, "Test failed!");
+      flag = 0;
     }
   }
+  return flag;
 }
 
 #endif
@@ -81,10 +85,10 @@ int main(int argc, char *argv[]) {
 #endif
 
 #ifdef RUN_TESTS
-
+  return run_all_tests();
 #else
   /* Start engine. */
   engine_start();
-#endif
   return is_exit_status_bad();
+#endif
 }
