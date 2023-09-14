@@ -359,14 +359,14 @@ static int64_t eval(Token tokens[], int length) {
       push_op(nop);
     }
 
-   for (int i = 0; i < pt_operator; ++i) {
-     fprintf(stderr, "%d ", st_operator[i]);
-   }
-   fprintf(stderr, "\n");
-   for (int i = 0; i < pt_operand; ++i) {
-     fprintf(stderr, "%ld ", st_operand[i]);
-   }
-   fprintf(stderr, "\n");
+  //  for (int i = 0; i < pt_operator; ++i) {
+  //    fprintf(stderr, "%d ", st_operator[i]);
+  //  }
+  //  fprintf(stderr, "\n");
+  //  for (int i = 0; i < pt_operand; ++i) {
+  //    fprintf(stderr, "%ld ", st_operand[i]);
+  //  }
+  //  fprintf(stderr, "\n");
   }
 
   while (!empty_op()) {
