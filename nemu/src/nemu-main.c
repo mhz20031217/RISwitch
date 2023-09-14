@@ -23,7 +23,7 @@ void am_init_monitor();
 void engine_start();
 int is_exit_status_bad();
 
-// #define RUN_TESTS
+#define RUN_TESTS
 
 #ifdef RUN_TESTS
 
