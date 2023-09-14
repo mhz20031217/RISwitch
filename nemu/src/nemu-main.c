@@ -44,7 +44,9 @@ int test_eval() {
     res = expr(buf, &success);
     if (res != ans) {
       fprintf(stderr, "Eval answer error: res: %u, ans: %u\n", res, ans);
+      return 2;
     }
+    buf[0] = '\0';
   }
   return 0;
 }
