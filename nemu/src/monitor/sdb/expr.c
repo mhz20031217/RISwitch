@@ -13,7 +13,9 @@
 * See the Mulan PSL v2 for more details.
 ***************************************************************************************/
 
+#include <asm-generic/errno-base.h>
 #include <isa.h>
+#include "debug.h"
 #include "memory/paddr.h"
 
 /* We use the POSIX regex functions to process regular expressions.
@@ -227,6 +229,10 @@ static int64_t apply_binary(token_type op, int64_t a, int64_t b) {
     case TK_MUL:
       return a * b;
     case TK_DIV:
+      if (b == 0) {
+        Warning("divided by zero, result set to 0.");
+        return 0;
+      }
       return a / b;
     case TK_AND:
       return a && b;
