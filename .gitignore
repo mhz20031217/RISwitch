@@ -5,11 +5,12 @@
 !/nexus-am/*
 !/nanos-lite/*
 !/navy-apps/*
+!/pa/**/*
 !Makefile
 !README.md
 !.gitignore
 !init.sh
 /fceux-am
-!/pa/*
+
 *.un~
 /am-kernels
