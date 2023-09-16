@@ -6,11 +6,12 @@
 !/nanos-lite/*
 !/navy-apps/*
 !/pa/**/*
+/pa/**/*.pdf
+/pa/**/*.html
 !Makefile
 !README.md
 !.gitignore
 !init.sh
 /fceux-am
-
 *.un~
 /am-kernels
