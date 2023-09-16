@@ -90,9 +90,9 @@ static int decode_exec(Decode *s) {
   INSTPAT("0000001 ????? ????? 001 ????? 01100 11", mulh   , R, 
     SEXT((SEXT(src1, 32)) * SEXT(src2, 32) >> 32, 32));
   INSTPAT("0000001 ????? ????? 011 ????? 01100 11", mulhu  , R, 
-    R(rd) = src1 * src2);
+    R(rd) = SEXT(((uint64_t)(uint32_t)src1 * (uint64_t)(uint32_t)src2) >> 32, 32));
   INSTPAT("0000001 ????? ????? 010 ????? 01100 11", mulhsu , R, 
-    R(rd) = BITS(((uint64_t) ((int64_t) src1)) * src2, 63, 32));
+    R(rd) = SEXT((SEXT(src1, 32) * ((uint64_t)(uint32_t)src2)) >> 32, 32));
   INSTPAT("0000001 ????? ????? 100 ????? 01100 11", div    , R, 
     if (src2 == 0) R(rd) = ~0U; else R(rd) = (int64_t) src1 / (int64_t) src2);
   INSTPAT("0000001 ????? ????? 101 ????? 01100 11", divu   , R, 
