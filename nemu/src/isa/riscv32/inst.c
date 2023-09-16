@@ -85,6 +85,7 @@ static int decode_exec(Decode *s) {
   INSTPAT("0000000 ????? ????? 000 ????? 01100 11", add    , R, R(rd) = src1 + src2);
   INSTPAT("??????? ????? ????? 000 ????? 00100 11", addi   , I, R(rd) = src1 + imm);
   INSTPAT("0100000 ????? ????? 000 ????? 01100 11", sub    , R, R(rd) = src1 - src2);
+  // @Reference: Spike https://github.com/riscv-software-src/riscv-isa-sim
   INSTPAT("0000001 ????? ????? 000 ????? 01100 11", mul    , R, 
     R(rd) = src1 * src2);
   INSTPAT("0000001 ????? ????? 001 ????? 01100 11", mulh   , R, 
@@ -94,13 +95,31 @@ static int decode_exec(Decode *s) {
   INSTPAT("0000001 ????? ????? 010 ????? 01100 11", mulhsu , R, 
     R(rd) = SEXT((SEXT(src1, 32) * ((uint64_t)(uint32_t)src2)) >> 32, 32));
   INSTPAT("0000001 ????? ????? 100 ????? 01100 11", div    , R, 
-    if (src2 == 0) R(rd) = ~0U; else R(rd) = (int64_t) src1 / (int64_t) src2);
+    int64_t l = SEXT(src1, 64);
+    int64_t r = SEXT(src2, 64);
+    if (r == 0) R(rd) = ~0U;
+    else if (l == INT64_MIN && r == -1) R(rd) = l;
+    else R(rd) = SEXT(l / r, 64);
+  );
   INSTPAT("0000001 ????? ????? 101 ????? 01100 11", divu   , R, 
-    if (src2 == 0) R(rd) = ~0U; else R(rd) = R(rd) = src1 / src2);
+    uint64_t l = src1;
+    uint64_t r = src2;
+    if (r == 0) R(rd) = ~0U;
+    else R(rd) = SEXT(l / r, 64);
+  );
   INSTPAT("0000001 ????? ????? 110 ????? 01100 11", rem    , R, 
-    if (src2 == 0) R(rd) = 0U; else R(rd) = R(rd) = (int64_t) src1 % (int64_t) src2);
+    int64_t l = SEXT(src1, 64);
+    int64_t r = SEXT(src2, 64);
+    if (r == 0) R(rd) = l;
+    else if (l == INT64_MIN && r == -1) R(rd) = 0;
+    else R(rd) = SEXT(l % r, 64);
+  );
   INSTPAT("0000001 ????? ????? 111 ????? 01100 11", remu   , R, 
-    if (src2 == 0) R(rd) = src1; else R(rd) = R(rd) = src1 % src2);
+    uint64_t l = src1;
+    uint64_t r = src2;
+    if (r == 0) R(rd) = SEXT(l, 64);
+    else R(rd) = SEXT(l % r, 64);
+  );
 
   /* bit operation */
   INSTPAT("0000000 ????? ????? 111 ????? 01100 11", and    , R, R(rd) = src1 & src2);
