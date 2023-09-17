@@ -131,7 +131,8 @@ void ftrace(Elf32_Addr pc, Elf32_Addr addr, bool mode) {
     char *func_name = NULL;
     for (int i = 0; i < nr_func_table; i ++) {
         struct Func_info *entry = &func_table[i];
-        if (entry->value <= addr && addr < entry->value + entry->size) {
+        // if (entry->value <= addr && addr < entry->value + entry->size) {
+        if (entry->value == addr) {
             func_name = elf_string_table + entry->name_offset;
             break;
         }
@@ -147,11 +148,11 @@ void ftrace(Elf32_Addr pc, Elf32_Addr addr, bool mode) {
 }
 
 #ifdef CONFIG_FTRACE
-inline void ftrace_call(Elf32_Addr pc, Elf32_Addr addr) {
+void ftrace_call(Elf32_Addr pc, Elf32_Addr addr) {
     ftrace(pc, addr, 1);
 }
 
-inline void ftrace_ret(Elf32_Addr pc, Elf32_Addr addr) {
+void ftrace_ret(Elf32_Addr pc, Elf32_Addr addr) {
     ftrace(pc, addr, 0);
 }
 #endif

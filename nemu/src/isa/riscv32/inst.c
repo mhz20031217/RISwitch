@@ -170,25 +170,26 @@ static int decode_exec(Decode *s) {
   INSTPAT("??????? ????? ????? ??? ????? 00101 11", auipc  , U, R(rd) = s->pc + imm);
   #ifdef CONFIG_FTRACE
   void ftrace_call(Elf32_Addr addr);
-  void ftrace_call(Elf32_Addr addr);
+  void ftrace_ret(Elf32_Addr addr);
   #endif
   INSTPAT("??????? ????? ????? ??? ????? 11011 11", jal    , J, 
     R(rd) = s->pc + 4;
     s->dnpc = s->pc + imm;
     #ifdef CONFIG_FTRACE
-      if (FTRACE_COND) {
+    if (FTRACE_COND) {
+      if (BITS(s->isa.inst.val, 11, 7) == 1)
         ftrace_call(s->dnpc);
-      }
+    }
     #endif
   );
   INSTPAT("??????? ????? ????? 000 ????? 11001 11", jalr   , I,
     s->dnpc = (src1 + imm)&~1;
     R(rd) = s->pc + 4;
     #ifdef CONFIG_FTRACE
-      
-      if (FTRACE_COND) {
-        ftrace_call(s->dnpc);
-      }
+    if (FTRACE_COND) {
+      if (BITS(s->isa.inst.val, 19, 15) == 1)
+        ftrace_ret(s->dnpc);
+    }
     #endif
   );
 
