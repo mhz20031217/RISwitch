@@ -416,7 +416,7 @@ error:
 
 word_t expr(char *e, bool *success) {
   memset(tokens, 0, sizeof(*tokens));
-  Log("evaluating expression: %s", e);
+  // Log("evaluating expression: %s", e);
   if (!make_token(e)) {
     *success = false;
     Error("make_token failed.");

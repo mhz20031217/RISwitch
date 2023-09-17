@@ -193,6 +193,9 @@ static int decode_exec(Decode *s) {
       if (BITS(s->isa.inst.val, 19, 15) == 1) {
         fprintf(stderr, "jalr called and rs1 is x1.\n");
         ftrace_ret(s->pc, s->dnpc);
+      } else if (BITS(s->isa.inst.val, 11, 7) == 1) {
+        fprintf(stderr, "jalr called and rd is x1.\n");
+        ftrace_call(s->pc, s->dnpc);
       }
     }
     #endif
