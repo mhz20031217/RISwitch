@@ -123,7 +123,7 @@ void destruct_ftrace() {
 void ftrace(Elf32_Addr pc, Elf32_Addr addr, bool mode) {
     if (!ftrace_initialized) return;
 
-    Info_n("0x%u: ", pc);
+    Info_n("0x%x: ", pc);
     for (int i = 0; i < indent; i ++) {
         Info_n("%s", shift);
     }
@@ -139,7 +139,7 @@ void ftrace(Elf32_Addr pc, Elf32_Addr addr, bool mode) {
     }
 
     if (mode) {
-        Info_n("call [%s@0x%u]\n", func_name, addr);
+        Info_n("call [%s@0x%x]\n", func_name, addr);
         indent ++;
     } else {
         Info_n("ret [%s]\n", func_name);
