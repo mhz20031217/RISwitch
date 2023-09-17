@@ -19,6 +19,8 @@
 void init_rand();
 void init_log(const char *log_file);
 void init_mem();
+void init_ftrace(char *elf_file);
+void destruct_ftrace();
 void init_difftest(char *ref_so_file, long img_size, int port);
 void init_device();
 void init_sdb();
@@ -128,7 +130,7 @@ void init_monitor(int argc, char *argv[]) {
   /* Initialize differential testing. */
   init_difftest(diff_so_file, img_size, difftest_port);
 
-#ifdef FTRACE
+#ifdef CONFIG_FTRACE
   /* Initialize ftrace. */
   init_ftrace(elf_file);
 #endif
@@ -166,5 +168,9 @@ void am_init_monitor() {
   load_img();
   IFDEF(CONFIG_DEVICE, init_device());
   welcome();
+}
+
+void am_destruct_monitor() {
+  destruct_ftrace();
 }
 #endif

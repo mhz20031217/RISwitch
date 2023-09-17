@@ -36,6 +36,10 @@
     _Log(ANSI_FMT(format, ANSI_FG_WHITE) "\n", \
         ## __VA_ARGS__)
 
+#define Info_n(format, ...) \
+    _Log(ANSI_FMT(format, ANSI_FG_WHITE) , \
+        ## __VA_ARGS__)
+
 #define Assert(cond, format, ...) \
   do { \
     if (!(cond)) { \

@@ -18,6 +18,7 @@
 #include <cpu/cpu.h>
 #include <cpu/ifetch.h>
 #include <cpu/decode.h>
+#include <elf.h>
 #include <stdint.h>
 #include <sys/types.h>
 
@@ -167,8 +168,29 @@ static int decode_exec(Decode *s) {
 
   /* jump */
   INSTPAT("??????? ????? ????? ??? ????? 00101 11", auipc  , U, R(rd) = s->pc + imm);
-  INSTPAT("??????? ????? ????? ??? ????? 11011 11", jal    , J, R(rd) = s->pc + 4, s->dnpc = s->pc + imm);
-  INSTPAT("??????? ????? ????? 000 ????? 11001 11", jalr   , I, s->dnpc = (src1 + imm)&~1, R(rd) = s->pc + 4);
+  #ifdef CONFIG_FTRACE
+  void ftrace_call(Elf32_Addr addr);
+  void ftrace_call(Elf32_Addr addr);
+  #endif
+  INSTPAT("??????? ????? ????? ??? ????? 11011 11", jal    , J, 
+    R(rd) = s->pc + 4;
+    s->dnpc = s->pc + imm;
+    #ifdef CONFIG_FTRACE
+      if (FTRACE_COND) {
+        ftrace_call(s->dnpc);
+      }
+    #endif
+  );
+  INSTPAT("??????? ????? ????? 000 ????? 11001 11", jalr   , I,
+    s->dnpc = (src1 + imm)&~1;
+    R(rd) = s->pc + 4;
+    #ifdef CONFIG_FTRACE
+      
+      if (FTRACE_COND) {
+        ftrace_call(s->dnpc);
+      }
+    #endif
+  );
 
   /* nemu */
   INSTPAT("0000000 00001 00000 000 00000 11100 11", ebreak , N, NEMUTRAP(s->pc, R(10))); // R(10) is $a0

@@ -20,6 +20,8 @@
 
 void init_monitor(int, char *[]);
 void am_init_monitor();
+void destruct_monitor();
+void am_destruct_monitor();
 void engine_start();
 int is_exit_status_bad();
 
@@ -93,6 +95,14 @@ int main(int argc, char *argv[]) {
 #else
   /* Start engine. */
   engine_start();
+
+#ifdef CONFIG_TARGET_AM
+  am_destruct_monitor();
+#else
+  destruct_monitor();
+#endif
+
+
   return is_exit_status_bad();
 #endif
 }
