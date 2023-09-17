@@ -20,6 +20,7 @@
 #include <cpu/decode.h>
 #include <elf.h>
 #include <stdint.h>
+#include <stdio.h>
 #include <sys/types.h>
 
 #define R(i) gpr(i)
@@ -177,8 +178,10 @@ static int decode_exec(Decode *s) {
     s->dnpc = s->pc + imm;
     #ifdef CONFIG_FTRACE
     if (FTRACE_COND) {
-      if (BITS(s->isa.inst.val, 11, 7) == 1)
+      if (BITS(s->isa.inst.val, 11, 7) == 1) {
+        fprintf(stderr, "jal called and rd is x1.\n");
         ftrace_call(s->dnpc);
+      }
     }
     #endif
   );
@@ -187,8 +190,10 @@ static int decode_exec(Decode *s) {
     R(rd) = s->pc + 4;
     #ifdef CONFIG_FTRACE
     if (FTRACE_COND) {
-      if (BITS(s->isa.inst.val, 19, 15) == 1)
+      if (BITS(s->isa.inst.val, 19, 15) == 1) {
+        fprintf(stderr, "jalr called and rs1 is x1.\n");
         ftrace_ret(s->dnpc);
+      }
     }
     #endif
   );
