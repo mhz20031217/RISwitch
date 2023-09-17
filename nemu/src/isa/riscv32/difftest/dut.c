@@ -18,7 +18,21 @@
 #include "../local-include/reg.h"
 
 bool isa_difftest_checkregs(CPU_state *ref_r, vaddr_t pc) {
-  return false;
+  bool flag = true;
+  for(int i = 0; i < MUXDEF(CONFIG_RVE, 16, 32); i++) {
+    if (cpu.gpr[i] != ref_r->gpr[i]) {
+      flag = false;
+      break;
+    }
+  }
+  if (!flag) {
+    Error("Difftest failed at pc: 0x%x", pc);
+    Error("ID\t|D\t|R\tgprs:");
+    for(int i = 0; i < MUXDEF(CONFIG_RVE, 16, 32); i++) {
+      Error("%d\t0x%x\t0x%x", i, cpu.gpr[i], ref_r->gpr[i]);
+    }
+  }
+  return flag;
 }
 
 void isa_difftest_attach() {
