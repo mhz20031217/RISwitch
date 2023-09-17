@@ -91,7 +91,7 @@ void init_ftrace(const char *elf_file) {
     nr_func_table = 0;
     const int nr_symbol = elf_symbol_table_section->sh_size / elf_symbol_table_section->sh_entsize;
     for (int i = 0; i < nr_symbol; i ++) {
-        if (elf_symbol_table[i].st_info == STT_FUNC) {
+        if (ELF32_ST_TYPE(elf_symbol_table[i].st_info) == STT_FUNC) {
             nr_func_table ++;
         }
     }
@@ -100,7 +100,7 @@ void init_ftrace(const char *elf_file) {
 
     nr_func_table = 0;
     for (int i = 0; i < nr_symbol; i ++) {
-        if (elf_symbol_table[i].st_info == STT_FUNC) {
+        if (ELF32_ST_TYPE(elf_symbol_table[i].st_info) == STT_FUNC) {
             func_table[nr_func_table].name_offset = elf_symbol_table[i].st_name;
             func_table[nr_func_table].value = elf_symbol_table[i].st_value;
             func_table[nr_func_table].size = elf_symbol_table[i].st_size;
