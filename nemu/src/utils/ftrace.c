@@ -78,8 +78,8 @@ void init_ftrace(const char *elf_file) {
     Assert(elf_symbol_table, "Memory error. Failed to allocate memory for elf_symbol_table.");
     rc = fseek(fp, elf_symbol_table_section->sh_offset, SEEK_SET);
     Assert(rc == 0, "Invalid ELF file.");
-    rc = fread(elf_symbol_table_section, elf_symbol_table_section->sh_size, 1, fp);
-    Assert(rc, "Failed to read elf_symbol_table_section.");
+    rc = fread(elf_symbol_table, elf_symbol_table_section->sh_size, 1, fp);
+    Assert(rc, "Failed to read elf_symbol_table.");
 
     elf_string_table = malloc(elf_string_table_section->sh_size);
     Assert(elf_string_table, "Memory error. Failed to allocate memory for elf_string_table.");
@@ -107,8 +107,8 @@ void init_ftrace(const char *elf_file) {
             nr_func_table ++;
         }
     }
+    
     indent = 0;
-
     fclose(fp);
     ftrace_initialized = 1;
 }
