@@ -131,7 +131,8 @@ void ftrace(Elf32_Addr pc, Elf32_Addr addr, bool mode) {
     char *func_name = NULL;
     for (int i = 0; i < nr_func_table; i ++) {
         struct Func_info *entry = &func_table[i];
-        if (entry->value <= addr && addr < entry->value + entry->size) {
+        if ((!mode && entry->value <= addr && addr < entry->value + entry->size) || 
+            (mode && entry->value == addr)) {
         // if (entry->value == addr) {
             func_name = elf_string_table + entry->name_offset;
             break;
