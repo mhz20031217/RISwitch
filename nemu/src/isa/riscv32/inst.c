@@ -170,8 +170,8 @@ static int decode_exec(Decode *s) {
   /* jump */
   INSTPAT("??????? ????? ????? ??? ????? 00101 11", auipc  , U, R(rd) = s->pc + imm);
   #ifdef CONFIG_FTRACE
-  void ftrace_call(Elf32_Addr addr);
-  void ftrace_ret(Elf32_Addr addr);
+  void ftrace_call(uint32_t pc, uint32_t addr);
+  void ftrace_ret(uint32_t pc, uint32_t addr);
   #endif
   INSTPAT("??????? ????? ????? ??? ????? 11011 11", jal    , J, 
     R(rd) = s->pc + 4;
@@ -180,7 +180,7 @@ static int decode_exec(Decode *s) {
     if (FTRACE_COND) {
       if (BITS(s->isa.inst.val, 11, 7) == 1) {
         fprintf(stderr, "jal called and rd is x1.\n");
-        ftrace_call(s->dnpc);
+        ftrace_call(s->pc, s->dnpc);
       }
     }
     #endif
@@ -192,7 +192,7 @@ static int decode_exec(Decode *s) {
     if (FTRACE_COND) {
       if (BITS(s->isa.inst.val, 19, 15) == 1) {
         fprintf(stderr, "jalr called and rs1 is x1.\n");
-        ftrace_ret(s->dnpc);
+        ftrace_ret(s->pc, s->dnpc);
       }
     }
     #endif
