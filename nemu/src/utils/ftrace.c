@@ -143,8 +143,8 @@ void ftrace(Elf32_Addr pc, Elf32_Addr addr, bool mode) {
         Info_n("call [%s@0x%x]\n", func_name, addr);
         indent ++;
     } else {
-        Info_n("ret [%s]\n", func_name);
         if (indent > 0) indent --;
+        Info_n("ret [%s]\n", func_name);
     }
 }
 
@@ -154,6 +154,6 @@ void ftrace_call(Elf32_Addr pc, Elf32_Addr addr) {
 }
 
 void ftrace_ret(Elf32_Addr pc, Elf32_Addr addr) {
-    ftrace(pc, addr, 0);
+    ftrace(pc, pc, 0);
 }
 #endif
