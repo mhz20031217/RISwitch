@@ -142,7 +142,7 @@ void ftrace(Elf32_Addr pc, Elf32_Addr addr, bool mode) {
         Info_n("call [%s@0x%u]\n", func_name, addr);
         indent ++;
     } else {
-        Info_n("call [%s]\n", func_name);
+        Info_n("ret [%s]\n", func_name);
         if (indent > 0) indent --;
     }
 }
