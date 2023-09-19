@@ -31,7 +31,7 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
   // printf("drawing a %d, %d rect at (%d, %d)\n", ctl->w, ctl->h, ctl->x, ctl->y);
   for (int j = 0; j < ctl->h; j ++) {
     for (int i = 0; i < ctl->w; i ++) {
-      outl(FB_ADDR + ((ctl->y + j) * h + (ctl->x + i)), *((uint32_t *) ctl->pixels + ctl->h * j + i));
+      outl(FB_ADDR + 4 * ((ctl->y + j) * h + (ctl->x + i)), *((uint32_t *) ctl->pixels + ctl->h * j + i));
     }
   }
   if (ctl->sync) {
