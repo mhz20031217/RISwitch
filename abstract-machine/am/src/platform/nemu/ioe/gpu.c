@@ -28,6 +28,7 @@ void __am_gpu_config(AM_GPU_CONFIG_T *cfg) {
 }
 
 void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
+  printf("drawing a %d, %d rect at (%d, %d)\n", ctl->w, ctl->h, ctl->x, ctl->y);
   for (int i = 0; i < ctl->w; i ++) {
     for (int j = 0; j < ctl->h; j ++) {
       outl(FB_ADDR + (ctl->x + i) * w + (ctl->y + j), *((uint32_t *) ctl->pixels + ctl->w * i + j));
