@@ -12,7 +12,7 @@ static int w, h;
 void __am_gpu_init() {
   int i;
   w = inl(VGACTL_ADDR) >> 16;
-  h = inl(VGACTL_ADDR) & 0xff;
+  h = inl(VGACTL_ADDR) & 0xffff;
   printf("AM GPU initialzed, width: %d, height: %d.\n", w, h);
   uint32_t *fb = (uint32_t *)(uintptr_t)FB_ADDR;
   for (i = 0; i < w * h; i ++) fb[i] = i;
