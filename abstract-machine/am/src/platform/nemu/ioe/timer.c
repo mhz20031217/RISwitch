@@ -6,14 +6,14 @@ static uint64_t boot_time = 0;
 
 void __am_timer_init() {
   boot_time = 0;
-  boot_time |= inl(AM_TIMER_UPTIME);
-  boot_time |= (uint64_t) inl(AM_TIMER_UPTIME + 4) << 32;
+  boot_time |= inl(RTC_ADDR);
+  boot_time |= (uint64_t) inl(RTC_ADDR + 4) << 32;
 }
 
 void __am_timer_uptime(AM_TIMER_UPTIME_T *uptime) {
   uint64_t cur_time = 0;
-  cur_time |= inl(AM_TIMER_UPTIME);
-  cur_time |= (uint64_t) inl(AM_TIMER_UPTIME + 4) << 32;
+  cur_time |= inl(RTC_ADDR);
+  cur_time |= (uint64_t) inl(RTC_ADDR + 4) << 32;
   uptime->us = cur_time;
 }
 
