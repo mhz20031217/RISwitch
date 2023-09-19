@@ -32,6 +32,7 @@ static bool g_print_step = false;
 
 void device_update();
 
+#ifdef CONFIG_ITRACE
 /* Instruction ringbuf */
 #define MAX_IRINGBUF_ENTRY 32
 static char iringbuf[MAX_IRINGBUF_ENTRY][128];
@@ -63,7 +64,7 @@ static int iringbuf_l = 0, iringbuf_r = 0, iringbuf_size = 0;
   } \
 } while (0)
 #define iringbuf_front() (iringbuf[iringbuf_l])
-
+#endif
 
 static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
 #ifdef CONFIG_ITRACE_COND
@@ -165,6 +166,7 @@ void cpu_exec(uint64_t n) {
            (nemu_state.halt_ret == 0 ? ANSI_FMT("HIT GOOD TRAP", ANSI_FG_GREEN) :
             ANSI_FMT("HIT BAD TRAP", ANSI_FG_RED))),
           nemu_state.halt_pc);
+      #ifdef CONFIG_ITRACE
       if (nemu_state.halt_ret != 0) {
         log_write("Most recent instructions:\n");
         while (!iringbuf_empty()) {
@@ -172,6 +174,7 @@ void cpu_exec(uint64_t n) {
           iringbuf_pop();
         }
       }
+      #endif
       // fall through
     case NEMU_QUIT: statistic();
   }
