@@ -93,8 +93,6 @@ static int decode_exec(Decode *s) {
     R(rd) = src1 * src2);
   INSTPAT("0000001 ????? ????? 001 ????? 01100 11", mulh   , R, 
     R(rd) = SEXT((SEXT(src1, 32)) * SEXT(src2, 32) >> 32, 32));
-    // R(rd) = (int64_t)(sword_t) src1 * src2 >> 32
-
   INSTPAT("0000001 ????? ????? 011 ????? 01100 11", mulhu  , R, 
     R(rd) = SEXT(((uint64_t)(uint32_t)src1 * (uint64_t)(uint32_t)src2) >> 32, 32));
   INSTPAT("0000001 ????? ????? 010 ????? 01100 11", mulhsu , R, 
