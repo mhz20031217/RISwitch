@@ -31,6 +31,14 @@ static uint8_t *sbuf = NULL;
 static uint32_t *audio_base = NULL;
 
 static void audio_io_handler(uint32_t offset, int len, bool is_write) {
+  // offset >>= 2;
+  // switch (offset) {
+  //   reg_init:
+  //     break;
+    
+  //   default:
+  //     break;
+  // }
 }
 
 void init_audio() {
