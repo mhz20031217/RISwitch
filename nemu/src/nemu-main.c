@@ -15,6 +15,7 @@
 
 #include "macro.h"
 #include <common.h>
+#include <errno.h>
 #include <stdbool.h>
 #include <stdio.h>
 
@@ -83,6 +84,9 @@ int run_all_tests() {
 #endif
 
 int main(int argc, char *argv[]) {
+  /* Initialize C standard exception handler. */
+  errno = 0;
+
   /* Initialize the monitor. */
 #ifdef CONFIG_TARGET_AM
   am_init_monitor();
