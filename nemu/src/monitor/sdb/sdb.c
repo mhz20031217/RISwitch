@@ -210,7 +210,6 @@ static int cmd_w(char* args) {
 }
 
 static int cmd_d(char* args) {
-  if (errno) Warning("errno is not 0");
   int id = strtol(args, NULL, 10);
   errno = 0;
   if (errno) {
