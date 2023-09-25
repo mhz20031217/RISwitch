@@ -42,8 +42,11 @@ void __am_audio_play(AM_AUDIO_PLAY_T *ctl) {
       continue;
     }
 
-    for (unsigned char *p = ctl->buf.start; p < (unsigned char *) ctl->buf.end; p ++) {
-      outb(uintptr_t addr, uint8_t data)
+    for (unsigned char *p = ctl->buf.start, q = AUDIO_SBUF_ADDR + count;
+      p < (unsigned char *) ctl->buf.end;
+      p ++, q ++
+    ) {
+      outb(q, *p);
     }
   }
   

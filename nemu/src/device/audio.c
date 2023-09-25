@@ -13,9 +13,12 @@
 * See the Mulan PSL v2 for more details.
 ***************************************************************************************/
 
+#include "debug.h"
 #include <common.h>
 #include <device/map.h>
 #include <SDL2/SDL.h>
+#include <stdbool.h>
+#include <string.h>
 
 enum {
   reg_freq,
@@ -30,18 +33,47 @@ enum {
 static uint8_t *sbuf = NULL;
 static uint32_t *audio_base = NULL;
 
+static bool audio_initialized = false;
+
+static void audio_fill_buffer(void *data, Uint8 *stream, int len) {
+  while (audio_base[reg_count] < len);
+
+  memcpy(stream, sbuf, len);
+
+  audio_base[reg_count] = 0;
+}
+
 static void audio_io_handler(uint32_t offset, int len, bool is_write) {
-  // offset >>= 2;
-  // switch (offset) {
-  //   reg_init:
-  //     break;
-    
-  //   default:
-  //     break;
-  // }
+  if (offset == reg_count) {
+    Warning("Program is writing read-only register 'reg_count' in device 'audio'.");
+  }
+
+  if (offset == reg_init) {
+    if (audio_initialized) {
+      SDL_CloseAudio();
+    }
+
+    SDL_AudioSpec spec = {
+        .freq = audio_base[reg_freq],
+        .channels = audio_base[reg_channels],
+        .silence = 0,
+        .format = AUDIO_S16SYS,
+        .samples = audio_base[reg_samples],
+        .userdata = NULL,
+        .callback = audio_fill_buffer
+    };
+
+    SDL_OpenAudio(&spec, NULL);
+    SDL_PauseAudio(0);
+
+    audio_initialized = true;
+
+    audio_base[reg_init] = 0;
+  }
 }
 
 void init_audio() {
+  SDL_InitSubSystem(SDL_INIT_AUDIO);
   uint32_t space_size = sizeof(uint32_t) * nr_reg;
   audio_base = (uint32_t *)new_space(space_size);
 #ifdef CONFIG_HAS_PORT_IO
