@@ -211,7 +211,7 @@ static int cmd_w(char* args) {
 static int cmd_d(char* args) {
   int id = strtol(args, NULL, 10);
   if (errno) {
-    Info("Invalid watchpoint id: %s", args);
+    Info("Invalid watchpoint id: '%s'", args);
     errno = 0;
     return 0;
   }
