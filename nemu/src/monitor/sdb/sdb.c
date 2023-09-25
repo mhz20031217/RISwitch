@@ -19,6 +19,7 @@
 #include <cpu/cpu.h>
 #include <readline/readline.h>
 #include <readline/history.h>
+#include "debug.h"
 #include "sdb.h"
 #include "utils.h"
 
@@ -209,6 +210,7 @@ static int cmd_w(char* args) {
 }
 
 static int cmd_d(char* args) {
+  if (errno) Warning("errno is not 0");
   int id = strtol(args, NULL, 10);
   if (errno) {
     Info("Invalid watchpoint id: '%s'", args);
