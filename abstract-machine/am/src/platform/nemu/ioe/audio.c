@@ -1,3 +1,5 @@
+#include "amdev.h"
+#include "riscv/riscv.h"
 #include <am.h>
 #include <nemu.h>
 
@@ -8,12 +10,15 @@
 #define AUDIO_INIT_ADDR      (AUDIO_ADDR + 0x10)
 #define AUDIO_COUNT_ADDR     (AUDIO_ADDR + 0x14)
 
+static int bufsize;
+
 void __am_audio_init() {
+  bufsize = inl(AUDIO_SBUF_SIZE_ADDR);
 }
 
 void __am_audio_config(AM_AUDIO_CONFIG_T *cfg) {
   cfg->present = true;
-  cfg->bufsize = inl(AUDIO_SBUF_ADDR);
+  cfg->bufsize = bufsize;
 }
 
 void __am_audio_ctrl(AM_AUDIO_CTRL_T *ctrl) {
@@ -28,4 +33,18 @@ void __am_audio_status(AM_AUDIO_STATUS_T *stat) {
 }
 
 void __am_audio_play(AM_AUDIO_PLAY_T *ctl) {
+  int len = ctl->buf.end - ctl->buf.start;
+
+  int count;
+  while (true) {
+    count = inl(AUDIO_COUNT_ADDR);
+    if (bufsize - count > len) {
+      continue;
+    }
+
+    for (unsigned char *p = ctl->buf.start; p < (unsigned char *) ctl->buf.end; p ++) {
+      outb(uintptr_t addr, uint8_t data)
+    }
+  }
+  
 }
