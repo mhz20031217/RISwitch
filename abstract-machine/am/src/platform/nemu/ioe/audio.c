@@ -38,7 +38,7 @@ void __am_audio_play(AM_AUDIO_PLAY_T *ctl) {
   int count;
   while (true) {
     count = inl(AUDIO_COUNT_ADDR);
-    if (bufsize - count > len) {
+    if (bufsize - count < len) {
       continue;
     }
 
