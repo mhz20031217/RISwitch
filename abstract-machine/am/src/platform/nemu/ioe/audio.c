@@ -48,5 +48,6 @@ void __am_audio_play(AM_AUDIO_PLAY_T *ctl) {
     ) {
       outb(q, *p);
     }
+    break;
   }
 }
