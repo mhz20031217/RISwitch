@@ -98,11 +98,11 @@ static int decode_exec(Decode *s) {
   INSTPAT("0000001 ????? ????? 010 ????? 01100 11", mulhsu , R, 
     R(rd) = SEXT((SEXT(src1, 32) * ((uint64_t)(uint32_t)src2)) >> 32, 32));
   INSTPAT("0000001 ????? ????? 100 ????? 01100 11", div    , R, 
-    int64_t l = SEXT(src1, 64);
-    int64_t r = SEXT(src2, 64);
+    sword_t l = src1;
+    sword_t r = src2;
     if (r == 0) R(rd) = ~0U;
-    else if (l == INT64_MIN && r == -1) R(rd) = l;
-    else R(rd) = SEXT(l / r, 64);
+    else if (l == INT32_MIN && r == -1) R(rd) = l;
+    else R(rd) = l / r;
   );
   INSTPAT("0000001 ????? ????? 101 ????? 01100 11", divu   , R, 
     uint64_t l = src1;
