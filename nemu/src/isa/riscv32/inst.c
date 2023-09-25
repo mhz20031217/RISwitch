@@ -111,11 +111,11 @@ static int decode_exec(Decode *s) {
     else R(rd) = SEXT(l / r, 64);
   );
   INSTPAT("0000001 ????? ????? 110 ????? 01100 11", rem    , R, 
-    int64_t l = SEXT(src1, 64);
-    int64_t r = SEXT(src2, 64);
+    sword_t l = src1;
+    sword_t r = src2;
     if (r == 0) R(rd) = l;
-    else if (l == INT64_MIN && r == -1) R(rd) = 0;
-    else R(rd) = SEXT(l % r, 64);
+    else if (l == INT32_MIN && r == -1) R(rd) = 0;
+    else R(rd) = l % r;
   );
   INSTPAT("0000001 ????? ????? 111 ????? 01100 11", remu   , R, 
     uint64_t l = src1;
