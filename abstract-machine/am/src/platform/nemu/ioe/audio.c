@@ -42,9 +42,9 @@ void __am_audio_play(AM_AUDIO_PLAY_T *ctl) {
       continue;
     }
 
-    for (unsigned char *p = ctl->buf.start, q = AUDIO_SBUF_ADDR + count;
-      p < (unsigned char *) ctl->buf.end;
-      p ++, q ++
+    for (unsigned int *p = ctl->buf.start, q = AUDIO_SBUF_ADDR + count;
+      p < (unsigned int *) ctl->buf.end;
+      p ++, q += 4
     ) {
       outb(q, *p);
     }
