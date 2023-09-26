@@ -62,6 +62,7 @@ static void audio_fill_buffer(void *data, Uint8 *stream, int len) {
       memcpy(stream + sum, sbuf, size);
       audio_base[reg_count] = count - size;
       memmove(sbuf, sbuf + size, count - size);
+      sum += size;
     }
 
     audio_base[reg_lock] = 0;
