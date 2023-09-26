@@ -1,0 +1,11 @@
+# Building coremark-run [riscv32-nemu]
+# Building am-archive [riscv32-nemu]
++ CC src/platform/nemu/trm.c
++ AR -> build/am-riscv32-nemu.a
+# Building klib-archive [riscv32-nemu]
++ LD -> build/coremark-riscv32-nemu.elf
+# Creating image [riscv32-nemu]
++ OBJCOPY -> build/coremark-riscv32-nemu.bin
+make -C /home/pc/Learning/02.IT/5.ICS/ics2023/nemu ISA=riscv32 run ARGS="-l /home/pc/Learning/02.IT/5.ICS/ics2023/am-kernels/benchmarks/coremark/build/nemu-log.txt -b" IMG=/home/pc/Learning/02.IT/5.ICS/ics2023/am-kernels/benchmarks/coremark/build/coremark-riscv32-nemu.bin
+make[1]: Entering directory '/home/pc/Learning/02.IT/5.ICS/ics2023/nemu'
++ CC src/utils/timer.c
