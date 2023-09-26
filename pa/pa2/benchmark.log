@@ -94,6 +94,8 @@ make[1]: Leaving directory '/home/pc/Learning/02.IT/5.ICS/ics2023/nemu'
 
 
 ########## MICROBENCH ##########
+
+❯ make ARCH=riscv32-nemu run
 # Building microbench-run [riscv32-nemu]
 # Building am-archive [riscv32-nemu]
 + CC src/platform/nemu/trm.c
@@ -106,21 +108,48 @@ make -C /home/pc/Learning/02.IT/5.ICS/ics2023/nemu ISA=riscv32 run ARGS="-l /hom
 make[1]: Entering directory '/home/pc/Learning/02.IT/5.ICS/ics2023/nemu'
 + LD /home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/riscv32-nemu-interpreter
 /home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/riscv32-nemu-interpreter -l /home/pc/Learning/02.IT/5.ICS/ics2023/am-kernels/benchmarks/microbench/build/nemu-log.txt -b  /home/pc/Learning/02.IT/5.ICS/ics2023/am-kernels/benchmarks/microbench/build/microbench-riscv32-nemu.bin
-[1;34m[src/utils/log.c:28 init_log] Log is written to /home/pc/Learning/02.IT/5.ICS/ics2023/am-kernels/benchmarks/microbench/build/nemu-log.txt[0m
-[1;34m[src/memory/paddr.c:56 init_mem] physical memory area [0x80000000, 0x87ffffff][0m
-[1;34m[src/device/io/mmio.c:50 add_mmio_map] Add mmio map 'serial' at [0xa00003f8, 0xa00003ff][0m
-[1;34m[src/device/io/mmio.c:50 add_mmio_map] Add mmio map 'rtc' at [0xa0000048, 0xa000004f][0m
-[1;34m[src/device/io/mmio.c:50 add_mmio_map] Add mmio map 'vgactl' at [0xa0000100, 0xa0000107][0m
-[1;34m[src/device/io/mmio.c:50 add_mmio_map] Add mmio map 'vmem' at [0xa1000000, 0xa10752ff][0m
-[1;34m[src/device/io/mmio.c:50 add_mmio_map] Add mmio map 'keyboard' at [0xa0000060, 0xa0000063][0m
-[1;34m[src/device/io/mmio.c:50 add_mmio_map] Add mmio map 'audio' at [0xa0000200, 0xa000021b][0m
-[1;34m[src/device/io/mmio.c:50 add_mmio_map] Add mmio map 'audio-sbuf' at [0xa1200000, 0xa120ffff][0m
-[1;34m[src/monitor/monitor.c:64 load_img] The image is /home/pc/Learning/02.IT/5.ICS/ics2023/am-kernels/benchmarks/microbench/build/microbench-riscv32-nemu.bin, size = 30144[0m
-[1;34m[src/monitor/monitor.c:30 welcome] Trace: [1;31mOFF[0m[0m
-[1;34m[src/monitor/monitor.c:34 welcome] Build time: 19:25:01, Sep 26 2023[0m
-Welcome to [1;33m[1;41mriscv32[0m-NEMU!
+[src/utils/log.c:28 init_log] Log is written to /home/pc/Learning/02.IT/5.ICS/ics2023/am-kernels/benchmarks/microbench/build/nemu-log.txt
+[src/memory/paddr.c:56 init_mem] physical memory area [0x80000000, 0x87ffffff]
+[src/device/io/mmio.c:50 add_mmio_map] Add mmio map 'serial' at [0xa00003f8, 0xa00003ff]
+[src/device/io/mmio.c:50 add_mmio_map] Add mmio map 'rtc' at [0xa0000048, 0xa000004f]
+[src/device/io/mmio.c:50 add_mmio_map] Add mmio map 'vgactl' at [0xa0000100, 0xa0000107]
+[src/device/io/mmio.c:50 add_mmio_map] Add mmio map 'vmem' at [0xa1000000, 0xa10752ff]
+[src/device/io/mmio.c:50 add_mmio_map] Add mmio map 'keyboard' at [0xa0000060, 0xa0000063]
+[src/device/io/mmio.c:50 add_mmio_map] Add mmio map 'audio' at [0xa0000200, 0xa000021b]
+[src/device/io/mmio.c:50 add_mmio_map] Add mmio map 'audio-sbuf' at [0xa1200000, 0xa120ffff]
+[src/monitor/monitor.c:64 load_img] The image is /home/pc/Learning/02.IT/5.ICS/ics2023/am-kernels/benchmarks/microbench/build/microbench-riscv32-nemu.bin, size = 30144
+[src/monitor/monitor.c:30 welcome] Trace: OFF
+[src/monitor/monitor.c:34 welcome] Build time: 19:25:01, Sep 26 2023
+Welcome to riscv32-NEMU!
 For help, type "help"
-[1;34m[src/cpu/cpu-exec.c:132 statistic] host time spent = 10,183,211 us[0m
-[1;34m[src/cpu/cpu-exec.c:133 statistic] total guest instructions = 237,494,491[0m
-[1;34m[src/cpu/cpu-exec.c:134 statistic] simulation frequency = 23,322,161 inst/s[0m
-make[1]: Leaving directory '/home/pc/Learning/02.IT/5.ICS/ics2023/nemu'
+Empty mainargs. Use "ref" by default
+======= Running MicroBench [input *ref*] =======
+[qsort] Quick sort: * Passed.
+  min time: 201.910 ms [2181]
+[queen] Queen placement: * Passed.
+  min time: 112.669 ms [3611]
+[bf] Brainf**k interpreter: * Passed.
+  min time: 1.524 ms [1103346]
+[fib] Fibonacci number: * Passed.
+  min time: 3.016 ms [668700]
+[sieve] Eratosthenes sieve: * Passed.
+  min time: 63.036 ms [55243]
+[15pz] A* 15-puzzle search: * Passed.
+  min time: 0.181 ms [2961325]
+[dinic] Dinic's maxflow algorithm: * Passed.
+  min time: 41.095 ms [19909]
+[lzip] Lzip compression: * Passed.
+  min time: 715.859 ms [949]
+[ssort] Suffix sort: * Passed.
+  min time: 233.391 ms [1714]
+[md5] MD5 digest: * Passed.
+  min time: 6129.492 ms [247]
+==================================================
+MicroBench PASS        481722 Marks
+                   vs. 100000 Marks (i9-9900K @ 3.60GHz)
+Scored time: 7502.173 ms
+Total  time: 57229.434 ms
+[src/cpu/cpu-exec.c:164 cpu_exec] nemu: HIT GOOD TRAP at pc = 0x80004e24
+[src/cpu/cpu-exec.c:132 statistic] host time spent = 57,230,136 us
+[src/cpu/cpu-exec.c:133 statistic] total guest instructions = 1,866,990,200
+[src/cpu/cpu-exec.c:134 statistic] simulation frequency = 32,622,501 inst/s

@@ -135,7 +135,93 @@
 
 ### 看看NEMU跑多快
 
-
+> 我不确定测试是否正确，测试结果不和常理。
+>
+> 一开始，我的 NEMU 运行速度处于一个正常区间，运行 microbench ref 大概要 10 分钟，运行 litenes mario 大概 12 fps，am-tests video test 大概 2 fps。时钟函数改成 `clock_gettime`，mario 性能稍有提升。
+>
+> 根据讲义中的提示查看并更改时钟源。我的电脑处理器是 AMD Ryzen 5 4500U，linux 内核版本是
+>
+> ```sh
+> $ uname -a
+> Linux pc 6.0.18 #1 SMP PREEMPT_DYNAMIC Thu Jan 26 23:06:03 CST 2023 x86_64 x86_64 x86_64 GNU/Linux
+> ```
+>
+> 然而，虽然是 x86 体系结构，并没有 `tsc` 时钟源。猜测可能和处理器为 AMD 而非 Intel 有关。STFW 后，发现这是由于 linux 内核启动时探测到 `tsc` 在 AMD 平台上不够稳定，默认禁用导致的。加入 linux 命令行 `tsc=reliable`，强制启用 `tsc` 时钟源，并设置为默认时钟源。
+>
+> 接下来，诡异的情况发生了。
+>
+> NEMU 的性能得到了极大提升。经过 am-tests clock 测试时钟无误后，启动 benchmark，结果如下
+> 
+> ```
+> Running CoreMark for 1000 iterations
+> 2K performance run parameters for coremark.
+> CoreMark Size    : 666
+> Total time (ms)  : 1
+> Iterations       : 1000
+> Compiler version : GCC11.4.0
+> seedcrc          : 0xe9f5
+> [0]crclist       : 0xe714
+> [0]crcmatrix     : 0x1fd7
+> [0]crcstate      : 0x8e3a
+> [0]crcfinal      : 0xd340
+> Finised in 1 ms.
+> ==================================================
+> CoreMark PASS       2921400 Marks
+>                 vs. 100000 Marks (i7-7700K @ 4.20GHz)
+> [src/cpu/cpu-exec.c:164 cpu_exec] nemu: HIT GOOD TRAP at pc = 0x8000244c
+> [src/cpu/cpu-exec.c:132 statistic] host time spent = 12,167,461 us
+> [src/cpu/cpu-exec.c:133 statistic] total guest instructions = 305,931,745
+> [src/cpu/cpu-exec.c:134 statistic] simulation frequency = 25,143,433 inst/s
+> 
+> 
+> Dhrystone Benchmark, Version C, Version 2.2
+> Trying 500000 runs through Dhrystone.
+> Finished in 2 ms
+> ==================================================
+> Dhrystone PASS         440450 Marks
+>                    vs. 100000 Marks (i7-7700K @ 4.20GHz)
+> [src/cpu/cpu-exec.c:164 cpu_exec] nemu: HIT GOOD TRAP at pc = 0x80000ee0
+> [src/cpu/cpu-exec.c:132 statistic] host time spent = 9,976,722 us
+> [src/cpu/cpu-exec.c:133 statistic] total guest instructions = 226,007,598
+> [src/cpu/cpu-exec.c:134 statistic] simulation frequency = 22,653,492 inst/s
+> 
+>
+> Empty mainargs. Use "ref" by default
+> ======= Running MicroBench [input *ref*] =======
+> [qsort] Quick sort: * Passed.
+>   min time: 201.910 ms [2181]
+> [queen] Queen placement: * Passed.
+>   min time: 112.669 ms [3611]
+> [bf] Brainf**k interpreter: * Passed.
+>   min time: 1.524 ms [1103346]
+> [fib] Fibonacci number: * Passed.
+>   min time: 3.016 ms [668700]
+> [sieve] Eratosthenes sieve: * Passed.
+>   min time: 63.036 ms [55243]
+> [15pz] A* 15-puzzle search: * Passed.
+>   min time: 0.181 ms [2961325]
+> [dinic] Dinic's maxflow algorithm: * Passed.
+>   min time: 41.095 ms [19909]
+> [lzip] Lzip compression: * Passed.
+>   min time: 715.859 ms [949]
+> [ssort] Suffix sort: * Passed.
+>   min time: 233.391 ms [1714]
+> [md5] MD5 digest: * Passed.
+>   min time: 6129.492 ms [247]
+> ==================================================
+> MicroBench PASS        481722 Marks
+>                    vs. 100000 Marks (i9-9900K @ 3.60GHz)
+> Scored time: 7502.173 ms
+> Total  time: 57229.434 ms
+> [src/cpu/cpu-exec.c:164 cpu_exec] nemu: HIT GOOD TRAP at pc = 0x80004e24
+> [src/cpu/cpu-exec.c:132 statistic] host time spent = 57,230,136 us
+> [src/cpu/cpu-exec.c:133 statistic] total guest instructions = 1,866,990,200
+> [src/cpu/cpu-exec.c:134 statistic] simulation frequency = 32,622,501 inst/s
+> ```
+>
+> NEMU 的跑分达到了 481722 分？！
+>
+> 接下来，我启动了 am-tests video，帧率达到了 15 fps，远高于原来的 2 fps。启动了 litenes mario，但是性能反而有所降低，大概变为 9 fps 左右。启动 typing-game，流畅度大幅提升，原来和 native 相比不稳定的画面变得十分清晰流畅。
 
 ## 选做题
 
@@ -143,7 +229,7 @@
 
 #### 假设我们需要将 NEMU 运行在 Motorola 68k 的机器上(把 NEMU 的源代码编译成 Motorola 68k 的机器码)
 
-> 当需要把 NEMU 移植到 Motorola 68k 处理器的机器上时，需要在运行为小端ISA 编译的程序时转换端序，包括指令字节顺序的转换和数据字节顺序的转换。因为为小端ISA 编译的程序目标文件中的指令和数据是按小端存放的，加载到内存时需要改变字节序。可以添加条件编译，使得 paddr_read 函数按需在读取时转换字节序，paddr_write 函数在写入时也改变字节序；
+> 当需要把 NEMU 移植到 Motorola 68k 处理器的机器上时，需要在运行为小端 ISA 编译的程序时转换端序，包括指令字节顺序的转换和数据字节顺序的转换。因为为小端ISA 编译的程序目标文件中的指令和数据是按小端存放的，加载到内存时需要改变字节序。可以添加条件编译，使得 paddr_read 函数按需在读取时转换字节序，paddr_write 函数在写入时也改变字节序；
 
 #### 假设我们需要把 Motorola 68k 作为一个新的 ISA 加入到 NEMU 中
 
