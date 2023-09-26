@@ -27,6 +27,7 @@ enum {
   reg_sbuf_size,
   reg_init,
   reg_count,
+  reg_lock,
   nr_reg
 };
 
@@ -36,11 +37,27 @@ static uint32_t *audio_base = NULL;
 static bool audio_initialized = false;
 
 static void audio_fill_buffer(void *data, Uint8 *stream, int len) {
-  while (audio_base[reg_count] < len);
+  int sum = 0;
 
-  memcpy(stream, sbuf, len);
+  while (sum < len) {
+    while (audio_base[reg_lock] || audio_base[reg_count] == 0);
+    audio_base[reg_lock] = 1;
 
-  audio_base[reg_count] = 0;
+    int count = audio_base[reg_count];
+
+    if (count <= len - sum) {
+      memcpy(stream + sum, sbuf, count);
+      sum += count;
+      audio_base[reg_count] = 0;
+    } else {
+      int size = len - sum;
+      memcpy(stream + sum, sbuf, size);
+      audio_base[reg_count] = count - size;
+      memmove(sbuf, sbuf + size, count - size);
+    }
+
+    audio_base[reg_lock] = 0;
+  }
 }
 
 static void audio_io_handler(uint32_t offset, int len, bool is_write) {
