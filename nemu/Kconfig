@@ -159,7 +159,7 @@ config MTRACE
 config MTRACE_COND
   depends on MTRACE
   string "Only trace mm & io when the condition is true"
-  default "false"
+  default "true"
 
 config FTRACE
   depends on TRACE && TARGET_NATIVE_ELF && ENGINE_INTERPRETER
@@ -169,7 +169,7 @@ config FTRACE
 config FTRACE_COND
   depends on FTRACE
   string "Only trace function call & return when the condition is true"
-  default "false"
+  default "true"
 
 config DIFFTEST
   depends on TARGET_NATIVE_ELF

@@ -80,7 +80,7 @@ word_t paddr_read(paddr_t addr, int len) {
 void paddr_write(paddr_t addr, int len, word_t data) {
   if (likely(in_pmem(addr))) { 
     pmem_write(addr, len, data);
-#ifdef CONFIG_MTRACE
+#ifdef CONFIG_MTRACE_COND
     if (MTRACE_COND)
       log_write("MW[0x%x] (len = %d): 0x%x (%d, %u)\n", addr, len, data, data, data);
 #endif
@@ -88,7 +88,7 @@ void paddr_write(paddr_t addr, int len, word_t data) {
   }
   IFDEF(CONFIG_DEVICE, {
     mmio_write(addr, len, data); 
-#ifdef CONFIG_MTRACE
+#ifdef CONFIG_MTRACE_COND
     if (MTRACE_COND)
       log_write("OUT[0x%x] (len = %d): 0x%x (%d, %u)\n", addr, len, data, data, data);
 #endif

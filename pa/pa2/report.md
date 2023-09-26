@@ -61,7 +61,41 @@
 
 ### 实现 iringbuf
 
-> 我的 iringbuf 实现大量使用了宏，算作 C 宏的一个练习。
+> 我的 iringbuf 实现大量使用了宏，算作 C 宏的一个练习。提供的接口如下：
+>
+> ```c
+> /* Instruction ringbuf */
+> #define MAX_IRINGBUF_ENTRY 32
+> static char iringbuf[MAX_IRINGBUF_ENTRY][128];
+> static int iringbuf_l = 0, iringbuf_r = 0, iringbuf_size = 0;
+> #define iringbuf_size() iringbuf_size
+> #define iringbuf_empty() (iringbuf_size == 0)
+> #define iringbuf_move(var) do { \
+>   if (iringbuf_ ## var == MAX_IRINGBUF_ENTRY - 1) { \
+>     iringbuf_ ## var = 0; \
+>   } else { \
+>     iringbuf_ ## var ++; \
+>   } \
+> } while (0)
+> #define iringbuf_push(s) do { \
+>   if (iringbuf_size == MAX_IRINGBUF_ENTRY) { \
+>     strcpy(iringbuf[iringbuf_l], (s)); \
+>     iringbuf_move(l); \
+>     iringbuf_move(r); \
+>   } else { \
+>     strcpy(iringbuf[iringbuf_r], (s)); \
+>     iringbuf_move(r); \
+>     iringbuf_size ++; \
+>   } \
+> } while (0)
+> #define iringbuf_pop() do { \
+>   if (iringbuf_size != 0) { \
+>     iringbuf_move(l); \
+>     iringbuf_size --; \
+>   } \
+> } while (0)
+> #define iringbuf_front() (iringbuf[iringbuf_l])
+> ```
 
 ## 选做题
 
