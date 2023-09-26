@@ -59,6 +59,10 @@
 
 ![mario](img/mario.png)
 
+### 实现 iringbuf
+
+> 我的 iringbuf 实现大量使用了宏，算作 C 宏的一个练习。
+
 ## 选做题
 
 ### 立即数背后的故事
