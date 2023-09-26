@@ -16,6 +16,7 @@ static int bufsize;
 
 void __am_audio_init() {
   bufsize = inl(AUDIO_SBUF_SIZE_ADDR);
+  outl(AUDIO_LOCK_ADDR, 0);
 }
 
 void __am_audio_config(AM_AUDIO_CONFIG_T *cfg) {
@@ -38,7 +39,7 @@ void __am_audio_status(AM_AUDIO_STATUS_T *stat) {
 
 void __am_audio_play(AM_AUDIO_PLAY_T *ctl) {
   char *start = ctl->buf.start, *end = ctl->buf.end;
-  int len = end - start, lock, count;
+  volatile int len = end - start, lock, count;
   while ((lock = inl(AUDIO_LOCK_ADDR)) != 0
     || bufsize - (count = inl(AUDIO_COUNT_ADDR)) < len);
   outl(AUDIO_LOCK_ADDR, 1);
