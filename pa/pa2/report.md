@@ -45,7 +45,13 @@
 
 ### 实现更多的指令
 
+目前已经实现了除了异常处理外的 RISC-V32IM 所有指令，通过了 `alu-test` 和所有 `cpu-test`（写这篇实验报告时已经完成了 klib 和 ioe）。
 
+![cpu-tests](img/cpu-tests.png)
+
+![alu-tests](img/alu-tests.png)
+
+能够正确运行 litenes 和 typing-game。
 
 ## 选做题
 
