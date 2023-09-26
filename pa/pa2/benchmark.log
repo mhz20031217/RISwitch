@@ -42,3 +42,54 @@ Total  time: 2606695.092 ms
 [src/cpu/cpu-exec.c:132 statistic] host time spent = 2,606,707,402 us
 [src/cpu/cpu-exec.c:133 statistic] total guest instructions = 1,866,989,958
 [src/cpu/cpu-exec.c:134 statistic] simulation frequency = 716,225 inst/s
+
+
+
+
+❯ make ARCH=riscv32-nemu run
+# Building coremark-run [riscv32-nemu]
+# Building am-archive [riscv32-nemu]
++ CC src/platform/nemu/trm.c
++ AR -> build/am-riscv32-nemu.a
+# Building klib-archive [riscv32-nemu]
++ LD -> build/coremark-riscv32-nemu.elf
+# Creating image [riscv32-nemu]
++ OBJCOPY -> build/coremark-riscv32-nemu.bin
+make -C /home/pc/Learning/02.IT/5.ICS/ics2023/nemu ISA=riscv32 run ARGS="-l /home/pc/Learning/02.IT/5.ICS/ics2023/am-kernels/benchmarks/coremark/build/nemu-log.txt -b" IMG=/home/pc/Learning/02.IT/5.ICS/ics2023/am-kernels/benchmarks/coremark/build/coremark-riscv32-nemu.bin
+make[1]: Entering directory '/home/pc/Learning/02.IT/5.ICS/ics2023/nemu'
++ LD /home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/riscv32-nemu-interpreter
+/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/riscv32-nemu-interpreter -l /home/pc/Learning/02.IT/5.ICS/ics2023/am-kernels/benchmarks/coremark/build/nemu-log.txt -b  /home/pc/Learning/02.IT/5.ICS/ics2023/am-kernels/benchmarks/coremark/build/coremark-riscv32-nemu.bin
+[src/utils/log.c:28 init_log] Log is written to /home/pc/Learning/02.IT/5.ICS/ics2023/am-kernels/benchmarks/coremark/build/nemu-log.txt
+[src/memory/paddr.c:56 init_mem] physical memory area [0x80000000, 0x87ffffff]
+[src/device/io/mmio.c:50 add_mmio_map] Add mmio map 'serial' at [0xa00003f8, 0xa00003ff]
+[src/device/io/mmio.c:50 add_mmio_map] Add mmio map 'rtc' at [0xa0000048, 0xa000004f]
+[src/device/io/mmio.c:50 add_mmio_map] Add mmio map 'vgactl' at [0xa0000100, 0xa0000107]
+[src/device/io/mmio.c:50 add_mmio_map] Add mmio map 'vmem' at [0xa1000000, 0xa10752ff]
+[src/device/io/mmio.c:50 add_mmio_map] Add mmio map 'keyboard' at [0xa0000060, 0xa0000063]
+[src/device/io/mmio.c:50 add_mmio_map] Add mmio map 'audio' at [0xa0000200, 0xa000021b]
+[src/device/io/mmio.c:50 add_mmio_map] Add mmio map 'audio-sbuf' at [0xa1200000, 0xa120ffff]
+[src/monitor/monitor.c:64 load_img] The image is /home/pc/Learning/02.IT/5.ICS/ics2023/am-kernels/benchmarks/coremark/build/coremark-riscv32-nemu.bin, size = 18220
+[src/monitor/monitor.c:30 welcome] Trace: OFF
+[src/monitor/monitor.c:34 welcome] Build time: 18:29:21, Sep 26 2023
+Welcome to riscv32-NEMU!
+For help, type "help"
+Running CoreMark for 1000 iterations
+2K performance run parameters for coremark.
+CoreMark Size    : 666
+Total time (ms)  : 0
+Iterations       : 1000
+Compiler version : GCC11.4.0
+seedcrc          : 0xe9f5
+[0]crclist       : 0xe714
+[0]crcmatrix     : 0x1fd7
+[0]crcstate      : 0x8e3a
+[0]crcfinal      : 0xd340
+Finised in 0 ms.
+==================================================
+CoreMark PASS       -1 Marks
+                vs. 100000 Marks (i7-7700K @ 4.20GHz)
+[src/cpu/cpu-exec.c:164 cpu_exec] nemu: HIT GOOD TRAP at pc = 0x8000244c
+[src/cpu/cpu-exec.c:132 statistic] host time spent = 12,250,735 us
+[src/cpu/cpu-exec.c:133 statistic] total guest instructions = 305,931,583
+[src/cpu/cpu-exec.c:134 statistic] simulation frequency = 24,972,508 inst/s
+make[1]: Leaving directory '/home/pc/Learning/02.IT/5.ICS/ics2023/nemu'
