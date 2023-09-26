@@ -11,7 +11,7 @@
 #define AUDIO_COUNT_ADDR     (AUDIO_ADDR + 0x14)
 #define AUDIO_LOCK_ADDR      (AUDIO_ADDR + 0x18)
 
-static int bufsize;
+static volatile int bufsize;
 
 void __am_audio_init() {
   bufsize = inl(AUDIO_SBUF_SIZE_ADDR);
@@ -31,7 +31,7 @@ void __am_audio_ctrl(AM_AUDIO_CTRL_T *ctrl) {
 }
 
 void __am_audio_status(AM_AUDIO_STATUS_T *stat) {
-  int lock;
+  volatile int lock;
   while ((lock = inl(AUDIO_LOCK_ADDR)) != 0);
   stat->count = inl(AUDIO_COUNT_ADDR);
 }
