@@ -51,7 +51,13 @@
 
 ![alu-tests](img/alu-tests.png)
 
-能够正确运行 typing-game，snake，。
+能够正确运行 typing-game，snake，mario 等。
+
+![typing-game](img/typing-game.png)
+
+![snake](img/snake.png)
+
+![mario](img/mario.png)
 
 ## 选做题
 
@@ -74,3 +80,7 @@
 ### 为什么执行了未实现指令会出现上述报错信息
 
 > 如果有没有实现的指令，那么指令执行阶段在 `decode_exec` 中会匹配到 `inv` 指令。这一条指令对应的执行代码最终调用了 `nemu/src/engine/interpreter/hostcall.c:invalid_inst`，然后这个函数会输出这个报错信息并设置 NEMU 状态为 `ABORT`，退出。
+
+### mips32 的分支延迟槽
+
+> 
