@@ -39,7 +39,7 @@ static uint32_t *audio_base = NULL;
 static bool audio_initialized = false;
 
 static void audio_fill_buffer(void *data, Uint8 *stream, int len) {
-  Info("Filling sbuf...");
+  Info("Filling stream of length: %d.", len);
 
   int sum = 0;
 
