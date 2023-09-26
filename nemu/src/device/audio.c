@@ -83,7 +83,7 @@ static void audio_io_handler(uint32_t offset, int len, bool is_write) {
         .channels = audio_base[reg_channels],
         .silence = 0,
         .format = AUDIO_S16SYS,
-        .samples = 8192,
+        .samples = audio_base[reg_samples],
         .userdata = NULL,
         .callback = audio_fill_buffer
     };
