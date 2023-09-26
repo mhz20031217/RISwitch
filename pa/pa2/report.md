@@ -51,7 +51,7 @@
 
 ![alu-tests](img/alu-tests.png)
 
-能够正确运行 litenes 和 typing-game。
+能够正确运行 typing-game，snake，。
 
 ## 选做题
 
