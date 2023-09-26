@@ -18,6 +18,7 @@
 #include <device/map.h>
 #include <SDL2/SDL.h>
 #include <stdbool.h>
+#include <stdio.h>
 #include <string.h>
 #include <unistd.h>
 
@@ -64,10 +65,6 @@ static void audio_fill_buffer(void *data, Uint8 *stream, int len) {
 }
 
 static void audio_io_handler(uint32_t offset, int len, bool is_write) {
-  if (offset == reg_count) {
-    Warning("Program is writing read-only register 'reg_count' in device 'audio'.");
-  }
-
   if (offset == reg_init) {
     if (audio_initialized) {
       SDL_CloseAudio();
@@ -87,7 +84,8 @@ static void audio_io_handler(uint32_t offset, int len, bool is_write) {
     SDL_PauseAudio(0);
 
     audio_initialized = true;
-
+    
+    Info("Audio initialized");
     audio_base[reg_init] = 0;
   }
 }

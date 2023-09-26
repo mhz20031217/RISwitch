@@ -2,7 +2,6 @@
 #include "riscv/riscv.h"
 #include <am.h>
 #include <nemu.h>
-#include <stdint.h>
 
 #define AUDIO_FREQ_ADDR      (AUDIO_ADDR + 0x00)
 #define AUDIO_CHANNELS_ADDR  (AUDIO_ADDR + 0x04)
@@ -40,6 +39,7 @@ void __am_audio_status(AM_AUDIO_STATUS_T *stat) {
 void __am_audio_play(AM_AUDIO_PLAY_T *ctl) {
   char *start = ctl->buf.start, *end = ctl->buf.end;
   volatile int len = end - start, lock, count;
+
   while ((lock = inl(AUDIO_LOCK_ADDR)) != 0
     || bufsize - (count = inl(AUDIO_COUNT_ADDR)) < len);
   outl(AUDIO_LOCK_ADDR, 1);
