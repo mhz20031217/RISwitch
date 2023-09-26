@@ -48,6 +48,7 @@ static void audio_fill_buffer(void *data, Uint8 *stream, int len) {
       usleep(10);
     }
     audio_base[reg_lock] = 1;
+    Info("Acquired lock.");
 
     int count = audio_base[reg_count];
 
@@ -63,6 +64,7 @@ static void audio_fill_buffer(void *data, Uint8 *stream, int len) {
     }
 
     audio_base[reg_lock] = 0;
+    Info("Released lock.");
     Info("Filled %d / %d", sum, len);
   }
 }
