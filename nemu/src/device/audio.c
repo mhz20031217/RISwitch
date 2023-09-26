@@ -39,7 +39,7 @@ static uint32_t *audio_base = NULL;
 static bool audio_initialized = false;
 
 static void audio_fill_buffer(void *data, Uint8 *stream, int len) {
-  Info("Filling stream of length: %d.", len);
+  // Info("Filling stream of length: %d.", len);
 
   int sum = 0;
 
@@ -48,7 +48,7 @@ static void audio_fill_buffer(void *data, Uint8 *stream, int len) {
       usleep(10);
     }
     audio_base[reg_lock] = 1;
-    Info("Acquired lock.");
+    // Info("Acquired lock.");
 
     int count = audio_base[reg_count];
 
@@ -64,8 +64,8 @@ static void audio_fill_buffer(void *data, Uint8 *stream, int len) {
     }
 
     audio_base[reg_lock] = 0;
-    Info("Released lock.");
-    Info("Filled %d / %d", sum, len);
+    // Info("Released lock.");
+    // Info("Filled %d / %d", sum, len);
   }
 }
 
@@ -92,8 +92,8 @@ static void audio_io_handler(uint32_t offset, int len, bool is_write) {
 
     audio_initialized = true;
     
-    Info("Audio initialized, freq: %d, channel: %d, samples: %d.",
-      audio_base[reg_freq], audio_base[reg_channels], audio_base[reg_samples]);
+    // Info("Audio initialized, freq: %d, channel: %d, samples: %d.",
+      // audio_base[reg_freq], audio_base[reg_channels], audio_base[reg_samples]);
     audio_base[reg_init] = 0;
   }
 }
