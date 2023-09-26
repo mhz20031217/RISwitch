@@ -1,0 +1,10 @@
+
+volatile.o:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000000000 <fun>:
+   0:	f3 0f 1e fa          	endbr64 
+   4:	0f 1f 40 00          	nopl   0x0(%rax)
+   8:	eb fe                	jmp    8 <fun+0x8>
