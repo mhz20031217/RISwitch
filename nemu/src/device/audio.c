@@ -92,8 +92,8 @@ static void audio_io_handler(uint32_t offset, int len, bool is_write) {
 
     audio_initialized = true;
     
-    // Info("Audio initialized, freq: %d, channel: %d, samples: %d.",
-      // audio_base[reg_freq], audio_base[reg_channels], audio_base[reg_samples]);
+    Info("Audio initialized, freq: %d, channel: %d, samples: %d.",
+      audio_base[reg_freq], audio_base[reg_channels], audio_base[reg_samples]);
     audio_base[reg_init] = 0;
   }
 }
