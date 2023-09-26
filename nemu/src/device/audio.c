@@ -47,6 +47,7 @@ static void audio_fill_buffer(void *data, Uint8 *stream, int len) {
     while (audio_base[reg_lock] || audio_base[reg_count] == 0) {}
     audio_base[reg_lock] = 1;
     // Info("Acquired lock.");
+    usleep(1);
 
     int count = audio_base[reg_count];
 
