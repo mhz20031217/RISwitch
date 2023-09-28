@@ -165,7 +165,7 @@
 >
 > 在 NEMU 上，在 monitor 初始化的时候，会自动加载程序镜像（`nemu/src/monitor/monitor.c:load_img`）。 `nemu_state` 为 `NEMU_END` 时，执行结束。在 RISCV32-NEMU 上运行的 AM 程序在结束时调用 `halt`，然后调用 `nemu_trap`，`nemu_trap` 是一个宏定义的两条汇编语言程序，将 `code` 移到 `a0` 寄存器，然后执行 `ebreak`。在 `inst.c` 中，该指令最终结果是设置 `nemu_state` 为 `NEMU_END`。
 >
-> 如果没有 monitor，则无法判断
+> 如果没有 monitor，则无法以一种用户友好的方式在裸机上加载程序，调试程序。
 
 ### 如何测试字符串处理函数?
 
