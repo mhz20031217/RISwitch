@@ -32,7 +32,10 @@ char *strncpy(char *dst, const char *src, size_t n) {
     cnt ++;
   }
 
-  *cur = '\0';
+  while (cnt < n) {
+    *(cur ++) = '\0';
+    cnt ++;
+  }
   return dst;
 }
 
@@ -67,7 +70,7 @@ int strncmp(const char *s1, const char *s2, size_t n) {
     if (*s1 != *s2) {
       return *s1 - *s2;
     }
-    s1 ++; s2 ++;
+    s1 ++; s2 ++; cnt ++; // Major bug, forgetting about cnt ++, what a shame!
   }
 
   if (cnt == n) {
