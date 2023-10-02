@@ -1,6 +1,7 @@
 #include <am.h>
 #include <klib.h>
 #include <klib-macros.h>
+#include <stdbool.h>
 #include <stdint.h>
 
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
@@ -44,6 +45,7 @@ void *malloc(size_t size) {
     malloc_ptr = heap.start;
     ret = malloc_ptr;
     malloc_ptr += size;
+    malloc_first_run = false;
   } else {
     ret = malloc_ptr;
     malloc_ptr += size;
