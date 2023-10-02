@@ -70,7 +70,7 @@ int strncmp(const char *s1, const char *s2, size_t n) {
     if (*s1 != *s2) {
       return *s1 - *s2;
     }
-    s1 ++; s2 ++; cnt ++; // Major bug, forgetting about cnt ++, what a shame!
+    s1 ++; s2 ++; cnt ++;
   }
 
   if (cnt == n) {
@@ -95,7 +95,21 @@ void *memset(void *s, int c, size_t n) {
 }
 
 void *memmove(void *dst, const void *src, size_t n) {
-  panic("Not implemented");
+  void *swap = malloc(n);
+  if (!swap) {
+    panic("no enough space.");
+  }
+
+  size_t cnt = 0;
+  unsigned char *d = dst;
+  const unsigned char *s = src;
+
+  while (cnt < n) {
+    *(d ++) = *(s ++);
+    cnt ++;
+  }
+
+  return dst;
 }
 
 void *memcpy(void *out, const void *in, size_t n) {
