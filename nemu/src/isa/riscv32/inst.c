@@ -14,6 +14,7 @@
 ***************************************************************************************/
 
 #include "common.h"
+#include "isa.h"
 #include "local-include/reg.h"
 #include "macro.h"
 #include <cpu/cpu.h>
@@ -25,6 +26,7 @@
 #include <sys/types.h>
 
 #define R(i) gpr(i)
+#define C(i) csr(i)
 #define Mr vaddr_read
 #define Mw vaddr_write
 
@@ -51,6 +53,17 @@ enum {
 | (BITS(i, 30, 21) << 1); \
 } while(0)
 
+static inline word_t setbit(word_t x, int idx) {
+  return x | (1U << idx);
+}
+
+static inline word_t rstbit(word_t x, int idx) {
+  return x & ~(1U << idx);
+}
+
+static inline word_t getbit(word_t x, int idx) {
+  return x & (1U << idx);
+}
 
 static void decode_operand(Decode *s, int *rd, word_t *src1, word_t *src2, word_t *imm, int type) {
   uint32_t i = s->isa.inst.val;
@@ -200,6 +213,51 @@ static int decode_exec(Decode *s) {
       }
     }
     #endif
+  );
+
+  /* Ziscr */
+  // Decode
+  uint32_t i = s->isa.inst.val;
+  word_t csr = BITS(i, 31, 20), zimm = BITS(i, 19, 15);
+  
+  INSTPAT("???????????? ????? 011 ????? 11100 11",  csrrc  , I,
+    word_t t = C(csr);
+    C(csr) = t & ~src1;
+    R(rd) = t;
+  );
+  INSTPAT("???????????? ????? 111 ????? 11100 11", csrrci  , I,
+    word_t t = C(csr);
+    C(csr) = t & ~zimm;
+    R(rd) = t;
+  );
+  INSTPAT("???????????? ????? 010 ????? 11100 11",  csrrs  , I,
+    word_t t = C(csr);
+    C(csr) = t | ~src1;
+    R(rd) = t;
+  );
+  INSTPAT("???????????? ????? 110 ????? 11100 11", csrrsi  , I,
+    word_t t = C(csr);
+    C(csr) = t | ~zimm;
+    R(rd) = t;
+  );
+  INSTPAT("???????????? ????? 001 ????? 11100 11",  csrrw  , I,
+    word_t t = C(csr);
+    C(csr) = src1;
+    R(rd) = t;
+  );
+  INSTPAT("???????????? ????? 101 ????? 11100 11", csrrwi  , I,
+    R(rd) = C(csr);
+    C(csr) = zimm;
+  );
+  INSTPAT("000000000000 00000 000 00000 11100 11", ecall   , I,
+    isa_raise_intr(11, s->pc);
+    s->dnpc = C(CSR_MTVEC_IDX);
+  );
+  INSTPAT("0011000 00010 00000 000 00000 11100 11", mret   , R,
+    s->dnpc = C(CSR_MEPC_IDX);
+    word_t mstatus = C(CSR_MSTATUS_IDX);
+    word_t mpie = getbit(mstatus, 7);
+    mstatus = (mpie) ? setbit(mstatus, 3) : rstbit(mstatus, 3);
   );
 
   /* nemu */

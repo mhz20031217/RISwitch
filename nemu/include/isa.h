@@ -50,6 +50,18 @@ paddr_t isa_mmu_translate(vaddr_t vaddr, int len, int type);
 vaddr_t isa_raise_intr(word_t NO, vaddr_t epc);
 #define INTR_EMPTY ((word_t)-1)
 word_t isa_query_intr();
+#define CSR_MSTATUS_IDX 0x300
+#define CSR_MTVEC_IDX 0x305
+#define CSR_MEPC_IDX 0x341
+#define CSR_MCAUSE_IDX 0x342
+#define csr(idx) (cpu.csr[check_csr_idx(idx)])
+
+static inline int check_csr_idx(int idx) {
+  IFDEF(CONFIG_RT_CHECK, 
+      assert(idx == CSR_MEPC_IDX || idx == CSR_MSTATUS_IDX || idx == CSR_MCAUSE_IDX));
+  return idx;
+}
+
 
 // difftest
 bool isa_difftest_checkregs(CPU_state *ref_r, vaddr_t pc);
