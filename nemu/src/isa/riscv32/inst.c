@@ -83,7 +83,10 @@ static void decode_operand(Decode *s, int *rd, word_t *src1, word_t *src2, word_
 static int decode_exec(Decode *s) {
   int rd = 0;
   word_t src1 = 0, src2 = 0, imm = 0;
-  s->dnpc = s->snpc;
+   // Decode
+  uint32_t i = s->isa.inst.val;
+  word_t csr = BITS(i, 31, 20), zimm = BITS(i, 19, 15);
+   s->dnpc = s->snpc;
 
 #define INSTPAT_INST(s) ((s)->isa.inst.val)
 #define INSTPAT_MATCH(s, name, type, ... /* execute body */ ) { \
@@ -216,10 +219,6 @@ static int decode_exec(Decode *s) {
   );
 
   /* Ziscr */
-  // Decode
-  uint32_t i = s->isa.inst.val;
-  word_t csr = BITS(i, 31, 20), zimm = BITS(i, 19, 15);
-  
   INSTPAT("???????????? ????? 011 ????? 11100 11",  csrrc  , I,
     word_t t = C(csr);
     C(csr) = t & ~src1;
