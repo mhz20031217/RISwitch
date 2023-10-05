@@ -85,7 +85,7 @@ void do_syscall(Context *c) {
     }
     c->GPRx = syscall_handler[a[0]].handler(a);
     #ifdef ENABLE_STRACE
-    printf("%u (%d, 0x%x)\n", c->GPRx);
+    printf("%u (%d, 0x%x)\n", c->GPRx, c->GPRx, c->GPRx);
     #endif
   }
 }
