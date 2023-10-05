@@ -18,6 +18,7 @@ Context* __am_irq_handle(Context *c) {
     switch (c->mcause) {
       case 11: 
         ev.cause = EVENT_YIELD;
+        printf("Yield Event!\n");
         break;
       default: ev.event = EVENT_ERROR; break;
     }
