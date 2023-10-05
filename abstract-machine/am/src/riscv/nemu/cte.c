@@ -5,13 +5,13 @@
 static Context* (*user_handler)(Event, Context*) = NULL;
 
 Context* __am_irq_handle(Context *c) {
-  // printf("AM irq_handle called.\nContext:\n");
+  printf("AM irq_handle called.\nContext:\n");
         
-  // for (int i = 0; i < 32; i ++) {
-  //   printf("%.2d: %d %u %x\n", i, c->gpr[i], c->gpr[i], c->gpr[i]);
-  // }
+  for (int i = 0; i < 32; i ++) {
+    printf("%.2d: %d %u %x\n", i, c->gpr[i], c->gpr[i], c->gpr[i]);
+  }
 
-  // printf("mepc, mstatus, mcause: 0x%x, 0x%x, 0x%x\n", c->mepc, c->mstatus, c->mcause);
+  printf("mepc, mstatus, mcause: 0x%x, 0x%x, 0x%x\n", c->mepc, c->mstatus, c->mcause);
 
   if (user_handler) {
     Event ev = {0};
@@ -22,7 +22,7 @@ Context* __am_irq_handle(Context *c) {
         break;
       default: ev.event = EVENT_ERROR; break;
     }
-    // printf("Ready to call, now ev.event %d\n", ev.event);
+    printf("Ready to call, now ev.event %d\n", ev.event);
     c = user_handler(ev, c);
     assert(c != NULL);
   }
