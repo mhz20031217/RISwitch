@@ -36,7 +36,7 @@ word_t isa_raise_intr(word_t NO, vaddr_t epc) {
    */
   #ifdef CONFIG_ETRACE
   if (ETRACE_COND)
-    Info("[etrace] Exception No.%d at epc: %d", NO, epc);
+    Info("[etrace] Exception No.%d at epc: 0x%x", NO, epc);
   #endif
   
   C(CSR_MEPC_IDX) = epc;
