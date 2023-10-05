@@ -67,7 +67,7 @@ size_t fs_read(int fd, void *buf, size_t len) {
   Finfo *file = check_fd(fd);
   
   size_t rc = min(len, file->size - file->offset);
-  if (rc != ramdisk_read(buf, file->offset, rc)) {
+  if (rc != ramdisk_read(buf, file->disk_offset + file->offset, rc)) {
     return -1;
   }
 
@@ -79,7 +79,7 @@ size_t fs_write(int fd, const void *buf, size_t len) {
   Finfo *file = check_fd(fd);
   
   size_t rc = min(len, file->size - file->offset);
-  if (rc != ramdisk_write(buf, file->offset, rc)) {
+  if (rc != ramdisk_write(buf, file->disk_offset + file->offset, rc)) {
     return -1;
   }
 
@@ -97,7 +97,7 @@ size_t fs_lseek(int fd, size_t offset, int whence) {
     case SEEK_END: pos = file->size; break;
     default: panic("fs: Unsupported seek option: %d.", whence);
   }
-  if (pos >= file->size) {
+  if (pos > file->size) {
     // panic("fs: File offset out of bound: %d.", fd);
     return -1;
   }
