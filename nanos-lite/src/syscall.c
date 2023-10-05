@@ -79,8 +79,11 @@ void do_syscall(Context *c) {
     panic("Unhandled syscall ID = %d", a[0]);
   } else {
     #ifdef ENABLE_STRACE
-    printf("[strace] %s(%lx, %lx, %lx)\n", syscall_handler[a[0]].desc, a[1], a[2], a[3]);
+    printf("[strace] %s(%lx, %lx, %lx) = ", syscall_handler[a[0]].desc, a[1], a[2], a[3]);
     #endif
     c->GPRx = syscall_handler[a[0]].handler(a);
+    #ifdef ENABLE_STRACE
+    printf("%u (%d, 0x%x)\n", c->GPRx);
+    #endif
   }
 }
