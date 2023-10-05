@@ -12,4 +12,6 @@
 #include <klib-macros.h>
 #include <debug.h>
 
+#define ARRLEN(x) (sizeof(x)/sizeof((x)[0]))
+
 #endif

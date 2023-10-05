@@ -43,11 +43,11 @@ word_t isa_raise_intr(word_t NO, vaddr_t epc) {
   C(CSR_MCAUSE_IDX) = NO; // use Exception-from-M-mode
   word_t mstatus = C(CSR_MSTATUS_IDX);
   word_t mie = getbit(mstatus, 3);
-  mstatus = (mie) ? setbit(mstatus, 7) : rstbit(mstatus, 0);
+  mstatus = (mie) ? setbit(mstatus, 7) : rstbit(mstatus, 7);
   mstatus = rstbit(mstatus, 3);
   C(CSR_MSTATUS_IDX) = mstatus;
   
-  return 0;
+  return epc + 4;
 }
 
 word_t isa_query_intr() {
