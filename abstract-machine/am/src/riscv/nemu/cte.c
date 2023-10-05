@@ -7,6 +7,7 @@ static Context* (*user_handler)(Event, Context*) = NULL;
 static inline void __am_irq_handle_syscall(Event *e, Context *c) {
   switch (c->gpr[10]) {
     case 1: e->event = EVENT_YIELD;
+    case (uintptr_t)-1: e->event = EVENT_YIELD;
     default: e->event = EVENT_SYSCALL;
   }
 }
