@@ -92,9 +92,9 @@ size_t fs_lseek(int fd, size_t offset, int whence) {
   
   size_t pos;
   switch (whence) {
-    case SEEK_CUR: pos = file->offset + offset;
-    case SEEK_SET: pos = offset;
-    case SEEK_END: pos = file->size;
+    case SEEK_CUR: pos = file->offset + offset; break;
+    case SEEK_SET: pos = offset; break;
+    case SEEK_END: pos = file->size; break;
     default: panic("fs: Unsupported seek option: %d.", whence);
   }
   if (pos >= file->size) {
