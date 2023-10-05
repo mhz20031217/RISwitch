@@ -16,6 +16,7 @@ static inline int SYS_write(uintptr_t args[]) {
   int fd = args[1];
   const void *buf = (const void *) args[2];
   size_t count = args[3];
+  printf("Called SYS_write, fd = %d, buf = 0x%p, count = %lu.\n", fd, buf, count);
 
   if (fd == 1 || fd == 2) {
     for (size_t i = 0; i < count; i ++) {
