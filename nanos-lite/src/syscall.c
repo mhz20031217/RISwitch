@@ -13,9 +13,9 @@ static inline int SYS_yield(uintptr_t args[]) {
 }
 
 static inline int SYS_write(uintptr_t args[]) {
-  int fd = args[0];
-  const void *buf = (const void *) args[1];
-  size_t count = args[2];
+  int fd = args[1];
+  const void *buf = (const void *) args[2];
+  size_t count = args[3];
 
   if (fd == 1 || fd == 2) {
     for (size_t i = 0; i < count; i ++) {
