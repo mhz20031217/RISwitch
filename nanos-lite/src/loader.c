@@ -1,6 +1,7 @@
 #include <proc.h>
 #include <elf.h>
 #include <debug.h>
+#include <fs.h>
 
 #ifdef __LP64__
 # define Elf_Ehdr Elf64_Ehdr
@@ -25,15 +26,17 @@
 #error Unsupported ISA
 #endif
 
-size_t ramdisk_read(void *buf, size_t offset, size_t len); 
+size_t ramdisk_read(void *buf, size_t offset, size_t len);
+size_t ramdisk_write(const void *buf, size_t offset, size_t len);
 
 static uintptr_t loader(PCB *pcb, const char *filename) {
+  int fd = fs_open(filename, 0, 0);
   int rc = 0;
   Elf_Ehdr elf_header;
-  rc = ramdisk_read(&elf_header, 0, sizeof(Elf_Ehdr));
+  rc = fs_read(fd, &elf_header, sizeof(Elf_Ehdr));
   assert(rc == sizeof(Elf_Ehdr));
 
-  printf("Read elf done, elf_header.ident: 0x%x\n", elf_header.e_ident);
+  Log("loader: Loading '%s'.", filename);
 
   assert(*(uint32_t *)elf_header.e_ident == 0x464c457f);
   assert(elf_header.e_machine == EXPECT_TYPE);
@@ -45,12 +48,14 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   Elf_Phdr entry;
   for (uint32_t i = 0; i < phnum; i ++) {
     uintptr_t entoff = phoff + i * phentsize;
-    rc = ramdisk_read(&entry, entoff, sizeof(Elf_Phdr));
+    fs_lseek(fd, entoff, SEEK_SET);
+    rc = fs_read(fd, &entry, sizeof(Elf_Phdr));
     assert(rc == sizeof(Elf_Phdr));
 
     if (entry.p_type != PT_LOAD) continue;
 
-    rc = ramdisk_read((void *)entry.p_vaddr, entry.p_offset, entry.p_filesz);
+    fs_lseek(fd, entry.p_offset, SEEK_SET);
+    rc = fs_read(fd, (void *)entry.p_vaddr, entry.p_filesz);
     assert(rc == entry.p_filesz);
 
     memset((void *)(entry.p_vaddr + entry.p_filesz), 0, entry.p_memsz - entry.p_filesz);
@@ -64,4 +69,3 @@ void naive_uload(PCB *pcb, const char *filename) {
   Log("Jump to entry = %p", entry);
   ((void(*)())entry) ();
 }
-
