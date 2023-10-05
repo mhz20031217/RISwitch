@@ -35,7 +35,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
 
   printf("Read elf done, elf_header.ident: 0x%x\n", elf_header.e_ident);
 
-  assert(*(uint32_t *)elf_header.e_ident == 0x7f454c46);
+  assert(*(uint32_t *)elf_header.e_ident == 0x464c457f);
   assert(elf_header.e_machine == EXPECT_TYPE);
 
   uintptr_t phoff = elf_header.e_phoff;
