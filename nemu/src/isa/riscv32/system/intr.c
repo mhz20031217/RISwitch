@@ -13,6 +13,7 @@
 * See the Mulan PSL v2 for more details.
 ***************************************************************************************/
 
+#include "debug.h"
 #include <isa.h>
 
 #define C(i) cpu.csr[i]
@@ -33,6 +34,11 @@ word_t isa_raise_intr(word_t NO, vaddr_t epc) {
   /* TODO: Trigger an interrupt/exception with ``NO''.
    * Then return the address of the interrupt/exception vector.
    */
+  #ifdef CONFIG_ETRACE
+  if (ETRACE_COND)
+    Info("[etrace] Exception No.%d at epc: %d", NO, epc);
+  #endif
+  
   C(CSR_MEPC_IDX) = epc;
   C(CSR_MCAUSE_IDX) = NO; // use Exception-from-M-mode
   word_t mstatus = C(CSR_MSTATUS_IDX);
