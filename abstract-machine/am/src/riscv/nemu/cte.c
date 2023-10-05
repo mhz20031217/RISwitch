@@ -4,14 +4,6 @@
 
 static Context* (*user_handler)(Event, Context*) = NULL;
 
-static inline void __am_irq_handle_syscall(Event *e, Context *c) {
-  switch (c->gpr[10]) {
-    case 1: e->event = EVENT_YIELD;
-    case (uintptr_t)-1: e->event = EVENT_YIELD;
-    default: e->event = EVENT_SYSCALL;
-  }
-}
-
 Context* __am_irq_handle(Context *c) {
   // printf("AM irq_handle called.\nContext:\n");
   //       
@@ -24,8 +16,9 @@ Context* __am_irq_handle(Context *c) {
   if (user_handler) {
     Event ev = {0};
     switch (c->mcause) {
-      case 11: 
-        __am_irq_handle_syscall(&ev, c);
+      case 11:
+        if (c->GPR1 < 20) ev.event = EVENT_SYSCALL;
+        else ev.event = EVENT_YIELD;
         break;
       default: ev.event = EVENT_ERROR; break;
     }
