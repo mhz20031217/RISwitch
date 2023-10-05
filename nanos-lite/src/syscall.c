@@ -1,6 +1,7 @@
 #include <common.h>
 #include <sys/types.h>
 #include "syscall.h"
+#include <debug.h>
 
 static inline int sys_exit(uintptr_t args[]) {
   halt(args[0]);

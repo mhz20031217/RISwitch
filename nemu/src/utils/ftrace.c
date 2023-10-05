@@ -37,7 +37,7 @@ static const char *shift = "  ";
 static int indent = 0;
 static bool ftrace_initialized = 0;
 
-void init_ftrace(const char *elf_file) {
+static void init_ftrace_once(const char *elf_file) {
     FILE *fp;
 
     if (elf_file != NULL) {
@@ -110,6 +110,16 @@ void init_ftrace(const char *elf_file) {
     
     indent = 0;
     fclose(fp);
+}
+
+void init_ftrace(const char *elf_files) {
+    char *list = strdup(elf_files);
+    char *token = strtok(list, ",");
+    while (token != NULL) {
+        init_ftrace_once(token);
+        token = strtok(NULL, ",");
+    }
+    free(list);
     ftrace_initialized = 1;
 }
 
