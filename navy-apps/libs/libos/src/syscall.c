@@ -1,3 +1,4 @@
+#include <cstdint>
 #include <unistd.h>
 #include <sys/stat.h>
 #include <sys/time.h>
@@ -70,7 +71,14 @@ int _write(int fd, void *buf, size_t count) {
 }
 
 void *_sbrk(intptr_t increment) {
-  return (void *)-1;
+  extern unsigned char _end;
+  static void *brk = &_end;
+
+  void *ret = brk;
+  if(_syscall_(SYS_brk, (intptr_t) brk + increment, 0, 0) == 0) {
+    brk += increment;
+  }
+  return ret;
 }
 
 int _read(int fd, void *buf, size_t count) {

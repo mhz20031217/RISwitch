@@ -28,6 +28,11 @@ static inline int SYS_write(uintptr_t args[]) {
   }
 }
 
+static inline int SYS_brk(uintptr_t args[]) {
+  // void *addr = args[1];
+  return 0;
+}
+
 // enum {
 //   SYS_exit,    0
 //   SYS_yield,   1
@@ -55,11 +60,10 @@ static struct {
   int (*handler)(uintptr_t args[]);
   const char *desc;
 } syscall_handler[] = {
-  {SYS_exit, "exit"},     // 0
-  {SYS_yield, "yield"},
-  {NULL, NULL},
-  {NULL, NULL},
-  {SYS_write, "write"},   // 4
+  [0] = {SYS_exit, "exit"},
+  [1] = {SYS_yield, "yield"},
+  [4] = {SYS_write, "write"},
+  [9] = {SYS_brk, "brk"},
 };
 
 #define NR_SYSCALL ARRLEN(syscall_handler)
