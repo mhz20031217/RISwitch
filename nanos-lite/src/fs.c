@@ -79,32 +79,38 @@ static inline Finfo *check_fd(int fd) {
 size_t fs_read(int fd, void *buf, size_t len) {
   Finfo *file = check_fd(fd);
   
-  size_t rc = min(len, file->size - file->offset);
   if (file->read == NULL) {
+    size_t rc = min(len, file->size - file->offset);
     if (rc != ramdisk_read(buf, file->disk_offset + file->offset, rc)) {
       return -1;
     }
+    file->offset += rc;
+    return rc;
   } else {
-    if(rc != file->read(buf, file->offset, len)) return -1;
+    size_t rc;
+    rc = file->read(buf, file->offset, len);
+    file->offset += rc;
+    return rc;
   }
-  file->offset += rc;
-  return rc;
+
 }
 
 size_t fs_write(int fd, const void *buf, size_t len) {
   Finfo *file = check_fd(fd);
   
-  size_t rc = min(len, file->size - file->offset);
   if (file->write == NULL) {
+    size_t rc = min(len, file->size - file->offset);
     if (rc != ramdisk_write(buf, file->disk_offset + file->offset, rc)) {
       return -1;
     }
+    file->offset += rc;
+    return rc;
   } else {
-    if(rc != file->write((void *)buf, file->offset, len)) return -1;
+    size_t rc;
+    rc = file->write((void *)buf, file->offset, len);
+    file->offset += rc;
+    return rc;
   }
-
-  file->offset += rc;
-  return rc;
 }
 
 size_t fs_lseek(int fd, size_t offset, int whence) {
