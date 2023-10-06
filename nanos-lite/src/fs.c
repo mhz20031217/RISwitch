@@ -70,7 +70,7 @@ static inline Finfo *check_fd(int fd) {
 size_t fs_read(int fd, void *buf, size_t len) {
   Finfo *file = check_fd(fd);
   #ifdef ENABLE_STRACE
-  printf("on file: '%s'\n", file->name);
+  printf("on file: '%s' ", file->name);
   #endif
   size_t rc = min(len, file->size - file->offset);
   if (rc != ramdisk_read(buf, file->disk_offset + file->offset, rc)) {
@@ -84,7 +84,7 @@ size_t fs_read(int fd, void *buf, size_t len) {
 size_t fs_write(int fd, const void *buf, size_t len) {
   Finfo *file = check_fd(fd);
   #ifdef ENABLE_STRACE
-  printf("on file: '%s'\n", file->name);
+  printf("on file: '%s' ", file->name);
   #endif
   size_t rc = min(len, file->size - file->offset);
   if (rc != ramdisk_write(buf, file->disk_offset + file->offset, rc)) {
@@ -98,7 +98,7 @@ size_t fs_write(int fd, const void *buf, size_t len) {
 size_t fs_lseek(int fd, size_t offset, int whence) {
   Finfo *file = check_fd(fd);
   #ifdef ENABLE_STRACE
-  printf("on file: '%s'\n", file->name);
+  printf("on file: '%s' ", file->name);
   #endif
   size_t pos;
   switch (whence) {
@@ -119,7 +119,7 @@ size_t fs_lseek(int fd, size_t offset, int whence) {
 int fs_close(int fd) {
   #ifdef ENABLE_STRACE
   Finfo *file = check_fd(fd);
-  printf("on file: '%s'\n", file->name);
+  printf("on file: '%s' ", file->name);
   #endif
   return 0;
 }
