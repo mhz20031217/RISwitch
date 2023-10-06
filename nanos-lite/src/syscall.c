@@ -55,10 +55,9 @@ static inline int sys_read(uintptr_t args[]) {
 static inline int sys_gettimeofday(uintptr_t args[]) {
   struct timeval *tv = (void *) args[1];
   if (tv == NULL) return -1;
-  AM_TIMER_UPTIME_T cur;
-  ioe_read(AM_TIMER_UPTIME, &cur);
-  tv->tv_usec = cur.us % 1000000;
-  tv->tv_sec = cur.us / 1000000;
+  uint64_t us = io_read(AM_TIMER_UPTIME).us;
+  tv->tv_usec = us % 1000000;
+  tv->tv_sec = us / 1000000;
 
   return 0;
 }
