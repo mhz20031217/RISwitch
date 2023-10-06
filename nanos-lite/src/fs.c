@@ -53,9 +53,6 @@ int fs_open(const char *pathname, int flags, int mode) {
   
   for (int i = 0; i < NR_FILES; i ++) {
     if (strcmp(pathname, file_table[i].name) == 0) {
-      #ifdef ENABLE_STRACE
-      printf("on file: '%s' ", file_table[i].name);
-      #endif
       return i;
     }
   }
@@ -69,9 +66,7 @@ static inline Finfo *check_fd(int fd) {
 
 size_t fs_read(int fd, void *buf, size_t len) {
   Finfo *file = check_fd(fd);
-  #ifdef ENABLE_STRACE
-  printf("on file: '%s' ", file->name);
-  #endif
+  
   size_t rc = min(len, file->size - file->offset);
   if (rc != ramdisk_read(buf, file->disk_offset + file->offset, rc)) {
     return -1;
@@ -83,9 +78,7 @@ size_t fs_read(int fd, void *buf, size_t len) {
 
 size_t fs_write(int fd, const void *buf, size_t len) {
   Finfo *file = check_fd(fd);
-  #ifdef ENABLE_STRACE
-  printf("on file: '%s' ", file->name);
-  #endif
+  
   size_t rc = min(len, file->size - file->offset);
   if (rc != ramdisk_write(buf, file->disk_offset + file->offset, rc)) {
     return -1;
@@ -97,9 +90,7 @@ size_t fs_write(int fd, const void *buf, size_t len) {
 
 size_t fs_lseek(int fd, size_t offset, int whence) {
   Finfo *file = check_fd(fd);
-  #ifdef ENABLE_STRACE
-  printf("on file: '%s' ", file->name);
-  #endif
+
   size_t pos;
   switch (whence) {
     case SEEK_CUR: pos = file->offset + offset; break;
@@ -117,10 +108,6 @@ size_t fs_lseek(int fd, size_t offset, int whence) {
 }
 
 int fs_close(int fd) {
-  #ifdef ENABLE_STRACE
-  Finfo *file = check_fd(fd);
-  printf("on file: '%s' ", file->name);
-  #endif
   return 0;
 }
 
