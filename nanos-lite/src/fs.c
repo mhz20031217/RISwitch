@@ -123,3 +123,8 @@ int fs_close(int fd) {
   #endif
   return 0;
 }
+
+const char *fs_getfilename(int fd) {
+  Finfo *file = check_fd(fd);
+  return file->name;
+}
