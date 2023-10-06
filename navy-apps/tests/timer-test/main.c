@@ -31,7 +31,7 @@ int main() {
   bool flag = 1;
   while (1) {
     uint32_t cur = NDL_GetTicks();
-    uint32_t msec = cur / 1000;
+    uint32_t msec = cur % 1000;
     printf("cur: %u\n", cur);
     if (flag) {
       if (msec < 500) {
