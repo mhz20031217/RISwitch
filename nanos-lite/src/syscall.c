@@ -84,7 +84,7 @@ void do_syscall(Context *c) {
       panic("Unhandled syscall ID = %d", a[0]);
     }
     c->GPRx = syscall_handler[a[0]].handler(a);
-    // #ifdef ENABLE_STRACE
+    #ifdef ENABLE_STRACE
     switch (a[0]) {
       case SYS_open:
         printf("on file '%s' = %d\n", (const char *) a[1], c->GPRx); break;
@@ -93,6 +93,6 @@ void do_syscall(Context *c) {
       default: printf("= %u (%d, 0x%x)\n", c->GPRx, c->GPRx, c->GPRx); break;
     }
     
-    // #endif
+    #endif
   }
 }
