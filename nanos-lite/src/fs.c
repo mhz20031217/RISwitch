@@ -100,7 +100,7 @@ size_t fs_write(int fd, const void *buf, size_t len) {
       return -1;
     }
   } else {
-    if(rc != file->read((void *)buf, file->offset, len)) return -1;
+    if(rc != file->write((void *)buf, file->offset, len)) return -1;
   }
 
   file->offset += rc;
