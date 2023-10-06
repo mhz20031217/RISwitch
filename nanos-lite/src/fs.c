@@ -108,6 +108,7 @@ size_t fs_write(int fd, const void *buf, size_t len) {
   } else {
     size_t rc;
     rc = file->write((void *)buf, file->offset, len);
+    if (rc == -1) return -1;
     file->offset += rc;
     return rc;
   }
