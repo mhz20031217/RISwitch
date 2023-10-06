@@ -54,8 +54,10 @@ void init_fs() {
 static size_t serial_write(const void *buf, size_t offset, size_t len) {
   const char *src = buf;
 
-  while (len --) {
+  size_t cnt = 0;
+  while (cnt < len) {
     putch(*(src ++));
+    cnt ++;
   }
 
   return len;
