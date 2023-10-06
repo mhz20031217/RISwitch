@@ -1,5 +1,6 @@
 #include <common.h>
 #include <sys/types.h>
+#include <sys/time.h>
 #include "syscall.h"
 #include <debug.h>
 #include <fs.h>
@@ -51,6 +52,17 @@ static inline int sys_read(uintptr_t args[]) {
   return fs_read(args[1], (void *) args[2], args[3]);
 }
 
+static inline int sys_gettimeofday(uintptr_t args[]) {
+  struct timeval *tv = (void *) args[1];
+  if (tv == NULL) return -1;
+  AM_TIMER_UPTIME_T cur;
+  ioe_read(AM_TIMER_UPTIME, &cur);
+  tv->tv_usec = cur.us % 1000000;
+  tv->tv_sec = cur.us / 1000000;
+
+  return 0;
+}
+
 static struct {
   int (*handler)(uintptr_t args[]);
   const char *desc;
@@ -63,6 +75,7 @@ static struct {
   [SYS_lseek] = {sys_lseek, "lseek"},
   [SYS_open] = {sys_open, "open"},
   [SYS_close] = {sys_close, "close"},
+  [SYS_gettimeofday] = {sys_gettimeofday, "gettimeofday"},
 };
 
 #define NR_SYSCALL ARRLEN(syscall_handler)
