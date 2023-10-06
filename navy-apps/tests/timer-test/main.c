@@ -32,7 +32,7 @@ int main() {
   while (1) {
     uint32_t cur = NDL_GetTicks();
     uint32_t msec = cur / 1000;
-    // printf("gettimeofday: %ld, %ld\n", tv.tv_sec, tv.tv_usec);
+    printf("cur: %u\n", cur);
     if (flag) {
       if (msec < 500) {
         printf("%u\n", cur);
