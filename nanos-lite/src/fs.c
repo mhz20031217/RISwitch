@@ -14,7 +14,7 @@ typedef struct {
   size_t offset;
 } Finfo;
 
-enum {FD_STDIN, FD_STDOUT, FD_STDERR, FD_EVENTS, FD_FBCTL, FD_FB, NR_SPECIAL_FILES};
+enum {FD_STDIN, FD_STDOUT, FD_STDERR, FD_EVENTS, FD_FBCTL, FD_FB, FD_DISPINFO, NR_SPECIAL_FILES};
 
 size_t invalid_read(void *buf, size_t offset, size_t len) {
   panic("should not reach here");
@@ -41,7 +41,7 @@ static Finfo file_table[] __attribute__((used)) = {
   [FD_EVENTS] = {"/dev/events", 0, 0, events_read, invalid_write},
   [FD_FBCTL] = {"/dev/fbctl", 0, 0, invalid_read, invalid_write},
   [FD_FB] = {"/dev/fb", 0, 0, invalid_read, fb_write},
-  {"/proc/dispinfo", 0, 0, dispinfo_read, invalid_write},
+  [FD_DISPINFO] = {"/proc/dispinfo", 0, 0, dispinfo_read, invalid_write},
 #include "files.h"
 };
 
@@ -50,8 +50,11 @@ static Finfo file_table[] __attribute__((used)) = {
 void init_fs() {
   // TODO: initialize the size of /dev/fb
   AM_GPU_CONFIG_T gpu_config = io_read(AM_GPU_CONFIG);
+  char buf[100];
   if (gpu_config.present) {
     file_table[FD_FB].size = gpu_config.width * gpu_config.height * 4;
+    snprintf(buf, 100, "WIDTH : %d\nHEIGHT : %d\n", gpu_config.width, gpu_config.height);
+    file_table[FD_DISPINFO].size = strlen(buf);
   }
 }
 
