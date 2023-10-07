@@ -4,6 +4,9 @@
 #include <string.h>
 #include <unistd.h>
 #include <sys/time.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 
 static int evtdev = -1;
 static int fbdev = -1;
@@ -16,7 +19,15 @@ uint32_t NDL_GetTicks() {
 }
 
 int NDL_PollEvent(char *buf, int len) {
-  return 0;
+  if (evtdev == -1) {
+    printf("[NDL] Fatal: event device doesn't exist.\n");
+    return 0;
+  }
+  size_t rc = read(evtdev, buf, len);
+  if (rc == 0) {
+    return 0;
+  }
+  return 1;
 }
 
 void NDL_OpenCanvas(int *w, int *h) {
@@ -59,7 +70,10 @@ int NDL_QueryAudio() {
 int NDL_Init(uint32_t flags) {
   if (getenv("NWM_APP")) {
     evtdev = 3;
+  } else {
+    evtdev = open("/dev/events", O_SYNC);
   }
+
   return 0;
 }
 
