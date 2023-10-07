@@ -43,6 +43,7 @@ size_t dispinfo_read(void *buf, size_t offset, size_t len) {
   if (!gpu_config.present) {
     return -1;
   }
+  Log("Reading dispinfo: %dx%d.", gpu_config.width, gpu_config.height);
   int rc = snprintf(buf, len, "WIDTH : %d\nHEIGHT : %d\n",
                     gpu_config.width, gpu_config.height);
   return rc;
