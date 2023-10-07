@@ -40,15 +40,13 @@ size_t events_read(void *buf, size_t offset, size_t len) {
 static AM_GPU_CONFIG_T gpu_config;
 
 size_t dispinfo_read(void *buf, size_t offset, size_t len) {
-  static char dispinfo_buf[100];
   gpu_config = io_read(AM_GPU_CONFIG);
   if (!gpu_config.present) {
     return -1;
   }
   Log("Reading dispinfo: %dx%d.", gpu_config.width, gpu_config.height);
-  snprintf(dispinfo_buf, len, "WIDTH : %d\nHEIGHT : %d\n",
+  snprintf(buf, len, "WIDTH : %d\nHEIGHT : %d\n",
             gpu_config.width, gpu_config.height);
-  strncpy(buf, dispinfo_buf + offset, len);
   return len;
 }
 

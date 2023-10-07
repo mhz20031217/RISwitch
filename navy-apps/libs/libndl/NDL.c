@@ -50,19 +50,39 @@ void NDL_OpenCanvas(int *w, int *h) {
     }
     close(fbctl);
   } else {
-    FILE *fp = fopen("/proc/dispinfo", "r");
-    if (!fp) {
+    int disp_fd = open("/proc/dispinfo", O_SYNC);
+    if (disp_fd == -1) {
       printf("[NDL] Cannot open '/proc/dispinfo'.\n");
       *w = *h = 0;
       return;
     }
 
-    char ch = ' ';
-    while (ch != ':') ch = getc(fp);
-    fscanf(fp, "%d", &screen_w);
-    while (ch != ':') ch = getc(fp);
-    fscanf(fp, "%d", &screen_h);
+    char buf[100];
+    read(disp_fd, buf, 100);
 
+    int i;
+
+    for (i = 0; i < 100; i ++) {
+      if ('0' <= buf[i] && buf[i] <= '9') {
+        screen_w = 0;
+        while (i < 100 && '0' <= buf[i] && buf[i] <= '9') {
+          screen_w = screen_w * 10 + buf[i] - '0';
+          i ++;
+        }
+        break;
+      }
+    }
+
+    for (; i < 100; i ++) {
+      if ('0' <= buf[i] && buf[i] <= '9') {
+        screen_h = 0;
+        while (i < 100 && '0' <= buf[i] && buf[i] <= '9') {
+          screen_h = screen_h * 10 + buf[i] - '0';
+          i ++;
+        }
+        break;
+      }
+    }
 
     if (*w == 0 && *h == 0) {
       canvas_w = *w = screen_w;
@@ -76,8 +96,6 @@ void NDL_OpenCanvas(int *w, int *h) {
       canvas_w = *w;
       canvas_h = *h;
     }
-
-    fclose(fp);
 
     fbdev = open("/dev/fb", O_SYNC);
   }
