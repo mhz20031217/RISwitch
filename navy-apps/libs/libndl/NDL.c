@@ -57,7 +57,12 @@ void NDL_OpenCanvas(int *w, int *h) {
       return;
     }
 
-    fscanf(fp, ":%d:%d", &screen_w, &screen_h);
+    char ch = ' ';
+    while (ch != ':') ch = getchar();
+    fscanf(fp, "%d", &screen_w);
+    while (ch != ':') ch = getchar();
+    fscanf(fp, "%d", &screen_h);
+
 
     if (*w == 0 && *h == 0) {
       canvas_w = *w = screen_w;
