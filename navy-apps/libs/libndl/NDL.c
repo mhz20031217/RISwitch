@@ -25,7 +25,7 @@ int NDL_PollEvent(char *buf, int len) {
   }
   size_t rc = read(evtdev, buf, len);
   if (rc == 0) {
-    printf("[NDL] No key is pressed.\n");
+    // printf("[NDL] No key is pressed.\n");
     return 0;
   }
   return 1;
