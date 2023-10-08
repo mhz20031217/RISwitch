@@ -110,14 +110,14 @@ void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
     return;
   }
 
-  printf("[NDL] Draw rect %dx%d at (%d, %d).\n", w, h, x, y);
+  // printf("[NDL] Draw rect %dx%d at (%d, %d).\n", w, h, x, y);
 
   for (int i = 0; i < h; i ++) {
     lseek(fbdev, ((y+i)*screen_w+x)*4, SEEK_SET);
     write(fbdev, pixels + w * i, w * 4);
   }
 
-  printf("[NDL] Draw successfully.\n");
+  // printf("[NDL] Draw successfully.\n");
 }
 
 void NDL_OpenAudio(int freq, int channels, int samples) {
