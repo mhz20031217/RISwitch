@@ -114,7 +114,7 @@ void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
 
   for (int i = 0; i < h; i ++) {
     lseek(fbdev, ((y+i)*screen_w+x)*4, SEEK_SET);
-    write(fbdev, pixels + w * i, w);
+    write(fbdev, pixels + w * i, w * 4);
   }
 
   printf("[NDL] Draw successfully.\n");
