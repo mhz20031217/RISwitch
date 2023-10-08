@@ -1,5 +1,7 @@
 #include <NDL.h>
 #include <SDL.h>
+#include <stdio.h>
+#include <string.h>
 
 #define keyname(k) #k,
 
@@ -19,6 +21,8 @@ int SDL_PollEvent(SDL_Event *ev) {
   if (NDL_PollEvent(buf, 20) == 0) {
     return 0;
   }
+
+  printf("SDL_PollEvent: %s\n", buf);
 
   if (buf[0] != 'k') {
     printf("[NDL] Spec error: begins with space.\n");
