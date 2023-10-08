@@ -29,6 +29,12 @@ int NDL_PollEvent(char *buf, int len) {
     // printf("[NDL] No key is pressed.\n");
     return 0;
   }
+  for (int i = 0; i < len ; i ++) {
+    if (buf[i] == '\n') {
+      buf[i] = '\0';
+      break;
+    }
+  }
   return 1;
 }
 
