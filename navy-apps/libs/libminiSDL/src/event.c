@@ -44,6 +44,27 @@ int SDL_PollEvent(SDL_Event *ev) {
 }
 
 int SDL_WaitEvent(SDL_Event *event) {
+  char buf[20];
+  while (NDL_PollEvent(buf, 20) == 0);
+
+  printf("SDL_WaitEvent: %s\n", buf);
+
+  if (buf[0] != 'k') {
+    printf("[NDL] Spec error: begins with space.\n");
+    return 0;
+  }
+
+  for (int i = 0; i < NR_KEYS; i ++) {
+    if (strcmp(buf + 3, keyname[i]) == 0) {
+      ev->key.keysym.sym = i;
+    }
+  }
+
+  if (buf[1] == 'd') {
+    ev->type = SDL_KEYDOWN;
+  } else {
+    ev->type = SDL_KEYUP;
+  }
   return 1;
 }
 
