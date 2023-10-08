@@ -58,6 +58,7 @@ int SDL_WaitEvent(SDL_Event *ev) {
   for (int i = 0; i < NR_KEYS; i ++) {
     if (strcmp(buf + 3, keyname[i]) == 0) {
       ev->key.keysym.sym = i;
+      printf("Symbol set to %s\n", keyname[i]);
     }
   }
 
