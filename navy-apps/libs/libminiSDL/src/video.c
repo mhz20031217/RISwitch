@@ -67,13 +67,13 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
     assert(s->format->palette->colors);
     if (sdl_palette_vbuf == NULL) {
       sdl_palette_vbuf = malloc(800 * 600 * 4);
-      assert(sdl_palette_vbuf);
     }
+    assert(sdl_palette_vbuf);
 
     for (int i = 0; i < h; i ++) {
       for (int j = 0; j < w; j ++) {
         sdl_palette_vbuf[(y+i)*(s->w)+x+j] 
-          = s->format->palette->colors[s->pixels[(y*i)*(s->w)+x+j]].val;
+          = s->format->palette->colors[s->pixels[(y+i)*(s->w)+x+j]].val;
       }
     }
 
