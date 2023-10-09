@@ -11,6 +11,8 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
   assert(dst && src);
   assert(dst->format->BitsPerPixel == src->format->BitsPerPixel);
 
+  uint8_t bytes = dst->format->BytesPerPixel;
+
   int sx, sy, dx, dy, w, h;
   if (srcrect == NULL) {
     sx = sy = 0;
@@ -26,7 +28,10 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
   }
 
   for (int i = 0; i < h; i ++) {
-    memcpy(dst->pixels + (((dy+i)*dst->w) + dx) * 4, src->pixels + (((sy+i)*src->w) + sx) * 4, src->w * 4);
+    memcpy(dst->pixels + (((dy+i)*dst->w) + dx) * bytes,
+      src->pixels + (((sy+i)*src->w) + sx) * bytes,
+      src->w * bytes
+    );
   }
 }
 
@@ -44,17 +49,38 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
 
   for (int i = 0; i < h; i ++) {
     for (int j = 0; j < w; j ++) {
-      ((uint32_t *) dst->pixels)[i*dst->w + j] = color;
+      ((uint32_t *) dst->pixels)[(y+i)*(dst->w)+x+j] = color;
     }
   }
 }
+
+static uint32_t *sdl_palette_vbuf = NULL;
 
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
   if (w == 0 && h == 0) {
     w = s->w; h = s->h;
   }
 
-  NDL_DrawRect((uint32_t *)s->pixels, x, y, w, h);
+  assert(s->format);
+  if (s->format->BitsPerPixel == 8) {
+    assert(s->format->palette);
+    assert(s->format->palette->colors);
+    if (sdl_palette_vbuf == NULL) {
+      sdl_palette_vbuf = malloc(800 * 600 * 4);
+      assert(sdl_palette_vbuf);
+    }
+
+    for (int i = 0; i < h; i ++) {
+      for (int j = 0; j < w; j ++) {
+        sdl_palette_vbuf[(y+i)*(s->w)+x+j] 
+          = s->format->palette->colors[s->pixels[(y*i)*(s->w)+x+j]].val;
+      }
+    }
+
+    NDL_DrawRect(sdl_palette_vbuf, x, y, w, h);
+  } else if (s->format->BitsPerPixel == 32) {
+    NDL_DrawRect((uint32_t *)s->pixels, x, y, w, h);
+  }
 }
 
 // APIs below are already implemented.
@@ -85,6 +111,12 @@ SDL_Surface* SDL_CreateRGBSurface(uint32_t flags, int width, int height, int dep
     assert(s->format->palette->colors);
     memset(s->format->palette->colors, 0, sizeof(SDL_Color) * 256);
     s->format->palette->ncolors = 256;
+
+    /* PATCH BEGIN */
+    // assert(sdl_palette_vbuf == NULL);
+    // sdl_palette_vbuf = malloc(width * height * 4);
+    // assert(sdl_palette_vbuf);
+    /* PATCH END */
   } else {
     s->format->palette = NULL;
     s->format->Rmask = Rmask; s->format->Rshift = maskToShift(Rmask); s->format->Rloss = 0;

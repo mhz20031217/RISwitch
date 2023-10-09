@@ -12,6 +12,8 @@ static const char *keyname[] = {
 
 #define NR_KEYS ARRLEN(keyname)
 
+static uint8_t keystate[NR_KEYS];
+
 int SDL_PushEvent(SDL_Event *ev) {
   return 0;
 }
@@ -64,8 +66,10 @@ int SDL_WaitEvent(SDL_Event *ev) {
   }
 
   if (buf[1] == 'd') {
+    keystate[ev->key.keysym.sym] = 1;
     ev->type = SDL_KEYDOWN;
   } else {
+    keystate[ev->key.keysym.sym] = 0;
     ev->type = SDL_KEYUP;
   }
   return 1;
@@ -76,5 +80,7 @@ int SDL_PeepEvents(SDL_Event *ev, int numevents, int action, uint32_t mask) {
 }
 
 uint8_t* SDL_GetKeyState(int *numkeys) {
-  return NULL;
+  SDL_Event ev;
+  while (SDL_PollEvent(&ev));
+  return &keystate;
 }

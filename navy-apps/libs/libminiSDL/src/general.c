@@ -9,7 +9,7 @@ void SDL_Quit() {
 }
 
 char *SDL_GetError() {
-  return "Navy does not support SDL_GetError()";
+  return "[SDL] Navy does not support SDL_GetError()";
 }
 
 int SDL_SetError(const char* fmt, ...) {
