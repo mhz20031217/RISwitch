@@ -6,7 +6,7 @@
 #include <fs.h>
 
 static inline int sys_exit(uintptr_t args[]) {
-  halt(args[0]);
+  halt(args[1]);
   return 0;
 }
 
