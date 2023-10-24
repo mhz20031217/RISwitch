@@ -254,6 +254,20 @@
 
 Linus 曾说过：“`static inline` 意为我们需要的这个函数如果不被内联，就在当前的编译单元中生成一个 `static` 版本的函数。`extern inline` 意为我们实际上（在其他目标文件中）有一个这个函数的定义，（在库的实现文件中有一个非内联版本的相同的函数定义，人工保证这两个定义是相同的），而你（编译器）看到的接下来这个定义是内联版本的相同函数。”
 
+如果删除 `static` 结果是没有报错。原因是 `ifetch.h` 中唯一定义的函数 `inst_fetch` 被内联。证明方法是用 `readelf` 查看任意包含了 `ifetch.h` 的 `.c` 文件对应的目标文件，如 `inst.o`
+
+```bash
+$ riscv64-linux-gnu-readelf -s inst.o
+Symbol table '.symtab' contains 3 entries:
+   Num:    Value          Size Type    Bind   Vis      Ndx Name
+     0: 0000000000000000     0 NOTYPE  LOCAL  DEFAULT  UND 
+     1: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS inst.c
+     2: 0000000000000001     1 OBJECT  GLOBAL DEFAULT  COM __gnu_lto_slim
+```
+
+没有出现这个函数定义，则说明函数被内联。
+
+
 
 ## 选做题
 
