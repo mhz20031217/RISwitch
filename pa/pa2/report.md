@@ -311,6 +311,26 @@ Symbol table '.symtab' contains 166 entries:
      5: 0000000000000151    27 FUNC    LOCAL  DEFAULT   72 inst_fetch
 ```
 
+如果去掉 `static inline`，则会在链接阶段报重复定义错，原因是函数默认是一个全局的强符号，如果在多个编译单元中重复定义，则出错。
+
+```bash session
+❯ make ARCH=riscv32-nemu
++ CC src/engine/interpreter/hostcall.c
++ CC src/isa/riscv32/inst.c
++ LD /home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/riscv32-nemu-interpreter
+/usr/bin/ld: /home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/isa/riscv32/inst.o: in function `inst_fetch':
+/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/include/cpu/ifetch.h:20: multiple definition of `inst_fetch'; /home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/engine/interpreter/hostcall.o:/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/include/cpu/ifetch.h:20: first defined here
+collect2: error: ld returned 1 exit status
+make: *** [/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/scripts/build.mk:54: /home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/riscv32-nemu-interpreter] Error 1
+```
+
+### 编译与链接：`dummy` 与强弱符号
+
+#### `common.h` 添加 `volatile static int dummy;`
+
+#### `debug.h` 添加 `volatile static int dummy;`
+
+#### 两处 `dummy` 定义 `volatile static int dummy = 0;`
 
 
 ## 选做题
