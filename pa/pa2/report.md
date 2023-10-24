@@ -259,7 +259,7 @@ Linus 曾说过：“`static inline` 意为我们需要的这个函数如果不�
 如果删除 `static` 结果是没有报错。原因是 `ifetch.h` 中唯一定义的函数 `inst_fetch` 被内联。证明方法是用 `readelf` 查看任意包含了 `ifetch.h` 的 `.c` 文件对应的目标文件，如 `inst.o`
 
 ```bash
-$ riscv64-linux-gnu-readelf -s inst.o
+$ readelf -s inst.o
 Symbol table '.symtab' contains 165 entries:
    Num:    Value          Size Type    Bind   Vis      Ndx Name
      0: 0000000000000000     0 NOTYPE  LOCAL  DEFAULT  UND 
@@ -299,7 +299,7 @@ Symbol table '.symtab' contains 165 entries:
 同样地，出现了 `inst_fetch`
 
 ```bash
-❯ riscv64-linux-gnu-readelf -s build/obj-riscv32-nemu-interpreter/src/isa/riscv32/inst.o
+❯ readelf -s build/obj-riscv32-nemu-interpreter/src/isa/riscv32/inst.o
 
 Symbol table '.symtab' contains 166 entries:
    Num:    Value          Size Type    Bind   Vis      Ndx Name
@@ -314,19 +314,21 @@ Symbol table '.symtab' contains 166 entries:
 如果去掉 `static inline`，则会在链接阶段报重复定义错，原因是函数默认是一个全局的强符号，如果在多个编译单元中重复定义，则出错。
 
 ```bash session
-❯ make ARCH=riscv32-nemu
-+ CC src/engine/interpreter/hostcall.c
-+ CC src/isa/riscv32/inst.c
-+ LD /home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/riscv32-nemu-interpreter
+$ make ARCH=riscv32-nemu
+......
 /usr/bin/ld: /home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/isa/riscv32/inst.o: in function `inst_fetch':
 /home/pc/Learning/02.IT/5.ICS/ics2023/nemu/include/cpu/ifetch.h:20: multiple definition of `inst_fetch'; /home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/engine/interpreter/hostcall.o:/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/include/cpu/ifetch.h:20: first defined here
-collect2: error: ld returned 1 exit status
-make: *** [/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/scripts/build.mk:54: /home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/riscv32-nemu-interpreter] Error 1
+......
 ```
 
 ### 编译与链接：`dummy` 与强弱符号
 
 #### `common.h` 添加 `volatile static int dummy;`
+
+```sh
+$ readelf -s build/riscv32-nemu-interpreter | grep --extended-regexp --ignore-cas '\sdummy' | wc -l
+35
+```
 
 #### `debug.h` 添加 `volatile static int dummy;`
 
