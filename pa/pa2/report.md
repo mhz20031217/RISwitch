@@ -267,6 +267,8 @@ Symbol table '.symtab' contains 3 entries:
 
 没有出现这个函数定义，则说明函数被内联。
 
+如果删除 `inline` 仍然不会报错，因为每一个编译单元中都定义了一个相同的 `inst_fetch` 函数。
+
 
 
 ## 选做题
