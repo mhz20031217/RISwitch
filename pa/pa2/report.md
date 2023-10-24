@@ -296,7 +296,20 @@ Symbol table '.symtab' contains 165 entries:
 
 如果删除 `inline` 仍然不会报错，因为每一个编译单元中都定义了一个相同的 `inst_fetch` 函数。
 
-同样地
+同样地，出现了 `inst_fetch`
+
+```bash
+❯ riscv64-linux-gnu-readelf -s build/obj-riscv32-nemu-interpreter/src/isa/riscv32/inst.o
+
+Symbol table '.symtab' contains 166 entries:
+   Num:    Value          Size Type    Bind   Vis      Ndx Name
+     0: 0000000000000000     0 NOTYPE  LOCAL  DEFAULT  UND 
+     1: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS inst.c
+     2: 0000000000000000     0 SECTION LOCAL  DEFAULT   72 .text
+     3: 0000000000000000   337 FUNC    LOCAL  DEFAULT   72 decode_operand
+     4: 0000000000000000     0 SECTION LOCAL  DEFAULT   76 .rodata
+     5: 0000000000000151    27 FUNC    LOCAL  DEFAULT   72 inst_fetch
+```
 
 
 
