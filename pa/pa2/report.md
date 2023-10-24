@@ -252,24 +252,51 @@
 
 ### 编译与链接：`inline` 和 `static` 的作用
 
+注：这道题的证明方法中开启了编译选项为 `-O0 -ggdb`。
+
 Linus 曾说过：“`static inline` 意为我们需要的这个函数如果不被内联，就在当前的编译单元中生成一个 `static` 版本的函数。`extern inline` 意为我们实际上（在其他目标文件中）有一个这个函数的定义，（在库的实现文件中有一个非内联版本的相同的函数定义，人工保证这两个定义是相同的），而你（编译器）看到的接下来这个定义是内联版本的相同函数。”
 
 如果删除 `static` 结果是没有报错。原因是 `ifetch.h` 中唯一定义的函数 `inst_fetch` 被内联。证明方法是用 `readelf` 查看任意包含了 `ifetch.h` 的 `.c` 文件对应的目标文件，如 `inst.o`
 
 ```bash
 $ riscv64-linux-gnu-readelf -s inst.o
-Symbol table '.symtab' contains 3 entries:
+Symbol table '.symtab' contains 165 entries:
    Num:    Value          Size Type    Bind   Vis      Ndx Name
      0: 0000000000000000     0 NOTYPE  LOCAL  DEFAULT  UND 
      1: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS inst.c
-     2: 0000000000000001     1 OBJECT  GLOBAL DEFAULT  COM __gnu_lto_slim
+     2: 0000000000000000     0 SECTION LOCAL  DEFAULT   72 .text
+     3: 0000000000000000   337 FUNC    LOCAL  DEFAULT   72 decode_operand
+     4: 0000000000000000     0 SECTION LOCAL  DEFAULT   76 .rodata
+     5: 0000000000000151  4447 FUNC    LOCAL  DEFAULT   72 decode_exec
+     6: 0000000000000000     0 SECTION LOCAL  DEFAULT   78 .debug_info
+     7: 0000000000000000     0 SECTION LOCAL  DEFAULT   80 .debug_abbrev
+     8: 0000000000000000     0 SECTION LOCAL  DEFAULT   81 .debug_loclists
+     9: 0000000000000000     0 SECTION LOCAL  DEFAULT   85 .debug_rnglists
+    10: 0000000000000000     0 SECTION LOCAL  DEFAULT   86 .debug_macro
+    11: 0000000000000000     0 SECTION LOCAL  DEFAULT  230 .debug_line
+    12: 0000000000000000     0 SECTION LOCAL  DEFAULT  232 .debug_str
+    13: 0000000000000000     0 SECTION LOCAL  DEFAULT  233 .debug_line_str
+    14: 0000000000000000     0 SECTION LOCAL  DEFAULT   88 .debug_macro
+......
+    85: 0000000000000000     0 NOTYPE  LOCAL  DEFAULT    1 wm4.0.425be0b7a2[...]
+    86: 0000000000000000     0 NOTYPE  LOCAL  DEFAULT    2 wm4.stdcpredef.h[...]
+......
+   156: 0000000000000000     0 NOTYPE  GLOBAL DEFAULT  UND cpu
+   157: 0000000000000000     0 NOTYPE  GLOBAL DEFAULT  UND vaddr_read
+   158: 0000000000000000     0 NOTYPE  GLOBAL DEFAULT  UND vaddr_write
+   159: 0000000000000000     0 NOTYPE  GLOBAL DEFAULT  UND set_nemu_state
+   160: 0000000000000000     0 NOTYPE  GLOBAL DEFAULT  UND isa_raise_intr
+   161: 0000000000000000     0 NOTYPE  GLOBAL DEFAULT  UND invalid_inst
+   162: 0000000000000000     0 NOTYPE  GLOBAL DEFAULT  UND __stack_chk_fail
+   163: 00000000000012b0    38 FUNC    GLOBAL DEFAULT   72 isa_exec_once
+   164: 0000000000000000     0 NOTYPE  GLOBAL DEFAULT  UND vaddr_ifetch
 ```
 
 没有出现这个函数定义，则说明函数被内联。
 
 如果删除 `inline` 仍然不会报错，因为每一个编译单元中都定义了一个相同的 `inst_fetch` 函数。
 
-
+同样地
 
 
 
