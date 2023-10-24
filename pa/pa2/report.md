@@ -4,7 +4,7 @@
 
 ## 必做题
 
-### 理解YEMU如何执行程序
+### 程序是个状态机：理解YEMU如何执行程序
 
 1. 加法程序的状态机
 
@@ -228,7 +228,32 @@
 > 这个问题暂时没有办法解释，暂时搁置。
 
 ### 实现 dtrace
-#TODO
+
+已实现，Kconfig 中打开 `DTRACE` 选项就可启用。
+
+### 程序如何运行
+
+具体地, 当你按下一个字母并命中的时候, 整个计算机系统(NEMU, ISA, AM, 运行时环境, 程序) 是如何协同工作, 从而让打字小游戏实现出"命中"的游戏效果?
+
+> 按键部分：
+> 
+> 1. 首先是 NEMU 准备按键数据的过程，当按下一个按键，SDL 将会将这个事件加入事件队列；
+> 2. 在 NEMU 的 `nemu/src/device/device.c` 中，轮询键盘事件，获得当前按键，然后通过 `send_key() -> key_enqueue()` 加入 NEMU 的按键事件队列；
+> 3. 然后，如果 AM 程序读取 `AM_INPUT_KEYBRD` 寄存器，NEMU 将通过 mmio 方式，最后调用 `i8042_data_io_handler` 从按键队列中取事件放入寄存器。
+> 4. 在打字游戏中，`main` 中每次循环中有一个读取按键的环节，如果按下按键，将会调用 `check_hit()`；
+> 5. 每一个字符有一个速度属性，`check_hit()` 找到命中的字符后，将这个字符的速度改为负数，使得字符向上运动，并且增加命中数。
+> 
+> 图形部分：
+> 
+> 1. 首先，在打字游戏中，`render()` 负责渲染字符。如果一个字符的速度是负数（向上，说明命中了），就将它画为绿色，实现命中效果：`int col = (c->v > 0) ? WHITE : (c->v < 0 ? GREEN : RED);`；
+> 2. 绘制每一个字符通过写入 `AM_GPU_FBDRAW` 实现，最后一次传入 `sync = true` 更新画面；
+> 3. 然后，在 AM 中，对 `AM_GPU_FBDRAW` 的写入将转发到 `abstract-machine/am/src/platform/nemu/ioe/gpu.c:__am_gpu_fbdraw()`，由这个函数写入 NEMU 提供的 Framebuffer。如果 `sync == true`，则对 NEMU 的 `GPU SYNC` 端口（地址为 `VGACTL_ADDR + 4`）写入 1，更新画面；
+> 4. 最后，在 NEMU 中，如果 `GPU SYNC` 端口被写入，这个操作会被转发给 `nemu/src/device/vga.c:vga_update_screen()` 将 Framebuffer 内容拷贝给 SDL。
+
+### 编译与链接：`inline` 和 `static` 的作用
+
+Linus 曾说过：“`static inline` 意为我们需要的这个函数如果不被内联，就在当前的编译单元中生成一个 `static` 版本的函数。`extern inline` 意为我们实际上（在其他目标文件中）有一个这个函数的定义，（在库的实现文件中有一个非内联版本的相同的函数定义，人工保证这两个定义是相同的），而你（编译器）看到的接下来这个定义是内联版本的相同函数。”
+
 
 ## 选做题
 
@@ -304,10 +329,14 @@
 > `volatile` 关键字的语义是这个变量可能因为某种原因被外部改变，每次读都重新从内存读取，每次写都写回内存。禁用所有相关的编译优化。编译器优化基于一些假设，比如没有改变过的变量值不会改变等。比如用 C 写一个使用内存映射 IO 的设备驱动程序，进行不断读取端口的操作，而没有使用 `volatile` 关键字，编译器进行了优化，比如上述程序，那么编译器可能会为这个变量分配一个寄存器，造成缓存不一致问题。甚至，编译器直接将后续重复的读取省略，如示例程序。
 
 ### 理解 mainargs
-#TODO
+
+> 对于 `riscv32-nemu`，`mainargs` 在编译过程中是直接作为一个字符串，包含在 ELF 文件中的 `.srodata.mainargs` 节中的。过程如下：
+> 1. 运行 `make ARCH=riscv32-nemu ALL=hello mainargs=I-love-PA` 时，在 `make` 的变量中增加了 `mainargs=I-love-PA`
+> 2. 在 `abstract-machine/scripts/platform/nemu.mk` 中，定义了 `CFLAGS += -DMAINARGS=\"$(mainargs)\"`
+> 3. 在 `abstract-machine/am/src/platform/nemu/trm.c` 中，定义了 `static const char mainargs[] = MAINARGS;`
+> 
+> 对于 `native`，`mainargs` 已经在 `make` 的变量中，也在 `make` 运行的程序的环境变量中。于是，在 `abstract-machine/am/src/native/platform.c` 中，直接通过获取环境变量的方式获取 `mainargs`：`const char *args = getenv("mainargs");`。
 
 ### 如何检测多个键同时被按下?
 
 > 根据数电知识，键盘码中对于每一个按键的键码，都有对应的断码。当键盘发送按键的键码时，说明按键被按下。当收到断码时，说明一个按键被放开。可以设置一个 `bool keys[104]`，收到键码时设置对应键为 1，收到断码时设置对应键为 0。
-
-

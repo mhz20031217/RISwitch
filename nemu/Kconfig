@@ -171,6 +171,11 @@ config FTRACE_COND
   string "Only trace function call & return when the condition is true"
   default "true"
 
+config DTRACE
+  depends on TRACE && TARGET_NATIVE_ELF && ENGINE_INTERPRETER
+  bool "Enable device read & write tracer"
+  default n
+
 config ETRACE
   depends on TRACE && TARGET_NATIVE_ELF && ENGINE_INTERPRETER
   bool "Enable exception & interrupt tracer"
