@@ -1,0 +1,11 @@
+graph TD;
+    image-->image-dep;
+    image-dep-->objs["$(OBJS)"];
+    image-dep-->libs["$(LIBS)"];
+    libs-->libarchive["$(AM_HOME)/$@/build/$@.a"];
+    libarchive-->libmake["make -C $(AM_HOME)/Makefile archive"];
+    objs-->robjs["$(DST_DIR)/%.o"];
+    robjs-->csrc["%.c"];
+    robjs-->cppsrc["%.cc, $.cpp"];
+    robjs-->asmsrc["%.S"];
+    

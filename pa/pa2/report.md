@@ -229,7 +229,7 @@
 
 ### 实现 dtrace
 
-已实现，Kconfig 中打开 `DTRACE` 选项就可启用。
+> 已实现，Kconfig 中打开 `DTRACE` 选项就可启用。
 
 ### 程序如何运行
 
@@ -252,88 +252,140 @@
 
 ### 编译与链接：`inline` 和 `static` 的作用
 
-注：这道题的证明方法中开启了编译选项为 `-O0 -ggdb`。
-
-Linus 曾说过：“`static inline` 意为我们需要的这个函数如果不被内联，就在当前的编译单元中生成一个 `static` 版本的函数。`extern inline` 意为我们实际上（在其他目标文件中）有一个这个函数的定义，（在库的实现文件中有一个非内联版本的相同的函数定义，人工保证这两个定义是相同的），而你（编译器）看到的接下来这个定义是内联版本的相同函数。”
-
-如果删除 `static` 结果是没有报错。原因是 `ifetch.h` 中唯一定义的函数 `inst_fetch` 被内联。证明方法是用 `readelf` 查看任意包含了 `ifetch.h` 的 `.c` 文件对应的目标文件，如 `inst.o`
-
-```bash
-$ readelf -s inst.o
-Symbol table '.symtab' contains 165 entries:
-   Num:    Value          Size Type    Bind   Vis      Ndx Name
-     0: 0000000000000000     0 NOTYPE  LOCAL  DEFAULT  UND 
-     1: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS inst.c
-     2: 0000000000000000     0 SECTION LOCAL  DEFAULT   72 .text
-     3: 0000000000000000   337 FUNC    LOCAL  DEFAULT   72 decode_operand
-     4: 0000000000000000     0 SECTION LOCAL  DEFAULT   76 .rodata
-     5: 0000000000000151  4447 FUNC    LOCAL  DEFAULT   72 decode_exec
-     6: 0000000000000000     0 SECTION LOCAL  DEFAULT   78 .debug_info
-     7: 0000000000000000     0 SECTION LOCAL  DEFAULT   80 .debug_abbrev
-     8: 0000000000000000     0 SECTION LOCAL  DEFAULT   81 .debug_loclists
-     9: 0000000000000000     0 SECTION LOCAL  DEFAULT   85 .debug_rnglists
-    10: 0000000000000000     0 SECTION LOCAL  DEFAULT   86 .debug_macro
-    11: 0000000000000000     0 SECTION LOCAL  DEFAULT  230 .debug_line
-    12: 0000000000000000     0 SECTION LOCAL  DEFAULT  232 .debug_str
-    13: 0000000000000000     0 SECTION LOCAL  DEFAULT  233 .debug_line_str
-    14: 0000000000000000     0 SECTION LOCAL  DEFAULT   88 .debug_macro
-......
-    85: 0000000000000000     0 NOTYPE  LOCAL  DEFAULT    1 wm4.0.425be0b7a2[...]
-    86: 0000000000000000     0 NOTYPE  LOCAL  DEFAULT    2 wm4.stdcpredef.h[...]
-......
-   156: 0000000000000000     0 NOTYPE  GLOBAL DEFAULT  UND cpu
-   157: 0000000000000000     0 NOTYPE  GLOBAL DEFAULT  UND vaddr_read
-   158: 0000000000000000     0 NOTYPE  GLOBAL DEFAULT  UND vaddr_write
-   159: 0000000000000000     0 NOTYPE  GLOBAL DEFAULT  UND set_nemu_state
-   160: 0000000000000000     0 NOTYPE  GLOBAL DEFAULT  UND isa_raise_intr
-   161: 0000000000000000     0 NOTYPE  GLOBAL DEFAULT  UND invalid_inst
-   162: 0000000000000000     0 NOTYPE  GLOBAL DEFAULT  UND __stack_chk_fail
-   163: 00000000000012b0    38 FUNC    GLOBAL DEFAULT   72 isa_exec_once
-   164: 0000000000000000     0 NOTYPE  GLOBAL DEFAULT  UND vaddr_ifetch
-```
-
-没有出现这个函数定义，则说明函数被内联。
-
-如果删除 `inline` 仍然不会报错，因为每一个编译单元中都定义了一个相同的 `inst_fetch` 函数。
-
-同样地，出现了 `inst_fetch`
-
-```bash
-❯ readelf -s build/obj-riscv32-nemu-interpreter/src/isa/riscv32/inst.o
-
-Symbol table '.symtab' contains 166 entries:
-   Num:    Value          Size Type    Bind   Vis      Ndx Name
-     0: 0000000000000000     0 NOTYPE  LOCAL  DEFAULT  UND 
-     1: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS inst.c
-     2: 0000000000000000     0 SECTION LOCAL  DEFAULT   72 .text
-     3: 0000000000000000   337 FUNC    LOCAL  DEFAULT   72 decode_operand
-     4: 0000000000000000     0 SECTION LOCAL  DEFAULT   76 .rodata
-     5: 0000000000000151    27 FUNC    LOCAL  DEFAULT   72 inst_fetch
-```
-
-如果去掉 `static inline`，则会在链接阶段报重复定义错，原因是函数默认是一个全局的强符号，如果在多个编译单元中重复定义，则出错。
-
-```bash session
-$ make ARCH=riscv32-nemu
-......
-/usr/bin/ld: /home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/isa/riscv32/inst.o: in function `inst_fetch':
-/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/include/cpu/ifetch.h:20: multiple definition of `inst_fetch'; /home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/engine/interpreter/hostcall.o:/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/include/cpu/ifetch.h:20: first defined here
-......
-```
+> 注：这道题的证明方法中开启了编译选项为 `-O0 -ggdb`。
+> 
+> Linus 曾说过：“`static inline` 意为我们需要的这个函数如果不被内联，就在当前的编译单元中生成一个 `static` 版本的函数。`extern inline` 意为我们实际上（在其他目标文件中）有一个这个函数的定义，（在库的实现文件中有一个非内联版本的相同的函数定义，人工保证这两个定义是相同的），而你（编译器）看到的接下来这个定义是内联版本的相同函数。”
+> 
+> 如果删除 `static` 结果是没有报错。原因是 `ifetch.h` 中唯一定义的函数 `inst_fetch` 被内联。证明方法是用 `readelf` 查看任意包含了 `ifetch.h` 的 `.c` 文件对应的目标文件，如 `inst.o`
+> 
+> ```bash
+> $ readelf -s inst.o
+> Symbol table '.symtab' contains 165 entries:
+>    Num:    Value          Size Type    Bind   Vis      Ndx Name
+>      0: 0000000000000000     0 NOTYPE  LOCAL  DEFAULT  UND 
+>      1: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS inst.c
+>      2: 0000000000000000     0 SECTION LOCAL  DEFAULT   72 .text
+>      3: 0000000000000000   337 FUNC    LOCAL  DEFAULT   72 decode_operand
+>      4: 0000000000000000     0 SECTION LOCAL  DEFAULT   76 .rodata
+>      5: 0000000000000151  4447 FUNC    LOCAL  DEFAULT   72 decode_exec
+>      6: 0000000000000000     0 SECTION LOCAL  DEFAULT   78 .debug_info
+>      7: 0000000000000000     0 SECTION LOCAL  DEFAULT   80 .debug_abbrev
+>      8: 0000000000000000     0 SECTION LOCAL  DEFAULT   81 .debug_loclists
+>      9: 0000000000000000     0 SECTION LOCAL  DEFAULT   85 .debug_rnglists
+>     10: 0000000000000000     0 SECTION LOCAL  DEFAULT   86 .debug_macro
+>     11: 0000000000000000     0 SECTION LOCAL  DEFAULT  230 .debug_line
+>     12: 0000000000000000     0 SECTION LOCAL  DEFAULT  232 .debug_str
+>     13: 0000000000000000     0 SECTION LOCAL  DEFAULT  233 .debug_line_str
+>     14: 0000000000000000     0 SECTION LOCAL  DEFAULT   88 .debug_macro
+> ......
+>     85: 0000000000000000     0 NOTYPE  LOCAL  DEFAULT    1 wm4.0.425be0b7a2[...]
+>     86: 0000000000000000     0 NOTYPE  LOCAL  DEFAULT    2 wm4.stdcpredef.h[...]
+> ......
+>    156: 0000000000000000     0 NOTYPE  GLOBAL DEFAULT  UND cpu
+>    157: 0000000000000000     0 NOTYPE  GLOBAL DEFAULT  UND vaddr_read
+>    158: 0000000000000000     0 NOTYPE  GLOBAL DEFAULT  UND vaddr_write
+>    159: 0000000000000000     0 NOTYPE  GLOBAL DEFAULT  UND set_nemu_state
+>    160: 0000000000000000     0 NOTYPE  GLOBAL DEFAULT  UND isa_raise_intr
+>    161: 0000000000000000     0 NOTYPE  GLOBAL DEFAULT  UND invalid_inst
+>    162: 0000000000000000     0 NOTYPE  GLOBAL DEFAULT  UND __stack_chk_fail
+>    163: 00000000000012b0    38 FUNC    GLOBAL DEFAULT   72 isa_exec_once
+>    164: 0000000000000000     0 NOTYPE  GLOBAL DEFAULT  UND vaddr_ifetch
+> ```
+> 
+> 没有出现这个函数定义，则说明函数被内联。
+> 
+> 如果删除 `inline` 仍然不会报错，因为每一个编译单元中都定义了一个相同的 `inst_fetch` 函数。
+> 
+> 同样地，出现了 `inst_fetch`
+> 
+> ```bash
+> $ readelf -s build/obj-riscv32-nemu-interpreter/src/isa/riscv32/inst.o
+> 
+> Symbol table '.symtab' contains 166 entries:
+>    Num:    Value          Size Type    Bind   Vis      Ndx Name
+>      0: 0000000000000000     0 NOTYPE  LOCAL  DEFAULT  UND 
+>      1: 0000000000000000     0 FILE    LOCAL  DEFAULT  ABS inst.c
+>      2: 0000000000000000     0 SECTION LOCAL  DEFAULT   72 .text
+>      3: 0000000000000000   337 FUNC    LOCAL  DEFAULT   72 decode_operand
+>      4: 0000000000000000     0 SECTION LOCAL  DEFAULT   76 .rodata
+>      5: 0000000000000151    27 FUNC    LOCAL  DEFAULT   72 inst_fetch
+> ```
+> 
+> 如果去掉 `static inline`，则会在链接阶段报重复定义错，原因是函数默认是一个全局的强符号，如果在多个编译单元中重复定义，则出错。
+> 
+> ```bash session
+> $ make ARCH=riscv32-nemu
+> ......
+> /usr/bin/ld: /home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/isa/riscv32/inst.o: in function `inst_fetch':
+> /home/pc/Learning/02.IT/5.ICS/ics2023/nemu/include/cpu/ifetch.h:20: multiple definition of `inst_fetch'; /home/pc/Learning/02.IT/5.ICS/ics2023/nemu/build/obj-riscv32-nemu-interpreter/src/engine/interpreter/hostcall.o:/home/pc/Learning/02.IT/5.ICS/ics2023/nemu/include/cpu/ifetch.h:20: first defined here
+> ......
+> ```
 
 ### 编译与链接：`dummy` 与强弱符号
 
 #### `common.h` 添加 `volatile static int dummy;`
 
-```sh
-$ readelf -s build/riscv32-nemu-interpreter | grep --extended-regexp --ignore-cas '\sdummy' | wc -l
-35
-```
+> ```sh
+> $ readelf -s build/riscv32-nemu-interpreter | grep --extended-regexp --ignore-cas '\sdummy' | wc -l
+> 35
+> ```
+> 
+> 35 个。
 
 #### `debug.h` 添加 `volatile static int dummy;`
-
+> ```sh
+> $ readelf -s build/riscv32-nemu-interpreter | grep --extended-regexp --ignore-cas '\sdummy' | wc -l
+> 35
+> ```
+> 
+> 35 个。
+> 
+> 结果相同。原因如下
+> 1. `common.h` 和 `debug.h` 相互包含，所以包含了 `common.h` 或 `debug.h` 任意一个的源文件一定包含了一个或两个 `volatile static int dummy;` 声明。
+> 2. 在 C 中，同一个编译单元中同一个对象可以有多个相同的声明，但是定义只能有一个。
+> 
 #### 两处 `dummy` 定义 `volatile static int dummy = 0;`
 
+> 编译阶段报重复定义。C 语言不允许同一个编译单元中出现同一个对象的重复定义，即使两次定义是相同的。从编译和链接的角度看，实为出现了重名的 LOCAL 符号。之前没有出现问题的原因即上一题的 2。
+
+### 了解 Makefile
+
+#### Makefile 构建目标依赖关系
+
+每一个 AM 程序的 Makefile 中都 `include` `$AM_HOME/Makefile`，最终构建时使用的目标都是在这个 Makefile 及其包含的 Makefile 中定义的。
+
+![targets](img/targets.svg)
+
+#### Makefile 间包含关系
+
+AM 程序的 Makefile 包含了 AM 的主 Makefile，主 Makefile 根据 `ARCH` 的值确定包含哪一个 `ARCH` 的 Makefile。ARCH-dependent Makefiles 通过将 `ISA` 和 `PLATFORM` 分离的方式实现了 $n + m$ 而不是 $n\times m$ 个 Makefile 支持 $n\times m$ 种 ARCH 的效果。
+
+![include](img/include.svg)
+
+#### Makefile 变量生成关系
+
+**FLAGS**：各类 Flags 在 Makefile `include` 的过程中被不断 `+=`。
+
+**Sources and Objects**：`SRCS` 在 Makefile `include` 的过程中被不断 `+=`，`AM_SRCS` 由 ARCH-dependent Makefile 定义。`.c` 文件添加到 `SRCS` 的顺序是 AM 程序的 Makefile 中添加了自己的 `.c` 文件，然后 AM 的 `.c` 文件由 ARCH-dependent Makfile 添加（硬编码）。各个 Lib 在自己的 Makefile 中定义 `.c` 文件。
+
+各个库主要使用 `find -name '*.o'` 找到所有源文件。
+
+**CROSS_COMPILE**：根据用户给出的 `ARCH=$ISA-$PLATFORM` 生成，贴在 `CC`, `OBJCOPY` 等工具名字前。
+
+![variables](img/vars.svg)
+
+#### 整个构建过程
+
+1. 根据上面图示的过程，包含所需 Makefile，设置好各类 Flags 以及用于编译的工具名字；
+2. 构建 AM 程序（这一步以及接下来的步骤顺序由 `image-dep` 规则指定）
+
+    这一步使用的规则，就是上图中 `$(DST_DIR)/%.o` 节点下的所有规则；
+
+3. 构建库，通过调用库的 Makefile 实现（其实只是在包含了主 Makefile 后在 `SRCS` 中加上库自己的源文件），生成了静态库（`$(LIBS)/build/$(LIB).a`）
+
+    这一步使用的规则和 AM 程序的构建规则，除了指定生成 `archive`，其他实际上相同；
+
+4. 链接，使用链接脚本 `$(AM_HOME)/scripts/linker.ld`，将 AM 程序的目标文件和生成的静态库链接，生成 `.elf` 文件，最后使用 `objcopy` 生成可直接在 NEMU 中装载的程序映像。
 
 ## 选做题
 
@@ -395,14 +447,15 @@ $ readelf -s build/riscv32-nemu-interpreter | grep --extended-regexp --ignore-ca
 
 > 正常运行，链接报错。原因：所谓符号表，是一张列出了二进制文件中所有程序实体的表，其中的字符串（存在另外的字符串表中）是程序实体的名字。程序运行时并不需要知道有哪些程序实体（跳转指令指示了函数实体的位置，变量实体等的位置在各类指令的立即数等位置给出）。链接时需要知道程序实体及其名字，对于某一个目标文件，这样才能得知引用的外部符号的地址。
 
-### 如何生成 native 的可执行文件
-#TODO
 ### 奇怪的错误码
-#TODO
-### 这是如何实现的?
-#TODO
-### 测试 klib
-#TODO
+
+> 在 `abstract-machine/am/src/native/trm.c` 中，有一个在 native 上定义的 `halt()`，可以在没有 `printf()` 支持的情况下打印出 Exit code，然后调用 `__am_exit_platform() -> exit()` 实现退出，这样就把错误码返回给了 `make`。
+
+### 这是如何实现的？
+
+只要 Klib 中定义了这些库函数，且 Klib 在链接命令行上出现在 AM 程序的后面，就会链接到 Klib 提供的版本。
+
+编译器默认在最后链接到 glibc，但由于 Klib 在前，扫描到 Klib 时，所有在未定义符号集合中的符号都链接到 Klib 提供的版本而移出未定义集，不会链接到最后的 glibc。
 
 ### 理解volatile关键字
 
