@@ -49,8 +49,6 @@
 
 ![cpu-tests](img/cpu-tests.png)
 
-![alu-tests](img/alu-tests.png)
-
 能够正确运行 typing-game，snake，mario 等。
 
 ![typing-game](img/typing-game.png)
