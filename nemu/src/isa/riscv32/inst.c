@@ -83,10 +83,10 @@ static void decode_operand(Decode *s, int *rd, word_t *src1, word_t *src2, word_
 static int decode_exec(Decode *s) {
   int rd = 0;
   word_t src1 = 0, src2 = 0, imm = 0;
-   // Decode
+  // Decode
   uint32_t i = s->isa.inst.val;
   word_t csr = BITS(i, 31, 20), zimm = BITS(i, 19, 15);
-   s->dnpc = s->snpc;
+  s->dnpc = s->snpc;
 
 #define INSTPAT_INST(s) ((s)->isa.inst.val)
 #define INSTPAT_MATCH(s, name, type, ... /* execute body */ ) { \
@@ -218,7 +218,7 @@ static int decode_exec(Decode *s) {
     #endif
   );
 
-  /* Ziscr */
+  /* Zicsr */
   INSTPAT("???????????? ????? 011 ????? 11100 11",  csrrc  , I,
     word_t t = C(csr);
     C(csr) = t & ~src1;
@@ -257,13 +257,13 @@ static int decode_exec(Decode *s) {
     word_t mstatus = C(CSR_MSTATUS_IDX);
     word_t mpie = getbit(mstatus, 7);
     mstatus = (mpie) ? setbit(mstatus, 3) : rstbit(mstatus, 3);
+    C(CSR_MSTATUS_IDX) = mstatus;
   );
 
   /* nemu */
   INSTPAT("0000000 00001 00000 000 00000 11100 11", ebreak , N, NEMUTRAP(s->pc, R(10))); // R(10) is $a0
   INSTPAT("??????? ????? ????? ??? ????? ????? ??", inv    , N, INV(s->pc));
   INSTPAT_END();
-
 
   R(0) = 0; // reset $zero to 0
 
