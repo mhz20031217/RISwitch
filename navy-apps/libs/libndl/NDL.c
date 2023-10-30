@@ -29,7 +29,6 @@ int NDL_PollEvent(char *buf, int len) {
     return 0;
   }
   buf[rc] = '\0';
-  printf("%s\n", buf);
   return 1;
 }
 
@@ -122,7 +121,7 @@ void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
 
   for (int i = 0; i < h; i ++) {
     lseek(fbdev, ((y+i)*screen_w+x)*4, SEEK_SET);
-    write(fbdev, pixels + w * i, w * 4);
+    (void) write(fbdev, pixels + w * i, w * 4);
   }
 }
 
