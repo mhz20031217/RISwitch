@@ -45,9 +45,13 @@ size_t dispinfo_read(void *buf, size_t offset, size_t len) {
     return -1;
   }
   Log("Reading dispinfo: %dx%d.", gpu_config.width, gpu_config.height);
-  snprintf(buf, len, "WIDTH : %d\nHEIGHT : %d\n",
+  int rc = snprintf(buf, len, "WIDTH : %d\nHEIGHT : %d\n",
             gpu_config.width, gpu_config.height);
-  return len;
+  if (rc <= 0) {
+    return -1;
+  } else {
+    return rc;
+  }
 }
 
 size_t fb_write(const void *buf, size_t offset, size_t len) {
