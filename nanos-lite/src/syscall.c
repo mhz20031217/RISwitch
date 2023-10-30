@@ -5,44 +5,44 @@
 #include <debug.h>
 #include <fs.h>
 
-static inline int sys_exit(uintptr_t args[]) {
+static inline int sys_exit(intptr_t args[]) {
   halt(args[1]);
   return 0;
 }
 
-static inline int sys_yield(uintptr_t args[]) {
+static inline int sys_yield(intptr_t args[]) {
   yield();
   return 0;
 }
 
-static inline int sys_write(uintptr_t args[]) {
+static inline int sys_write(intptr_t args[]) {
   int fd = args[1];
   const void *buf = (const void *) args[2];
   size_t count = args[3];
   return fs_write(fd, buf, count);
 }
 
-static inline int sys_brk(uintptr_t args[]) {
+static inline int sys_brk(intptr_t args[]) {
   return 0;
 }
 
-static inline int sys_open(uintptr_t args[]) {
+static inline int sys_open(intptr_t args[]) {
   return fs_open((const char *) args[1], args[2], args[3]);
 }
 
-static inline int sys_close(uintptr_t args[]) {
+static inline int sys_close(intptr_t args[]) {
   return fs_close(args[1]);
 }
 
-static inline int sys_lseek(uintptr_t args[]) {
+static inline int sys_lseek(intptr_t args[]) {
   return fs_lseek(args[1], args[2], args[3]);
 }
 
-static inline int sys_read(uintptr_t args[]) {
+static inline int sys_read(intptr_t args[]) {
   return fs_read(args[1], (void *) args[2], args[3]);
 }
 
-static inline int sys_gettimeofday(uintptr_t args[]) {
+static inline int sys_gettimeofday(intptr_t args[]) {
   struct timeval *tv = (void *) args[1];
   if (tv == NULL) return -1;
   uint64_t us = io_read(AM_TIMER_UPTIME).us;
@@ -53,7 +53,7 @@ static inline int sys_gettimeofday(uintptr_t args[]) {
 }
 
 static struct {
-  int (*handler)(uintptr_t args[]);
+  int (*handler)(intptr_t args[]);
   const char *desc;
 } syscall_handler[] = {
   [SYS_exit] = {sys_exit, "exit"},
@@ -70,7 +70,7 @@ static struct {
 #define NR_SYSCALL ARRLEN(syscall_handler)
 
 void do_syscall(Context *c) {
-  uintptr_t a[4];
+  intptr_t a[4];
   a[0] = c->GPR1;
   a[1] = c->GPR2;
   a[2] = c->GPR3;
