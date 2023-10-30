@@ -122,10 +122,10 @@ size_t fs_lseek(int fd, size_t offset, int whence) {
     case SEEK_CUR: pos = file->offset + offset; break;
     case SEEK_SET: pos = offset; break;
     case SEEK_END: pos = file->size; break;
-    default: panic("fs: Unsupported seek option: %d.", whence);
+    default: panic("Unsupported seek option: %d.", whence);
   }
   if (pos > file->size) {
-    Log("fs: File offset out of bound: file %d at offset %lu.", fd, pos);
+    Log("File offset out of bound: file %d at offset %lu.", fd, pos);
     return -1;
   }
 
