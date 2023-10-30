@@ -38,7 +38,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   rc = fs_read(fd, &elf_header, sizeof(Elf_Ehdr));
   assert(rc == sizeof(Elf_Ehdr));
 
-  Log("loader: Loading '%s'.", filename);
+  Log("Loading '%s'", filename);
 
   assert(*(uint32_t *)elf_header.e_ident == 0x464c457f);
   assert(elf_header.e_machine == EXPECT_TYPE);
