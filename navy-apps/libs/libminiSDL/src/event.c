@@ -24,7 +24,7 @@ int SDL_PollEvent(SDL_Event *ev) {
     return 0;
   }
 
-  // printf("SDL_PollEvent: %s\n", buf);
+  printf("SDL_PollEvent: %s\n", buf);
 
   if (buf[0] != 'k') {
     printf("[NDL] Spec error: begins with space.\n");
