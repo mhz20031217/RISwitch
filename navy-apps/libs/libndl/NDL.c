@@ -28,13 +28,13 @@ int NDL_PollEvent(char *buf, int len) {
   if (rc == 0) {
     return 0;
   }
-  // buf[rc] = '\0';
-  for (int i = 0; i < len ; i ++) {
-    if (buf[i] == '\n') {
-      buf[i] = '\0';
-      break;
-    }
-  }
+  buf[rc] = '\0';
+  // for (int i = 0; i < len ; i ++) {
+  //   if (buf[i] == '\n') {
+  //     buf[i] = '\0';
+  //     break;
+  //   }
+  // }
   return 1;
 }
 
