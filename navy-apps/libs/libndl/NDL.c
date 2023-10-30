@@ -57,8 +57,8 @@ void NDL_OpenCanvas(int *w, int *h) {
       return;
     }
 
-    char buf[64], key[2][16];
-    int value[2];
+    char buf[64], key[64];
+    int value;
     int nread = read(disp_fd, buf, sizeof(buf) - 1);
     if (nread <= 0) {
       printf("[NDL] Cannot read '/proc/dispinfo'.\n");
@@ -67,16 +67,24 @@ void NDL_OpenCanvas(int *w, int *h) {
     }
     buf[nread] = '\0';
 
-    sscanf(buf, "%s : %d \n%s : %d", key[0], &value[0], key[1], &value[1]);
-    for (int i = 0; i < 2; i ++) {
-      if (strcmp(key[i], "WIDTH") == 0) {
-        screen_w = value[i];
-      } else if (strcmp(key[i], "HEIGHT") == 0) {
-        screen_h = value[i];
-      } else {
-        printf("[NDL] Invalid key in '/proc/dispinfo': '%s'.\n", key[i]);
+    int i = 0, sep = -1;
+    for (int j = 0; j < nread; j ++) {
+      if (buf[j] == ':') sep = j;
+      if (buf[j] == '\n') {
+        strncpy(key, buf + i, sep - i);
+        key[sep] = '\0';
+        sscanf(buf + sep + 1, "%d", &value);
+        if (strcmp(key, "WIDTH") == 0) {
+          screen_w = value;
+        } else if (strcmp(key, "HEIGHT") == 0) {
+          screen_h = value;
+        } else {
+          printf("[NDL] Invalid key in '/proc/dispinfo': '%s'.\n", key);
+        }
+        i = j + 1;
       }
     }
+    
 
     if (*w == 0 && *h == 0) {
       canvas_w = *w = screen_w;
