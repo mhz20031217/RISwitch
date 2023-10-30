@@ -106,10 +106,6 @@ size_t fs_write(int fd, const void *buf, size_t len) {
   } else {
     size_t rc;
     rc = file->write((void *)buf, file->offset, len);
-    if (rc == (size_t) -1) {
-      Log("Impossible...");
-      return -1;
-    }
     file->offset += rc;
     return rc;
   }
@@ -120,7 +116,10 @@ size_t fs_lseek(int fd, int offset, int whence) {
 
   size_t pos;
   switch (whence) {
-    case SEEK_CUR: pos = file->offset + offset; break;
+    case SEEK_CUR:
+      assert((int)(file->offset) + offset >= 0);
+      pos = file->offset + offset; 
+      break;
     case SEEK_SET: pos = offset; break;
     case SEEK_END: pos = file->size; break;
     default: panic("Unsupported seek option: %d.", whence);
