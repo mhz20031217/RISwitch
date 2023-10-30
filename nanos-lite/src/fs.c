@@ -114,7 +114,7 @@ size_t fs_write(int fd, const void *buf, size_t len) {
   }
 }
 
-size_t fs_lseek(int fd, size_t offset, int whence) {
+size_t fs_lseek(int fd, int offset, int whence) {
   Finfo *file = check_fd(fd);
 
   size_t pos;
