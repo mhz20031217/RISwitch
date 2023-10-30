@@ -25,16 +25,10 @@ int NDL_PollEvent(char *buf, int len) {
     return 0;
   }
   size_t rc = read(evtdev, buf, len);
-  if (rc == 0) {
+  if (rc == 0 || rc == -1) {
     return 0;
   }
   buf[rc] = '\0';
-  // for (int i = 0; i < len ; i ++) {
-  //   if (buf[i] == '\n') {
-  //     buf[i] = '\0';
-  //     break;
-  //   }
-  // }
   return 1;
 }
 
