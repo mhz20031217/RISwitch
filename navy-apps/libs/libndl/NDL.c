@@ -70,10 +70,11 @@ void NDL_OpenCanvas(int *w, int *h) {
 
     int i = 0, sep = -1;
     for (int j = 0; j < nread; j ++) {
-      if (buf[j] == ':') sep = j;
-      if (buf[j] == '\n') {
-        strncpy(key, buf + i, sep - i);
-        key[sep] = '\0';
+      if (buf[j] == ':') {
+        sep = j;
+        buf[j] = '\0';
+      } else if (buf[j] == '\n') {
+        sscanf(buf + i, "%s", key);
         sscanf(buf + sep + 1, "%d", &value);
         if (strcmp(key, "WIDTH") == 0) {
           screen_w = value;
