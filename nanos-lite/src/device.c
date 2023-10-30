@@ -31,7 +31,6 @@ size_t serial_write(const void *buf, size_t offset, size_t len) {
 size_t events_read(void *buf, size_t offset, size_t len) {
   AM_INPUT_KEYBRD_T ev = io_read(AM_INPUT_KEYBRD);
   if (ev.keycode == AM_KEY_NONE) {
-    // Log("No key is pressed.");
     return 0;
   }
   int rc = snprintf(buf, len, "%s %s\n", ev.keydown ? "kd" : "ku", keyname[ev.keycode]);
@@ -52,10 +51,13 @@ size_t dispinfo_read(void *buf, size_t offset, size_t len) {
 }
 
 size_t fb_write(const void *buf, size_t offset, size_t len) {
+  offset >>= 2;
+  len >>= 2;
   io_write(AM_GPU_FBDRAW, 
     .pixels = (void *) buf,
-    .w = len / 4, .h = 1,
-    .y = (offset >> 2) / gpu_config.width, .x = (offset >> 2) % gpu_config.width,
+    .w = len, .h = 1,
+    .x = offset % gpu_config.width,
+    .y = offset / gpu_config.width,
     .sync = true
   );
   return len;
