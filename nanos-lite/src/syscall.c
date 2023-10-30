@@ -19,20 +19,10 @@ static inline int sys_write(uintptr_t args[]) {
   int fd = args[1];
   const void *buf = (const void *) args[2];
   size_t count = args[3];
-  // printf("Called SYS_write, fd = %d, buf = 0x%p, count = %lu.\n", fd, buf, count);
-
-  // if (fd == 1 || fd == 2) {
-  //   for (size_t i = 0; i < count; i ++) {
-  //     putch(*((const char *)(buf) + i));
-  //   }
-  //   return count;
-  // } else {
-    return fs_write(fd, buf, count);
-  // }
+  return fs_write(fd, buf, count);
 }
 
 static inline int sys_brk(uintptr_t args[]) {
-  // void *addr = args[1];
   return 0;
 }
 

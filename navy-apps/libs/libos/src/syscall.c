@@ -75,8 +75,10 @@ void *_sbrk(intptr_t increment) {
   void *ret = brk;
   if(_syscall_(SYS_brk, (intptr_t) brk + increment, 0, 0) == 0) {
     brk += increment;
+    return ret;
+  } else {
+    return (void *) -1;
   }
-  return ret;
 }
 
 int _read(int fd, void *buf, size_t count) {
