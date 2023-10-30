@@ -1,6 +1,7 @@
 #include <debug.h>
 #include <fs.h>
 #include <common.h>
+#include <stddef.h>
 
 typedef size_t (*ReadFn) (void *buf, size_t offset, size_t len);
 typedef size_t (*WriteFn) (const void *buf, size_t offset, size_t len);
@@ -105,8 +106,8 @@ size_t fs_write(int fd, const void *buf, size_t len) {
   } else {
     size_t rc;
     rc = file->write((void *)buf, file->offset, len);
-    if (rc == -1) {
-      // Log("Impossible...");
+    if (rc == (size_t) -1) {
+      Log("Impossible...");
       return -1;
     }
     file->offset += rc;
