@@ -1,4 +1,5 @@
 #include <common.h>
+#include <stddef.h>
 #include <stdio.h>
 
 #if defined(MULTIPROGRAM) && !defined(TIME_SHARING)
@@ -18,8 +19,10 @@ static const char *keyname[256] __attribute__((used)) = {
 size_t serial_write(const void *buf, size_t offset, size_t len) {
   const char *src = buf;
 
-  while (len --) {
+  size_t cnt = 0;
+  while (cnt < len) {
     putch(*(src ++));
+    cnt ++;
   }
 
   return len;
