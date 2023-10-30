@@ -57,32 +57,52 @@ void NDL_OpenCanvas(int *w, int *h) {
       return;
     }
 
-    char buf[100];
-    read(disp_fd, buf, 100);
+    char buf[64], key[2][16];
+    int value[2];
+    int nread = read(disp_fd, buf, sizeof(buf) - 1);
+    if (nread <= 0) {
+      printf("[NDL] Cannot read '/proc/dispinfo'.\n");
+      *w = *h = 0;
+      return;
+    }
+    buf[nread] = '\0';
 
-    int i;
-
-    for (i = 0; i < 100; i ++) {
-      if ('0' <= buf[i] && buf[i] <= '9') {
-        screen_w = 0;
-        while (i < 100 && '0' <= buf[i] && buf[i] <= '9') {
-          screen_w = screen_w * 10 + buf[i] - '0';
-          i ++;
-        }
-        break;
+    sscanf(buf, "%s : %d \n%s : %d", key[0], &value[0], key[1], &value[1]);
+    for (int i = 0; i < 2; i ++) {
+      if (strcmp(key[i], "WIDTH") == 0) {
+        screen_w = value[i];
+      } else if (strcmp(key[i], "HEIGHT") == 0) {
+        screen_h = value[i];
+      } else {
+        printf("[NDL] Invalid key in '/proc/dispinfo': '%s'.\n", key[i]);
       }
     }
 
-    for (; i < 100; i ++) {
-      if ('0' <= buf[i] && buf[i] <= '9') {
-        screen_h = 0;
-        while (i < 100 && '0' <= buf[i] && buf[i] <= '9') {
-          screen_h = screen_h * 10 + buf[i] - '0';
-          i ++;
-        }
-        break;
-      }
-    }
+
+
+    // int i;
+
+    // for (i = 0; i < 100; i ++) {
+    //   if ('0' <= buf[i] && buf[i] <= '9') {
+    //     screen_w = 0;
+    //     while (i < 100 && '0' <= buf[i] && buf[i] <= '9') {
+    //       screen_w = screen_w * 10 + buf[i] - '0';
+    //       i ++;
+    //     }
+    //     break;
+    //   }
+    // }
+
+    // for (; i < 100; i ++) {
+    //   if ('0' <= buf[i] && buf[i] <= '9') {
+    //     screen_h = 0;
+    //     while (i < 100 && '0' <= buf[i] && buf[i] <= '9') {
+    //       screen_h = screen_h * 10 + buf[i] - '0';
+    //       i ++;
+    //     }
+    //     break;
+    //   }
+    // }
 
     if (*w == 0 && *h == 0) {
       canvas_w = *w = screen_w;
