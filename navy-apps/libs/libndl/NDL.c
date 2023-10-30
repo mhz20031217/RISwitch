@@ -21,20 +21,20 @@ uint32_t NDL_GetTicks() {
 
 int NDL_PollEvent(char *buf, int len) {
   if (evtdev == -1) {
-    printf("[NDL] Fatal: event device doesn't exist.\n");
+    printf("[NDL] Event device doesn't exist.\n");
     return 0;
   }
   size_t rc = read(evtdev, buf, len);
   if (rc == 0) {
-    // printf("[NDL] No key is pressed.\n");
     return 0;
   }
-  for (int i = 0; i < len ; i ++) {
-    if (buf[i] == '\n') {
-      buf[i] = '\0';
-      break;
-    }
-  }
+  buf[rc] = '\0';
+  // for (int i = 0; i < len ; i ++) {
+  //   if (buf[i] == '\n') {
+  //     buf[i] = '\0';
+  //     break;
+  //   }
+  // }
   return 1;
 }
 
@@ -116,14 +116,10 @@ void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
     return;
   }
 
-  // printf("[NDL] Draw rect %dx%d at (%d, %d).\n", w, h, x, y);
-
   for (int i = 0; i < h; i ++) {
     lseek(fbdev, ((y+i)*screen_w+x)*4, SEEK_SET);
     write(fbdev, pixels + w * i, w * 4);
   }
-
-  // printf("[NDL] Draw successfully.\n");
 }
 
 void NDL_OpenAudio(int freq, int channels, int samples) {
