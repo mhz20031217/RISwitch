@@ -78,32 +78,6 @@ void NDL_OpenCanvas(int *w, int *h) {
       }
     }
 
-
-
-    // int i;
-
-    // for (i = 0; i < 100; i ++) {
-    //   if ('0' <= buf[i] && buf[i] <= '9') {
-    //     screen_w = 0;
-    //     while (i < 100 && '0' <= buf[i] && buf[i] <= '9') {
-    //       screen_w = screen_w * 10 + buf[i] - '0';
-    //       i ++;
-    //     }
-    //     break;
-    //   }
-    // }
-
-    // for (; i < 100; i ++) {
-    //   if ('0' <= buf[i] && buf[i] <= '9') {
-    //     screen_h = 0;
-    //     while (i < 100 && '0' <= buf[i] && buf[i] <= '9') {
-    //       screen_h = screen_h * 10 + buf[i] - '0';
-    //       i ++;
-    //     }
-    //     break;
-    //   }
-    // }
-
     if (*w == 0 && *h == 0) {
       canvas_w = *w = screen_w;
       canvas_h = *h = screen_h;
@@ -118,6 +92,12 @@ void NDL_OpenCanvas(int *w, int *h) {
     }
 
     fbdev = open("/dev/fb", O_SYNC);
+
+    if (fbdev == -1) {
+      printf("[NDL] Failed to open framebuffer.\n");
+      canvas_w = canvas_h = *w = *h = 0;
+      return;
+    }
 
     printf("[NDL] Canvas open successfully, %dx%d (on %dx%d screen).\n",
            canvas_w, canvas_h, screen_w, screen_h);
