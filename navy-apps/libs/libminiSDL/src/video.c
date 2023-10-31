@@ -12,6 +12,8 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
 
   uint8_t bytes = dst->format->BytesPerPixel;
 
+  assert(bytes == 1 || bytes == 4);
+
   int sx, sy, dx, dy, w, h;
   if (srcrect == NULL) {
     sx = sy = 0;
