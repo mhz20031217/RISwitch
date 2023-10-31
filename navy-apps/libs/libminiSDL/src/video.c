@@ -90,7 +90,7 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
     assert(pixels);
 
     for (int i = 0; i < h; i ++) {
-      memcpy(pixels, (uint32_t *)s->pixels + (y+i)*s->w + x, w * 4);
+      memcpy(pixels + w*i, (uint32_t *)s->pixels + (y+i)*s->w + x, w * 4);
     }
 
     NDL_DrawRect(pixels, x, y, w, h);

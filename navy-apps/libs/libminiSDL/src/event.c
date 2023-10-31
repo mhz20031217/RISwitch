@@ -32,10 +32,15 @@ static int identify_key(char buf[], SDL_Event *ev) {
     }
   }
 
+  int i;
   for (int i = 0; i < NR_KEYS; i ++) {
     if (strcmp(buf + 3, keyname[i]) == 0) {
       ev->key.keysym.sym = i;
     }
+  }
+
+  if (i == NR_KEYS) {
+    Error("no such key: %d.", i);
   }
 
   if (buf[1] == 'd') {
@@ -45,6 +50,7 @@ static int identify_key(char buf[], SDL_Event *ev) {
     keystate[ev->key.keysym.sym] = 0;
     ev->type = SDL_KEYUP;
   }
+  printf("%s\n", buf);
   return 1;
 }
 
@@ -71,5 +77,8 @@ int SDL_PeepEvents(SDL_Event *ev, int numevents, int action, uint32_t mask) {
 uint8_t* SDL_GetKeyState(int *numkeys) {
   SDL_Event ev;
   while (SDL_PollEvent(&ev));
+  if (numkeys) {
+    *numkeys = NR_KEYS;
+  }
   return keystate;
 }
