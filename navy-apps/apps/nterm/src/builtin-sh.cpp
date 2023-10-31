@@ -1,5 +1,7 @@
 #include <nterm.h>
 #include <stdarg.h>
+#include <stdlib.h>
+#include <string.h>
 #include <unistd.h>
 #include <SDL.h>
 
@@ -23,6 +25,9 @@ static void sh_prompt() {
 }
 
 static void sh_handle_cmd(const char *cmd) {
+  if (strcmp(cmd, "exit") == 0) {
+    exit(0);
+  }
 }
 
 void builtin_sh_run() {
