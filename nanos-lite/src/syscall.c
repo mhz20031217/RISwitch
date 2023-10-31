@@ -4,6 +4,7 @@
 #include "syscall.h"
 #include <debug.h>
 #include <fs.h>
+#include <loader.h>
 
 static inline int sys_exit(intptr_t args[]) {
   halt(args[1]);
@@ -52,6 +53,11 @@ static inline int sys_gettimeofday(intptr_t args[]) {
   return 0;
 }
 
+static inline int sys_execve(intptr_t args[]) {
+  naive_uload(NULL, (char *) args[1]);
+  return 0;
+}
+
 static struct {
   int (*handler)(intptr_t args[]);
   const char *desc;
@@ -65,6 +71,7 @@ static struct {
   [SYS_open] = {sys_open, "open"},
   [SYS_close] = {sys_close, "close"},
   [SYS_gettimeofday] = {sys_gettimeofday, "gettimeofday"},
+  [SYS_execve] = {sys_execve, "execve"},
 };
 
 #define NR_SYSCALL ARRLEN(syscall_handler)
