@@ -7,7 +7,7 @@
 #include <loader.h>
 
 static inline int sys_exit(intptr_t args[]) {
-  halt(args[1]);
+  naive_uload(NULL, "/bin/menu");
   return 0;
 }
 
