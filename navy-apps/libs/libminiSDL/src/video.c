@@ -2,6 +2,7 @@
 #include <debug.h>
 #include <sdl-video.h>
 #include <assert.h>
+#include <stdint.h>
 #include <string.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -27,6 +28,10 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
   } else {
     dx = dstrect->x; dy = dstrect->y;
   }
+  assert(sx + w <= src->w);
+  assert(sy + h <= src->h);
+  assert(dx + w <= dst->w);
+  assert(dy + h <= dst->h);
 
   for (int i = 0; i < h; i ++) {
     memcpy(dst->pixels + (((dy+i)*dst->w) + dx) * bytes,
@@ -55,10 +60,10 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
   }
 }
 
-static uint32_t *sdl_palette_vbuf = NULL;
+static void ConvertPixelsARGB_ABGR(void *dst, void *src, int len);
 
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
-  if (w == 0 && h == 0) {
+  if (w == 0 && h == 0 && x == 0 && y == 0) {
     w = s->w; h = s->h;
   }
 
@@ -66,21 +71,32 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
   if (s->format->BitsPerPixel == 8) {
     assert(s->format->palette);
     assert(s->format->palette->colors);
-    if (sdl_palette_vbuf == NULL) {
-      sdl_palette_vbuf = malloc(800 * 600 * 4);
-    }
-    assert(sdl_palette_vbuf);
 
+    uint32_t *sdl_palette_vbuf = malloc(w * h * 4);
+    assert(sdl_palette_vbuf);
     for (int i = 0; i < h; i ++) {
       for (int j = 0; j < w; j ++) {
-        sdl_palette_vbuf[(y+i)*(s->w)+x+j] 
+        sdl_palette_vbuf[w*i + j] 
           = s->format->palette->colors[s->pixels[(y+i)*(s->w)+x+j]].val;
       }
     }
 
+    ConvertPixelsARGB_ABGR(sdl_palette_vbuf, sdl_palette_vbuf, w * h);
+
     NDL_DrawRect(sdl_palette_vbuf, x, y, w, h);
+    free(sdl_palette_vbuf);
   } else if (s->format->BitsPerPixel == 32) {
-    NDL_DrawRect((uint32_t *)s->pixels, x, y, w, h);
+    uint32_t *pixels = malloc(w * h * 4);
+    assert(pixels);
+
+    for (int i = 0; i < h; i ++) {
+      memcpy(pixels, (uint32_t *)s->pixels + (y+i)*s->w + x, w * 4);
+    }
+
+    NDL_DrawRect(pixels, x, y, w, h);
+    free(pixels);
+  } else {
+    assert(0);
   }
 }
 
