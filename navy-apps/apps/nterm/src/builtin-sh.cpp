@@ -32,7 +32,7 @@ static void sh_handle_cmd(const char *cmd) {
   if (strcmp(exec, "exit") == 0) {
     exit(0);
   } else if (strcmp(exec, "echo") == 0) {
-    sh_printf(arg);
+    sh_printf("%[^\n]", arg);
   } else {
     execve(exec, NULL, NULL);
   }
