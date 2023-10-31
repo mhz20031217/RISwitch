@@ -33,8 +33,9 @@ static void sh_handle_cmd(const char *cmd) {
     exit(0);
   } else if (strcmp(exec, "echo") == 0) {
     sh_printf(arg);
+  } else {
+    execve(exec, NULL, NULL);
   }
-  execve(exec, NULL, NULL);
 }
 
 void builtin_sh_run() {
