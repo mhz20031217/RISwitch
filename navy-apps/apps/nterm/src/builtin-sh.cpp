@@ -1,3 +1,4 @@
+#include "sys/unistd.h"
 #include <nterm.h>
 #include <stdarg.h>
 #include <stdlib.h>
@@ -25,9 +26,15 @@ static void sh_prompt() {
 }
 
 static void sh_handle_cmd(const char *cmd) {
-  if (strcmp(cmd, "exit") == 0) {
+  char exec[256], arg[256];
+  sscanf(cmd + strlen(exec), "%s", arg);
+  sscanf(cmd, "%s", exec);
+  if (strcmp(exec, "exit") == 0) {
     exit(0);
+  } else if (strcmp(exec, "echo")) {
+    sh_printf(arg);
   }
+  execve(exec, NULL, NULL);
 }
 
 void builtin_sh_run() {
