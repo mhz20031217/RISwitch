@@ -6,8 +6,6 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-static bool sdl_video_initialized = false;
-
 void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_Rect *dstrect) {
   assert(dst && src);
   assert(dst->format->BitsPerPixel == src->format->BitsPerPixel);
@@ -31,7 +29,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
   for (int i = 0; i < h; i ++) {
     memcpy(dst->pixels + (((dy+i)*dst->w) + dx) * bytes,
       src->pixels + (((sy+i)*src->w) + sx) * bytes,
-      src->w * bytes
+      w * bytes
     );
   }
 }
@@ -112,12 +110,6 @@ SDL_Surface* SDL_CreateRGBSurface(uint32_t flags, int width, int height, int dep
     assert(s->format->palette->colors);
     memset(s->format->palette->colors, 0, sizeof(SDL_Color) * 256);
     s->format->palette->ncolors = 256;
-
-    /* PATCH BEGIN */
-    // assert(sdl_palette_vbuf == NULL);
-    // sdl_palette_vbuf = malloc(width * height * 4);
-    // assert(sdl_palette_vbuf);
-    /* PATCH END */
   } else {
     s->format->palette = NULL;
     s->format->Rmask = Rmask; s->format->Rshift = maskToShift(Rmask); s->format->Rloss = 0;
