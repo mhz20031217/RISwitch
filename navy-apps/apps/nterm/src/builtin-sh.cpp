@@ -31,7 +31,7 @@ static void sh_handle_cmd(const char *cmd) {
   sscanf(cmd, "%s", exec);
   if (strcmp(exec, "exit") == 0) {
     exit(0);
-  } else if (strcmp(exec, "echo")) {
+  } else if (strcmp(exec, "echo") == 0) {
     sh_printf(arg);
   }
   execve(exec, NULL, NULL);
