@@ -27,6 +27,6 @@
 
 #define TODO() panic("please implement me")
 
-// #define ENABLE_STRACE
+#define ENABLE_STRACE
 
 #endif
