@@ -28,11 +28,11 @@ static void sh_prompt() {
 static void sh_handle_cmd(const char *cmd) {
   char exec[256], arg[256];
   sscanf(cmd, "%s", exec);
-  sscanf(cmd + strlen(exec), "%s", arg);
+  sscanf(cmd + strlen(exec), "%[^\n]", arg);
   if (strcmp(exec, "exit") == 0) {
     exit(0);
   } else if (strcmp(exec, "echo") == 0) {
-    sh_printf("%[^\n]", arg);
+    sh_printf("%s\n", arg);
   } else {
     execve(exec, NULL, NULL);
   }
