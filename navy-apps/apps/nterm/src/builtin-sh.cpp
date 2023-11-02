@@ -36,12 +36,14 @@ static void sh_handle_cmd(const char *cmd) {
     sh_printf("%s\n", arg);
   } else {
     char abs_path[256];
+    char PATH[256];
     FILE *fp;
-    const char *PATH = getenv("PATH");
+    strcpy(PATH, getenv("PATH"));
     printf("[nterm] Current PATH: '%s'.\n", PATH);
-    int len = strlen(PATH), i = 0;
-    for (int j = 0; i < len; i ++) {
-      if (PATH[i] == ':') {
+    strcat(PATH, ":");
+    int len = strlen(PATH), i = 0, j;
+    for (j = 0; j < len; j ++) {
+      if (PATH[j] == ':') {
         int p;
         for (p = 0; p < j-i; p ++) {
           abs_path[p] = PATH[i+p];
@@ -53,6 +55,8 @@ static void sh_handle_cmd(const char *cmd) {
         if (fp) {
           break;
         }
+        i = j + 1;
+        j ++;
       }
     }
     if (!fp) {
