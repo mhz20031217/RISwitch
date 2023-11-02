@@ -34,7 +34,12 @@ static void sh_handle_cmd(const char *cmd) {
   } else if (strcmp(exec, "echo") == 0) {
     sh_printf("%s\n", arg);
   } else {
-    execve(exec, NULL, NULL);
+    FILE *fp = fopen(exec, "r");
+    if (!fp) {
+      sh_printf("[sh] no such file or directory: '%s'.\n", exec);
+    } else {
+      execve(exec, NULL, NULL);
+    }
   }
 }
 
