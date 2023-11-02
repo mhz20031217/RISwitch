@@ -1,6 +1,7 @@
 #include "amdev.h"
 #include <am.h>
 #include <NDL.h>
+#include <stdio.h>
 #include <string.h>
 
 #define keyname(k) #k,
@@ -31,6 +32,12 @@ void __am_input_keybrd(AM_INPUT_KEYBRD_T *kbd) {
       printf("[libam] spec error: event not beginning with 'k'.\n");
       goto error;
     }
+    for (int i = 0; i < sizeof(buf); i ++) {
+      if (buf[i] == '\n') {
+        buf[i] = '\0';
+        break;
+      }
+    }
     for (int i = 0; i < NR_KEYS; i ++) {
       if (strcmp(buf + 3, keyname[i]) == 0) {
         kbd->keycode = i;
@@ -44,6 +51,7 @@ void __am_input_keybrd(AM_INPUT_KEYBRD_T *kbd) {
     } else {
       goto error;
     }
+    // printf("[libam] return key: %d %d.\n", kbd->keycode, kbd->keydown);
     return;
   }
 
