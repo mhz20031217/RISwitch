@@ -48,6 +48,7 @@ static void sh_handle_cmd(const char *cmd) {
         }
         abs_path[p] = '/'; abs_path[p+1] = '\0';
         strcat(abs_path, exec);
+        printf("[nterm] Trying to exec '%s'.\n", abs_path);
         fp = fopen(exec, "r");
         if (fp) {
           break;
