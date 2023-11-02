@@ -34,16 +34,35 @@ static void sh_handle_cmd(const char *cmd) {
   } else if (strcmp(exec, "echo") == 0) {
     sh_printf("%s\n", arg);
   } else {
-    FILE *fp = fopen(exec, "r");
+    char abs_path[256];
+    FILE *fp;
+    const char *PATH = getenv("PATH");
+    int len = strlen(PATH), i = 0;
+    for (int j = 0; i < len; i ++) {
+      if (PATH[i] == ':') {
+        int p;
+        for (p = 0; p < j-i; p ++) {
+          abs_path[p] = PATH[i+p];
+        }
+        abs_path[p] = '/'; abs_path[p+1] = '\0';
+        strcat(abs_path, exec);
+        fp = fopen(exec, "r");
+        if (fp) {
+          break;
+        }
+      }
+    }
     if (!fp) {
       sh_printf("[sh] no such file or directory: '%s'.\n", exec);
     } else {
-      execve(exec, NULL, NULL);
+      fclose(fp);
+      execve(abs_path, NULL, NULL);
     }
   }
 }
 
 void builtin_sh_run() {
+  setenv("PATH", "/bin", 1);
   sh_banner();
   sh_prompt();
 
