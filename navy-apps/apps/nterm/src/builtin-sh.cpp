@@ -1,6 +1,7 @@
 #include "sys/unistd.h"
 #include <nterm.h>
 #include <stdarg.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
@@ -37,6 +38,7 @@ static void sh_handle_cmd(const char *cmd) {
     char abs_path[256];
     FILE *fp;
     const char *PATH = getenv("PATH");
+    printf("[nterm] Current PATH: '%s'.\n", PATH);
     int len = strlen(PATH), i = 0;
     for (int j = 0; i < len; i ++) {
       if (PATH[i] == ':') {
