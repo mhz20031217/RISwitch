@@ -232,6 +232,10 @@ MicroBench PASS        722 Marks
                    vs. 100000 Marks (i9-9900K @ 3.60GHz)
 Scored time: 24864.292 ms
 Total  time: 29164.345 ms
+==================================================
+Dhrystone PASS         231 Marks
+                   vs. 100000 Marks (i7-7700K @ 4.20GHz)
+
 ```
 
 ### 实现 dtrace
