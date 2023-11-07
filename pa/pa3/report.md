@@ -4,9 +4,95 @@
 
 ## 必做题
 
-### 实现异常响应机制
+### 重新组织 Context 结构体 理解上下文结构体的前世今生 理解穿越时空的旅程
+
+由于现阶段没有外部中断，接下来的回答是从用户程序 `ecall` 一直到用户程序得到系统调用返回值的过程。
+
+#### 初始化阶段
+
+1. 系统级程序（Nanos-lite）：`nanos-lite/src/irq.c:init_irq`，`cte_init(do_event)` 在 AM 中注册系统调用处理函数 `do_event`；
+2. AM：`abstract-machine/am/src/riscv/nemu/cte.c:cte_init`，设置 AM 的处理函数 `asm volatile("csrw mtvec, %0" : : "r"(__am_asm_trap));`，注册操作系统的处理函数 `user_handler = handler;` 异常处理时，NEMU 将先跳转到 `__am_asm_trap`，然后经转发，将上下文结构体指针传递给操作系统的处理函数。
+3. NEMU：`csrw mtvec, %0`，将 `mtvec` 设置为 AM 处理函数。
+
+#### 运行阶段
+
+1. 用户级程序（Navy Apps）：libc 最终调用 libos，libos 在寄存器中设置好系统调用号和参数 
+
+    ```c
+    // navy-apps/libs/libos/src/syscall.c
+    asm volatile (SYSCALL : "=r" (ret) : "r"(_gpr1), "r"(_gpr2), "r"(_gpr3), "r"(_gpr4));
+    ```
+
+    执行 `ecall` 指令，开始系统调用；
+
+2. NEMU：CPU 自动跳转到 `mtvec` 中 `__am_asm_trap` 的位置执行
+
+    根据手册，CPU 自动经历如下状态转换
+    1. `mstatus` 更改权限模式，关中断：将异常前的权限保存到 `mstatus.MPP`，将 `mstatus.MIE` 保存到 `mstatus.MPIE` 后置零（保存中断状态，关中断）；
+    2. `mcause` 设置异常来源，`mtval` 写入附加信息（后者 PA 忽略），`ecall` 指令产生的异常号我的实现中为 11；
+    3. `mepc` 保存异常前 `pc`。
+    4. 跳转到 `mtvec`。
+
+    ```c
+    // nemu/src/isa/riscv32/inst.c
+    INSTPAT("000000000000 00000 000 00000 11100 11", ecall   , I,
+        isa_raise_intr(11, s->pc);
+        s->dnpc = C(CSR_MTVEC_IDX);
+    );
+    ```
+
+    在我的实现中，根据 PA 的要求，只实现了 M-Mode，所以异常号为 11 （Environment Call from M-Mode）。
+
+    ```c
+    // nemu/src/isa/riscv32/system/intr.c:isa_raise_intr
+    #ifdef CONFIG_ETRACE
+    if (ETRACE_COND)
+        Info("[etrace] Exception No.%d at epc: 0x%x", NO, epc);
+    #endif
+    
+    C(CSR_MEPC_IDX) = epc;
+    C(CSR_MCAUSE_IDX) = NO; // use Exception-from-M-mode
+    word_t mstatus = C(CSR_MSTATUS_IDX);
+    word_t mie = getbit(mstatus, 3);
+    mstatus = (mie) ? setbit(mstatus, 7) : rstbit(mstatus, 7);
+    mstatus = rstbit(mstatus, 3);
+    C(CSR_MSTATUS_IDX) = mstatus;
+    
+    return epc + 4;
+    ```
+
+    **`PC + 4` 的处理**：`ecall` 指令存的是 `pc` 而不是 `pc + 4`，`+4` 的操作是由 AM 的异常处理程序进行的。在下一条详细展开。
+
+3. AM 封装事件为 `Context` 结构体，转发事件
+
+    NEMU 自动跳转到 `abstract-machine/am/src/riscv/nemu/trap.S:__am_asm_trap`，开始保存现场到 `Context` 结构体
+
+    ```asm
+    addi sp, sp, -CONTEXT_SIZE
+
+    MAP(REGS, PUSH)
+
+    csrr t0, mcause
+    csrr t1, mstatus
+    csrr t2, mepc
+
+    STORE t0, OFFSET_CAUSE(sp)
+    STORE t1, OFFSET_STATUS(sp)
+    STORE t2, OFFSET_EPC(sp)
+    ```
+
+    从低地址到高地址，分别是 `x0` ~ `x31`, `mcause`, `mstatus`, `mepc`（实际上没有保存和恢复 `x0`, `x2`）。
+
+
+### 实现异常响应机制 识别自陷事件
 
 在实现 RISC-V 的异常相应机制时，花费了不少时间，主要是不清楚“不需要关心特权级切换相关的内容”后，究竟应该怎样操作 `mstatus` 寄存器中的各种标志位。
+
+```
+Hello, AM World @ riscv32
+  t = timer, d = device, y = yield
+yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy
+```
 
 参考资料
 - [1] RISC-V Vol.2
@@ -29,7 +115,7 @@
 
 PA2 的 OJ 没有测试时钟的实现，实际上我没有解决 NEMU 在时钟部分的问题。在 YSYX 的组会上，一位同学提到他没有修改相关代码，但是结果仍然正确。助教提到坑和寄存器有 64 位有关。我这才想到问题的原因。（2023.11.06 修复了这个问题并更新了 PA2 实验报告）
 
-### 实现更多的fixedptc API
+### 实现更多的 fixedptc API
 
 已为 libfixedptc 库编写测试，位于 `navy-apps/tests/fixedptc-test`
 
@@ -71,7 +157,7 @@ PA2 的 OJ 没有测试时钟的实现，实际上我没有解决 NEMU 在时钟
 
 ELF 可执行文件（程序）是内存中的进程的映像，文件中 `FileSiz` 的大小不一定和内存 `MemSiz` 中的大小相同，需要初始化的部分需要在文件中保存，而没有初始化的内存区域无需保存。比如 `.bss` 节，是 C 中未初始化的全局变量的内存区域。C 标准规定，没有初始化的全局变量内存区域初始化为 0。
 
-### 检查ELF文件的魔数  检测ELF文件的ISA类型
+### 检查 ELF 文件的魔数  检测 ELF 文件的 ISA 类型
 
 已完成。
 
@@ -81,7 +167,7 @@ ELF 可执行文件（程序）是内存中的进程的映像，文件中 `FileS
 
 如果规定是由操作系统来加载程序，那么系统调用是必须的。因为想要达到批处理系统的效果，一个程序结束后必须有方法告知操作系统，只有系统调用才能实现这一点。
 
-### RISC-V系统调用号的传递
+### RISC-V 系统调用号的传递
 
 在 RISC-V ABI 中，规定 `a0` 寄存器作为第一个参数和返回值的寄存器，如果在 `a0` 中放置系统调用号，那么第一个参数将被覆盖。我猜想是为了让系统调用参数传递和普通参数传递保持一致，将系统调用号的转递放到了 `a7`。
 
@@ -89,15 +175,15 @@ ELF 可执行文件（程序）是内存中的进程的映像，文件中 `FileS
 
 已实现。
 
-### 比较fixedpt和float
+### 比较 `fixedpt` 和 `float`
 
 这意味着我们假定需要表示的数、运算的中间结果不会太大也不会太小，具体地，正数在 $[2^{-8}, 2^{23})$ 范围内，而且对计算精度要求不太高。
 
-### 神奇的 fixedpt_rconst
+### 神奇的 `fixedpt_rconst`
 
 实际上，乘法的操作数 `FIXEDPT_ONE` 的类型是 `int32_t`。
 
-### 如何将浮点变量转换成fixedpt类型?
+### 如何将浮点变量转换成 `fixedpt` 类型?
 
 因为该 `float` 真值落在了 `fixedpt` 可表示的范围中，所以不用考虑 NaN，Inf 还有非规格化浮点数。
 
@@ -105,7 +191,7 @@ ELF 可执行文件（程序）是内存中的进程的映像，文件中 `FileS
 
 #TODO
 
-### 神奇的LD_PRELOAD
+### 神奇的 `LD_PRELOAD`
 
 这一题就是解析如何实现类似 `chroot ${NAVY_HOME}/fsimg` 的功能，下面以 `fopen` 的实现为例。
 
@@ -133,7 +219,7 @@ run: app env
 #### 参考文献
 - [1] 8.5 环境变量 - 《程序员的自我修养》
 
-### 实现内建的echo命令
+### 实现内建的 `echo` 命令
 
 已实现。
 
@@ -195,11 +281,11 @@ typedef struct tagSCRIPTENTRY
 1. 第一个和第二个，似乎都是整数溢出 Bug。都是钱所剩无几，然后变为 SHORT 负数，转换过程中变为 DWORD，然后又转换成 int，就“暴增到上限了”；
 2. 第三个实在不清楚；
 
-### 实现Navy上的AM
+### 实现 Navy 上的 AM
 
 功能已实现。
 
-### 在Navy中运行microbench
+### 在 Navy 中运行 microbench
 
 在 am-kernel 的 Makefile 中加入 microbench，在 nterm 中启动，发现
 
@@ -225,7 +311,7 @@ Total  time: 596.000 ms
 
 #TODO
 
-### 让运行时环境支持C++全局对象的初始化
+### 让运行时环境支持 C++ 全局对象的初始化
 
 在 `call_main` 函数中插入对 `__libc_init_array` 的调用，已实现。
 
