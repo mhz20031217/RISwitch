@@ -198,3 +198,64 @@ typedef struct tagSCRIPTENTRY
 ### 实现Navy上的AM
 
 功能已实现。
+
+### 在Navy中运行microbench
+
+在 am-kernel 的 Makefile 中加入 microbench，在 nterm 中启动，发现
+
+```
+======= Running MicroBench [input *ref*] =======
+[qsort] Quick sort: Ignored (insufficient memory)
+[queen] Queen placement: * Passed.
+  min time: 592.000 ms [687]
+[bf] Brainf**k interpreter: Ignored (insufficient memory)
+[fib] Fibonacci number: Ignored (insufficient memory)
+[sieve] Eratosthenes sieve: Ignored (insufficient memory)
+[15pz] A* 15-puzzle search: Ignored (insufficient memory)
+[dinic] Dinic's maxflow algorithm: Ignored (insufficient memory)
+[lzip] Lzip compression: Ignored (insufficient memory)
+[ssort] Suffix sort: Ignored (insufficient memory)
+[md5] MD5 digest: Ignored (insufficient memory)
+==================================================
+MicroBench PASS        68 Marks
+                   vs. 100000 Marks (i9-9900K @ 3.60GHz)
+Scored time: 592.000 ms
+Total  time: 596.000 ms
+```
+
+#TODO
+
+### 让运行时环境支持C++全局对象的初始化
+
+在 `call_main` 函数中插入对 `__libc_init_array` 的调用，已实现。
+
+### 理解全局对象构造函数的调用过程
+
+我没有按照讲义的方式完成这道题，之前在阅读 [1] 时，读到了 Glibc 和 GCC 如何协作完成 C++ 全局对象初始化，以下是结论。
+
+`.init_array` 节是一个指针数组，是由每一个目标文件的 `.init_array` 节合并得到的。这个指针数组的每一个元素指向一个初始化函数。
+
+STFW，根据 newlib 源码注释中的提示
+
+```c
+/* These magic symbols are provided by the linker.  */
+extern void (*__preinit_array_start []) (void) __attribute__((weak));
+extern void (*__preinit_array_end []) (void) __attribute__((weak));
+extern void (*__init_array_start []) (void) __attribute__((weak));
+extern void (*__init_array_end []) (void) __attribute__((weak));
+```
+
+使用 `readelf -P --string-dump=.rodata /usr/bin/ld | grep '__init_array_start' | uniq` 可以发现在 ld 的默认链接脚本中定义了 `__init_array_start`，指向的就是 `.init_array` 的起始位置。
+
+所以，整个过程如下
+
+1. nanos-lite 调用 `entry`，实际是 `start.S:_start`；
+2. `_start` 调用 `call_main`；
+3. `call_main` 调用 `__libc_init_array`，初始化全局对象；
+4. `call_main` 调用 `main`；
+
+
+
+#### 参考文献
+- [1] [揪出gcc默认使用的ld链接脚本 - 龙图腾](https://blog.csdn.net/dragon101788/article/details/8080747)
+- [2] 11.4 C++ 全局构造和析构 - 《程序员的自我修养》
