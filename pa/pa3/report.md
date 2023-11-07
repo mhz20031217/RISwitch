@@ -102,3 +102,99 @@ ELF 可执行文件（程序）是内存中的进程的映像，文件中 `FileS
 因为该 `float` 真值落在了 `fixedpt` 可表示的范围中，所以不用考虑 NaN，Inf 还有非规格化浮点数。
 
 以下为 `fixedpt_fromfloat(void *p)` 的实现。
+
+#TODO
+
+### 神奇的LD_PRELOAD
+
+这一题就是解析如何实现类似 `chroot ${NAVY_HOME}/fsimg` 的功能，下面以 `fopen` 的实现为例。
+
+正常情况下，NAVY 应用程序调用 libc 的 `fopen`，然后 C 库将发起系统调用，调用 libos 中的 `_syscall_` 发起系统调用。在 native 上，如果系统调用被执行了，那么由于传递给 linux 的文件为相对于 `${NAVY_HOME}/fsimg` 不存在，文件将不能打开。`native.cpp` 的做法是在 C 库层面上劫持对 `fopen` 的调用，在程序给出的路径前加上前缀，然后转而使用 Glibc 的实现。
+
+在 `navy-apps/libs/libos/Makefile` 中，定义了 `native.so` 的编译规则
+
+```Makefile
+build/native.so: src/native.cpp
+	mkdir -p build/
+	g++ -std=c++11 -O1 -fPIC -shared -o build/native.so src/native.cpp -ldl -lSDL2
+```
+
+在 `navy-apps/scripts/native.mk` 中，定义了 native 上的链接规则，设置了环境变量 `LD_PRELOAD`
+
+```Makefile
+run: app env
+	@LD_PRELOAD=$(NAVY_HOME)/libs/libos/build/native.so $(APP) $(mainargs)
+```
+
+根据 [1]，“我们可以指定预先装载的一些共享库甚至是目标文件。在 `LD_PRELOAD` 里面指定的文件会在动态链接器按照固定规则搜索共享库之前装载，它比 `LD_LIBRARY_PATH` 里面所指定的目录中的共享库还要优先。无论程序是否依赖它们，`LD_PRELOAD` 里面指定的共享库或目标文件都会被装载”
+
+根据动态链接的规则，在运行时动态链接 `fopen` 时，链接的是 `native.cpp` 中给出的 `fopen`（`native.cpp` 中写了 `extern "C"` 防止 C++ 函数名字改变）。
+
+#### 参考文献
+- [1] 8.5 环境变量 - 《程序员的自我修养》
+
+### 实现内建的echo命令
+
+已实现。
+
+### 仙剑奇侠传的框架是如何工作的?
+
+#TODO
+
+### 仙剑奇侠传的脚本引擎
+
+《仙剑奇侠传》是一个状态机😇。首先，开发者开发了游戏引擎（CPU），定义了各种事件和操作（ISA），实现了所有的事件处理函数（指令），然后为游戏编写脚本（程序）。
+
+在 `navy-apps/apps/pal/repo/include/global.h` 中，定义了指令格式
+
+```cpp
+typedef struct tagSCRIPTENTRY
+{
+   WORD          wOperation;     // operation code
+   WORD          rgwOperand[3];  // operands
+} SCRIPTENTRY, *LPSCRIPTENTRY;
+```
+
+在 `navy-apps/apps/pal/repo/src/game/script.c` 中，这个巨大的 `switch` 就是指令译码（Opcode 部分）
+
+```cpp
+   switch (pScript->wOperation)
+   {
+   case 0x000B:
+   case 0x000C:
+   ...
+   }
+```
+
+### 不再神秘的秘技
+
+我没有玩过《仙剑》，也不想玩，只是负责让它跑起来。具体的细节可能需要查看 `.mkf` 中的二进制脚本才行。仔细检查了 PAL 中所有包含 `cash` 的代码，没有发现 bug。
+
+```cpp
+   case 0x001E:
+      //
+      // Increase or decrease cash by the specified amount
+      //
+      if ((SHORT)(pScript->rgwOperand[0]) < 0 &&
+         gpGlobals->dwCash < (WORD)(-(SHORT)(pScript->rgwOperand[0])))
+      {
+         //
+         // not enough cash
+         //
+         wScriptEntry = pScript->rgwOperand[1] - 1;
+      }
+      else
+      {
+         gpGlobals->dwCash += (SHORT)(pScript->rgwOperand[0]);
+      }
+      break;
+```
+
+以下是猜测
+
+1. 第一个和第二个，似乎都是整数溢出 Bug。都是钱所剩无几，然后变为 SHORT 负数，转换过程中变为 DWORD，然后又转换成 int，就“暴增到上限了”；
+2. 第三个实在不清楚；
+
+### 实现Navy上的AM
+
+功能已实现。
