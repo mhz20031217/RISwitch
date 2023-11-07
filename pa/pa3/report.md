@@ -137,7 +137,7 @@ yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy
 
 ### hello 程序是什么, 它从而何来, 要到哪里去
 
-
+#TODO
 
 ### 把按键输入抽象成文件
 
@@ -157,6 +157,39 @@ PA2 的 OJ 没有测试时钟的实现，实际上我没有解决 NEMU 在时钟
 ### 实现更多的 fixedptc API
 
 已为 libfixedptc 库编写测试，位于 `navy-apps/tests/fixedptc-test`
+
+### 运行 NSlider
+
+![nslider](img/nslider.png)
+
+### 运行 NTerm
+
+![nterm](img/nterm1.png)
+![nterm](img/nterm2.png)
+
+### 运行 Flappy Bird
+
+![bird](img/bird.png)
+
+### 运行仙剑奇侠传
+
+一开始，我调色板的像素格式没有进行转换，造成仙剑呈蓝色
+
+![pal-blue](img/pal-blue.png)
+
+![pal](img/pal01.png)
+![pal](img/pal02.png)
+![pal](img/pal03.png)
+![pal](img/pal04.png)
+![pal](img/pal05.png)
+![pal](img/pal06.png)
+![pal](img/pal07.png)
+
+目前仙剑的字体渲染仍然有问题，还没有 Debug。
+
+![pal-fontrender](img/pal-font.png)
+
+#TODO
 
 ## 选做题
 
@@ -353,6 +386,22 @@ Total  time: 596.000 ms
 ```
 
 #TODO
+
+### 运行 FCEUX
+
+![fceux](img/fceux.png)
+
+### 诞生于"未来"的游戏
+
+![oslab0](img/oslab1.png)
+![oslab0](img/oslab2.png)
+![oslab0](img/oslab3.png)
+
+有一些程序不能正常运行，暂时没有 Debug。#TODO
+
+### RTFSC???
+
+代码混淆技术肯定要使用 PA1 表达式求值中的 Tokenize 步骤的方法。我猜想也许可以让某个 C 编译器前端来帮我们做到这一点，然后将 AST 中的变量名修改一下，再转回 C 代码。
 
 ### 让运行时环境支持 C++ 全局对象的初始化
 
