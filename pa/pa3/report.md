@@ -6,13 +6,15 @@
 
 ### 重新组织 Context 结构体 理解上下文结构体的前世今生 理解穿越时空的旅程
 
-由于现阶段没有外部中断，接下来的回答是从用户程序 `ecall` 一直到用户程序得到系统调用返回值的过程。
+由于现阶段没有外部中断，接下来的回答是从用户程序 `ecall` 一直到用户程序得到系统调用返回值的过程。`yield test` 的内容在其中用黑体标出。
 
 #### 初始化阶段
 
 1. 系统级程序（Nanos-lite）：`nanos-lite/src/irq.c:init_irq`，`cte_init(do_event)` 在 AM 中注册系统调用处理函数 `do_event`；
 2. AM：`abstract-machine/am/src/riscv/nemu/cte.c:cte_init`，设置 AM 的处理函数 `asm volatile("csrw mtvec, %0" : : "r"(__am_asm_trap));`，注册操作系统的处理函数 `user_handler = handler;` 异常处理时，NEMU 将先跳转到 `__am_asm_trap`，然后经转发，将上下文结构体指针传递给操作系统的处理函数。
 3. NEMU：`csrw mtvec, %0`，将 `mtvec` 设置为 AM 处理函数。
+
+**`yield()`**：注册的 `user_handler` 是 `am-kernels/tests/am-tests/src/tests/intr.c:simple_trap`；
 
 #### 运行阶段
 
@@ -24,6 +26,8 @@
     ```
 
     执行 `ecall` 指令，开始系统调用；
+
+    **`yield()`**：即为 `li a7, -1; ecall`。开始自陷。
 
 2. NEMU：CPU 自动跳转到 `mtvec` 中 `__am_asm_trap` 的位置执行
 
@@ -83,8 +87,35 @@
 
     从低地址到高地址，分别是 `x0` ~ `x31`, `mcause`, `mstatus`, `mepc`（实际上没有保存和恢复 `x0`, `x2`）。
 
+    所以 `Context` 结构体重构如下
 
-### 实现异常响应机制 识别自陷事件
+    ```c
+    struct Context {
+        uintptr_t gpr[NR_REGS];
+        uintptr_t mcause, mstatus, mepc;
+
+        void *pdir;
+    };
+    ```
+
+    **`PC + 4` 的处理**：在 `abstract-machine/am/src/riscv/nemu/cte.c:__am_irq_handle` 中，判断如果是自陷异常，则将 `pc + 4`。这里有一个小问题还没有解决：`+4` 操作是在调用用户处理函数之前还是之后？我的实现是在调用之前（以后可能需要调整）。
+
+    `__am_irq_handle` 判断异常号
+
+    ```c
+    switch (c->mcause) {
+        case 11:
+            if (c->GPR1 < 20) ev.event = EVENT_SYSCALL;
+            else ev.event = EVENT_YIELD;
+    ```
+
+4. 系统级程序（Nanos-lite）：从 `GPR1`, `GPR2`, `GPR3`, `GPR4` 中取出调用号和参数，开始系统调用，返回值存 `GPRx`；
+
+5. AM `__am_asm_trap` 存修改后的现场（`pc + 4` 被写入 `mepc`） `mret`；
+
+6. NEMU 跳转到 `mepc` 位置，即原用户程序 `ecall` 的下一条指令。
+
+### 实现异常响应机制 识别自陷事件 恢复上下文
 
 在实现 RISC-V 的异常相应机制时，花费了不少时间，主要是不清楚“不需要关心特权级切换相关的内容”后，究竟应该怎样操作 `mstatus` 寄存器中的各种标志位。
 
@@ -99,6 +130,14 @@ yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy
 - [2] [RISC-V 异常处理流程介绍](https://tinylab.org/riscv-irq-pipeline-introduction/)
 - [3] https://www.bilibili.com/video/BV1aP411R7dM/?spm_id_from=333.788.recommend_more_video.4
 - [4] https://www.bilibili.com/video/BV11M4y1t7nv/?spm_id_from=333.999.0.0
+
+### 实现堆区管理
+
+做 PA 前，我以为堆区管理需要手写 `malloc` 的算法，现在发现那是 C 库的工作。
+
+### hello 程序是什么, 它从而何来, 要到哪里去
+
+
 
 ### 把按键输入抽象成文件
 
@@ -132,6 +171,10 @@ PA2 的 OJ 没有测试时钟的实现，实际上我没有解决 NEMU 在时钟
 ### 对比异常处理与函数调用
 
 异常处理保存的上下文比函数调用多了函数调用没有保存的通用寄存器和各种控制状态寄存器。原因是：异常处理的目的是
+
+### 从 `+4` 操作看 CISC 和 RISC
+
+
 
 ### 堆和栈在哪里?
 
