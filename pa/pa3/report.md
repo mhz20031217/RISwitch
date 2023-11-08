@@ -98,7 +98,7 @@
     };
     ```
 
-    **`PC + 4` 的处理**：在 `abstract-machine/am/src/riscv/nemu/cte.c:__am_irq_handle` 中，判断如果是自陷异常，则将 `pc + 4`。这里有一个小问题还没有解决：`+4` 操作是在调用用户处理函数之前还是之后？我的实现是在调用之前（以后可能需要调整）。
+    **`PC + 4` 的处理**：在 `abstract-machine/am/src/riscv/nemu/cte.c:__am_irq_handle` 中，判断如果是自陷异常，则将 `pc + 4`。这里有一个小问题还没有解决：`+4` 操作是在调用用户处理函数之前还是之后？我的实现是在调用之前（AM 的文档中没有写这个操作是由 AM 做还是操作系统做，以后可能需要调整）。
 
     `__am_irq_handle` 判断异常号
 
@@ -385,7 +385,29 @@ Scored time: 592.000 ms
 Total  time: 596.000 ms
 ```
 
-#TODO
+报错原因是 Insufficient memory，猜想和堆上的内存分配有关系（如果是栈空间不足，程序应该会出现访存越界，应该会在 NEMU 中出现非法指令、访存越界退出等反应）。在 3 个测试的文件夹下查找所有含有 `alloc` 的内容，发现只有 `microbench` 使用了堆内存。
+
+在 `am-kernels/benchmarks/microbench/src/bench.c:bench_alloc` 中，获取了堆内存的大小
+
+```c
+void* bench_alloc(size_t size) {
+  size  = (size_t)ROUNDUP(size, 8);
+  char *old = hbrk;
+  hbrk += size;
+  assert((uintptr_t)heap.start <= (uintptr_t)hbrk && (uintptr_t)hbrk < (uintptr_t)heap.end);
+  for (uint64_t *p = (uint64_t *)old; p != (uint64_t *)hbrk; p ++) {
+    *p = 0;
+  }
+  assert((uintptr_t)hbrk - (uintptr_t)heap.start <= setting->mlim);
+  return old;
+}
+```
+
+然而，在加载 AM 程序的时候，实现的 libam 并没有发起系统调用管理分配堆内存，全局变量 `Area heap` 的 `start` 和 `end` 的值都是 0，所以报告内存不足。
+
+修改 libam 的实现（由于 TRM 没有初始化函数，我在 IOE 的初始化中加入了堆的处理），在程序加载时申请足够大的堆内存（我的实现中申请了 64M），成功运行 microbench。
+
+
 
 ### 运行 FCEUX
 

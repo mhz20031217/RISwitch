@@ -1,3 +1,4 @@
+#include "sys/unistd.h"
 #include <am.h>
 #include <klib-macros.h>
 #include <NDL.h>
@@ -48,6 +49,8 @@ static void *lut[128] = {
 static void fail(void *buf) { panic("access nonexist register"); }
 
 bool ioe_init() {
+  heap.start = sbrk(67108864);
+  heap.end = sbrk(0);
   for (int i = 0; i < LENGTH(lut); i++)
     if (!lut[i]) lut[i] = fail;
   NDL_Init(0);
