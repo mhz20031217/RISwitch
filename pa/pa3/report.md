@@ -424,7 +424,9 @@ bool ioe_init() {
 ![oslab0](img/oslab2.png)
 ![oslab0](img/oslab3.png)
 
-有一些程序不能正常运行，暂时没有 Debug。#TODO
+有一些程序不能正常运行，暂时没有 Debug。
+
+UPD 2023.11.08：破案了，是没有为 AM 实现堆区，实现后都能正常运行了。
 
 ### RTFSC???
 
