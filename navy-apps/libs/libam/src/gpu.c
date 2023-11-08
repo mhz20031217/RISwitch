@@ -16,6 +16,7 @@ void __am_gpu_init() {
     return;
   } else {
     vmem = malloc(w * h * 4);
+    memset(vmem, 0, w * h * 4);
   }
 }
 
