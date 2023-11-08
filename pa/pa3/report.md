@@ -407,7 +407,12 @@ void* bench_alloc(size_t size) {
 
 修改 libam 的实现（由于 TRM 没有初始化函数，我在 IOE 的初始化中加入了堆的处理），在程序加载时申请足够大的堆内存（我的实现中申请了 64M），成功运行 microbench。
 
-
+```c
+bool ioe_init() {
+  heap.start = sbrk(67108864); // 申请 64M 空间
+  heap.end = sbrk(0);
+  for (int i = 0; i < LENGTH(lut); i++)
+```
 
 ### 运行 FCEUX
 
