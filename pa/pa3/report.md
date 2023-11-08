@@ -428,7 +428,10 @@ bool ioe_init() {
 
 UPD 2023.11.08：破案了，是没有为 AM 实现堆区，实现后都能正常运行了。
 
+有一些程序初始化时花屏，将 libam 申请的内存置零，问题修复。
 
+![oslab0](img/oslab4.png)
+![oslab0](img/oslab5.png)
 
 ### RTFSC???
 
