@@ -4,6 +4,9 @@
 #include <stdio.h>
 #include <string.h>
 
+// hack
+#include <sdl-audio.h>
+
 #define keyname(k) #k,
 
 static const char *keyname[] = {
@@ -20,6 +23,7 @@ int SDL_PushEvent(SDL_Event *ev) {
 }
 
 static int identify_key(char buf[], SDL_Event *ev) {
+  SDL_AudioCallback();
   if (buf[0] != 'k') {
     Error("spec error: begins with space.");
     return 0;

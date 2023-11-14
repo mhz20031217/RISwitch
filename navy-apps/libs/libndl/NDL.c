@@ -10,6 +10,8 @@
 
 static int evtdev = -1;
 static int fbdev = -1;
+static int sbdev = -1;
+static int sbctldev = -1;
 static int screen_w = 0, screen_h = 0;
 static int canvas_w = 0, canvas_h = 0;
 static int offset_w = 0, offset_h = 0;
@@ -130,17 +132,50 @@ void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
 }
 
 void NDL_OpenAudio(int freq, int channels, int samples) {
+  sbctldev =  open("/dev/sbctl", O_SYNC);
+  if (sbctldev == -1) {
+    printf("[NDL] Audio device unavailable.\n");
+    return;
+  }
+
+  int args[] = { freq, channels, samples };
+  if (write(sbctldev, args, 12) != 12) {
+    printf("[NDL] Audio device initialization failed.\n");
+    sbdev = -1;
+    return;
+  }
+
+  sbdev = open("/dev/sb", O_SYNC);
+  if (sbdev == -1) {
+    printf("[NDL] Sound buffer unavailable.\n");
+    return;
+  }
+
+  printf("[NDL] Audio initialized.\nfreq: freq = %d, channels = %d, samples = %d.\n", freq, channels, samples);
 }
 
 void NDL_CloseAudio() {
+  sbdev = -1;
 }
 
 int NDL_PlayAudio(void *buf, int len) {
-  return 0;
+  if (sbdev == -1) {
+    printf("[NDL] Audio used uninitialized.\n");
+    return 0;
+  }
+
+  return write(sbdev, buf, len);
 }
 
 int NDL_QueryAudio() {
-  return 0;
+  if (sbctldev == -1) {
+    return 0;
+  }
+  
+  int avail;
+  read(sbctldev, &avail, 4);
+
+  return avail;
 }
 
 int NDL_Init(uint32_t flags) {
@@ -154,4 +189,8 @@ int NDL_Init(uint32_t flags) {
 }
 
 void NDL_Quit() {
+  if (evtdev != -1) close(evtdev);
+  if (fbdev != -1) close(fbdev);
+  if (sbdev != -1) close(sbdev);
+  if (sbctldev != -1) close(sbctldev);
 }

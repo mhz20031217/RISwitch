@@ -3,6 +3,9 @@
 #include <sdl-timer.h>
 #include <stdio.h>
 
+// hack
+#include <sdl-audio.h>
+
 SDL_TimerID SDL_AddTimer(uint32_t interval, SDL_NewTimerCallback callback, void *param) {
   return NULL;
 }
@@ -16,6 +19,7 @@ uint32_t SDL_GetTicks() {
 }
 
 void SDL_Delay(uint32_t ms) {
+  SDL_AudioCallback();
   uint32_t st = NDL_GetTicks();
   while (NDL_GetTicks() - st < ms);
 }

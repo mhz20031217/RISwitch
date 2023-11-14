@@ -1,4 +1,6 @@
+#include "amdev.h"
 #include <common.h>
+#include <stdbool.h>
 #include <stddef.h>
 #include <stdio.h>
 
@@ -64,6 +66,42 @@ size_t fb_write(const void *buf, size_t offset, size_t len) {
     .y = offset / gpu_config.width,
     .sync = true
   );
+  return len;
+}
+
+static AM_AUDIO_CONFIG_T audio_config;
+
+size_t sbctl_write(const void *buf, size_t offset, size_t len) {
+  audio_config = io_read(AM_AUDIO_CONFIG);
+  if (audio_config.present == false) {
+    return -1;
+  }
+
+  const int *args = buf;
+  int freq = args[0], channels = args[1], samples = args[2];
+  Log("Writing sbctl: freq = %d, channels = %d, samples = %d.", freq, channels, samples);
+
+  io_write(AM_AUDIO_CTRL, freq, channels, samples);
+
+  return 12;
+}
+
+size_t sbctl_read(void *buf, size_t offset, size_t len) {
+  if (audio_config.present == false) {
+    return -1;
+  }
+
+  *(int *) buf = audio_config.bufsize - io_read(AM_AUDIO_STATUS).count;
+
+  return 4;
+}
+
+size_t sb_write(const void *buf, size_t offset, size_t len) {
+  if (audio_config.present == false) {
+    return -1;
+  }
+
+  io_write(AM_AUDIO_PLAY, { .start = (char *) buf, .end = (char *) buf + len });
   return len;
 }
 

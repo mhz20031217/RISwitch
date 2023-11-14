@@ -1,5 +1,6 @@
 #include <debug.h>
 #include <fs.h>
+#include <device.h>
 #include <common.h>
 #include <stddef.h>
 
@@ -15,7 +16,13 @@ typedef struct {
   size_t offset;
 } Finfo;
 
-enum {FD_STDIN, FD_STDOUT, FD_STDERR, FD_EVENTS, FD_FBCTL, FD_FB, FD_DISPINFO, NR_SPECIAL_FILES};
+enum {
+  FD_STDIN, FD_STDOUT, FD_STDERR,
+  FD_EVENTS,
+  FD_FBCTL, FD_FB, FD_DISPINFO,
+  FD_SBCTL, FD_SB,  
+  NR_SPECIAL_FILES
+};
 
 size_t invalid_read(void *buf, size_t offset, size_t len) {
   panic("should not reach here");
@@ -27,13 +34,6 @@ size_t invalid_write(const void *buf, size_t offset, size_t len) {
   return 0;
 }
 
-size_t ramdisk_read(void *buf, size_t offset, size_t len);
-size_t ramdisk_write(const void *buf, size_t offset, size_t len);
-size_t serial_write(const void *buf, size_t offset, size_t len);
-size_t events_read(void *buf, size_t offset, size_t len);
-size_t fb_write(const void *buf, size_t offset, size_t len);
-size_t dispinfo_read(void *buf, size_t offset, size_t len);
-
 /* This is the information about all files in disk. */
 static Finfo file_table[] __attribute__((used)) = {
   [FD_STDIN]  = {"stdin", 0, 0, invalid_read, invalid_write},
@@ -43,6 +43,8 @@ static Finfo file_table[] __attribute__((used)) = {
   [FD_FBCTL] = {"/dev/fbctl", 0, 0, invalid_read, invalid_write},
   [FD_FB] = {"/dev/fb", 0, 0, invalid_read, fb_write},
   [FD_DISPINFO] = {"/proc/dispinfo", 0, 0, dispinfo_read, invalid_write},
+  [FD_SBCTL] = {"/dev/sbctl", 0, 0, sbctl_read, sbctl_write},
+  [FD_SB] = {"/dev/sb", 0, 0, invalid_read, sb_write},
 #include "files.h"
 };
 
