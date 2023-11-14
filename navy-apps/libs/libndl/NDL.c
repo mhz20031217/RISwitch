@@ -175,6 +175,7 @@ int NDL_QueryAudio() {
   
   int avail;
   read(sbctldev, &avail, 4);
+  printf("[NDL] Sound buf avail: %d.\n", avail);
 
   return avail;
 }
