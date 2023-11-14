@@ -34,31 +34,35 @@ static bool difftest_state = false;
 static bool is_skip_ref = false;
 static int skip_dut_nr_inst = 0;
 
+void difftest_sync() {
+  // static unsigned char csr_img[] // the insts to set csrs
+  // static size_t csr_img_size;
+  // static size_t csr_img_instr_count;
+  /*
+    a0 -> mepc
+    a1 -> mstatus
+    a2 -> mcause
+    a3 -> mtvec
+  */
+  #include "../../../tools/riscv-diff-csr/build/csr.c"
+  CPU_state dummy_cpu = cpu;
+  dummy_cpu.pc = RESET_VECTOR;
+  dummy_cpu.gpr[10] = dummy_cpu.csr[CSR_MEPC_IDX];
+  dummy_cpu.gpr[11] = dummy_cpu.csr[CSR_MSTATUS_IDX];
+  dummy_cpu.gpr[12] = dummy_cpu.csr[CSR_MCAUSE_IDX];
+  dummy_cpu.gpr[13] = dummy_cpu.csr[CSR_MTVEC_IDX];
+  ref_difftest_regcpy(&dummy_cpu, DIFFTEST_TO_REF);
+  ref_difftest_memcpy(RESET_VECTOR, csr_img, csr_img_size, DIFFTEST_TO_REF);
+
+  ref_difftest_exec(csr_img_instr_count);
+
+  ref_difftest_regcpy(&cpu, DIFFTEST_TO_REF);
+  ref_difftest_memcpy(RESET_VECTOR, guest_to_host(RESET_VECTOR), CONFIG_MSIZE, DIFFTEST_TO_REF);
+}
+
 void difftest_toggle(bool on) {
   if (difftest_state == false && on) {
-    // static unsigned char csr_img[] // the insts to set csrs
-    // static size_t csr_img_size;
-    // static size_t csr_img_instr_count;
-    /*
-      a0 -> mepc
-      a1 -> mstatus
-      a2 -> mcause
-      a3 -> mtvec
-    */
-    #include "../../../tools/riscv-diff-csr/build/csr.c"
-    CPU_state dummy_cpu = cpu;
-    dummy_cpu.pc = RESET_VECTOR;
-    dummy_cpu.gpr[10] = dummy_cpu.csr[CSR_MEPC_IDX];
-    dummy_cpu.gpr[11] = dummy_cpu.csr[CSR_MSTATUS_IDX];
-    dummy_cpu.gpr[12] = dummy_cpu.csr[CSR_MCAUSE_IDX];
-    dummy_cpu.gpr[13] = dummy_cpu.csr[CSR_MTVEC_IDX];
-    ref_difftest_regcpy(&dummy_cpu, DIFFTEST_TO_REF);
-    ref_difftest_memcpy(RESET_VECTOR, csr_img, csr_img_size, DIFFTEST_TO_REF);
-
-    ref_difftest_exec(csr_img_instr_count);
-
-    ref_difftest_regcpy(&cpu, DIFFTEST_TO_REF);
-    ref_difftest_memcpy(RESET_VECTOR, guest_to_host(RESET_VECTOR), CONFIG_MSIZE, DIFFTEST_TO_REF);
+    difftest_sync();
   }
   difftest_state = on;
 }

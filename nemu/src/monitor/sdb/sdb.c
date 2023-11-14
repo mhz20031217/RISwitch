@@ -20,10 +20,11 @@
 #include <cpu/difftest.h>
 #include <readline/readline.h>
 #include <readline/history.h>
-#include <stdbool.h>
 #include "debug.h"
 #include "sdb.h"
 #include "utils.h"
+#include <snapshot.h>
+#include <stdio.h>
 
 static int is_batch_mode = false;
 
@@ -92,6 +93,24 @@ static int cmd_detach(char *args) {
   return 0;
 }
 
+static int cmd_save(char *args) {
+  Log("Saving snapshot to '%s'", args);
+  if (snapshot_save(args)) {
+    Log("Failed!");
+  }
+  return 0;
+}
+
+static int cmd_load(char *args) {
+  Log("Loading snapshot from '%s'", args);
+  if (snapshot_load(args)) {
+    Log("Success! Continuing from pc: %u", cpu.pc);
+  } else {
+    Log("Failed!");
+  }
+  return 0;
+}
+
 static struct {
   const char *name;
   const char *description;
@@ -110,6 +129,8 @@ static struct {
   { "d", "Remove watchpoint", cmd_d },
   { "attach", "Turn on difftest.", cmd_attach },
   { "detach", "Turn off difftest.", cmd_detach },
+  { "load", "Load snapshot from file.\nload [filename]", cmd_load },
+  { "save", "Save snapshot to file.\nsave [filename]", cmd_save }
   /* TODO: Add more commands */
 };
 
