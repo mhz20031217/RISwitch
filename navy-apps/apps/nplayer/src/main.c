@@ -62,7 +62,7 @@ static void AdjustVolume(int16_t *stream, int samples) {
 }
 
 void FillAudio(void *userdata, uint8_t *stream, int len) {
-  printf("FillAudio start.\n");
+  printf("FillAudio start, userdata: %p, stream: %p, len: %d.\n", userdata, stream, len);
   int nbyte = 0;
   int samples_per_channel = stb_vorbis_get_samples_short_interleaved(v,
       info.channels, (int16_t *)stream, len / sizeof(int16_t));
