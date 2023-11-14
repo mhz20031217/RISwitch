@@ -131,7 +131,7 @@ int main(int argc, char *argv[]) {
   printf("OK0\n");
   SDL_CloseAudio();
   printf("OK1\n");
-  // stb_vorbis_close(v);
+  stb_vorbis_close(v);
   printf("OK2\n");
   SDL_Quit();
   printf("OK3\n");
