@@ -31,7 +31,7 @@ static void drawVerticalLine(int x, int y0, int y1, uint32_t color) {
 }
 
 static void visualize(int16_t *stream, int samples) {
-  return;
+  // return;
   int i;
   static int color = 0;
   SDL_FillRect(screen, NULL, 0);
@@ -74,7 +74,7 @@ void FillAudio(void *userdata, uint8_t *stream, int len) {
   }
   if (nbyte < len) memset(stream + nbyte, 0, len - nbyte);
   printf("buf: 0x%p\n", stream_save);
-  // memcpy(stream_save, stream, len);
+  memcpy(stream_save, stream, len);
   printf("FillAudio end.\n");
 }
 
@@ -109,8 +109,8 @@ int main(int argc, char *argv[]) {
   spec.callback = FillAudio;
   SDL_OpenAudio(&spec, NULL);
 
-  // stream_save = malloc(SAMPLES * info.channels * sizeof(*stream_save));
-  // assert(stream_save);
+  stream_save = malloc(SAMPLES * info.channels * sizeof(*stream_save));
+  assert(stream_save);
   printf("Playing %s(freq = %d, channels = %d)...\n", MUSIC_PATH, info.sample_rate, info.channels);
   SDL_PauseAudio(0);
 
