@@ -11,6 +11,7 @@ static int freq, channels, samples;
 static unsigned char sbuf[768000];
 
 void SDL_AudioCallback() {
+  printf("[SDL] Audio callback.\n");
   if (callback == NULL || !playing) {
     return;
   }
