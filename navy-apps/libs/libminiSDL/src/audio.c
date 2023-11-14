@@ -1,6 +1,8 @@
 #include <NDL.h>
 #include <SDL.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <assert.h>
 #include "sdl-audio.h"
 
 static void (*callback)(void *userdata, uint8_t *stream, int len) = NULL;
@@ -10,7 +12,8 @@ static int freq, channels, samples;
 static bool callback_flag = false;
 
 // 96000 * 2 * 4
-static unsigned char sbuf[768000];
+#define SBUF_SIZE 768000
+static unsigned char *sbuf = NULL;
 
 void SDL_AudioCallback() {
   printf("[SDL] Audio callback.\n");
@@ -24,9 +27,11 @@ void SDL_AudioCallback() {
   if (len < channels * freq) {
     return;
   }
+  len = min(channels * freq, SBUF_SIZE);
 
-  callback(userdata, sbuf, len);
   printf("[SDL] Play length: %d.\n", len);
+  assert(sbuf);
+  callback(userdata, sbuf, len);
   NDL_PlayAudio(sbuf, len);
   callback_flag = false;
   printf("[SDL] Play end.\n");
@@ -42,12 +47,20 @@ int SDL_OpenAudio(SDL_AudioSpec *desired, SDL_AudioSpec *obtained) {
   if (obtained) {
     *obtained = *desired;
   }
+  freq = desired->freq;
+  channels = desired->channels;
+  samples = desired->samples;
+
+  if (!sbuf) sbuf = malloc(SBUF_SIZE);
+  
   return 0;
 }
 
 void SDL_CloseAudio() {
   callback = NULL;
   userdata = NULL;
+  if (sbuf) free(sbuf);
+  sbuf = NULL;
   NDL_CloseAudio();
 }
 

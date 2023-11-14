@@ -155,6 +155,7 @@ void NDL_OpenAudio(int freq, int channels, int samples) {
 }
 
 void NDL_CloseAudio() {
+  if (sbdev != -1) close(sbdev);
   sbdev = -1;
 }
 
@@ -193,4 +194,5 @@ void NDL_Quit() {
   if (fbdev != -1) close(fbdev);
   if (sbdev != -1) close(sbdev);
   if (sbctldev != -1) close(sbctldev);
+  evtdev = fbdev = sbctldev = sbdev = -1;
 }

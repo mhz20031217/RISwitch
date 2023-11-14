@@ -31,6 +31,7 @@ static void drawVerticalLine(int x, int y0, int y1, uint32_t color) {
 }
 
 static void visualize(int16_t *stream, int samples) {
+  return;
   int i;
   static int color = 0;
   SDL_FillRect(screen, NULL, 0);
@@ -60,6 +61,7 @@ static void AdjustVolume(int16_t *stream, int samples) {
 }
 
 void FillAudio(void *userdata, uint8_t *stream, int len) {
+  printf("FillAudio start.\n");
   int nbyte = 0;
   int samples_per_channel = stb_vorbis_get_samples_short_interleaved(v,
       info.channels, (int16_t *)stream, len / sizeof(int16_t));
@@ -71,7 +73,9 @@ void FillAudio(void *userdata, uint8_t *stream, int len) {
     is_end = 1;
   }
   if (nbyte < len) memset(stream + nbyte, 0, len - nbyte);
-  memcpy(stream_save, stream, len);
+  printf("buf: 0x%p\n", stream_save);
+  // memcpy(stream_save, stream, len);
+  printf("FillAudio end.\n");
 }
 
 int main(int argc, char *argv[]) {
@@ -105,8 +109,8 @@ int main(int argc, char *argv[]) {
   spec.callback = FillAudio;
   SDL_OpenAudio(&spec, NULL);
 
-  stream_save = malloc(SAMPLES * info.channels * sizeof(*stream_save));
-  assert(stream_save);
+  // stream_save = malloc(SAMPLES * info.channels * sizeof(*stream_save));
+  // assert(stream_save);
   printf("Playing %s(freq = %d, channels = %d)...\n", MUSIC_PATH, info.sample_rate, info.channels);
   SDL_PauseAudio(0);
 
@@ -121,7 +125,7 @@ int main(int argc, char *argv[]) {
       }
     }
     SDL_Delay(1000 / FPS);
-    visualize(stream_save, SAMPLES * info.channels);
+    // visualize(stream_save, SAMPLES * info.channels);
   }
 
   SDL_CloseAudio();
