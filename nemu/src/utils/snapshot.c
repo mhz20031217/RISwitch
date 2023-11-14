@@ -23,7 +23,7 @@ error:
 }
 
 bool snapshot_save(const char *filename) {
-  FILE *fp = fopen(filename, "rb");
+  FILE *fp = fopen(filename, "wb");
   if (!fp)
     goto error;
 
