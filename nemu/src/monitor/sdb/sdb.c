@@ -17,8 +17,10 @@
 
 #include <isa.h>
 #include <cpu/cpu.h>
+#include <cpu/difftest.h>
 #include <readline/readline.h>
 #include <readline/history.h>
+#include <stdbool.h>
 #include "debug.h"
 #include "sdb.h"
 #include "utils.h"
@@ -80,6 +82,16 @@ static int cmd_w(char *args);
 
 static int cmd_d(char *args);
 
+static int cmd_attach(char *args) {
+  difftest_toggle(true);
+  return 0;
+}
+
+static int cmd_detach(char *args) {
+  difftest_toggle(false);
+  return 0;
+}
+
 static struct {
   const char *name;
   const char *description;
@@ -96,6 +108,8 @@ static struct {
   { "x", "Scan memeory. x [N] EXPR scan N QWORDs staring from address EXPR.", cmd_x },
   { "w", "Set watchpoint.", cmd_w },
   { "d", "Remove watchpoint", cmd_d },
+  { "attach", "Turn on difftest.", cmd_attach },
+  { "detach", "Turn off difftest.", cmd_detach },
   /* TODO: Add more commands */
 };
 
