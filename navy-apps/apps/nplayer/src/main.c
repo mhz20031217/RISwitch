@@ -128,11 +128,16 @@ int main(int argc, char *argv[]) {
     // visualize(stream_save, SAMPLES * info.channels);
   }
 
+  printf("OK0\n");
   SDL_CloseAudio();
+  printf("OK1\n");
   stb_vorbis_close(v);
+  printf("OK2\n");
   SDL_Quit();
+  printf("OK3\n");
   free(stream_save);
+  printf("OK4\n");
   free(buf);
-
+  printf("OK5\n");
   return 0;
 }
