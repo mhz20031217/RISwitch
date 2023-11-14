@@ -96,6 +96,8 @@ static int cmd_detach(char *args) {
 static int cmd_save(char *args) {
   Log("Saving snapshot to '%s'", args);
   if (snapshot_save(args)) {
+    Log("Success!");
+  } else {
     Log("Failed!");
   }
   return 0;
