@@ -18,6 +18,7 @@ void SDL_AudioCallback() {
   }
 
   int len = NDL_QueryAudio();
+  printf("[SDL] Available count: %d.\n", len);
   if (len < channels * freq) {
     return;
   }
