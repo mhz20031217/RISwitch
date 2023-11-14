@@ -7,7 +7,7 @@
 #include <vorbis.h>
 #include <fixedptc.h>
 
-#define MUSIC_PATH "/share/music/little-star.ogg"
+#define MUSIC_PATH "/share/music/rhythm/Do.ogg"
 #define SAMPLES 4096
 #define FPS 10
 #define W 400
@@ -131,7 +131,7 @@ int main(int argc, char *argv[]) {
   printf("OK0\n");
   SDL_CloseAudio();
   printf("OK1\n");
-  stb_vorbis_close(v);
+  // stb_vorbis_close(v);
   printf("OK2\n");
   SDL_Quit();
   printf("OK3\n");
