@@ -1,5 +1,6 @@
 #include <NDL.h>
 #include <SDL.h>
+#include <stdio.h>
 #include "sdl-audio.h"
 
 static void (*callback)(void *userdata, uint8_t *stream, int len) = NULL;
@@ -22,6 +23,7 @@ void SDL_AudioCallback() {
   }
 
   callback(userdata, sbuf, len);
+  printf("[SDL] Play length: %d.\n", len);
   NDL_PlayAudio(sbuf, len);
 }
 
