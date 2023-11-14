@@ -31,7 +31,7 @@ void SDL_AudioCallback() {
   if (len < channels * freq) {
     return;
   }
-  len = min(channels * freq, SBUF_SIZE);
+  len = min(min(channels * freq, SBUF_SIZE), len);
 
   printf("[SDL] Play length: %d.\n", len);
   assert(sbuf);
