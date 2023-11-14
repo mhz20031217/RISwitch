@@ -7,7 +7,8 @@
 #include <vorbis.h>
 #include <fixedptc.h>
 
-#define MUSIC_PATH "/share/music/rhythm/Do.ogg"
+// #define MUSIC_PATH "/share/music/rhythm/Do.ogg"
+#define MUSIC_PATH "/share/music/moon-in-ones-cup.ogg"
 #define SAMPLES 4096
 #define FPS 10
 #define W 400
