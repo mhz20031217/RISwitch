@@ -18,6 +18,7 @@
 #include <isa.h>
 #include <cpu/cpu.h>
 #include <memory/paddr.h>
+#include <stdbool.h>
 #include <utils.h>
 #include <difftest-def.h>
 
@@ -34,6 +35,10 @@ static bool is_skip_ref = false;
 static int skip_dut_nr_inst = 0;
 
 void difftest_toggle(bool on) {
+  if (difftest_state == false && on) {
+    ref_difftest_regcpy(&cpu, DIFFTEST_TO_REF);
+    ref_difftest_memcpy(RESET_VECTOR, guest_to_host(RESET_VECTOR), CONFIG_MSIZE, DIFFTEST_TO_REF);
+  }
   difftest_state = on;
 }
 
