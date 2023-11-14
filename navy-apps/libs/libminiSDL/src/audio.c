@@ -29,6 +29,7 @@ void SDL_AudioCallback() {
   printf("[SDL] Play length: %d.\n", len);
   NDL_PlayAudio(sbuf, len);
   callback_flag = false;
+  printf("[SDL] Play end.\n");
 }
 
 int SDL_OpenAudio(SDL_AudioSpec *desired, SDL_AudioSpec *obtained) {
