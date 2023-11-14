@@ -7,15 +7,17 @@ static void (*callback)(void *userdata, uint8_t *stream, int len) = NULL;
 static void *userdata = NULL;
 static bool playing = false;
 static int freq, channels, samples;
+static bool callback_flag = false;
 
 // 96000 * 2 * 4
 static unsigned char sbuf[768000];
 
 void SDL_AudioCallback() {
   printf("[SDL] Audio callback.\n");
-  if (callback == NULL || !playing) {
+  if (callback == NULL || !playing || callback_flag) {
     return;
   }
+  callback_flag = true;
 
   int len = NDL_QueryAudio();
   printf("[SDL] Available count: %d.\n", len);
@@ -26,9 +28,11 @@ void SDL_AudioCallback() {
   callback(userdata, sbuf, len);
   printf("[SDL] Play length: %d.\n", len);
   NDL_PlayAudio(sbuf, len);
+  callback_flag = false;
 }
 
 int SDL_OpenAudio(SDL_AudioSpec *desired, SDL_AudioSpec *obtained) {
+  callback_flag = false;
   NDL_OpenAudio(desired->freq, desired->channels, desired->samples);
 
   callback = desired->callback;
