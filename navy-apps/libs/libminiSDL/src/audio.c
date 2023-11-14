@@ -21,7 +21,7 @@ void SDL_AudioCallback() {
     printf("[SDL] abort callback. callback: %p, playing: %d, callback_flag: %d.\n", callback, playing, callback_flag);
     return;
   }
-  callback_flag = true;
+  
 
   int len = NDL_QueryAudio();
   printf("[SDL] Available count: %d.\n", len);
@@ -33,6 +33,7 @@ void SDL_AudioCallback() {
   printf("[SDL] Play length: %d.\n", len);
   assert(sbuf);
   callback(userdata, sbuf, len);
+  callback_flag = true;
   NDL_PlayAudio(sbuf, len);
   callback_flag = false;
   printf("[SDL] Play end.\n");
