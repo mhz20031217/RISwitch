@@ -5,6 +5,9 @@
 #include <assert.h>
 #include "sdl-audio.h"
 
+#define min(a, b) (((a) < (b))?(a):(b))
+#define max(a, b) (((a) > (b))?(a):(b))
+
 static void (*callback)(void *userdata, uint8_t *stream, int len) = NULL;
 static void *userdata = NULL;
 static bool playing = false;

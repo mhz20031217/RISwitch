@@ -109,8 +109,8 @@ int main(int argc, char *argv[]) {
   spec.callback = FillAudio;
   SDL_OpenAudio(&spec, NULL);
 
-  stream_save = malloc(SAMPLES * info.channels * sizeof(*stream_save));
-  assert(stream_save);
+  // stream_save = malloc(SAMPLES * info.channels * sizeof(*stream_save));
+  // assert(stream_save);
   printf("Playing %s(freq = %d, channels = %d)...\n", MUSIC_PATH, info.sample_rate, info.channels);
   SDL_PauseAudio(0);
 
