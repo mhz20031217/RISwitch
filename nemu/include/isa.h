@@ -58,7 +58,7 @@ word_t isa_query_intr();
 
 static inline int check_csr_idx(int idx) {
   IFDEF(CONFIG_RT_CHECK, 
-      Assert(idx == CSR_MEPC_IDX || idx == CSR_MSTATUS_IDX || idx == CSR_MCAUSE_IDX, "Not implemented CSR_IDX: %d.\n", idx));
+      Assert(idx == CSR_MTVEC_IDX || idx == CSR_MEPC_IDX || idx == CSR_MSTATUS_IDX || idx == CSR_MCAUSE_IDX, "Not implemented CSR_IDX: %d.\n", idx));
   return idx;
 }
 
