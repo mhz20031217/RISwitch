@@ -74,7 +74,6 @@ Context *ucontext(AddrSpace *as, Area kstack, void *entry) {
   uthread->mepc = (uintptr_t) entry;
   uthread->mstatus = 0x1800;
   uthread->mcause = 11; // TODO: check correctness
-  uthread->GPRx = (uintptr_t) heap.end; // set stack top
   *(uintptr_t *) kstack.start = (uintptr_t) uthread;
-  return NULL;
+  return uthread;
 }
