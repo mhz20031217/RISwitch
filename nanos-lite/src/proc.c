@@ -42,6 +42,10 @@ void init_proc() {
 
 Context* schedule(Context *prev) {
   current->cp = prev;
+  if (current < pcb || current >= pcb + MAX_NR_PROC) {
+    current = &pcb[0];
+    return current->cp;
+  }
   while (current->cp == prev || current->cp == NULL) {
     if (current == pcb + MAX_NR_PROC - 1) {
       current = pcb;
