@@ -19,6 +19,7 @@ static bool callback_flag = false;
 static unsigned char sbuf[SBUF_SIZE];
 
 void SDL_AudioCallback() {
+  return;
   printf("[SDL] Audio callback.\n");
   if (callback == NULL || !playing || callback_flag) {
     printf("[SDL] abort callback. callback: %p, playing: %d, callback_flag: %d.\n", callback, playing, callback_flag);
