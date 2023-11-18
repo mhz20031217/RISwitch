@@ -6,5 +6,6 @@
 #include <elf.h>
 
 void naive_uload(PCB *pcb, const char *filename);
-
+void context_kload(PCB *pcb, void (*func)(void *), void *arg);
+void context_uload(PCB *pcb, const char *filename);
 #endif

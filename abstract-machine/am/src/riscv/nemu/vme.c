@@ -70,5 +70,11 @@ void map(AddrSpace *as, void *va, void *pa, int prot) {
 }
 
 Context *ucontext(AddrSpace *as, Area kstack, void *entry) {
+  Context *uthread = (Context *) ((uint8_t *) kstack.end - sizeof(Context));
+  uthread->mepc = (uintptr_t) entry;
+  uthread->mstatus = 0x1800;
+  uthread->mcause = 11; // TODO: check correctness
+  uthread->GPRx = (uintptr_t) heap.end; // set stack top
+  *(uintptr_t *) kstack.start = (uintptr_t) uthread;
   return NULL;
 }

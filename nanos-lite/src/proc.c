@@ -1,4 +1,5 @@
 #include <proc.h>
+#include <loader.h>
 
 #define MAX_NR_PROC 4
 
@@ -20,23 +21,18 @@ void hello_fun(void *arg) {
   }
 }
 
-void context_kload(PCB *pcb, void (*func)(void *), void *arg) {
-  Area stack = { .start = pcb->stack, .end = pcb->stack + STACK_SIZE };
-  pcb->cp = kcontext(stack, func, arg);
-}
-
 void init_proc() {
   Log("Initializing kthreads...");
   context_kload(&pcb[0], hello_fun, "A is running.");
   context_kload(&pcb[1], hello_fun, "B is running.");
 
-
   switch_boot_pcb();
 
   Log("Initializing processes...");
+  context_uload(&pcb[2], "/bin/pal");
 
   // load program here
-  void naive_uload(PCB *pcb, const char *filename);
+  // void naive_uload(PCB *pcb, const char *filename);
   // naive_uload(NULL, "/bin/menu");
 }
 
@@ -44,13 +40,13 @@ Context* schedule(Context *prev) {
   current->cp = prev;
   if (current < pcb || current >= pcb + MAX_NR_PROC) {
     current = &pcb[0];
-    return current->cp;
-  }
-  while (current->cp == prev || current->cp == NULL) {
-    if (current == pcb + MAX_NR_PROC - 1) {
-      current = pcb;
-    } else {
-      current += 1;
+  } else {
+    while (current->cp == prev || current->cp == NULL) {
+      if (current == pcb + MAX_NR_PROC - 1) {
+        current = pcb;
+      } else {
+        current += 1;
+      }
     }
   }
   return current->cp;

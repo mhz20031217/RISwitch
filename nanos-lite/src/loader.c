@@ -1,5 +1,4 @@
-#include <proc.h>
-#include <elf.h>
+#include <loader.h>
 #include <debug.h>
 #include <fs.h>
 
@@ -70,4 +69,14 @@ void naive_uload(PCB *pcb, const char *filename) {
   uintptr_t entry = loader(pcb, filename);
   Log("Jump to entry = %p", entry);
   ((void(*)())entry) ();
+}
+
+void context_kload(PCB *pcb, void (*func)(void *), void *arg) {
+  Area stack = { .start = pcb->stack, .end = pcb->stack + STACK_SIZE };
+  pcb->cp = kcontext(stack, func, arg);
+}
+
+void context_uload(PCB *pcb, const char *filename) {
+  Area stack = { .start = pcb->stack, .end = pcb->stack + STACK_SIZE };
+  pcb->cp = ucontext(NULL, stack, (void *)loader(pcb, filename));
 }
