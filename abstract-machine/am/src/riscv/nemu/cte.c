@@ -34,7 +34,12 @@ bool cte_init(Context*(*handler)(Event, Context*)) {
 }
 
 Context *kcontext(Area kstack, void (*entry)(void *), void *arg) {
-  return NULL;
+  Context *kthread = (Context *) ((unsigned char *) kstack.end - sizeof(Context));
+  kthread->mepc = (uintptr_t) entry;
+  kthread->mstatus = 0x1800;
+  kthread->mcause = 11; // TODO: check correctness
+  *(uintptr_t *) kstack.start = (uintptr_t) kthread;
+  return kthread;
 }
 
 void yield() {
