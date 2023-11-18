@@ -4,11 +4,16 @@ _start:
 #if defined(__ISA_AM_NATIVE__)
 
   movq $0, %rbp
+
+  # set correct rsp
+  movq %rax, %rsp
+
   // (rsp + 8) should be multiple of 16 when
   // control is transfered to the function entry point.
   // See amd64 ABI manual for more details
   andq $0xfffffffffffffff0, %rsp
   movq %rax, %rdi
+
   call call_main
 
 #elif defined(__ISA_X86_64__)

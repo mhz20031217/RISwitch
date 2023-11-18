@@ -29,7 +29,7 @@ void init_proc() {
   switch_boot_pcb();
 
   Log("Initializing processes...");
-  context_uload(&pcb[2], "/bin/pal");
+  context_uload(&pcb[2], "/bin/bird");
 
   // load program here
   // void naive_uload(PCB *pcb, const char *filename);
