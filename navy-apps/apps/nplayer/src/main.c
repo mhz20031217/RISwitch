@@ -66,6 +66,7 @@ void FillAudio(void *userdata, uint8_t *stream, int len) {
   int nbyte = 0;
   int samples_per_channel = stb_vorbis_get_samples_short_interleaved(v,
       info.channels, (int16_t *)stream, len / sizeof(int16_t));
+  printf("F OK1\n");
   if (samples_per_channel != 0) {
     int samples = samples_per_channel * info.channels;
     nbyte = samples * sizeof(int16_t);
@@ -73,6 +74,8 @@ void FillAudio(void *userdata, uint8_t *stream, int len) {
   } else {
     is_end = 1;
   }
+  printf("F OK2\n");
+
   if (nbyte < len) memset(stream + nbyte, 0, len - nbyte);
   printf("buf: 0x%p\n", stream_save);
   memcpy(stream_save, stream, len);

@@ -43,6 +43,7 @@ void SDL_AudioCallback() {
 }
 
 int SDL_OpenAudio(SDL_AudioSpec *desired, SDL_AudioSpec *obtained) {
+  return 0;
   callback_flag = false;
   NDL_OpenAudio(desired->freq, desired->channels, desired->samples);
 
@@ -62,6 +63,7 @@ int SDL_OpenAudio(SDL_AudioSpec *desired, SDL_AudioSpec *obtained) {
 }
 
 void SDL_CloseAudio() {
+  return;
   callback = NULL;
   userdata = NULL;
   // if (sbuf) free(sbuf);
@@ -70,6 +72,7 @@ void SDL_CloseAudio() {
 }
 
 void SDL_PauseAudio(int pause_on) {
+  return;
   playing = !pause_on;
 }
 
