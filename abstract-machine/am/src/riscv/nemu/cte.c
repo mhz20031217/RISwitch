@@ -38,6 +38,7 @@ Context *kcontext(Area kstack, void (*entry)(void *), void *arg) {
   kthread->mepc = (uintptr_t) entry;
   kthread->mstatus = 0x1800;
   kthread->mcause = 11; // TODO: check correctness
+  kthread->gpr[10] = (uintptr_t) arg;
   *(uintptr_t *) kstack.start = (uintptr_t) kthread;
   return kthread;
 }
