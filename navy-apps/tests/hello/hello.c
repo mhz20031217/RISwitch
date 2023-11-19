@@ -8,7 +8,7 @@ int main(int argc, char **argv, char **envp) {
   if (argv) {
     int i = 0;
     while (*argv != NULL) {
-      printf("argv[%d]: %s", i, *argv);
+      printf("argv[%d]: %s\n", i, *argv);
       argv ++;
       i ++;
     }
@@ -16,8 +16,8 @@ int main(int argc, char **argv, char **envp) {
   if (envp) {
     int i = 0;
     while (*envp != NULL) {
-      printf("envp[%d]: %s", i, *argv);
-      argv ++;
+      printf("envp[%d]: %s\n", i, *envp);
+      envp ++;
       i ++;
     }
   }
