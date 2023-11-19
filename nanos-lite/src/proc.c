@@ -43,10 +43,10 @@ void init_proc() {
 
   Log("Initializing processes...");
   char * const test_argv[] = {
-    "hello", "world", "argv"
+    "hello", "world", "argv", NULL
   };
   char * const test_envp[] = {
-    "hello", "world", "envp"
+    "hello", "world", "envp", NULL
   };
   context_uload(&pcb[2], "/bin/hello", test_argv, test_envp);
 
