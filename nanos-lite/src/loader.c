@@ -64,7 +64,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
     memset((void *)(entry.p_vaddr + entry.p_filesz), 0, entry.p_memsz - entry.p_filesz);
   }
 
-  Log("Loaded '%s', entry at %p.", filename, elf_header.e_entry);
+  Log("Loaded, entry at %p.", filename, elf_header.e_entry);
 
   return elf_header.e_entry;
 }
@@ -84,9 +84,6 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   Area kstack = { .start = pcb->stack, .end = pcb->stack + STACK_SIZE };
   Area ustack = { .start = new_page(USTACK_NR_PAGES) };
   ustack.end = ustack.start + PGSIZE * USTACK_NR_PAGES;
-  void *entry = (void *)loader(pcb, filename);
-  AddrSpace as = { PGSIZE, kstack, NULL }; // TODO: not correct
-  pcb->cp = ucontext(&as, kstack, entry);
 
   int argc = 0, envc = 0, strsize = 0;
   if (argv != NULL) {
@@ -139,4 +136,9 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   *(char **)pointer = NULL; pointer += sizeof(char *);
 
   printf("S3\n");
+
+  void *entry = (void *)loader(pcb, filename);
+  AddrSpace as = { PGSIZE, kstack, NULL }; // TODO: not correct
+  pcb->cp = ucontext(&as, kstack, entry);
+
 }
