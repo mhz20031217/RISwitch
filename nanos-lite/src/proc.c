@@ -40,22 +40,11 @@ void init_proc() {
   context_kload(&pcb[0], my_kthread, "A is running.");
   // context_kload(&pcb[1], hello_fun, "B is running.");
 
-
   Log("Initializing processes...");
   switch_boot_pcb();
-  // char * const test_argv[] = {
-  //   "hello", "world", "argv", NULL
-  // };
-  // char * const test_envp[] = {
-  //   "hello", "world", "envp", NULL
-  // };
   context_uload(&pcb[2], "/bin/menu", NULL, NULL);
-  printf("stack top at %p.\n", pcb[2].cp->GPRx);
 
   Log("Loaded.");
-  // load program here
-  // void naive_uload(PCB *pcb, const char *filename);
-  // naive_uload(NULL, "/bin/menu");
 }
 
 Context* schedule(Context *prev) {
