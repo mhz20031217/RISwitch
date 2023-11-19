@@ -109,7 +109,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
     - sizeof(int)
     - (argc + envc + 2) * sizeof(const char *);
 
-  pcb->cp->GPRx = (uintptr_t) pointer;
+  void *sp = pointer;
 
   printf("S0\n");
 
@@ -140,5 +140,5 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   void *entry = (void *)loader(pcb, filename);
   AddrSpace as = { PGSIZE, kstack, NULL }; // TODO: not correct
   pcb->cp = ucontext(&as, kstack, entry);
-
+  pcb->cp->GPRx = (uintptr_t) sp;
 }
