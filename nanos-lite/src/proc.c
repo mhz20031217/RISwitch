@@ -42,7 +42,7 @@ void init_proc() {
 
 
   Log("Initializing processes...");
-  context_uload(&pcb[2], "/bin/menu", NULL, NULL);
+  context_uload(&pcb[2], "/bin/nterm", NULL, NULL);
 
   switch_boot_pcb();
   // load program here
