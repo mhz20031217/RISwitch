@@ -9,7 +9,14 @@
 #include <memory.h>
 
 static inline int sys_exit(intptr_t args[]) {
-  naive_uload(NULL, "/bin/menu");
+  context_uload(
+    current,
+    "/bin/menu", 
+    NULL, 
+    NULL
+  );
+  args[0] = (intptr_t) current->cp;
+  return current->cp->GPRx;
   return 0;
 }
 
