@@ -92,12 +92,14 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   if (argv != NULL) {
     printf("T1\n");
     for (; argv[argc] != NULL; argc ++) {
+      printf("argv[%d]: %s\n", argc, argv[argc]);
       strsize += strlen(argv[argc]) + 1;
     }
   }
   if (envp != NULL) {
     printf("T2\n");
     for (; envp[envc] != NULL; envc ++) {
+      printf("envp[%d]: %s\n", envc, envp[envc]);
       strsize += strlen(envp[envc]) + 1;
     }
   }
