@@ -74,6 +74,5 @@ Context *ucontext(AddrSpace *as, Area kstack, void *entry) {
   uthread->mepc = (uintptr_t) entry;
   uthread->mstatus = 0x1800;
   uthread->mcause = 11; // TODO: check correctness
-  *(uintptr_t *) kstack.start = (uintptr_t) uthread;
   return uthread;
 }

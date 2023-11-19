@@ -1,6 +1,7 @@
 #include <common.h>
 #include <sys/types.h>
 #include <sys/time.h>
+#include "am.h"
 #include "syscall.h"
 #include <debug.h>
 #include <fs.h>
@@ -62,6 +63,8 @@ static inline int sys_execve(intptr_t args[]) {
     (char *const *)args[2], 
     (char *const *)args[3]
   );
+  yield();
+  printf("sys_execve returned.\n");
   return -1;
 }
 

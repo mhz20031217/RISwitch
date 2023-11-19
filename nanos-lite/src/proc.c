@@ -1,3 +1,4 @@
+#include "am.h"
 #include <proc.h>
 #include <loader.h>
 
@@ -21,9 +22,22 @@ void hello_fun(void *arg) {
   }
 }
 
+void my_kthread(void *arg) {
+  static int i = 100000;
+  while (1) {
+    if (i == 100000) {
+      Log("kthread is running: %s.", arg);
+      i = 0;
+    } else {
+      i ++;
+    }
+    yield();
+  }
+}
+
 void init_proc() {
   Log("Initializing kthreads...");
-  context_kload(&pcb[0], hello_fun, "A is running.");
+  context_kload(&pcb[0], my_kthread, "A is running.");
   // context_kload(&pcb[1], hello_fun, "B is running.");
 
 

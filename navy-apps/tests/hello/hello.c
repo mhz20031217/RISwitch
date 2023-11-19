@@ -1,8 +1,27 @@
 #include <unistd.h>
 #include <stdio.h>
 
-int main() {
+int main(int argc, char **argv, char **envp) {
   write(1, "Hello World!\n", 13);
+
+  printf("argc: %d.\n", argc);
+  if (argv) {
+    int i = 0;
+    while (*argv != NULL) {
+      printf("argv[%d]: %s", i, *argv);
+      argv ++;
+      i ++;
+    }
+  }
+  if (envp) {
+    int i = 0;
+    while (*envp != NULL) {
+      printf("envp[%d]: %s", i, *argv);
+      argv ++;
+      i ++;
+    }
+  }
+
   int i = 2;
   volatile int j = 0;
   while (1) {

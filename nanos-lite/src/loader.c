@@ -98,7 +98,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
     }
   }
 
-  // printf("argc: %d, envc: %d, strsize: %d.\n", argc, envc, strsize);
+  printf("argc: %d, envc: %d, strsize: %d.\n", argc, envc, strsize);
 
   void *strpointer = ustack.end - strsize * sizeof(char);
 
@@ -108,6 +108,8 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
 
   pcb->cp->GPRx = (uintptr_t) pointer;
 
+  printf("S0\n");
+
   *(int *)pointer = argc; pointer += sizeof(int);
   for (int i = 0; i < argc; i ++) {
     *(char **)pointer = strpointer;
@@ -115,7 +117,12 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
     pointer += sizeof(char *);
     strpointer += (strlen(argv[i]) + 1) * sizeof(char);
   }
+
+  printf("S1\n");
+
   *(char **)pointer = NULL; pointer += sizeof(char *);
+
+  printf("S2\n");
 
   for (int i = 0; i < envc; i ++) {
     *(char **)pointer = strpointer;
@@ -124,4 +131,6 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
     strpointer += (strlen(argv[i]) + 1) * sizeof(char);
   }
   *(char **)pointer = NULL; pointer += sizeof(char *);
+
+  printf("S3\n");
 }
