@@ -50,7 +50,7 @@ void init_proc() {
     "hello", "world", "envp", NULL
   };
   context_uload(&pcb[2], "/bin/hello", test_argv, test_envp);
-  printf("stack top at %p.\n", current->cp->GPRx);
+  printf("stack top at %p.\n", pcb[2].cp->GPRx);
 
   Log("Loaded.");
   // load program here
