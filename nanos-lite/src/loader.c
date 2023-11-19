@@ -88,11 +88,15 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
   pcb->cp = ucontext(&as, kstack, entry);
 
   int argc = 0, envc = 0, strsize = 0;
-  for (; argv[argc] != NULL; argc ++) {
-    strsize += strlen(argv[argc]) + 1;
+  if (argv != NULL) {
+    for (; argv[argc] != NULL; argc ++) {
+      strsize += strlen(argv[argc]) + 1;
+    }
   }
-  for (; envp[envc] != NULL; envc ++) {
-    strsize += strlen(envp[envc]) + 1;
+  if (envp != NULL) {
+    for (; envp[envc] != NULL; envc ++) {
+      strsize += strlen(envp[envc]) + 1;
+    }
   }
 
   printf("argc: %d, envc: %d, strsize: %d.\n", argc, envc, strsize);
