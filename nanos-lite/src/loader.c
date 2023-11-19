@@ -94,6 +94,8 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
     strsize += strlen(envp[envc]) + 1;
   }
 
+  printf("argc: %d, envc: %d, strsize: %d.\n", argc, envc, strsize);
+
   void *strpointer = ustack.end - strsize * sizeof(char);
 
   void *pointer = strpointer
