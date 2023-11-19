@@ -57,12 +57,14 @@ static inline int sys_gettimeofday(intptr_t args[]) {
 
 static inline int sys_execve(intptr_t args[]) {
   // naive_uload(NULL, (char *) args[1]);
+  Context *c = (Context *) args[0];
   context_uload(
     current,
     (const char *)args[1], 
     (char *const *)args[2], 
     (char *const *)args[3]
   );
+  c->gpr[2] = current->cp->GPRx;
   printf("sys_execve returned.\nNew stack top at: %p.\n", current->cp->GPRx);
   return current->cp->GPRx;
 }
@@ -86,22 +88,23 @@ static struct {
 #define NR_SYSCALL ARRLEN(syscall_handler)
 
 void do_syscall(Context *c) {
+  int syscallid = c->GPR1;
   intptr_t a[4];
-  a[0] = c->GPR1;
+  a[0] = (intptr_t) c;
   a[1] = c->GPR2;
   a[2] = c->GPR3;
   a[3] = c->GPR4;
 
-  if (a[0] >= NR_SYSCALL) {
-    panic("Unhandled syscall ID = %d", a[0]);
+  if (syscallid >= NR_SYSCALL) {
+    panic("Unhandled syscall ID = %d", syscallid);
   } else {
     #ifdef ENABLE_STRACE
     printf("[strace] %s(%lx, %lx, %lx) ", syscall_handler[a[0]].desc, a[1], a[2], a[3]);
     #endif
-    if (syscall_handler[a[0]].handler == NULL) {
+    if (syscall_handler[syscallid].handler == NULL) {
       panic("Unhandled syscall ID = %d", a[0]);
     }
-    c->GPRx = syscall_handler[a[0]].handler(a);
+    c->GPRx = syscall_handler[syscallid].handler(a);
     #ifdef ENABLE_STRACE
     switch (a[0]) {
       case SYS_open:
