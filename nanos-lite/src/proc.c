@@ -42,6 +42,7 @@ void init_proc() {
 
 
   Log("Initializing processes...");
+  switch_boot_pcb();
   char * const test_argv[] = {
     "hello", "world", "argv", NULL
   };
@@ -49,8 +50,7 @@ void init_proc() {
     "hello", "world", "envp", NULL
   };
   context_uload(&pcb[2], "/bin/hello", test_argv, test_envp);
-
-  switch_boot_pcb();
+  printf("stack top at %p.\n", current->cp->GPRx);
 
   Log("Loaded.");
   // load program here
