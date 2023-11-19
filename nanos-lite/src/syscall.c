@@ -5,6 +5,7 @@
 #include <debug.h>
 #include <fs.h>
 #include <loader.h>
+#include <memory.h>
 
 static inline int sys_exit(intptr_t args[]) {
   naive_uload(NULL, "/bin/menu");
@@ -24,7 +25,7 @@ static inline int sys_write(intptr_t args[]) {
 }
 
 static inline int sys_brk(intptr_t args[]) {
-  return 0;
+  return mm_brk(args[1]);
 }
 
 static inline int sys_open(intptr_t args[]) {

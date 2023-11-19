@@ -74,17 +74,48 @@ void naive_uload(PCB *pcb, const char *filename) {
 }
 
 void context_kload(PCB *pcb, void (*func)(void *), void *arg) {
-  Area stack = { .start = pcb->stack, .end = pcb->stack + STACK_SIZE };
-  pcb->cp = kcontext(stack, func, arg);
+  Area kstack = { .start = pcb->stack, .end = pcb->stack + STACK_SIZE };
+  pcb->cp = kcontext(kstack, func, arg);
 }
 
 void context_uload(PCB *pcb, const char *filename, char *const argv[], char *const envp[]) {
-  Area stack = { .start = pcb->stack, .end = pcb->stack + STACK_SIZE };
+  Area kstack = { .start = pcb->stack, .end = pcb->stack + STACK_SIZE };
+  Area ustack = { .start = new_page(USTACK_NR_PAGES) };
+  ustack.end = ustack.start + PGSIZE * USTACK_NR_PAGES;
   void *entry = (void *)loader(pcb, filename);
-  AddrSpace as = { PGSIZE, stack, NULL }; // TODO: not correct
-  pcb->cp = ucontext(&as, stack, entry);
+  AddrSpace as = { PGSIZE, kstack, NULL }; // TODO: not correct
+  pcb->cp = ucontext(&as, kstack, entry);
 
-  
+  int argc = 0, envc = 0, strsize = 0;
+  for (; argv[argc] != NULL; argc ++) {
+    strsize += strlen(argv[argc]) + 1;
+  }
+  for (; envp[envc] != NULL; envc ++) {
+    strsize += strlen(envp[envc]) + 1;
+  }
 
-  pcb->cp->GPRx = (uintptr_t) heap.end;
+  void *strpointer = ustack.end - strsize * sizeof(char);
+
+  void *pointer = strpointer
+    - sizeof(int)
+    - (argc + envc + 2) * sizeof(const char *);
+
+  pcb->cp->GPRx = (uintptr_t) pointer;
+
+  *(int *)pointer = argc; pointer += sizeof(int);
+  for (int i = 0; i < argc; i ++) {
+    *(char **)pointer = strpointer;
+    strcpy(strpointer, argv[i]);
+    pointer += sizeof(char *);
+    strpointer += (strlen(argv[i]) + 1) * sizeof(char);
+  }
+  *(char **)pointer = NULL; pointer += sizeof(char *);
+
+  for (int i = 0; i < envc; i ++) {
+    *(char **)pointer = strpointer;
+    strcpy(strpointer, envp[i]);
+    pointer += sizeof(char *);
+    strpointer += (strlen(argv[i]) + 1) * sizeof(char);
+  }
+  *(char **)pointer = NULL; pointer += sizeof(char *);
 }
