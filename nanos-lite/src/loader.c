@@ -78,10 +78,13 @@ void context_kload(PCB *pcb, void (*func)(void *), void *arg) {
   pcb->cp = kcontext(stack, func, arg);
 }
 
-void context_uload(PCB *pcb, const char *filename) {
+void context_uload(PCB *pcb, const char *filename, char *const argv[], char *const envp[]) {
   Area stack = { .start = pcb->stack, .end = pcb->stack + STACK_SIZE };
   void *entry = (void *)loader(pcb, filename);
   AddrSpace as = { PGSIZE, stack, NULL }; // TODO: not correct
   pcb->cp = ucontext(&as, stack, entry);
+
+  
+
   pcb->cp->GPRx = (uintptr_t) heap.end;
 }
