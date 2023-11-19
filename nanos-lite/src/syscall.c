@@ -56,15 +56,13 @@ static inline int sys_gettimeofday(intptr_t args[]) {
 }
 
 static inline int sys_execve(intptr_t args[]) {
-  // naive_uload(NULL, (char *) args[1]);
-  Context *c = (Context *) args[0];
   context_uload(
     current,
     (const char *)args[1], 
     (char *const *)args[2], 
     (char *const *)args[3]
   );
-  c->gpr[2] = current->cp->GPRx;
+  args[0] = (intptr_t) current->cp;
   printf("sys_execve returned.\nNew stack top at: %p.\n", current->cp->GPRx);
   return current->cp->GPRx;
 }
@@ -87,7 +85,7 @@ static struct {
 
 #define NR_SYSCALL ARRLEN(syscall_handler)
 
-void do_syscall(Context *c) {
+Context* do_syscall(Context *c) {
   int syscallid = c->GPR1;
   intptr_t a[4];
   a[0] = (intptr_t) c;
@@ -116,4 +114,5 @@ void do_syscall(Context *c) {
     
     #endif
   }
+  return (Context *)a[0];
 }
