@@ -62,8 +62,7 @@ static inline int sys_execve(intptr_t args[]) {
     (char *const *)args[2], 
     (char *const *)args[3]
   );
-  yield();
-  return 0;
+  return -1;
 }
 
 static struct {

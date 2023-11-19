@@ -26,11 +26,11 @@ void init_proc() {
   context_kload(&pcb[0], hello_fun, "A is running.");
   // context_kload(&pcb[1], hello_fun, "B is running.");
 
-  switch_boot_pcb();
 
   Log("Initializing processes...");
   context_uload(&pcb[2], "/bin/menu", NULL, NULL);
 
+  switch_boot_pcb();
   // load program here
   // void naive_uload(PCB *pcb, const char *filename);
   // naive_uload(NULL, "/bin/menu");
