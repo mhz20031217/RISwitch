@@ -57,11 +57,12 @@ static inline int sys_gettimeofday(intptr_t args[]) {
 static inline int sys_execve(intptr_t args[]) {
   // naive_uload(NULL, (char *) args[1]);
   context_uload(
-    current, 
+    current,
     (const char *)args[1], 
     (char *const *)args[2], 
     (char *const *)args[3]
   );
+  yield();
   return 0;
 }
 
