@@ -26,7 +26,7 @@ int main(int argc, char **argv, char **envp) {
   volatile int j = 0;
   while (1) {
     j ++;
-    if (j == 10000) {
+    if (j == 10000000) {
       printf("Hello World from Navy-apps for the %dth time!\n", i ++);
       printf("To ensure running on the user stack, address of j is %p.\n", &j);
       j = 0;
