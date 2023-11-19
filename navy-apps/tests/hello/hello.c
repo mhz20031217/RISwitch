@@ -4,7 +4,7 @@
 int main(int argc, char **argv, char **envp) {
   write(1, "Hello World!\n", 13);
 
-  printf("argc: %d.\n", argc);
+  printf("argc: %d, argv: %p, envp: %p\n", argc, argv, envp);
   if (argv) {
     int i = 0;
     while (*argv != NULL) {
