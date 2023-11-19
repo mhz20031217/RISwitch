@@ -63,7 +63,7 @@ static inline int sys_execve(intptr_t args[]) {
     (char *const *)args[2], 
     (char *const *)args[3]
   );
-  printf("sys_execve returned.\n");
+  printf("sys_execve returned.\nNew stack top at: %p.\n", current->cp->GPRx);
   return current->cp->GPRx;
 }
 
