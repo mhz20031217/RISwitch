@@ -42,7 +42,13 @@ void init_proc() {
 
 
   Log("Initializing processes...");
-  context_uload(&pcb[2], "/bin/nterm", NULL, NULL);
+  char * const test_argv[] = {
+    "hello", "world", "argv"
+  };
+  char * const test_envp[] = {
+    "hello", "world", "envp"
+  };
+  context_uload(&pcb[2], "/bin/hello", test_argv, test_envp);
 
   switch_boot_pcb();
   // load program here
