@@ -64,6 +64,8 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
     memset((void *)(entry.p_vaddr + entry.p_filesz), 0, entry.p_memsz - entry.p_filesz);
   }
 
+  Log("Loaded '%s', entry at %p.", filename, elf_header.e_entry);
+
   return elf_header.e_entry;
 }
 
@@ -88,11 +90,13 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
 
   int argc = 0, envc = 0, strsize = 0;
   if (argv != NULL) {
+    printf("T1\n");
     for (; argv[argc] != NULL; argc ++) {
       strsize += strlen(argv[argc]) + 1;
     }
   }
   if (envp != NULL) {
+    printf("T2\n");
     for (; envp[envc] != NULL; envc ++) {
       strsize += strlen(envp[envc]) + 1;
     }
