@@ -51,6 +51,8 @@ void init_proc() {
   context_uload(&pcb[2], "/bin/hello", test_argv, test_envp);
 
   switch_boot_pcb();
+
+  Log("Loaded.");
   // load program here
   // void naive_uload(PCB *pcb, const char *filename);
   // naive_uload(NULL, "/bin/menu");
