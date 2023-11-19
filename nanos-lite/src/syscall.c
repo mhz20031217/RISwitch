@@ -63,9 +63,8 @@ static inline int sys_execve(intptr_t args[]) {
     (char *const *)args[2], 
     (char *const *)args[3]
   );
-  yield();
   printf("sys_execve returned.\n");
-  return -1;
+  return current->cp->GPRx;
 }
 
 static struct {
