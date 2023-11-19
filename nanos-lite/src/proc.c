@@ -49,7 +49,7 @@ void init_proc() {
   char * const test_envp[] = {
     "hello", "world", "envp", NULL
   };
-  context_uload(&pcb[2], "/bin/hello", test_argv, test_envp);
+  context_uload(&pcb[2], "/bin/menu", test_argv, test_envp);
   printf("stack top at %p.\n", pcb[2].cp->GPRx);
 
   Log("Loaded.");
