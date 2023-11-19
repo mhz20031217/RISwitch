@@ -71,7 +71,7 @@ static inline int sys_execve(intptr_t args[]) {
   );
   args[0] = (intptr_t) current->cp;
   printf("sys_execve returned.\nNew stack top at: %p.\n", current->cp->GPRx);
-  return current->cp->GPRx;
+  return -1;
 }
 
 static struct {
@@ -94,32 +94,31 @@ static struct {
 
 Context* do_syscall(Context *c) {
   int syscallid = c->GPR1;
-  intptr_t a[4];
-  a[0] = (intptr_t) c;
-  a[1] = c->GPR2;
-  a[2] = c->GPR3;
-  a[3] = c->GPR4;
+  intptr_t args[4];
+  args[0] = (intptr_t) c;
+  args[1] = c->GPR2;
+  args[2] = c->GPR3;
+  args[3] = c->GPR4;
 
   if (syscallid >= NR_SYSCALL) {
     panic("Unhandled syscall ID = %d", syscallid);
   } else {
     #ifdef ENABLE_STRACE
-    printf("[strace] %s(%lx, %lx, %lx) ", syscall_handler[a[0]].desc, a[1], a[2], a[3]);
+    printf("[strace] %s(%lx, %lx, %lx) ", syscall_handler[syscallid].desc, args[1], args[2], args[3]);
     #endif
     if (syscall_handler[syscallid].handler == NULL) {
-      panic("Unhandled syscall ID = %d", a[0]);
+      panic("Unhandled syscall ID = %d", args[0]);
     }
-    c->GPRx = syscall_handler[syscallid].handler(a);
+    c->GPRx = syscall_handler[syscallid].handler(args);
     #ifdef ENABLE_STRACE
-    switch (a[0]) {
+    switch (syscallid) {
       case SYS_open:
-        printf("on file '%s' = %d\n", (const char *) a[1], c->GPRx); break;
+        printf("on file '%s' = %d\n", (const char *) args[1], c->GPRx); break;
       case SYS_lseek: case SYS_close: case SYS_read: case SYS_write:
-        printf("on file '%s' = %d\n", fs_getfilename(a[1]), c->GPRx); break;
+        printf("on file '%s' = %d\n", fs_getfilename(args[1]), c->GPRx); break;
       default: printf("= %u (%d, 0x%x)\n", c->GPRx, c->GPRx, c->GPRx); break;
     }
-    
     #endif
   }
-  return (Context *)a[0];
+  return (Context *)args[0];
 }
