@@ -79,6 +79,7 @@ void context_kload(PCB *pcb, void (*func)(void *), void *arg) {
 }
 
 void context_uload(PCB *pcb, const char *filename, char *const argv[], char *const envp[]) {
+  printf("context_uload start.\n");
   Area kstack = { .start = pcb->stack, .end = pcb->stack + STACK_SIZE };
   Area ustack = { .start = new_page(USTACK_NR_PAGES) };
   ustack.end = ustack.start + PGSIZE * USTACK_NR_PAGES;
@@ -120,4 +121,5 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
     strpointer += (strlen(argv[i]) + 1) * sizeof(char);
   }
   *(char **)pointer = NULL; pointer += sizeof(char *);
+  printf("context_uload end.\n");
 }
