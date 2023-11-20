@@ -91,6 +91,7 @@ static void sh_handle_cmd(const char *cmd) {
       argv[argc ++] = token;
       token = strtok(NULL, delim);
     }
+    argv[argc] = NULL;
   }
 
   if (execvp(argv[0], argv) == -1) {
