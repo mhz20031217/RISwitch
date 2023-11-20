@@ -29,6 +29,7 @@ void call_main(void *args) {
         while (*value == ' ') {
           value ++;
         }
+        flag = true;
         break;
       }
     }
