@@ -2,6 +2,7 @@
 #include <sys/types.h>
 #include <sys/time.h>
 #include "am.h"
+#include "sys/_default_fcntl.h"
 #include "syscall.h"
 #include <debug.h>
 #include <fs.h>
@@ -63,6 +64,11 @@ static inline int sys_gettimeofday(intptr_t args[]) {
 }
 
 static inline int sys_execve(intptr_t args[]) {
+  int fd = fs_open((const char *)args[1], O_SYNC, O_EXEC);
+  if (fd == -1) {
+    return -1;
+  }
+  fs_close(fd);
   context_uload(
     current,
     (const char *)args[1], 
