@@ -103,7 +103,7 @@ static void sh_handle_cmd(const char *cmd) {
 }
 
 void builtin_sh_run() {
-  setenv("PATH", "/bin", 1);
+  setenv("PATH", "/bin:/usr/bin", 1);
   sh_banner();
   sh_prompt();
 
