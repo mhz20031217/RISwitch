@@ -123,7 +123,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
 
   printf("S1\n");
 
-  *(char **)pointer = NULL; pointer += sizeof(char *);
+  *(char **)pointer = NULL; pointer += sizeof(char **);
 
   printf("S2\n");
 
@@ -133,7 +133,7 @@ void context_uload(PCB *pcb, const char *filename, char *const argv[], char *con
     pointer += sizeof(char *);
     strpointer += (strlen(argv[i]) + 1) * sizeof(char);
   }
-  *(char **)pointer = NULL; pointer += sizeof(char *);
+  *(char **)pointer = NULL; pointer += sizeof(char **);
 
   printf("S3\n");
 

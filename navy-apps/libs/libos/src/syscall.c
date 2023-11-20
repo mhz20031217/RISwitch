@@ -4,6 +4,7 @@
 #include <sys/time.h>
 #include <assert.h>
 #include <time.h>
+#include <errno.h>
 #include "syscall.h"
 
 // helper macros
@@ -58,11 +59,13 @@ intptr_t _syscall_(intptr_t type, intptr_t a0, intptr_t a1, intptr_t a2) {
 
 void _exit(int status) {
   _syscall_(SYS_exit, status, 0, 0);
-  while (1);
+  assert(0);
 }
 
 int _open(const char *path, int flags, mode_t mode) {
-  return _syscall_(SYS_open, (intptr_t) path, flags, mode);
+  int rc = _syscall_(SYS_open, (intptr_t) path, flags, mode);
+  if (rc == -1) errno = ENOENT;
+  return rc;
 }
 
 int _write(int fd, void *buf, size_t count) {
@@ -78,6 +81,7 @@ void *_sbrk(intptr_t increment) {
     brk += increment;
     return ret;
   } else {
+    errno = ENOMEM;
     return (void *) -1;
   }
 }
@@ -99,7 +103,8 @@ int _gettimeofday(struct timeval *tv, struct timezone *tz) {
 }
 
 int _execve(const char *fname, char * const argv[], char *const envp[]) {
-  _syscall_(SYS_execve, (intptr_t)fname, (intptr_t)argv, (intptr_t)envp);
+  int rc = _syscall_(SYS_execve, (intptr_t)fname, (intptr_t)argv, (intptr_t)envp);
+  if (rc == -1) errno = ENOENT;
   return -1;
 }
 
