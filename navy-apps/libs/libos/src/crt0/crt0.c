@@ -3,6 +3,7 @@
 #include <assert.h>
 #include <string.h>
 #include <stdbool.h>
+#include <stdio.h>
 
 int main(int argc, char *argv[], char *envp[]);
 extern char **environ;
@@ -33,6 +34,7 @@ void call_main(void *args) {
     }
 
     if (flag) {
+      printf("SETENV: %s, %s", name, value);
       setenv(name, value, 1);
     }
     
