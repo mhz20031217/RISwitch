@@ -2,8 +2,8 @@
 #include <sys/types.h>
 #include <sys/time.h>
 #include "am.h"
-#include "sys/_default_fcntl.h"
 #include "syscall.h"
+#include <fcntl.h>
 #include <debug.h>
 #include <fs.h>
 #include <loader.h>
@@ -64,7 +64,7 @@ static inline int sys_gettimeofday(intptr_t args[]) {
 }
 
 static inline int sys_execve(intptr_t args[]) {
-  int fd = fs_open((const char *)args[1], O_SYNC, O_EXEC);
+  int fd = fs_open((const char *)args[1], O_SYNC, O_CREAT);
   if (fd == -1) {
     return -1;
   }
