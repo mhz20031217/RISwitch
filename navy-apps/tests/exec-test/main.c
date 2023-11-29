@@ -7,8 +7,10 @@ int main(int argc, char *argv[]) {
   int n = (argc >= 2 ? atoi(argv[1]) : 1);
   printf("%s: argv[1] = %d\n", argv[0], n);
 
+  printf("exec-test's $PATH: %s\n", getenv("PATH"));
+
   char buf[16];
   sprintf(buf, "%d", n + 1);
-  execl(argv[0], argv[0], buf, NULL);
+  execlp(argv[0], argv[0], buf, NULL);
   return 0;
 }

@@ -5,6 +5,9 @@
 #include <proc.h>
 #include <elf.h>
 
-void naive_uload(PCB *pcb, const char *filename);
+#define USTACK_NR_PAGES 8
 
+void naive_uload(PCB *pcb, const char *filename);
+void context_kload(PCB *pcb, void (*func)(void *), void *arg);
+void context_uload(PCB *pcb, const char *filename, char *const argv[], char *const envp[]);
 #endif

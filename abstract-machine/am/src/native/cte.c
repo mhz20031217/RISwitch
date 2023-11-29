@@ -23,6 +23,8 @@ static void irq_handle(Context *c) {
     uintptr_t rip = c->uc.uc_mcontext.gregs[REG_RIP];
     printf("Unhandle signal '%s' at rip = %p, badaddr = %p, cause = 0x%x\n",
         thiscpu->ev.msg, rip, thiscpu->ev.ref, thiscpu->ev.cause);
+    volatile int make_fail = *(volatile int *)NULL;
+    (void)make_fail;
     assert(0);
   }
   c = user_handler(thiscpu->ev, c);

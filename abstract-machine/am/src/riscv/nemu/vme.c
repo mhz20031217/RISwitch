@@ -70,5 +70,9 @@ void map(AddrSpace *as, void *va, void *pa, int prot) {
 }
 
 Context *ucontext(AddrSpace *as, Area kstack, void *entry) {
-  return NULL;
+  Context *c = (Context *) ((uint8_t *) kstack.end - sizeof(Context));
+  c->mepc = (uintptr_t) entry;
+  c->mstatus = 0x1800;
+  c->mcause = 11; // TODO: check correctness
+  return c;
 }

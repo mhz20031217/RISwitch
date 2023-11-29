@@ -72,12 +72,14 @@ int fs_open(const char *pathname, int flags, int mode) {
 }
 
 static inline Finfo *check_fd(int fd) {
-  assert(0 <= fd && fd < NR_FILES);
-  return &file_table[fd];
+  return (0 <= fd && fd < NR_FILES) ? &file_table[fd] : NULL;
 }
 
 size_t fs_read(int fd, void *buf, size_t len) {
   Finfo *file = check_fd(fd);
+  if (file == NULL) {
+    return -1;
+  }
   
   if (file->read == NULL) {
     size_t rc = min(len, file->size - file->offset);
@@ -97,6 +99,9 @@ size_t fs_read(int fd, void *buf, size_t len) {
 
 size_t fs_write(int fd, const void *buf, size_t len) {
   Finfo *file = check_fd(fd);
+  if (file == NULL) {
+    return -1;
+  }
   
   if (file->write == NULL) {
     size_t rc = min(len, file->size - file->offset);
@@ -115,6 +120,9 @@ size_t fs_write(int fd, const void *buf, size_t len) {
 
 size_t fs_lseek(int fd, int offset, int whence) {
   Finfo *file = check_fd(fd);
+  if (file == NULL) {
+    return -1;
+  }
 
   size_t pos;
   switch (whence) {
@@ -136,10 +144,14 @@ size_t fs_lseek(int fd, int offset, int whence) {
 }
 
 int fs_close(int fd) {
+  Finfo *file = check_fd(fd);
+  if (file == NULL) {
+    return -1;
+  }
   return 0;
 }
 
 const char *fs_getfilename(int fd) {
   Finfo *file = check_fd(fd);
-  return file->name;
+  return (file) ? file->name : NULL;
 }

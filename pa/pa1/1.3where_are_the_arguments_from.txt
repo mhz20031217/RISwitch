@@ -1,2 +1,0 @@
-From the command line, which are first processed by the shell. Then the shell
-`fork()`, `execve()`, and passes the arguments to the program.
