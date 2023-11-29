@@ -1,6 +1,0 @@
-graph TD;
-    hello["hello/Makefile"]--inc-->main;
-    main["$AM_HOME/Makefile"]--inc-->isa-platform["scripts/$(ISA)-$(PLATFORM).mk"];
-    isa-platform--inc-->isa["scripts/isa/$(ISA).mk"];
-    isa-platform--inc-->platform["scripts/platform/$(PLATFORM).mk"];
-    main--call-->libmake["$(AM_HOME)/$(LIBS)/Makefile"];
