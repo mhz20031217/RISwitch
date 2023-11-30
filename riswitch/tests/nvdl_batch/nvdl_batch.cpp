@@ -93,10 +93,10 @@ bool check_status(const std::string& name) {
   } 
   
   if (dut->trap) {
-    std::cout << "[" << name << "] Hit GOOD trap.\n"; 
+    std::cout << "[" << name << "]\tHit GOOD trap.\n"; 
     return true;
   } else {
-    std::cout << "[" << name << "] Hit BAD trap.\n";
+    std::cout << "[" << name << "]\tHit BAD trap.\n";
     return true;
   }
 }
@@ -122,7 +122,7 @@ void run_test(const std::string name) {
     }
   }
 
-  std::cout << "[" << name << "] The cpu does not terminate!\n";
+  std::cout << "[" << name << "]\tThe cpu does not terminate!\n";
 }
 
 int main(int argc, char *argv[], char *envp[]) {
