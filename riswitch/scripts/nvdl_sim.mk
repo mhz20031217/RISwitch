@@ -5,6 +5,7 @@ include scripts/nvdl.mk
 
 BIN = V$(SIM_TOP)_sim
 WAVE = $(BUILD_DIR)/$(SIM_TOP).vcd
+WAVECFG = $(TEST_DIR)/$(SIM_TOP).gtkw
 .DEFAULT_GOAL = sim
 
 VERILATOR_FLAGS += -DSIM --trace --top $(SIM_TOP) --public
@@ -16,7 +17,7 @@ CFLAGS += $(addprefix -I,$(abspath $(INCLUDE_PATH)))
 .PHONY: wave
 wave: $(WAVE)
 	@echo "### WAVEFORM ###"
-	@$(GTKWAVE) $(WAVE)
+	@$(GTKWAVE) --savefile $(WAVECFG) --saveonexit $(WAVE)
 
 $(WAVE):sim
 
