@@ -1,4 +1,4 @@
-module DataMem(addr, dataout,  datain, rdclk, wrclk, memop, we);
+module dmem(addr, dataout,  datain, rdclk, wrclk, memop, we);
 	input  [31:0] addr;
 	output reg [31:0] dataout;
 	input  [31:0] datain;
@@ -17,7 +17,7 @@ module DataMem(addr, dataout,  datain, rdclk, wrclk, memop, we);
 assign memin = (memop[1:0]==2'b00)?{4{datain[7:0]}}:((memop[1:0]==2'b10)?datain:{2{datain[15:0]}}) ; //lb: same for all four, lh:copy twice; lw:copy
 
 //four memory chips	
-DataMemInner mymem(.wea(wmask),.dina(memin), .addrb(addr[16:2]), .clkb(rdclk), .addra(addr[16:2]), .clka(wrclk), .ena(we), .doutb(dwordout),.enb(1'b1) );
+testdmem mymem(.wea(wmask),.dina(memin), .addrb(addr[16:2]), .clkb(rdclk), .addra(addr[16:2]), .clka(wrclk), .ena(we), .doutb(dwordout),.enb(1'b1) );
 //datamem mymem(.wea(wmask),.dina(memin), .addrb(addr[16:2]), .clkb(rdclk), .addra(addr[16:2]), .clka(wrclk), .ena(we), .doutb(dwordout),.enb(1'b1) );
 
 //wmask,addr[16:2]

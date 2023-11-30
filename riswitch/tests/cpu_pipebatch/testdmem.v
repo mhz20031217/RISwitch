@@ -1,4 +1,4 @@
-module DataMemInner(
+module testdmem(
     addra,
     clka,
     dina,
@@ -23,7 +23,7 @@ module DataMemInner(
 	wire [31:0] tempin;
 
 	
-	(* ram_style = "block" *) reg [31:0] ram [32767:0];
+	reg [31:0] ram [32767:0];
 	always@(posedge clkb)
 	begin
 	   if(ena)
@@ -44,8 +44,5 @@ module DataMemInner(
 			ram[addra]<=tempin;
 		end
 	end
-initial begin
-  $readmemh("../tests/cpu_pipebatch/rv32ui-p-addi_d.hex", ram);
-end
-
+		
 endmodule
