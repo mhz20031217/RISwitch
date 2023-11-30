@@ -33,6 +33,12 @@ always @(posedge clkRd) begin
   dmem_read(addr, rdBuf);
 end
 
+always @(*) begin
+  // `ifdef CONFIG_MTRACE
+  $display("dmem_read(addr = %x, memOp = %x) = %x", addr, memOp, dout);
+  // `endif
+end
+
 assign extendBit = (memOp == M_LBU || memOp == M_LHU) ? 0 : 1;
 assign validRd =
   (offset == 2'd0) ? rdBuf :
@@ -51,6 +57,9 @@ wire [3:0] wmask;
 always @(posedge clkWr) begin
   if (we) begin
     dmem_write(addr, wrBuf, {4'b0, wmask});
+    // `ifdef CONFIG_MTRACE
+    $display("dmem_write(addr = %x, memOp = %x, data = %x)", addr, memOp, din);
+    // `endif
   end
 end
 
