@@ -1,4 +1,5 @@
 #include <VSystem.h>
+#include <cstdlib>
 #include <iomanip>
 #include <verilated.h>
 #include <common.hpp>
@@ -42,8 +43,8 @@ static void nvdl_init(int argc, char **argv) {
   clk_cnt = 0;
 
   // load memory
-  imem_load("../tests/cpu_pipebatch/rv32ui-p-addi.hex");
-  dmem_load("../tests/cpu_pipebatch/rv32ui-p-addi_d.hex");
+  // imem_load("../tests/cpu_pipebatch/rv32ui-p-addi.hex");
+  // dmem_load("../tests/cpu_pipebatch/rv32ui-p-addi_d.hex");
   
   dut->eval();
   tracer->dump(sim_time);
@@ -106,6 +107,7 @@ void check_status() {
 
 int main(int argc, char *argv[], char *envp[]) {
   nvdl_init(argc, argv);
+  std::atexit(nvdl_destroy);
 
   while (sim_time < max_sim_time) {
     // std::cerr << "Sim time: " << sim_time << '\n';
@@ -119,7 +121,7 @@ int main(int argc, char *argv[], char *envp[]) {
     check_status();
   }
 
-  nvdl_destroy();
+  std::cout << "The cpu does not terminate!\n";
   return 0;
 }
 
