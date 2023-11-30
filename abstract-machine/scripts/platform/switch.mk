@@ -16,7 +16,13 @@ CFLAGS += -DMAINARGS=\"$(mainargs)\"
 CFLAGS += -I$(AM_HOME)/am/src/platform/switch/include
 .PHONY: $(AM_HOME)/am/src/riscv/switch/trm.c
 
+IMEM_IMG = $(IMAGE).hex
+DMEM_IMG = $(IMAGE)_d.hex
+
 image: $(IMAGE).elf
 	@$(OBJDUMP) -d $(IMAGE).elf > $(IMAGE).txt
 	@echo + OBJCOPY "->" $(IMAGE_REL).bin
 	@$(OBJCOPY) -S --set-section-flags .bss=alloc,contents -O binary $(IMAGE).elf $(IMAGE).bin
+
+run: image
+	$(MAKE) -C $(SWITCH_HOME) IMEM_IMG="$(IMEM_IMG)" DMEM_IMG="$(DMEM_IMG)" PLATFORM=NVDL MODE=EVAL
