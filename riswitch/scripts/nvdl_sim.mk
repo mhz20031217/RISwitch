@@ -12,6 +12,7 @@ SIM_TIMESTAMP = $(BUILD_DIR)/.sim.$(SIM_TOP).timestamp
 VERILATOR_FLAGS += -DSIM --trace --top $(SIM_TOP) --public
 CSRCS += $(shell find $(abspath $(TEST_DIR)) $(CSRC_PATTERN))
 VSRCS += $(shell find $(abspath $(TEST_DIR)) $(VSRC_PATTERN))
+HEADERS += $(shell find $(abspath $(TEST_DIR)) $(HEADER_PATTERN))
 
 CFLAGS += $(addprefix -I,$(abspath $(INCLUDE_PATH)))
 
@@ -31,12 +32,12 @@ $(SIM_TIMESTAMP): $(BUILD_DIR)/$(BIN)
 	@cd $(BUILD_DIR) && ./$(BIN)
 	@touch $(SIM_TIMESTAMP)
 
-$(BUILD_DIR)/$(BIN): $(CSRCS) $(VSRCS)
+$(BUILD_DIR)/$(BIN): $(CSRCS) $(VSRCS) $(HEADERS)
+	@echo "### COMPILATION ###"
 	$(VERILATOR) $(VERILATOR_FLAGS) \
 		$(addprefix -CFLAGS , $(CFLAGS)) $(addprefix -LDFLAGS , $(LDFLAGS)) \
 		$(VSRCS) $(CSRCS) -o $(BIN)
 
 .PHONY: compile
 compile: $(BUILD_DIR)/$(BIN)
-	@echo "### COMPILATION ###"
 
