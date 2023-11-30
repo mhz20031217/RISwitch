@@ -4,7 +4,7 @@
 # Project type, PROJ_TYPE = {VERILOG, CHISEL}
 PROJ_TYPE = CHISEL
 # Used for NVDL, verilog dut. There should be exact one main() in $(TESTS_DIR)/$(TEST_NAME).
-SIM_TOP = Cpu
+SIM_TOP = System
 # Used for VIVADO, verilog testbench name
 SIM_TB = 
 # The current active test. Both the C++ testbench and verilog testbench should be in the corresponding directory.

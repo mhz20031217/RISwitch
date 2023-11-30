@@ -1,6 +1,4 @@
-#include "VCpu.h"
-#include "VCpu___024root.h"
-#include "VCpu__Syms.h"
+#include <VSystem.h>
 #include <iomanip>
 #include <verilated.h>
 #include <common.hpp>
@@ -8,7 +6,7 @@
 #include <unistd.h>
 #include <verilated_vcd_c.h>
 
-VCpu *dut;
+VSystem *dut;
 VerilatedVcdC *tracer;
 
 const uint64_t max_sim_time = 100000;
@@ -34,7 +32,7 @@ static void nvdl_init(int argc, char **argv) {
   Verilated::commandArgs(argc, argv);
   Verilated::traceEverOn(true);
   tracer = new VerilatedVcdC;
-  dut = new VCpu;
+  dut = new VSystem;
 
   dut->trace(tracer, 10);
   tracer->open("Cpu.vcd");
@@ -62,29 +60,16 @@ static void nvdl_loop_begin() {
     // printf("Start: %lu\n", sim_time);
   }
 #endif
-  // read InstrMem and DataMem on rising edge
-  paddr_t iaddr = dut->imemaddr;
-  paddr_t daddr = dut->dmemaddr;
-  vluint8_t dop = dut->dmemop;
   dut->clock = 1;
   dut->eval();
-  dut->imemdataout = imem_read(iaddr);
-  dut->dmemdataout = dmem_read(daddr, dop);
   sim_time += 1;
   tracer->dump(sim_time);
 }
 
 static void nvdl_loop_end() {
   // Writing DataMem on falling edge
-  paddr_t daddr = dut->dmemaddr;
-  vluint8_t dop = dut->dmemop;
-  word_t din = dut->dmemdatain;
-  vluint8_t dwe = dut->dmemwe;
   dut->clock = 0;
   dut->eval();
-  if (dwe) {
-    dmem_write(daddr, dop, din);
-  }
 #ifdef CLK_RT
   // ensure that 100000 cycles per 10ms (10^8Hz = 10MHz)
   // uncomment the printf statement to check whether the simulation is running fast enough
@@ -122,7 +107,7 @@ void check_status() {
 int main(int argc, char *argv[], char *envp[]) {
   nvdl_init(argc, argv);
 
-  while (true) {
+  while (sim_time < max_sim_time) {
     // std::cerr << "Sim time: " << sim_time << '\n';
     if (sim_time < 9) {
       dut->reset = 1;
