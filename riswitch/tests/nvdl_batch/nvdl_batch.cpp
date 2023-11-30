@@ -107,9 +107,6 @@ void run_test(const std::string name) {
   imem_load(("../tests/cpu_pipebatch/rv32ui-p-" + name + ".hex").c_str());
   dmem_load(("../tests/cpu_pipebatch/rv32ui-p-" + name + "_d.hex").c_str());
   
-  dut->eval();
-  tracer->dump(sim_time);
-
   while (sim_time - test_start_time < max_test_time && sim_time < max_sim_time) {
     // std::cerr << "Sim time: " << sim_time << '\n';
     if (sim_time - test_start_time < 9) {
@@ -121,7 +118,7 @@ void run_test(const std::string name) {
 //    printf("sim_time: %ld, pc: %x.\n", sim_time, dut->pc);
     nvdl_loop_end();
     if (check_status(name)) {
-      break;
+      return;
     }
   }
 
