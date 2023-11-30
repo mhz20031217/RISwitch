@@ -83,9 +83,9 @@ static void nvdl_loop_end() {
   tracer->dump(sim_time);
 }
 
-void check_status(const std::string& name) {
+bool check_status(const std::string& name) {
   if (!dut->halt) {
-    return;
+    return false;
   }
   for (int i = 0; i < 5; i ++) {
     nvdl_loop_begin();
@@ -94,8 +94,10 @@ void check_status(const std::string& name) {
   
   if (dut->trap) {
     std::cout << "[" << name << "] Hit GOOD trap.\n"; 
+    return true;
   } else {
     std::cout << "[" << name << "] Hit BAD trap.\n";
+    return true;
   }
 }
 
@@ -118,7 +120,9 @@ void run_test(const std::string name) {
     nvdl_loop_begin();
 //    printf("sim_time: %ld, pc: %x.\n", sim_time, dut->pc);
     nvdl_loop_end();
-    check_status(name);
+    if (check_status(name)) {
+      break;
+    }
   }
 
   std::cout << "The cpu does not terminate!\n";
