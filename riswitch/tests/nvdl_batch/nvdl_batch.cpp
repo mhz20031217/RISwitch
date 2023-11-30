@@ -46,7 +46,10 @@ static void nvdl_init(int argc, char **argv) {
   clk_cnt = 0;
 }
 
-static void nvdl_destroy() { delete dut; }
+static void nvdl_destroy() { 
+  delete tracer;
+  delete dut; 
+}
 
 static void nvdl_loop_begin() {
 #ifdef CLK_RT
