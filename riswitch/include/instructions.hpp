@@ -5,10 +5,10 @@
 #include <vector>
 
 const std::vector<std::string> instructions = {
-    "add",    "addi", "and",  "andi",    "auipc", "beq",   "bge",  "bgeu",
-    "blt",    "bltu", "bne",  "fence_i", "jal",   "jalr",  "lb",   "lbu",
-    "lh",     "lhu",  "lui",  "lw",      "or",    "ori",   "sb",   "sh",
-    "simple", "sll",  "slli", "slt",     "slti",  "sltiu", "sltu", "sra",
-    "srai",   "srl",  "srli", "sub",     "sw",    "xor",   "xori"};
+    "add", "addi", "and", "andi", "auipc", "beq",  "bge", "bgeu",
+    "blt", "bltu", "bne", "jal",  "jalr",  "lb",   "lbu", "lh",
+    "lhu", "lui",  "lw",  "or",   "ori",   "sb",   "sh",  "simple",
+    "sll", "slli", "slt", "slti", "sltiu", "sltu", "sra", "srai",
+    "srl", "srli", "sub", "sw",   "xor",   "xori"};
 
 #endif // !_INSTRUCTIONS_HPP_
