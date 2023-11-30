@@ -19,9 +19,9 @@ wave: $(WAVE)
 	@echo "### WAVEFORM ###"
 	@$(GTKWAVE) --save=$(WAVECFG) --saveonexit $(WAVE)
 
-$(WAVE):sim
+$(WAVE): sim
 
-.PHONY: sim
+# .PHONY: sim
 sim: compile
 	$(call git_commit, "sim RTL")
 	@echo "### SIMULATION ###"
