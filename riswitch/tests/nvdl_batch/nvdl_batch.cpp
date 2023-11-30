@@ -118,7 +118,7 @@ void run_test(const std::string name) {
       dut->reset = 0;
     }
     nvdl_loop_begin();
-    //    printf("sim_time: %ld, pc: %x.\n", sim_time, dut->pc);
+    printf("sim_time: %ld, pc: %x.\n", sim_time, dut->pc);
     nvdl_loop_end();
     if (check_status(name)) {
       return;
