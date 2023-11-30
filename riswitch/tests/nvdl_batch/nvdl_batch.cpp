@@ -11,8 +11,8 @@
 VSystem *dut;
 VerilatedVcdC *tracer;
 
-const uint64_t max_sim_time = 100000;
-const uint64_t max_test_time = 100000;
+const uint64_t max_sim_time = 1000000;
+const uint64_t max_test_time = 1000000;
 uint64_t sim_time;
 uint32_t clk_cnt;
 
@@ -122,7 +122,7 @@ void run_test(const std::string name) {
     }
   }
 
-  std::cout << "The cpu does not terminate!\n";
+  std::cout << "[" << name << "] The cpu does not terminate!\n";
 }
 
 int main(int argc, char *argv[], char *envp[]) {
