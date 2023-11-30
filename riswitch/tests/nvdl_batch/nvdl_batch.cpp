@@ -39,7 +39,7 @@ static void nvdl_init(int argc, char **argv) {
   dut = new VSystem;
 
   dut->trace(tracer, 10);
-  tracer->open("Cpu.vcd");
+  tracer->open("System.vcd");
 
   dut->clock = 0; // starting on rising edge
   sim_time = 0;
