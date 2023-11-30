@@ -43,8 +43,8 @@ static void nvdl_init(int argc, char **argv) {
   clk_cnt = 0;
 
   // load memory
-  imem_load("../tests/cpu_pipebatch/rv32ui-p-sb.hex");
-  dmem_load("../tests/cpu_pipebatch/rv32ui-p-sb_d.hex");
+  imem_load("../tests/cpu_pipebatch/rv32ui-p-sh.hex");
+  dmem_load("../tests/cpu_pipebatch/rv32ui-p-sh_d.hex");
   
   dut->eval();
   tracer->dump(sim_time);
