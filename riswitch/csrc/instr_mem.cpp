@@ -13,16 +13,15 @@ void imem_load(const char *filename) {
   while (fgets(buf, 64, fp)) {
     if (buf[0] == '@') {
       int rc = sscanf(buf + 1, "%x", &i);
-      assert(i%4 == 0);
       i %= IMEM_SIZE;
       continue;
     }
     if (i >= IMEM_SIZE/4) {
       assert(0);
     }
-    int rc = sscanf(buf, "%x", &mem[i/4]);
+    int rc = sscanf(buf, "%x", &mem[i]);
     assert(rc);
-    i += 4;
+    i ++;
   }
   fclose(fp);
 }

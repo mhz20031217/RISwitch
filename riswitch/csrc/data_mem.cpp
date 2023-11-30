@@ -22,12 +22,12 @@ void dmem_load(const char *filename) {
       i = i % DMEM_SIZE;
       continue;
     }
-    if (i >= IMEM_SIZE/4) {
-      assert(0);
+    if (i >= DMEM_SIZE/4) {
+     assert(0);
     }
-    int rc = sscanf(buf, "%x", &mem[i/4]);
+    int rc = sscanf(buf, "%x", &mem[i]);
     assert(rc);
-    i += 4;
+    i++ ;
   }
   fclose(fp);
 }
