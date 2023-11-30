@@ -17,7 +17,7 @@ CFLAGS += $(addprefix -I,$(abspath $(INCLUDE_PATH)))
 .PHONY: wave
 wave: $(WAVE)
 	@echo "### WAVEFORM ###"
-	@$(GTKWAVE) --savefile $(WAVECFG) --saveonexit $(WAVE)
+	@$(GTKWAVE) --save=$(WAVECFG) --saveonexit $(WAVE)
 
 $(WAVE):sim
 
