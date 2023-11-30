@@ -29,6 +29,7 @@ $(SIM_TIMESTAMP): compile
 	$(call git_commit, "sim RTL")
 	@echo "### SIMULATION ###"
 	@cd $(BUILD_DIR) && ./$(BIN)
+	@touch $(SIM_TIMESTAMP)
 
 $(BUILD_DIR)/$(BIN): $(CSRCS) $(VSRCS)
 	$(VERILATOR) $(VERILATOR_FLAGS) \
