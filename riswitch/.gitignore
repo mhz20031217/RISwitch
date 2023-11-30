@@ -26,6 +26,8 @@
 !*.xdc
 !*.nxdc
 !*.sh
+!/doc
+!/doc/**
 
 # Chisel support
 !/CPipe
