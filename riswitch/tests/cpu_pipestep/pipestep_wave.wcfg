@@ -1,0 +1,510 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="cpu_single_vlg_tst_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="cpu_single_vlg_tst" />
+            <top_module name="glbl" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="1280773fs"></ZoomStartTime>
+      <ZoomEndTime time="1474374fs"></ZoomEndTime>
+      <Cursor1Time time="1409173fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="228"></NameColumnWidth>
+      <ValueColumnWidth column_width="78"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="121" />
+   <wave_markers>
+      <marker label="" time="1394000" />
+   </wave_markers>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/numcycles">
+      <obj_property name="ElementShortName">numcycles[31:0]</obj_property>
+      <obj_property name="ObjectShortName">numcycles[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/cpu_single_vlg_tst/clk">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/cpu_single_vlg_tst/reset">
+      <obj_property name="ElementShortName">reset</obj_property>
+      <obj_property name="ObjectShortName">reset</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/testcase">
+      <obj_property name="ElementShortName">testcase[64:1]</obj_property>
+      <obj_property name="ObjectShortName">testcase[64:1]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/iaddr">
+      <obj_property name="ElementShortName">iaddr[31:0]</obj_property>
+      <obj_property name="ObjectShortName">iaddr[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/idataout">
+      <obj_property name="ElementShortName">idataout[31:0]</obj_property>
+      <obj_property name="ObjectShortName">idataout[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/cpu_single_vlg_tst/iclk">
+      <obj_property name="ElementShortName">iclk</obj_property>
+      <obj_property name="ObjectShortName">iclk</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/daddr">
+      <obj_property name="ElementShortName">daddr[31:0]</obj_property>
+      <obj_property name="ObjectShortName">daddr[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/ddataout">
+      <obj_property name="ElementShortName">ddataout[31:0]</obj_property>
+      <obj_property name="ObjectShortName">ddataout[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/ddatain">
+      <obj_property name="ElementShortName">ddatain[31:0]</obj_property>
+      <obj_property name="ObjectShortName">ddatain[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/cpu_single_vlg_tst/drdclk">
+      <obj_property name="ElementShortName">drdclk</obj_property>
+      <obj_property name="ObjectShortName">drdclk</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/cpu_single_vlg_tst/dwrclk">
+      <obj_property name="ElementShortName">dwrclk</obj_property>
+      <obj_property name="ObjectShortName">dwrclk</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/cpu_single_vlg_tst/dwe">
+      <obj_property name="ElementShortName">dwe</obj_property>
+      <obj_property name="ObjectShortName">dwe</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/dop">
+      <obj_property name="ElementShortName">dop[2:0]</obj_property>
+      <obj_property name="ObjectShortName">dop[2:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/cpudbgdata">
+      <obj_property name="ElementShortName">cpudbgdata[31:0]</obj_property>
+      <obj_property name="ObjectShortName">cpudbgdata[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/maxcycles">
+      <obj_property name="ElementShortName">maxcycles[31:0]</obj_property>
+      <obj_property name="ObjectShortName">maxcycles[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="divider17" type="divider">
+      <obj_property name="label">Core</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/cpu_single_vlg_tst/mycpu/core/clock">
+      <obj_property name="ElementShortName">clock</obj_property>
+      <obj_property name="ObjectShortName">clock</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/cpu_single_vlg_tst/mycpu/core/reset">
+      <obj_property name="ElementShortName">reset</obj_property>
+      <obj_property name="ObjectShortName">reset</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/mycpu/core/io_imem_addr">
+      <obj_property name="ElementShortName">io_imem_addr[31:0]</obj_property>
+      <obj_property name="ObjectShortName">io_imem_addr[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/mycpu/core/io_imem_instr">
+      <obj_property name="ElementShortName">io_imem_instr[31:0]</obj_property>
+      <obj_property name="ObjectShortName">io_imem_instr[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/mycpu/core/io_dmem_addr">
+      <obj_property name="ElementShortName">io_dmem_addr[31:0]</obj_property>
+      <obj_property name="ObjectShortName">io_dmem_addr[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/mycpu/core/io_dmem_din">
+      <obj_property name="ElementShortName">io_dmem_din[31:0]</obj_property>
+      <obj_property name="ObjectShortName">io_dmem_din[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/mycpu/core/io_dmem_dout">
+      <obj_property name="ElementShortName">io_dmem_dout[31:0]</obj_property>
+      <obj_property name="ObjectShortName">io_dmem_dout[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/mycpu/core/io_dmem_memOp">
+      <obj_property name="ElementShortName">io_dmem_memOp[2:0]</obj_property>
+      <obj_property name="ObjectShortName">io_dmem_memOp[2:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/cpu_single_vlg_tst/mycpu/core/io_dmem_memWe">
+      <obj_property name="ElementShortName">io_dmem_memWe</obj_property>
+      <obj_property name="ObjectShortName">io_dmem_memWe</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/mycpu/core/io_pc">
+      <obj_property name="ElementShortName">io_pc[31:0]</obj_property>
+      <obj_property name="ObjectShortName">io_pc[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/mycpu/core/contrGen_io_i">
+      <obj_property name="ElementShortName">contrGen_io_i[31:0]</obj_property>
+      <obj_property name="ObjectShortName">contrGen_io_i[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/cpu_single_vlg_tst/mycpu/core/contrGen_io_c_aluASrc">
+      <obj_property name="ElementShortName">contrGen_io_c_aluASrc</obj_property>
+      <obj_property name="ObjectShortName">contrGen_io_c_aluASrc</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/mycpu/core/contrGen_io_c_aluBSrc">
+      <obj_property name="ElementShortName">contrGen_io_c_aluBSrc[1:0]</obj_property>
+      <obj_property name="ObjectShortName">contrGen_io_c_aluBSrc[1:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/mycpu/core/contrGen_io_c_aluOp">
+      <obj_property name="ElementShortName">contrGen_io_c_aluOp[3:0]</obj_property>
+      <obj_property name="ObjectShortName">contrGen_io_c_aluOp[3:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/cpu_single_vlg_tst/mycpu/core/contrGen_io_c_regWe">
+      <obj_property name="ElementShortName">contrGen_io_c_regWe</obj_property>
+      <obj_property name="ObjectShortName">contrGen_io_c_regWe</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/cpu_single_vlg_tst/mycpu/core/contrGen_io_c_memToReg">
+      <obj_property name="ElementShortName">contrGen_io_c_memToReg</obj_property>
+      <obj_property name="ObjectShortName">contrGen_io_c_memToReg</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/cpu_single_vlg_tst/mycpu/core/contrGen_io_c_memWe">
+      <obj_property name="ElementShortName">contrGen_io_c_memWe</obj_property>
+      <obj_property name="ObjectShortName">contrGen_io_c_memWe</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/mycpu/core/contrGen_io_c_memOp">
+      <obj_property name="ElementShortName">contrGen_io_c_memOp[2:0]</obj_property>
+      <obj_property name="ObjectShortName">contrGen_io_c_memOp[2:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/mycpu/core/contrGen_io_c_branch">
+      <obj_property name="ElementShortName">contrGen_io_c_branch[2:0]</obj_property>
+      <obj_property name="ObjectShortName">contrGen_io_c_branch[2:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/mycpu/core/contrGen_io_extOp">
+      <obj_property name="ElementShortName">contrGen_io_extOp[2:0]</obj_property>
+      <obj_property name="ObjectShortName">contrGen_io_extOp[2:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/mycpu/core/immGen_io_instr">
+      <obj_property name="ElementShortName">immGen_io_instr[31:0]</obj_property>
+      <obj_property name="ObjectShortName">immGen_io_instr[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/mycpu/core/immGen_io_extOp">
+      <obj_property name="ElementShortName">immGen_io_extOp[2:0]</obj_property>
+      <obj_property name="ObjectShortName">immGen_io_extOp[2:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/mycpu/core/immGen_io_imm">
+      <obj_property name="ElementShortName">immGen_io_imm[31:0]</obj_property>
+      <obj_property name="ObjectShortName">immGen_io_imm[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/mycpu/core/alu_io_aluOp">
+      <obj_property name="ElementShortName">alu_io_aluOp[3:0]</obj_property>
+      <obj_property name="ObjectShortName">alu_io_aluOp[3:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/mycpu/core/alu_io_a">
+      <obj_property name="ElementShortName">alu_io_a[31:0]</obj_property>
+      <obj_property name="ObjectShortName">alu_io_a[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/mycpu/core/alu_io_b">
+      <obj_property name="ElementShortName">alu_io_b[31:0]</obj_property>
+      <obj_property name="ObjectShortName">alu_io_b[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/mycpu/core/alu_io_f">
+      <obj_property name="ElementShortName">alu_io_f[31:0]</obj_property>
+      <obj_property name="ObjectShortName">alu_io_f[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/cpu_single_vlg_tst/mycpu/core/alu_io_zero">
+      <obj_property name="ElementShortName">alu_io_zero</obj_property>
+      <obj_property name="ObjectShortName">alu_io_zero</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/cpu_single_vlg_tst/mycpu/core/alu_io_less">
+      <obj_property name="ElementShortName">alu_io_less</obj_property>
+      <obj_property name="ObjectShortName">alu_io_less</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/mycpu/core/branchCond_io_branch">
+      <obj_property name="ElementShortName">branchCond_io_branch[2:0]</obj_property>
+      <obj_property name="ObjectShortName">branchCond_io_branch[2:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/cpu_single_vlg_tst/mycpu/core/branchCond_io_less">
+      <obj_property name="ElementShortName">branchCond_io_less</obj_property>
+      <obj_property name="ObjectShortName">branchCond_io_less</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/cpu_single_vlg_tst/mycpu/core/branchCond_io_zero">
+      <obj_property name="ElementShortName">branchCond_io_zero</obj_property>
+      <obj_property name="ObjectShortName">branchCond_io_zero</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/cpu_single_vlg_tst/mycpu/core/branchCond_io_branchSel">
+      <obj_property name="ElementShortName">branchCond_io_branchSel</obj_property>
+      <obj_property name="ObjectShortName">branchCond_io_branchSel</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/cpu_single_vlg_tst/mycpu/core/branchCond_io_pcSrc">
+      <obj_property name="ElementShortName">branchCond_io_pcSrc</obj_property>
+      <obj_property name="ObjectShortName">branchCond_io_pcSrc</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/cpu_single_vlg_tst/mycpu/core/branchCond_io_flushIf">
+      <obj_property name="ElementShortName">branchCond_io_flushIf</obj_property>
+      <obj_property name="ObjectShortName">branchCond_io_flushIf</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/cpu_single_vlg_tst/mycpu/core/branchCond_io_flushId">
+      <obj_property name="ElementShortName">branchCond_io_flushId</obj_property>
+      <obj_property name="ObjectShortName">branchCond_io_flushId</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/mycpu/core/forwardUnit_io_mem_rd">
+      <obj_property name="ElementShortName">forwardUnit_io_mem_rd[4:0]</obj_property>
+      <obj_property name="ObjectShortName">forwardUnit_io_mem_rd[4:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/mycpu/core/forwardUnit_io_wb_rd">
+      <obj_property name="ElementShortName">forwardUnit_io_wb_rd[4:0]</obj_property>
+      <obj_property name="ObjectShortName">forwardUnit_io_wb_rd[4:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/cpu_single_vlg_tst/mycpu/core/forwardUnit_io_mem_memToReg">
+      <obj_property name="ElementShortName">forwardUnit_io_mem_memToReg</obj_property>
+      <obj_property name="ObjectShortName">forwardUnit_io_mem_memToReg</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/cpu_single_vlg_tst/mycpu/core/forwardUnit_io_mem_regWe">
+      <obj_property name="ElementShortName">forwardUnit_io_mem_regWe</obj_property>
+      <obj_property name="ObjectShortName">forwardUnit_io_mem_regWe</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/cpu_single_vlg_tst/mycpu/core/forwardUnit_io_wb_regWe">
+      <obj_property name="ElementShortName">forwardUnit_io_wb_regWe</obj_property>
+      <obj_property name="ObjectShortName">forwardUnit_io_wb_regWe</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/mycpu/core/forwardUnit_io_ex_rs1">
+      <obj_property name="ElementShortName">forwardUnit_io_ex_rs1[4:0]</obj_property>
+      <obj_property name="ObjectShortName">forwardUnit_io_ex_rs1[4:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/mycpu/core/forwardUnit_io_ex_rs2">
+      <obj_property name="ElementShortName">forwardUnit_io_ex_rs2[4:0]</obj_property>
+      <obj_property name="ObjectShortName">forwardUnit_io_ex_rs2[4:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/cpu_single_vlg_tst/mycpu/core/forwardUnit_io_stallIf">
+      <obj_property name="ElementShortName">forwardUnit_io_stallIf</obj_property>
+      <obj_property name="ObjectShortName">forwardUnit_io_stallIf</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/cpu_single_vlg_tst/mycpu/core/forwardUnit_io_stallId">
+      <obj_property name="ElementShortName">forwardUnit_io_stallId</obj_property>
+      <obj_property name="ObjectShortName">forwardUnit_io_stallId</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/cpu_single_vlg_tst/mycpu/core/forwardUnit_io_stallEx">
+      <obj_property name="ElementShortName">forwardUnit_io_stallEx</obj_property>
+      <obj_property name="ObjectShortName">forwardUnit_io_stallEx</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/cpu_single_vlg_tst/mycpu/core/forwardUnit_io_flushEx">
+      <obj_property name="ElementShortName">forwardUnit_io_flushEx</obj_property>
+      <obj_property name="ObjectShortName">forwardUnit_io_flushEx</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/mycpu/core/forwardUnit_io_ex_rs1_sel">
+      <obj_property name="ElementShortName">forwardUnit_io_ex_rs1_sel[1:0]</obj_property>
+      <obj_property name="ObjectShortName">forwardUnit_io_ex_rs1_sel[1:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/mycpu/core/forwardUnit_io_ex_rs2_sel">
+      <obj_property name="ElementShortName">forwardUnit_io_ex_rs2_sel[1:0]</obj_property>
+      <obj_property name="ObjectShortName">forwardUnit_io_ex_rs2_sel[1:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/cpu_single_vlg_tst/mycpu/core/forwardUnit_io_id_rs1_sel">
+      <obj_property name="ElementShortName">forwardUnit_io_id_rs1_sel</obj_property>
+      <obj_property name="ObjectShortName">forwardUnit_io_id_rs1_sel</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/cpu_single_vlg_tst/mycpu/core/forwardUnit_io_id_rs2_sel">
+      <obj_property name="ElementShortName">forwardUnit_io_id_rs2_sel</obj_property>
+      <obj_property name="ObjectShortName">forwardUnit_io_id_rs2_sel</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/cpu_single_vlg_tst/mycpu/core/regFile_clock">
+      <obj_property name="ElementShortName">regFile_clock</obj_property>
+      <obj_property name="ObjectShortName">regFile_clock</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/mycpu/core/regFile_io_ra">
+      <obj_property name="ElementShortName">regFile_io_ra[4:0]</obj_property>
+      <obj_property name="ObjectShortName">regFile_io_ra[4:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/mycpu/core/regFile_io_rb">
+      <obj_property name="ElementShortName">regFile_io_rb[4:0]</obj_property>
+      <obj_property name="ObjectShortName">regFile_io_rb[4:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/mycpu/core/regFile_io_rw">
+      <obj_property name="ElementShortName">regFile_io_rw[4:0]</obj_property>
+      <obj_property name="ObjectShortName">regFile_io_rw[4:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/cpu_single_vlg_tst/mycpu/core/regFile_io_we">
+      <obj_property name="ElementShortName">regFile_io_we</obj_property>
+      <obj_property name="ObjectShortName">regFile_io_we</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/mycpu/core/regFile_io_busA">
+      <obj_property name="ElementShortName">regFile_io_busA[31:0]</obj_property>
+      <obj_property name="ObjectShortName">regFile_io_busA[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/mycpu/core/regFile_io_busB">
+      <obj_property name="ElementShortName">regFile_io_busB[31:0]</obj_property>
+      <obj_property name="ObjectShortName">regFile_io_busB[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/mycpu/core/regFile_io_busW">
+      <obj_property name="ElementShortName">regFile_io_busW[31:0]</obj_property>
+      <obj_property name="ObjectShortName">regFile_io_busW[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/mycpu/core/fd_reg_pc">
+      <obj_property name="ElementShortName">fd_reg_pc[31:0]</obj_property>
+      <obj_property name="ObjectShortName">fd_reg_pc[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/mycpu/core/fd_reg_instr">
+      <obj_property name="ElementShortName">fd_reg_instr[31:0]</obj_property>
+      <obj_property name="ObjectShortName">fd_reg_instr[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/mycpu/core/de_reg_pc">
+      <obj_property name="ElementShortName">de_reg_pc[31:0]</obj_property>
+      <obj_property name="ObjectShortName">de_reg_pc[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/mycpu/core/de_reg_imm">
+      <obj_property name="ElementShortName">de_reg_imm[31:0]</obj_property>
+      <obj_property name="ObjectShortName">de_reg_imm[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/mycpu/core/de_reg_rs1">
+      <obj_property name="ElementShortName">de_reg_rs1[4:0]</obj_property>
+      <obj_property name="ObjectShortName">de_reg_rs1[4:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/mycpu/core/de_reg_rs2">
+      <obj_property name="ElementShortName">de_reg_rs2[4:0]</obj_property>
+      <obj_property name="ObjectShortName">de_reg_rs2[4:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/mycpu/core/de_reg_rd">
+      <obj_property name="ElementShortName">de_reg_rd[4:0]</obj_property>
+      <obj_property name="ObjectShortName">de_reg_rd[4:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/mycpu/core/de_reg_rs1Data">
+      <obj_property name="ElementShortName">de_reg_rs1Data[31:0]</obj_property>
+      <obj_property name="ObjectShortName">de_reg_rs1Data[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/mycpu/core/de_reg_rs2Data">
+      <obj_property name="ElementShortName">de_reg_rs2Data[31:0]</obj_property>
+      <obj_property name="ObjectShortName">de_reg_rs2Data[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/cpu_single_vlg_tst/mycpu/core/de_reg_c_aluASrc">
+      <obj_property name="ElementShortName">de_reg_c_aluASrc</obj_property>
+      <obj_property name="ObjectShortName">de_reg_c_aluASrc</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/mycpu/core/de_reg_c_aluBSrc">
+      <obj_property name="ElementShortName">de_reg_c_aluBSrc[1:0]</obj_property>
+      <obj_property name="ObjectShortName">de_reg_c_aluBSrc[1:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/mycpu/core/de_reg_c_aluOp">
+      <obj_property name="ElementShortName">de_reg_c_aluOp[3:0]</obj_property>
+      <obj_property name="ObjectShortName">de_reg_c_aluOp[3:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/cpu_single_vlg_tst/mycpu/core/de_reg_c_regWe">
+      <obj_property name="ElementShortName">de_reg_c_regWe</obj_property>
+      <obj_property name="ObjectShortName">de_reg_c_regWe</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/cpu_single_vlg_tst/mycpu/core/de_reg_c_memToReg">
+      <obj_property name="ElementShortName">de_reg_c_memToReg</obj_property>
+      <obj_property name="ObjectShortName">de_reg_c_memToReg</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/cpu_single_vlg_tst/mycpu/core/de_reg_c_memWe">
+      <obj_property name="ElementShortName">de_reg_c_memWe</obj_property>
+      <obj_property name="ObjectShortName">de_reg_c_memWe</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/mycpu/core/de_reg_c_memOp">
+      <obj_property name="ElementShortName">de_reg_c_memOp[2:0]</obj_property>
+      <obj_property name="ObjectShortName">de_reg_c_memOp[2:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/mycpu/core/de_reg_c_branch">
+      <obj_property name="ElementShortName">de_reg_c_branch[2:0]</obj_property>
+      <obj_property name="ObjectShortName">de_reg_c_branch[2:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/mycpu/core/em_reg_aluF">
+      <obj_property name="ElementShortName">em_reg_aluF[31:0]</obj_property>
+      <obj_property name="ObjectShortName">em_reg_aluF[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/mycpu/core/em_reg_rs2Data">
+      <obj_property name="ElementShortName">em_reg_rs2Data[31:0]</obj_property>
+      <obj_property name="ObjectShortName">em_reg_rs2Data[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/mycpu/core/em_reg_rd">
+      <obj_property name="ElementShortName">em_reg_rd[4:0]</obj_property>
+      <obj_property name="ObjectShortName">em_reg_rd[4:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/cpu_single_vlg_tst/mycpu/core/em_reg_c_regWe">
+      <obj_property name="ElementShortName">em_reg_c_regWe</obj_property>
+      <obj_property name="ObjectShortName">em_reg_c_regWe</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/cpu_single_vlg_tst/mycpu/core/em_reg_c_memToReg">
+      <obj_property name="ElementShortName">em_reg_c_memToReg</obj_property>
+      <obj_property name="ObjectShortName">em_reg_c_memToReg</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/cpu_single_vlg_tst/mycpu/core/em_reg_c_memWe">
+      <obj_property name="ElementShortName">em_reg_c_memWe</obj_property>
+      <obj_property name="ObjectShortName">em_reg_c_memWe</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/mycpu/core/em_reg_c_memOp">
+      <obj_property name="ElementShortName">em_reg_c_memOp[2:0]</obj_property>
+      <obj_property name="ObjectShortName">em_reg_c_memOp[2:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/cpu_single_vlg_tst/mycpu/core/mw_reg_memToReg">
+      <obj_property name="ElementShortName">mw_reg_memToReg</obj_property>
+      <obj_property name="ObjectShortName">mw_reg_memToReg</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/cpu_single_vlg_tst/mycpu/core/mw_reg_regWe">
+      <obj_property name="ElementShortName">mw_reg_regWe</obj_property>
+      <obj_property name="ObjectShortName">mw_reg_regWe</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/mycpu/core/mw_reg_rd">
+      <obj_property name="ElementShortName">mw_reg_rd[4:0]</obj_property>
+      <obj_property name="ObjectShortName">mw_reg_rd[4:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/mycpu/core/mw_reg_aluF">
+      <obj_property name="ElementShortName">mw_reg_aluF[31:0]</obj_property>
+      <obj_property name="ObjectShortName">mw_reg_aluF[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/mycpu/core/mw_reg_memOut">
+      <obj_property name="ElementShortName">mw_reg_memOut[31:0]</obj_property>
+      <obj_property name="ObjectShortName">mw_reg_memOut[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/mycpu/core/pc">
+      <obj_property name="ElementShortName">pc[31:0]</obj_property>
+      <obj_property name="ObjectShortName">pc[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/mycpu/core/_pc_T_1">
+      <obj_property name="ElementShortName">_pc_T_1[31:0]</obj_property>
+      <obj_property name="ObjectShortName">_pc_T_1[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/mycpu/core/busW">
+      <obj_property name="ElementShortName">busW[31:0]</obj_property>
+      <obj_property name="ObjectShortName">busW[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/mycpu/core/_ex_rs1Data_T_3">
+      <obj_property name="ElementShortName">_ex_rs1Data_T_3[31:0]</obj_property>
+      <obj_property name="ObjectShortName">_ex_rs1Data_T_3[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/mycpu/core/ex_rs1Data">
+      <obj_property name="ElementShortName">ex_rs1Data[31:0]</obj_property>
+      <obj_property name="ObjectShortName">ex_rs1Data[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/mycpu/core/_branchTarget_T">
+      <obj_property name="ElementShortName">_branchTarget_T[31:0]</obj_property>
+      <obj_property name="ObjectShortName">_branchTarget_T[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/mycpu/core/branchTarget">
+      <obj_property name="ElementShortName">branchTarget[31:0]</obj_property>
+      <obj_property name="ObjectShortName">branchTarget[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/mycpu/core/id_rd">
+      <obj_property name="ElementShortName">id_rd[4:0]</obj_property>
+      <obj_property name="ObjectShortName">id_rd[4:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/mycpu/core/id_rs1">
+      <obj_property name="ElementShortName">id_rs1[4:0]</obj_property>
+      <obj_property name="ObjectShortName">id_rs1[4:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/mycpu/core/id_rs2">
+      <obj_property name="ElementShortName">id_rs2[4:0]</obj_property>
+      <obj_property name="ObjectShortName">id_rs2[4:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/mycpu/core/regfile_busA">
+      <obj_property name="ElementShortName">regfile_busA[31:0]</obj_property>
+      <obj_property name="ObjectShortName">regfile_busA[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/mycpu/core/_ex_rs2Data_T_3">
+      <obj_property name="ElementShortName">_ex_rs2Data_T_3[31:0]</obj_property>
+      <obj_property name="ObjectShortName">_ex_rs2Data_T_3[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/mycpu/core/ex_rs2Data">
+      <obj_property name="ElementShortName">ex_rs2Data[31:0]</obj_property>
+      <obj_property name="ObjectShortName">ex_rs2Data[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/mycpu/core/regfile_busB">
+      <obj_property name="ElementShortName">regfile_busB[31:0]</obj_property>
+      <obj_property name="ObjectShortName">regfile_busB[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/mycpu/core/_alu_io_b_T_1">
+      <obj_property name="ElementShortName">_alu_io_b_T_1[31:0]</obj_property>
+      <obj_property name="ObjectShortName">_alu_io_b_T_1[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/cpu_single_vlg_tst/mycpu/core/_alu_io_b_T_3">
+      <obj_property name="ElementShortName">_alu_io_b_T_3[31:0]</obj_property>
+      <obj_property name="ObjectShortName">_alu_io_b_T_3[31:0]</obj_property>
+   </wvobject>
+</wave_config>
