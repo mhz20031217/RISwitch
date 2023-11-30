@@ -31,6 +31,7 @@ wire extendBit;
 
 always @(posedge clkRd) begin
   dmem_read(addr, rdBuf);
+  $display("dmem_read(addr = %x, memOp = %x) = %x -> %x", addr, memOp, rdBuf, dout);
 end
 
 always @(*) begin
