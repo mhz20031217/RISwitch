@@ -31,12 +31,12 @@ wire extendBit;
 
 always @(posedge clkRd) begin
   dmem_read(addr, rdBuf);
-  $display("dmem_read(addr = %x, memOp = %x) = %x -> %x", addr, memOp, rdBuf, dout);
+  // $display("dmem_read(addr = %x, memOp = %x) = %x -> %x", addr, memOp, rdBuf, dout);
 end
 
 always @(*) begin
   // `ifdef CONFIG_MTRACE
-  $display("dmem_read(addr = %x, memOp = %x) = %x", addr, memOp, dout);
+  // $display("dmem_read(addr = %x, memOp = %x) = %x", addr, memOp, dout);
   // `endif
 end
 
@@ -59,7 +59,7 @@ always @(posedge clkWr) begin
   if (we) begin
     dmem_write(addr, wrBuf, {4'b0, wmask});
     // `ifdef CONFIG_MTRACE
-    $display("dmem_write(addr = %x, memOp = %x, data = %x)", addr, memOp, din);
+    // $display("dmem_write(addr = %x, memOp = %x, data = %x)", addr, memOp, din);
     // `endif
   end
 end
