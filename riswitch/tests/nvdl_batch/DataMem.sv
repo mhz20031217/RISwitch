@@ -43,9 +43,9 @@ end
 assign extendBit = (memOp == M_LBU || memOp == M_LHU) ? 0 : 1;
 assign validRd =
   (offset == 2'd0) ? rdBuf :
-  (offset == 2'd1) ? {8'b0, rdBuf[23:0]} :
-  (offset == 2'd2) ? {16'b0, rdBuf[15:0]} :
-  (offset == 2'd3) ? {24'b0, rdBuf[7:0]} :
+  (offset == 2'd1) ? {8'b0, rdBuf[31:8]} :
+  (offset == 2'd2) ? {16'b0, rdBuf[31:16]} :
+  (offset == 2'd3) ? {24'b0, rdBuf[31:24]} :
   32'd0;
 
 assign dout = 
