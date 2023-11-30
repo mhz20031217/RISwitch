@@ -93,10 +93,10 @@ bool check_status(const std::string& name) {
   } 
   
   if (dut->trap) {
-    std::cout << "[" << name << "]\t\tHit GOOD trap.\n"; 
+    std::cout << "[" << name << "]\tHit GOOD trap.\n"; 
     return true;
   } else {
-    std::cout << "[" << name << "]\t\tHit BAD trap.\n";
+    std::cout << "[" << name << "]\tHit BAD trap.\n";
     return true;
   }
 }
