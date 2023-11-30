@@ -52,8 +52,7 @@ extern "C" void dmem_write(paddr_t addr, word_t data, vluint8_t wmask) {
   word_t x = mem[index >> 2] & ~mask;
   x |= mask & data;
   // debug
-  if (addr == 0x2002) {
-    printf("0x2002 (mem[0x800]) changed from %x to %x.\n", mem[index >> 2], x);
+  if (0x2000 <= addr && addr < 0x2010) {
     printf("C dmem_write %x (mem[%lx]) changed from %x to %x.\n", addr, index >> 2, mem[index >> 2], x);
   }
   mem[index >> 2] = x;
