@@ -117,6 +117,7 @@ int main(int argc, char *argv[], char *envp[]) {
       dut->reset = 0;
     }
     nvdl_loop_begin();
+    printf("sim_time: %ld, pc: %x.\n", sim_time, dut->pc);
     nvdl_loop_end();
     check_status();
   }
