@@ -12,5 +12,5 @@
 //     "srl", "srli", "sub", "sw",   "xor",   "xori"};
 
 const std::vector<std::string> instructions = {"lb", "lbu", "lh", "lhu",
-                                               "lw", "sb",  "sh", "sw"};
+                                               "lw", "sb",  "sh"};
 #endif // !_INSTRUCTIONS_HPP_
