@@ -25,7 +25,7 @@ $(WAVE): $(SIM_TIMESTAMP)
 .PHONY: sim
 sim: $(SIM_TIMESTAMP)
 
-$(SIM_TIMESTAMP): compile
+$(SIM_TIMESTAMP): $(BUILD_DIR)/$(BIN)
 	$(call git_commit, "sim RTL")
 	@echo "### SIMULATION ###"
 	@cd $(BUILD_DIR) && ./$(BIN)
