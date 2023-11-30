@@ -6,11 +6,13 @@
 #include <memory.hpp>
 #include <unistd.h>
 #include <verilated_vcd_c.h>
+#include <instructions.hpp>
 
 VSystem *dut;
 VerilatedVcdC *tracer;
 
 const uint64_t max_sim_time = 100000;
+const uint64_t max_test_time = 100000;
 uint64_t sim_time;
 uint32_t clk_cnt;
 
@@ -42,12 +44,6 @@ static void nvdl_init(int argc, char **argv) {
   sim_time = 0;
   clk_cnt = 0;
 
-  // load memory
-  imem_load("../tests/cpu_pipebatch/rv32ui-p-sh.hex");
-  dmem_load("../tests/cpu_pipebatch/rv32ui-p-sh_d.hex");
-  
-  dut->eval();
-  tracer->dump(sim_time);
 }
 
 static void nvdl_destroy() {
@@ -105,24 +101,39 @@ void check_status() {
   }
 }
 
-int main(int argc, char *argv[], char *envp[]) {
-  nvdl_init(argc, argv);
-  std::atexit(nvdl_destroy);
+void run_test(const std::string name) {
+  uint64_t test_start_time = sim_time;
+  // load memory
+  imem_load(("../tests/cpu_pipebatch/rv32ui-p-" + name + ".hex").c_str());
+  dmem_load(("../tests/cpu_pipebatch/rv32ui-p-" + name + "_d.hex").c_str());
+  
+  dut->eval();
+  tracer->dump(sim_time);
 
-  while (sim_time < max_sim_time) {
+  while (sim_time - test_start_time < max_test_time && sim_time < max_sim_time) {
     // std::cerr << "Sim time: " << sim_time << '\n';
-    if (sim_time < 9) {
+    if (sim_time - test_start_time < 9) {
       dut->reset = 1;
     } else {
       dut->reset = 0;
     }
     nvdl_loop_begin();
-    printf("sim_time: %ld, pc: %x.\n", sim_time, dut->pc);
+//    printf("sim_time: %ld, pc: %x.\n", sim_time, dut->pc);
     nvdl_loop_end();
     check_status();
   }
 
   std::cout << "The cpu does not terminate!\n";
+}
+
+int main(int argc, char *argv[], char *envp[]) {
+  nvdl_init(argc, argv);
+  std::atexit(nvdl_destroy);
+
+  for (auto name: instructions) {
+    run_test(name);
+  }
+
   return 0;
 }
 
