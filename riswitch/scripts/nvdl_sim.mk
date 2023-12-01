@@ -4,9 +4,9 @@
 include scripts/nvdl.mk
 
 BIN = V$(SIM_TOP)_sim
-WAVE = $(BUILD_DIR)/$(SIM_TOP).vcd
+WAVE = $(BUILD_DIR)/$(TEST_NAME)-$(SIM_TOP).vcd
 WAVECFG = $(TEST_DIR)/$(SIM_TOP).gtkw
-SIM_TIMESTAMP = $(BUILD_DIR)/.sim.$(SIM_TOP).timestamp
+SIM_TIMESTAMP = $(BUILD_DIR)/.sim.$(TEST_NAME)-$(SIM_TOP).timestamp
 .DEFAULT_GOAL = sim
 
 VERILATOR_FLAGS += -DSIM --trace --top $(SIM_TOP) --public

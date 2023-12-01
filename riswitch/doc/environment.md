@@ -18,6 +18,19 @@
     - gcc-riscv64-linux-gnu (参照 PA 讲义或实验 12 讲义手动修改头文件)
     - Python3
 
+## 环境配置
+
+请在克隆仓库后在 `~/.bashrc` 中正确添加以下环境变量
+
+```sh
+export NEMU_HOME=/path/to/riswitch-repo/nemu
+export AM_HOME=/path/to/riswitch-repo/abstract-machine
+export NAVY_HOME=/path/to/riswitch-repo/navy-apps
+export NPC_HOME=/path/to/riswitch-repo/npc
+export NVBOARD_HOME=/path/to/riswitch-repo/nvboard
+export SWITCH_HOME=/path/to/riswitch-repo/riswitch
+```
+
 ## 目录概述
 
 和 PA 相同的部分请参考 PA 讲义
@@ -59,22 +72,35 @@
 2. 流程
     1. 在 Makefile 中指定当前测试和 dut 名称；
     
-    ```makefile
-    # Used for NVDL, verilog dut. There should be exact one main() in $(TESTS_DIR)/$(TEST_NAME).
-    SIM_TOP = System
-    # The current active test. Both the C++ testbench and verilog testbench should be in the corresponding directory.
-    TEST_NAME = am-test
-    ```
-    2. 在 riswitch 目录下执行仿真选项
-    ```sh 
-    $ make PLATFORM=NVDL MODE=SIM # 仅仿真并生成波形
-    $ make PLATFORM=NVDL MODE=SIM wave # 仿真并打开波形
-    ```
+        ```makefile
+        # Used for NVDL, verilog dut. There should be exact one main() in $(TESTS_DIR)/$(TEST_NAME).
+        SIM_TOP = System
+        # The current active test. Both the C++ testbench and verilog testbench should be in the corresponding directory.
+        TEST_NAME = am-test
+        ```
 
-    ![sim_waveform](img/sim_waveform.png)
+    2. 在 riswitch 目录下执行仿真选项
+        
+        ```sh 
+        $ make PLATFORM=NVDL MODE=SIM # 仅仿真并生成波形
+        $ make PLATFORM=NVDL MODE=SIM wave # 仿真并打开波形
+        ```
+
+        ![sim_waveform](img/sim_waveform.png)
     
     3. 自动执行官方测试集
 
         指定测试为 nvdl_batch
-    
+
+        ![sim_goodtrap](img/sim_goodtrap.png)
+
+3. 缺陷
+
+    目前正在解决波形重名导致不重新进行仿真的问题。
+
+## 使用 NVDL 进行虚拟上板
+
+#TODO
+
+## 使用 AM 编写应用程序并生成镜像
 
