@@ -122,6 +122,7 @@ bool check_status(const std::string &name) {
 void run_test(const std::string name) {
   uint64_t test_start_time = sim_time;
   // load memory
+  printf("Loading img:\n%s\n%s\n", imem_img, dmem_img);
   imem_load(imem_img);
   dmem_load(dmem_img);
 
