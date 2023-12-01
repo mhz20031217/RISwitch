@@ -104,3 +104,52 @@ export SWITCH_HOME=/path/to/riswitch-repo/riswitch
 
 ## 使用 AM 编写应用程序并生成镜像
 
+设置好环境变量后，在应用程序代码目录中写 Makefile，指定名称和源文件，并包含 AM 主 Makefile；
+
+这里需要注意的是，应用程序代码目录可以在任意位置，和 AM 主 Makefile 的接口最小只有两个列表变量：`NAME` 和 `SRCS`，还可以自行添加 `INCLUDE`，`CFLAGS` 等。
+
+```makefile
+NAME = coremark # name of AM app
+SRCS = $(shell find src/ -name "*.c") # list of sources
+include $(AM_HOME)/Makefile # include main Makefile
+```
+
+其他 Makefile 内容可以自行添加，但必须包含以上内容
+
+编译时，可以先在 `ARCH=native` 和 `ARCH=riscv32-nemu` 上调试通过，然后指定 `ARCH=riscv32-switch` 自动生成内存镜像。
+
+比如，Debug 时，先调试运行
+
+```sh
+$ make ARCH=native run
+```
+
+Debug 结束，仿真或上板时，运行
+
+```sh
+$ make ARCH=riscv32-switch # 仅生成镜像
+$ make ARCH=riscv32-switch sim # 生成镜像并调用 NVDL 当前 Testbench 仿真
+```
+
+生成镜像的步骤在生成 ELF 文件的基础上，分别拷出了 `TEXT` 和 `DATA` 两个段，然后用 Python 脚本转换到 `.hex` 内存镜像。
+
+生成时，可以看到 InstrMem 和 DataMem 的使用量
+
+```sh
+$ make ARCH=riscv32-switch
+# Building amtest-image [riscv32-switch]
++ CC src/main.c
+...
++ LD -> build/amtest-riscv32-switch.elf
+Memory region         Used Size  Region Size  %age Used
+             ROM:        9084 B       128 KB      6.93%
+             RAM:       77084 B       128 KB     58.81%
+# Creating image [riscv32-switch]
++ OBJCOPY -> build/amtest-riscv32-switch.bin
++ OBJCOPY -> build/amtest-riscv32-switch_d.bin
++ HEXGEN -> build/amtest-riscv32-switch.hex (InstrMem Image)
++ HEXGEN -> build/amtest-riscv32-switch_d.hex (DataMem Image)
+```
+
+需要注意的是，`ARCH=native`, `ARCH=riscv32-nemu` 和 `ARCH=riscv32-switch` 上的设备不尽相同，在 NVDL 仿真（不使用 NVBoard 虚拟上板）时，如字符显存等设备不能使用，需要改用 `printf` 调试法输出。 
+
