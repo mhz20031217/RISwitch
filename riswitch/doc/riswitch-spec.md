@@ -155,6 +155,12 @@ unsigned char fg, bg;
 io_write(AM_CMEM_PUTCH, .x = xPos, .y = yPos, .ascii = ch, .fg = fg, .bg = bg);
 ```
 
+#### FAQ
+
+1. 键盘码：从真正的键盘码转换到 AM 的键盘码的操作由 AM 完成，硬件和软件层无需关心。AM 键盘码为宏定义，在 `abstract-machine/am/src/include/amdev.h` 中定义。
+
+2. 字符显存颜色：和下层硬件实现保持一致，见 `riswitch/resources/vga_color.txt`，一共 8 行，对应 `fg`, `bg` 为 `0~8` 的情况，本项目要求实现支持 ANSI 前 8 种颜色的终端。
+
 ### 可使用的库函数
 
 见 `$AM_HOME/klib/include/klib.h`；
