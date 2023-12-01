@@ -43,6 +43,10 @@ export PATH := $(PATH):$(abspath ./utils)
 
 $(shell mkdir -p $(BUILD_DIR))
 
+$(info InstrMem Image $(IMEM_IMG))
+
+$(info DataMem Image $(DMEM_IMG))
+
 VSRC_PATTERN = -name "*.v" -or -name "*.sv"
 CSRC_PATTERN = -name "*.c" -or -name "*.cc" -or -name "*.cpp"
 HEADER_PATTERN = -name "*.h" -or -name "*.hpp"

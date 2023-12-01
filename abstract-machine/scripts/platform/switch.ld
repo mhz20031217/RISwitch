@@ -3,7 +3,7 @@ PHDRS { text PT_LOAD; data PT_LOAD; }
 
 MEMORY {
   ROM : ORIGIN = 0x80000000, LENGTH = 128K
-  RAM : ORIGIN = 0x80100000, LENGTH = 512K
+  RAM : ORIGIN = 0x80100000, LENGTH = 128K
 }
 
 SECTIONS {
@@ -30,7 +30,7 @@ SECTIONS {
     *(.bss*)
     *(.sbss*)
     *(.scommon)
-  } > RAM
+  } > RAM : data
   _stack_top = ALIGN(0x1000);
   . = _stack_top + 0x8000;
   _stack_pointer = .;
