@@ -7,21 +7,10 @@
 #include <unistd.h>
 #include <verilated.h>
 #include <verilated_vcd_c.h>
+#include <getopt.h>
 
-#define STR(x) #x
-
-#ifndef IMEM_IMG
-#error No IMEM_IMG provided!
-#else
-#define imem_img STR(IMEM_IMG)
-#endif
-
-#ifndef DMEM_IMG
-#error No DMEM_IMG provided!
-#else
-#define dmem_img STR(DMEM_IMG)
-#endif
-
+static const char *imem_img = IMEM_IMG;
+static const char *dmem_img = DMEM_IMG;
 
 VSystem *dut;
 VerilatedVcdC *tracer;
