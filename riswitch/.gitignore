@@ -28,9 +28,14 @@
 !*.sh
 !/doc
 !/doc/**
+!/utils
+!/utils/**
 
 # Chisel support
 !/CPipe
 !/CPipe/**
 !*.scala
 !/build.sc
+
+# Vivado project files
+!/CPipe.xpr
