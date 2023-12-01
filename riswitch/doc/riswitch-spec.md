@@ -77,8 +77,83 @@ AbstractMachine 作为计算机，提供一些寄存器可以读取和写入。�
 
 由于 FPGA 上的设备较为特殊，和 AM 实现的寄存器不尽相同，因此更改了 AM 寄存器的定义，放在 `$AM_HOME/am/include/amdev-switch.h` 中。
 
-详细的寄存器说明还没有完成。
-#TODO
+#### 定义
+
+```c 
+/* @member present: whether timer module is present
+ * @member has_rtc: whether real time clock is present 
+ */
+AM_DEVREG( 4, TIMER_CONFIG, RD, bool present, has_rtc);
+AM_DEVREG( 5, TIMER_RTC,    RD, int year, month, day, hour, minute, second);
+/* @member us: microseconds passed since bootup
+ */
+AM_DEVREG( 6, TIMER_UPTIME, RD, uint64_t us);
+/* @member present: whether keyboard is present
+ */
+AM_DEVREG( 7, INPUT_CONFIG, RD, bool present);
+/* @member keydown: whether one of the keys is pressed
+ * @member keycode: AM Keycode for the pressed key
+ */
+AM_DEVREG( 8, INPUT_KEYBRD, RD, bool keydown; int keycode);
+/* @member value: next value to show on 7-seg display
+ */
+AM_DEVREG(25, SEG,          WR, uint32_t value);
+/* @member value: current value of switches
+ */
+AM_DEVREG(26, SWITCH,       RD, uint16_t value);
+/* @member value: next value to show on LED
+ */
+AM_DEVREG(27, LED,          WR, uint16_t value);
+/* @member present: whether char-based memory is present 
+ * @member width: the width of cmem (in chars)
+ * @member heigth: the height of cmem (in chars)
+ */
+AM_DEVREG(28, CMEM_CONFIG,  RD, bool present; int width, height);
+/* Put a char ASCII on (x, y) (starting from 0) with fg_color FG and bg_color BG. */
+AM_DEVREG(29, CMEM_PUTCH,   WR, int x, y; char ascii; uint8_t fg, bg);
+```
+
+#### 使用示例
+
+1. 读取当前按键
+
+```c
+/* fceux-am/src/drivers/sdl/input.c */
+static void KeyboardCommands ()
+{
+	// get the keyboard input
+  int keycode;
+  do {
+#define KEYDOWN_MASK 0x8000
+    AM_INPUT_KEYBRD_T ev = io_read(AM_INPUT_KEYBRD);
+    assert(ev.keycode < 256);
+    keycode = ev.keycode;
+    g_keyState[keycode] = ev.keydown;
+    if (keycode == AM_KEY_ESCAPE || keycode == AM_KEY_Q) halt(0);
+  } while (keycode != AM_KEY_NONE);
+
+	// Toggle throttling
+	NoWaiting &= ~1;
+}
+```
+
+2. 等待一段时间
+
+```c
+void delay(uint32_t us) {
+  uint64_t st = io_read(AM_TIMER_UPTIME).us;
+  while (io_read(AM_TIMER_UPTIME).us - st < us);
+}
+```
+
+3. 字符显存写入
+
+```c
+int xPos, yPos;
+char ch;
+unsigned char fg, bg;
+io_write(AM_CMEM_PUTCH, .x = xPos, .y = yPos, .ascii = ch, .fg = fg, .bg = bg);
+```
 
 ### 可使用的库函数
 
