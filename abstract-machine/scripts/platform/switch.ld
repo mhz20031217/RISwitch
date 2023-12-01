@@ -3,7 +3,7 @@ PHDRS { text PT_LOAD; data PT_LOAD; }
 
 MEMORY {
   ROM : ORIGIN = 0x80000000, LENGTH = 128K
-  RAM : ORIGIN = 0x80100000, LENGTH = 128K
+  RAM : ORIGIN = 0x80100000, LENGTH = 512K
 }
 
 SECTIONS {
@@ -17,8 +17,9 @@ SECTIONS {
   _etext = .;
   . = 0x80100000;
   .rodata : {
+    *(.srodata*)
     *(.rodata*)
-  } > RAM
+  } > RAM : data
   .data : {
     *(.data)
   } > RAM : data
