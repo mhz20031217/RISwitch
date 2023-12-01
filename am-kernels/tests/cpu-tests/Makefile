@@ -15,9 +15,10 @@ all: $(addprefix Makefile., $(ALL))
 $(ALL): %: Makefile.%
 
 Makefile.%: tests/%.c latest
-#	@/bin/echo -e "NAME = $*\nSRCS = $<\ninclude $${AM_HOME}/Makefile" > $@
+	@/bin/echo -e "NAME = $*\nSRCS = $<\ninclude $${AM_HOME}/Makefile" > $@
 # TODO: generalize commandline
-	@/bin/echo -e "NAME = $*\nSRCS = $<\ninclude $${AM_HOME}/Makefile\nNEMUFLAGS += --elf $(shell pwd)/build/$*-riscv32-nemu.elf" > $@
+#	@/bin/echo -e "NAME = $*\nSRCS = $<\ninclude $${AM_HOME}/Makefile\nNEMUFLAGS += --elf $(shell pwd)/build/$*-riscv32-nemu.elf" > $@
+#	@if make -s -f $@ ARCH=$(ARCH) $(MAKECMDGOALS); then
 	@if make -s -f $@ ARCH=$(ARCH) $(MAKECMDGOALS); then \
 		printf "[%14s] $(COLOR_GREEN)PASS!$(COLOR_NONE)\n" $* >> $(RESULT); \
 	else \

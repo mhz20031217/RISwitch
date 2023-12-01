@@ -17,6 +17,12 @@ void putch(char ch) {
   outl(SEG_ADDR, (unsigned char)ch);
 }
 
+/* Terminate AM Program execution by calling this function
+ * 
+ * @param code should be SWITCH_EXIT_SUCCESS or SWITCH_EXIT_FAIL
+ *
+ * This function does not return.
+ * */
 void halt(int code) {
   switch_trap(code);
 

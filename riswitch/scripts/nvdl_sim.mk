@@ -32,7 +32,7 @@ $(SIM_TIMESTAMP): $(BUILD_DIR)/$(BIN)
 	@cd $(BUILD_DIR) && ./$(BIN)
 	@touch $(SIM_TIMESTAMP)
 
-$(BUILD_DIR)/$(BIN): $(CSRCS) $(VSRCS) $(HEADERS)
+$(BUILD_DIR)/$(BIN): $(CSRCS) $(VSRCS) $(HEADERS) $(IMEM_IMG) $(DMEM_IMG)
 	@echo "### COMPILATION ###"
 	$(VERILATOR) $(VERILATOR_FLAGS) \
 		$(addprefix -CFLAGS , $(CFLAGS)) $(addprefix -LDFLAGS , $(LDFLAGS)) \

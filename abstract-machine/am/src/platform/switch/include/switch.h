@@ -4,7 +4,9 @@
 #include <klib-macros.h>
 #include <riscv/riscv.h>
 
-# define switch_trap(code) asm volatile("mv a0, %0; ebreak" : :"r"(code))
+#define SWTICH_EXIT_SUCCESS 0x00c0ffee
+#define SWITCH_EXIT_FAIL 0xdeadbeef
+#define switch_trap(code) asm volatile("mv a0, %0; addi s1, sp, 100" : :"r"(code))
 
 #define SERIAL_PORT     0x80200000
 #define KBD_ADDR        0x80500000
