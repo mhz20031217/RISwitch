@@ -8,10 +8,11 @@ AM_SRCS := riscv/switch/start.S \
            platform/dummy/vme.c \
            platform/dummy/mpe.c
 
-CFLAGS    += -fdata-sections -ffunction-sections
+CFLAGS    += -fdata-sections -ffunction-sections -Os
 LDFLAGS   += -T $(AM_HOME)/scripts/platform/switch.ld \
 						 --defsym=_pmem_start=0x80000000 --defsym=_entry_offset=0x0
 LDFLAGS   += --gc-sections -e _start
+LDFLAGS   += --print-memory-usage
 CFLAGS += -DMAINARGS=\"$(mainargs)\"
 CFLAGS += -I$(AM_HOME)/am/src/platform/switch/include
 .PHONY: $(AM_HOME)/am/src/riscv/switch/trm.c
