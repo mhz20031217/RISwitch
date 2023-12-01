@@ -4,6 +4,7 @@
 #include <instructions.hpp>
 #include <iomanip>
 #include <memory.hpp>
+#include <string>
 #include <unistd.h>
 #include <verilated.h>
 #include <verilated_vcd_c.h>
@@ -108,7 +109,7 @@ bool check_status(const std::string &name) {
   }
 }
 
-void run_test(const std::string name) {
+void run_test() {
   uint64_t test_start_time = sim_time;
   // load memory
   printf("Loading img:\n%s\n%s\n", imem_img, dmem_img);
@@ -128,21 +129,19 @@ void run_test(const std::string name) {
     nvdl_loop_begin();
     // printf("sim_time: %ld, pc: %x.\n", sim_time, dut->pc);
     nvdl_loop_end();
-    if (check_status(name)) {
+    if (check_status(imem_img)) {
       return;
     }
   }
 
-  std::cout << "[" << name << "]\t\tThe cpu does not terminate!\n";
+  std::cout << "[" << imem_img << "]\t\tThe cpu does not terminate!\n";
 }
 
 int main(int argc, char *argv[], char *envp[]) {
   nvdl_init(argc, argv);
   std::atexit(nvdl_destroy);
 
-  for (auto name : instructions) {
-    run_test(name);
-  }
+  run_test();
 
   return 0;
 }
