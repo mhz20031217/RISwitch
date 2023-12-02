@@ -215,22 +215,36 @@ PA2 的 OJ 没有测试时钟的实现，实际上我没有解决 NEMU 在时钟
 ### 运行仙剑奇侠传
 
 一开始，我调色板的像素格式没有进行转换，造成仙剑呈蓝色
+<center>
+<img src="img/pal-blue.png" alt="pal-blue" width="70%"></img>
+</center>
 
-![pal-blue](img/pal-blue.png)
-
-![pal](img/pal01.png)
-![pal](img/pal02.png)
-![pal](img/pal03.png)
-![pal](img/pal04.png)
-![pal](img/pal05.png)
-![pal](img/pal06.png)
-![pal](img/pal07.png)
+<center>
+<img src="img/pal01.png" alt="pal" width="49%"></img>
+<img src="img/pal02.png" alt="pal" width="49%"></img>
+<img src="img/pal03.png" alt="pal" width="49%"></img>
+<img src="img/pal04.png" alt="pal" width="49%"></img>
+<img src="img/pal05.png" alt="pal" width="49%"></img>
+<img src="img/pal06.png" alt="pal" width="49%"></img>
+<img src="img/pal07.png" alt="pal" width="49%"></img>
+</center>
 
 目前仙剑的字体渲染仍然有问题，还没有 Debug。
 
 ![pal-fontrender](img/pal-font.png)
 
 #TODO
+
+###  展示你的批处理系统(2)  为NTerm中的內建Shell添加环境变量的支持
+
+已实现，请查看选做题快照部分的测试，是这些功能的展示。
+
+注：我做到了 PA4.1，传递环境变量和参数的方式按照 PA4.1 的方式。
+
+实现细节：
+
+1. NanOS 在加载程序时，如果是 `execve`，先将上一个程序提供的参数复制到内核区，然后在新程序的用户栈上放置 `argc`, `argv` 和 `envp`，并向 `_start` 通过 `Context` 结构体传递栈指针；
+2. `_start` 设置好栈指针，调用 `call_main`，`call_main` 负责给 `main` 函数传递真正的 `argc`, `argv` 和 `envp`。这是由栈指针计算得到的。
 
 ## 选做题
 
@@ -240,15 +254,15 @@ PA2 的 OJ 没有测试时钟的实现，实际上我没有解决 NEMU 在时钟
 
 ### 异常号的保存
 
-#TODO
+不可以。x86 可以软件保存，是因为使用了中断向量表（在内存中），每种异常处理程序不同。但由于 RISC 只有 load/store 指令执行时才能访存，如果想要启用像中断向量表的功能，必须要访存。所以不可以。
 
 ### 对比异常处理与函数调用
 
-异常处理保存的上下文比函数调用多了函数调用没有保存的通用寄存器和各种控制状态寄存器。原因是：异常处理的目的是
+异常处理保存的上下文比函数调用多了函数调用没有保存的通用寄存器和各种控制状态寄存器。原因是：异常处理的过程，实际上是切换到了另一个程序，由这个程序为原程序处理好运行时环境的问题，然后转回原程序继续执行或终止。在不同程序间切换并不遵循 Calling Convention，当然要保存现场（内存部分因为不会改动，无需保存）。
 
-### 从 `+4` 操作看 CISC 和 RISC
+#### 参考资料
 
-
+- [1] [异常处理 [第六期“一生一芯”计划 - P17]](https://www.bilibili.com/video/BV1734y1w7ro?t=498.6)
 
 ### 堆和栈在哪里?
 
@@ -461,9 +475,12 @@ bool ioe_init() {
 
 ### 诞生于"未来"的游戏
 
-![oslab0](img/oslab1.png)
-![oslab0](img/oslab2.png)
-![oslab0](img/oslab3.png)
+<center>
+<img src="img/oslab1.png" alt="oslab0" width="49%"></img>
+<img src="img/oslab2.png" alt="oslab0" width="49%"></img>
+<img src="img/oslab3.png" alt="oslab0" width="49%"></img>
+</center>
+
 
 有一些程序不能正常运行，暂时没有 Debug。
 
@@ -471,8 +488,10 @@ UPD 2023.11.08：破案了，是没有为 AM 实现堆区，实现后都能正�
 
 有一些程序初始化时花屏，将 libam 申请的内存置零，问题修复。
 
-![oslab0](img/oslab4.png)
-![oslab0](img/oslab5.png)
+<center>
+<img src="img/oslab4.png" alt="oslab0" width="49%"></img>
+<img src="img/oslab5.png" alt="oslab0" width="49%"></img>
+</center>
 
 ### RTFSC???
 
@@ -550,16 +569,18 @@ static size_t csr_img_instr_count = 4;
 
 1. 启动时默认处于关闭状态
 2. 在调用 `execve` 前 `attach`，启动 `pal` 成功
-
-    ![difftest](img/difftest01.png)
+<center>
+<img src="img/difftest01.png" alt="difftest" width="49%"></img>
+<img src="img/difftest02.png" alt="difftest" width="49%"></img>
+</center>
 
 3. 启动 PAL 后关闭，在退出 PAL 前 `detach`，在退出执行 `execve` 切换到 menu 时正常
 
-    ![difftest](img/difftest02.png)
-
 4. 再 `attach`，正常
 
-    ![difftest](img/difftest03.png)
+<center>
+<img src="img/difftest03.png" alt="difftest" width="49%"></img>
+</center>
 
 ### 在 NEMU 中实现快照
 
@@ -568,3 +589,12 @@ static size_t csr_img_instr_count = 4;
 UPD 2023.12.02: 我发现自己擅自简化了快照的定义，没有保存 NEMU 设备的状态，时间有限，这个功能暂时不实现。
 
 第一次测试时，是尝试在运行 PAL 时加载 MENU 的快照，但 MENU 不会更新画面，故测试失败（没有保存 VGA 显存导致的）。
+
+第二次测试，先在播放醉道士动画时存快照，然后退出 NEMU，再次进入时读取快照，成功。
+
+<center>
+<figure>
+<img src="img/snapshot01.png" alt="snapshot01" width="45%"></img>
+<img src="img/snapshot02.png" alt="snapshot02" width="45%"></img>
+</figure>
+</center>
