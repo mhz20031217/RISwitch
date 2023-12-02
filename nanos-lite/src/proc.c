@@ -38,7 +38,7 @@ void my_kthread(void *arg) {
 void init_proc() {
   switch_boot_pcb();
   Log("Initializing kthreads...");
-  context_kload(&pcb[0], my_kthread, "A is running.");
+  // context_kload(&pcb[0], my_kthread, "A is running.");
   // context_kload(&pcb[1], hello_fun, "B is running.");
 
   Log("Initializing processes...");
@@ -49,14 +49,13 @@ Context* schedule(Context *prev) {
   current->cp = prev;
   if (current < pcb || current >= pcb + MAX_NR_PROC) {
     current = &pcb[0];
-  } else {
-    while (current->cp == prev || current->cp == NULL) {
-      if (current == pcb + MAX_NR_PROC - 1) {
-        current = pcb;
-      } else {
-        current += 1;
-      }
-    }
   }
+  do {
+    if (current == pcb + MAX_NR_PROC - 1) {
+      current = pcb;
+    } else {
+      current += 1;
+    }
+  } while (current->cp == NULL);
   return current->cp;
 }

@@ -13,6 +13,7 @@
 * See the Mulan PSL v2 for more details.
 ***************************************************************************************/
 
+#include "isa-def.h"
 #include <dlfcn.h>
 
 #include <isa.h>
@@ -47,10 +48,10 @@ void difftest_sync() {
   #include "../../../tools/riscv-diff-csr/build/csr.c"
   CPU_state dummy_cpu = cpu;
   dummy_cpu.pc = RESET_VECTOR;
-  dummy_cpu.gpr[10] = dummy_cpu.csr[CSR_MEPC_IDX];
-  dummy_cpu.gpr[11] = dummy_cpu.csr[CSR_MSTATUS_IDX];
-  dummy_cpu.gpr[12] = dummy_cpu.csr[CSR_MCAUSE_IDX];
-  dummy_cpu.gpr[13] = dummy_cpu.csr[CSR_MTVEC_IDX];
+  dummy_cpu.gpr[10] = dummy_cpu.csr[MEPC];
+  dummy_cpu.gpr[11] = dummy_cpu.csr[MSTATUS];
+  dummy_cpu.gpr[12] = dummy_cpu.csr[MCAUSE];
+  dummy_cpu.gpr[13] = dummy_cpu.csr[MTVEC];
   ref_difftest_regcpy(&dummy_cpu, DIFFTEST_TO_REF);
   ref_difftest_memcpy(RESET_VECTOR, csr_img, csr_img_size, DIFFTEST_TO_REF);
 
