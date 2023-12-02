@@ -125,10 +125,10 @@ Hello, AM World @ riscv32
 yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy
 ```
 
-参考资料
+#### 参考资料
 - [1] RISC-V Vol.2
 - [2] [RISC-V 异常处理流程介绍](https://tinylab.org/riscv-irq-pipeline-introduction/)
-- [3] https://www.bilibili.com/video/BV1aP411R7dM/?spm_id_from=333.788.recommend_more_video.4
+- [3] [X2W第六次组会：异常委托机制](https://www.bilibili.com/video/BV1aP411R7dM/?spm_id_from=333.788.recommend_more_video.4)
 - [4] https://www.bilibili.com/video/BV11M4y1t7nv/?spm_id_from=333.999.0.0
 
 ### 实现 etrace  实现 strace
@@ -136,9 +136,7 @@ yyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy
 etrace 已实现，在 NEMU 的 Kconfig 中启用；
 strace 已实现，在 NanOS-lite 的 `debug.h` 中启用 `ENABLE_STRACE` 宏启用，实现了针对文件系统的可读性优化功能。
 
-
-
-
+![strace](img/strace.png)
 
 ### 实现堆区管理
 
