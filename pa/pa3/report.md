@@ -565,3 +565,6 @@ static size_t csr_img_instr_count = 4;
 
 快照即保存 `CPU_state` 和全部内存，如果 Difftest 启用，还需要在 load 时同步 Difftest。
 
+UPD 2023.12.02: 我发现自己擅自简化了快照的定义，没有保存 NEMU 设备的状态，时间有限，这个功能暂时不实现。
+
+第一次测试时，是尝试在运行 PAL 时加载 MENU 的快照，但 MENU 不会更新画面，故测试失败（没有保存 VGA 显存导致的）。
