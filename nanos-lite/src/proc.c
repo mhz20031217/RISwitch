@@ -49,14 +49,13 @@ Context* schedule(Context *prev) {
   current->cp = prev;
   if (current < pcb || current >= pcb + MAX_NR_PROC) {
     current = &pcb[0];
-  } else {
-    while (current->cp == prev || current->cp == NULL) {
-      if (current == pcb + MAX_NR_PROC - 1) {
-        current = pcb;
-      } else {
-        current += 1;
-      }
-    }
   }
+  do {
+    if (current == pcb + MAX_NR_PROC - 1) {
+      current = pcb;
+    } else {
+      current += 1;
+    }
+  } while (current->cp == NULL);
   return current->cp;
 }
