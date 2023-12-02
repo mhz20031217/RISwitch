@@ -144,7 +144,39 @@ strace 已实现，在 NanOS-lite 的 `debug.h` 中启用 `ENABLE_STRACE` 宏启
 
 ### hello 程序是什么, 它从而何来, 要到哪里去
 
-#TODO
+一行版本：`hello` 程序是一个二进制文件，包含指令和数据，由编译器从 C 源码中编译生成，从 NanOS 的磁盘镜像加载到内存中的特定位置，将一直不断地打印字符串，直到计算机系统终止运行。
+
+详细描述：
+
+1. 从 NanOS ELF 中包含的数据（磁盘镜像）中的 ELF 文件开始
+
+    在 NanOS-lite 的 `nanos-lite/src/resources.S` 中，包含了 Navy-apps 生成的 ramdisk 镜像，`hello` 程序本体一开始被 AM 运行时环境加载到内存（NEMU 或是 native），是在 NanOS 被加载到内存中开始的。
+
+2. 被 NanOS 放置到内存中的正确位置
+
+    在此之前，包含了**穿越时空的旅程**中的初始化部分，已经用 NanOS 的异常处理程序初始化了 AM 的 `user_handler`，已经用 AM 的 `__am_asm_trap` 初始化了 NEMU 或 native 的相应寄存器。
+
+    当使用 `naive_uload` 或 `context_uload` 加载程序时（此时我还没有实现分页机制，只完成了 PA4.1），`loader` 函数能够通过 `ramdisk_read` 函数读取 `/bin/hello` 程序本体，然后解析 ELF 中需要加载的段，进行加载。
+
+    这个位置的正确性是由 Navy-apps（未开启 VME=1）时的链接脚本和保证的。比如，在 `ARCH=riscv32-nemu` 的 AM 上，NanOS 将被 NEMU 加载到 0x80000000 位置，且保证不使用 0x830000000 以上的空间。Navy-apps 的控制链接地址的 Makefile `navy-apps/scripts/riscv/common.mk` 中指定了可用空间从 0x83000000 位置开始。
+
+3. 开始执行
+
+    NanOS 在 AM 指定的内核栈位置上调用 Navy-apps 的 `_start` 函数，在不考虑上下文切换问题时，该函数将继续调用 `call_main` 函数，进而调用 `hello` 程序的标准 C `main` 函数。
+
+    `hello` 程序的第一条指令在 `loader` 解析 ELF 时，通过读取 ELF 头中的字段确定，这条指令就是 `_start` 函数的第一条指令。
+
+4. 用 `write` 系统调用输出第一行 `Hello, world`
+
+    通过 libos 的接口，发起系统调用，详见**穿越时空的旅程**的运行阶段。
+
+    特别地，此时 NanOS 会调用 `serial_write`，进而调用 AM `putch` 逐字符打印 `Hello, world!\n`。
+
+    如果 `ARCH=riscv32-nemu`，AM IOE 向 `SERIAL_ADDR` 处的写入会使得 NEMU 调用 `serial_io_handler`，进而最终在终端上打印出字符。
+
+5. 用 `printf` 打印接下来的 `hello`
+
+    `printf` 的实现包含缓冲区等内容，但最终都需要通过系统调用的流程。
 
 ### 把按键输入抽象成文件
 
