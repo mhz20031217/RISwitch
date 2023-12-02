@@ -564,3 +564,4 @@ static size_t csr_img_instr_count = 4;
 ### 在 NEMU 中实现快照
 
 快照即保存 `CPU_state` 和全部内存，如果 Difftest 启用，还需要在 load 时同步 Difftest。
+
