@@ -546,6 +546,21 @@ static size_t csr_img_instr_count = 4;
 
 以上的同步操作只需要在 Difftest 从关闭状态切换到打开状态时才需要启用。
 
+以下是测试流程
+
+1. 启动时默认处于关闭状态
+2. 在调用 `execve` 前 `attach`，启动 `pal` 成功
+
+    ![difftest](img/difftest01.png)
+
+3. 启动 PAL 后关闭，在退出 PAL 前 `detach`，在退出执行 `execve` 切换到 menu 时正常
+
+    ![difftest](img/difftest02.png)
+
+4. 再 `attach`，正常
+
+    ![difftest](img/difftest03.png)
+
 ### 在 NEMU 中实现快照
 
 快照即保存 `CPU_state` 和全部内存，如果 Difftest 启用，还需要在 load 时同步 Difftest。
