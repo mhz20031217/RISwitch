@@ -2,6 +2,8 @@
 
 **实验进度**: 我完成了所有的必做题和大部分选做题。
 
+选做题主要暂时没有做支持多个 ELF 的 ftrace，没有实现 Navy-apps 上的声卡。
+
 ## 必做题
 
 ### 重新组织 Context 结构体 理解上下文结构体的前世今生 理解穿越时空的旅程
@@ -510,3 +512,40 @@ extern void (*__init_array_end []) (void) __attribute__((weak));
 #### 参考文献
 - [1] [揪出gcc默认使用的ld链接脚本 - 龙图腾](https://blog.csdn.net/dragon101788/article/details/8080747)
 - [2] 11.4 C++ 全局构造和析构 - 《程序员的自我修养》
+
+### 自由开关的 Difftest 模式
+
+同步 GPR 和内存较为简单，主要是同步 CSR 比较困难。我的实现没有特别优化，方案如下：
+1. 创建一个假的 `CPU_state`，其中 GPR 中放置 CSR 的值，`pc` 指向同步程序的起始位置；
+2. 从 NEMU 同步 GPR 到 ref；
+3. 用同步程序覆盖 ref 的内存；
+4. 设置 ref 的 pc 到同步程序的起始位置执行；
+5. 结束后从 NEMU 同步寄存器，同步内存；
+
+其中，同步 CSR 的程序位于 `nemu/tools/riscv-diff-csr`，内容如下
+
+```asm
+sync_csr:
+  csrw mepc, a0;
+  csrw mstatus, a1;
+  csrw mcause, a2;
+  csrw mtvec, a3;
+```
+
+这段程序生成的 ELF 文件经过 `objcopy` 和自制的处理程序处理，生成了 `nemu/tools/riscv-diff-csr/build/csr.c`，内容如下
+
+```c
+static unsigned char csr_img[] = {
+  0x73, 0x10, 0x15, 0x34, 0x73, 0x90, 0x05, 0x30, 0x73, 0x10, 0x26, 0x34, 0x73, 0x90, 0x56, 0x30, 
+};
+static size_t csr_img_size = 16;
+static size_t csr_img_instr_count = 4;
+```
+
+该片段会被 Difftest 源文件以类似 mario 镜像的源码包含方式使用。
+
+以上的同步操作只需要在 Difftest 从关闭状态切换到打开状态时才需要启用。
+
+### 在 NEMU 中实现快照
+
+快照即保存 `CPU_state` 和全部内存，如果 Difftest 启用，还需要在 load 时同步 Difftest。

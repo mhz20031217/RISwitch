@@ -38,7 +38,7 @@ void my_kthread(void *arg) {
 void init_proc() {
   switch_boot_pcb();
   Log("Initializing kthreads...");
-  context_kload(&pcb[0], my_kthread, "A is running.");
+  // context_kload(&pcb[0], my_kthread, "A is running.");
   // context_kload(&pcb[1], hello_fun, "B is running.");
 
   Log("Initializing processes...");
