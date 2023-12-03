@@ -4,10 +4,8 @@
 #include <stdio.h>
 
 SDL_Surface* SDL_LoadBMP(const char *filename) {
-  printf("[SDL_bmp] Loading '%s'.\n", filename);
   int w, h;
   void *pixels = BMP_Load(filename, &w, &h);
-  printf("[SDL_bmp] BMP_Load finished: %dx%d.\n", w, h);
   if (pixels == NULL) {
     printf("[SDL_bmp] failed to load '%s'.\n", filename);
     volatile int i = 1;

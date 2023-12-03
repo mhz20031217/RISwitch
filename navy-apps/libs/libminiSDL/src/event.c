@@ -54,7 +54,7 @@ static int identify_key(char buf[], SDL_Event *ev) {
     keystate[ev->key.keysym.sym] = 0;
     ev->type = SDL_KEYUP;
   }
-  printf("%s\n", buf);
+  // printf("%s\n", buf);
   return 1;
 }
 

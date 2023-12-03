@@ -24,6 +24,27 @@ typedef struct {
   word_t csr[4096];
 } MUXDEF(CONFIG_RV64, riscv64_CPU_state, riscv32_CPU_state);
 
+#define SSTATUS 0x100
+#define SIE 0x104
+#define STVEC 0x105
+#define SSCRATCH 0x140
+#define SEPC 0x141
+#define SCAUSE 0x142
+#define STVAL 0x143
+#define SIP 0x144
+#define SATP 0x180
+
+#define MSTATUS 0x300
+#define MIE 0x304
+#define MTVEC 0x305
+#define MSCRATCH 0x340
+#define MEPC 0x341
+#define MCAUSE 0x342
+#define MTVAL 0x343
+#define MIP 0x344
+
+#define NR_CSR 4096
+
 // decode
 typedef struct {
   union {
@@ -31,6 +52,7 @@ typedef struct {
   } inst;
 } MUXDEF(CONFIG_RV64, riscv64_ISADecodeInfo, riscv32_ISADecodeInfo);
 
-#define isa_mmu_check(vaddr, len, type) (MMU_DIRECT)
+#define isa_mmu_check(vaddr, len, type) \
+  (BITS(cpu.csr[SATP], 31, 31) ? MMU_TRANSLATE : MMU_DIRECT)
 
 #endif

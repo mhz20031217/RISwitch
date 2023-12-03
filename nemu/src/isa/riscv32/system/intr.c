@@ -13,8 +13,8 @@
 * See the Mulan PSL v2 for more details.
 ***************************************************************************************/
 
-#include "debug.h"
 #include <isa.h>
+#include "../local-include/reg.h"
 
 #define C(i) cpu.csr[i]
 
@@ -39,13 +39,13 @@ word_t isa_raise_intr(word_t NO, vaddr_t epc) {
     Info("[etrace] Exception No.%d at epc: 0x%x", NO, epc);
   #endif
   
-  C(CSR_MEPC_IDX) = epc;
-  C(CSR_MCAUSE_IDX) = NO; // use Exception-from-M-mode
-  word_t mstatus = C(CSR_MSTATUS_IDX);
+  C(MEPC) = epc;
+  C(MCAUSE) = NO; // use Exception-from-M-mode
+  word_t mstatus = C(MSTATUS);
   word_t mie = getbit(mstatus, 3);
   mstatus = (mie) ? setbit(mstatus, 7) : rstbit(mstatus, 7);
   mstatus = rstbit(mstatus, 3);
-  C(CSR_MSTATUS_IDX) = mstatus;
+  C(MSTATUS) = mstatus;
   
   return epc + 4;
 }

@@ -25,10 +25,28 @@ const char *regs[] = {
   "s8", "s9", "s10", "s11", "t3", "t4", "t5", "t6"
 };
 
+const char *csrs[] = {
+  [SSTATUS] = "sstatus", [SIE] = "sie", [STVEC] = "stvec", [SSCRATCH] = "sscratch",
+  [SEPC] = "sepc", [SCAUSE] = "scause", [STVAL] = "stval", [SIP] = "sip",
+  [SATP] = "satp",
+  [MSTATUS] = "mstatus", [MIE] = "mie", [MTVEC] = "mtvec", [MSCRATCH] = "mscratch",
+  [MEPC] = "mepc", [MCAUSE] = "mcause", [MTVAL] = "mtval", [MIP] = "mip",
+  [NR_CSR] = NULL
+};
+
+void isa_csr_display() {
+  for (int i = 0; i < 4096; i ++) {
+    if (csrs[i]) {
+      printf("%10s "FMT_WORD"\t%16d\n", csr_name(i), csr(i), csr(i));
+    }
+  }
+}
+
 void isa_reg_display() {
   for(int i = 0; i < MUXDEF(CONFIG_RVE, 16, 32); i++) {
-    printf("%s\t0x%x\t%ull\n", reg_name(i), gpr(i), gpr(i));
+    printf("%10s "FMT_WORD"\t%16d\n", reg_name(i), gpr(i), gpr(i));
   }
+  isa_csr_display();
 }
 
 word_t isa_reg_str2val(const char *s, bool *success) {
@@ -40,6 +58,18 @@ word_t isa_reg_str2val(const char *s, bool *success) {
     if (strcmp(s, regs[i]) == 0) {
       *success = true;
       return cpu.gpr[i];
+    }
+  }
+  *success = false;
+  return 0;
+}
+
+word_t isa_csr_str2val(const char *s, bool *success) {
+  for (int i = 0 ; i < 4096; i ++) {
+    if (csrs[i] == NULL) continue;
+    if (strcmp(s, csrs[i]) == 0) {
+      *success = true;
+      return cpu.csr[i];
     }
   }
   *success = false;
