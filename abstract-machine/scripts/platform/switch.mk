@@ -8,6 +8,9 @@ AM_SRCS := riscv/switch/start.S \
            platform/dummy/vme.c \
            platform/dummy/mpe.c
 
+# Overwrite ARCH_H
+ARCH_H := arch/riscv-switch.h
+
 CFLAGS    += -fdata-sections -ffunction-sections -Os
 LDFLAGS   += -T $(AM_HOME)/scripts/platform/switch.ld \
 						 --defsym=_pmem_start=0x80000000 --defsym=_entry_offset=0x0

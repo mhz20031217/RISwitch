@@ -26,7 +26,9 @@ void putch(char ch) {
 void halt(int code) {
   switch_trap(code);
 
-  // should not reach here
+  // should always reach here
+  // The cpu will determine this condition and in NVDL C++ wrapper,
+  // it will terminate simulation automatically.
   while (1);
 }
 
