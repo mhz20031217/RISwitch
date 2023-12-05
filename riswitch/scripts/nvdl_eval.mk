@@ -5,13 +5,16 @@ include scripts/nvdl.mk
 .DEFAULT_GOAL=nvboard
 
 BIN = V$(EVAL_TOP)_eval
+include $(NVBOARD_HOME)/scripts/nvboard.mk
+# Add NVBoard INC_PATH to INCLUDE_PATH
+INCLUDE_PATH += $(INC_PATH)
 INCLUDE_PATH += $(NVBOARD_HOME)/include
 
-VERILATOR_FLAGS += --top $(EVAL_TOP) -DEVAL
+VERILATOR_FLAGS += --top $(EVAL_TOP) -DEVAL --trace
 CSRCS += $(shell find $(abspath $(TOP_DIR)) $(CSRC_PATTERN))
 VSRCS += $(shell find $(abspath $(TOP_DIR)) $(VSRC_PATTERN))
 
-CFLAGS += $(addprefix -I,$(INCLUDE_PATH)) -DTOP_NAME="\"V$(EVAL_TOP)\""L
+CFLAGS += $(addprefix -I,$(abspath $(INCLUDE_PATH))) -DTOP_NAME="\"V$(EVAL_TOP)\""L $(shell sdl2-config --cflags)
 LDFLAGS += $(NVBOARD_ARCHIVE) -lSDL2 -lSDL2_image
 
 # Clock type
@@ -23,7 +26,7 @@ else
 	VERILATOR_FLAGS += -DCLK_PERF
 endif
 
-include $(NVBOARD_HOME)/scripts/nvboard.mk
+
 
 SRC_AUTOBIND = $(abspath $(BUILD_DIR)/auto_bind.cpp)
 CSRCS += $(SRC_AUTOBIND)

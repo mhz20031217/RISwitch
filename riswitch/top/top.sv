@@ -219,7 +219,7 @@ Led led(
   .sel(sel_led),
   .we(dmemwe),
   .din(dmemdatain),
-  .led(LED)
+  .led_out(LED)
 );
 
 Seg seg(

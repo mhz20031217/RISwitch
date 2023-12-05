@@ -46,8 +46,10 @@ static void nvdl_init(int argc, char **argv) {
   tracer = new VerilatedVcdC;
   dut = new Vtop;
 
+#ifdef CONFIG_TRACE
   dut->trace(tracer, 10);
   tracer->open("top.vcd");
+#endif
 
   dut->CLK_INPUT = 0; // starting on rising edge
   sim_time = 0;
@@ -64,7 +66,9 @@ static void nvdl_loop_begin() {
   dut->CLK_INPUT = 1;
   dut->eval();
   sim_time += 1;
+#ifdef CONFIG_TRACE
   tracer->dump(sim_time);
+#endif
 }
 
 static void nvdl_loop_end() {
@@ -84,7 +88,9 @@ static void nvdl_loop_end() {
   }
 #endif
   sim_time += 1;
+#ifdef CONFIG_TRACE
   tracer->dump(sim_time);
+#endif
 }
 
 bool check_status(const std::string &name) {
@@ -109,20 +115,10 @@ void run_test(const std::string name) {
   uint64_t test_start_time = sim_time;
   // std::cout << "Test '"<< name << "', starting at: " << test_start_time << '\n';
 
-  while (sim_time - test_start_time < max_test_time &&
-         sim_time < max_sim_time) {
-    // std::cerr << "Sim time: " << sim_time << '\n';
-    if (sim_time - test_start_time < 9) {
-      dut->reset = 1;
-    } else {
-      dut->reset = 0;
-    }
+  while (true) {
     nvdl_loop_begin();
     // printf("sim_time: %ld, pc: %x.\n", sim_time, dut->pc);
     nvdl_loop_end();
-    if (check_status(name)) {
-      return;
-    }
   }
 
   std::cout << "[" << name << "]\t\tThe cpu does not terminate!\n";
@@ -131,8 +127,8 @@ void run_test(const std::string name) {
 int main(int argc, char *argv[], char *envp[]) {
   nvdl_init(argc, argv);
   // load memory
-  imem_load(argv[1]);
-  dmem_load(argv[2]);
+  imem_load(IMEM_IMG);
+  dmem_load(DMEM_IMG);
 
   while (true) {
     nvdl_loop_begin();

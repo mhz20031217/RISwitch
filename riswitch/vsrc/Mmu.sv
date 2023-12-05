@@ -8,6 +8,7 @@ module Mmu(
 );
 
 wire [3:0] id = addr[23:20];
+wire sel_sw;
 
 assign sel_seg = (id == 4'h2);
 assign sel_kbd = (id == 4'h5);

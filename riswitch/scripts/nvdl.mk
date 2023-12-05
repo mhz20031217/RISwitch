@@ -9,5 +9,4 @@ VERILATOR_FLAGS = -Wall -Mdir $(BUILD_DIR) -MMD --compiler $(CC) -j 4 --build --
 VERILATOR_FLAGS += -Wno-declfilename -Wno-widthtrunc -Wno-unusedsignal -Wno-undriven --x-assign unique --x-initial unique
 
 CFLAGS += -DNVDL -O3 -std=c++17 -DIMEM_IMG='\"$(IMEM_IMG)\"' -DDMEM_IMG='\"$(DMEM_IMG)\"'
-#CFLAGS += -DNVDL -O3 -std=c++17
 LDFLAGS +=
