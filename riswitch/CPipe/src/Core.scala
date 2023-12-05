@@ -62,7 +62,7 @@ class Core(w: Int) extends Module {
 
   // Instruction Fetch
   val branchTarget = Wire(UInt(w.W))
-  val pc           = RegInit(0x80000000.U(w.W))
+  val pc           = RegInit(0x080000000L.U(w.W))
   io.pc := pc
   when(!forwardUnit.io.stallIf) {
     pc := Mux(branchCond.io.pcSrc, branchTarget, pc + 4.U(w.W))
