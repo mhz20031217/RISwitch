@@ -46,6 +46,9 @@ static void nvdl_init(int argc, char **argv) {
   tracer = new VerilatedVcdC;
   dut = new Vtop;
 
+  nvboard_bind_all_pins(dut);
+  nvboard_init();
+
 #ifdef CONFIG_TRACE
   dut->trace(tracer, 10);
   tracer->open("top.vcd");
