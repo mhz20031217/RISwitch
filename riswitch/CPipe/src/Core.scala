@@ -51,16 +51,23 @@ class Core(w: Int) extends Module {
   val branchCond  = Module(new BranchCond)
   val forwardUnit = Module(new ForwardUnit)
 
+  val resetVector = 0x080000000L.U(w.W)
+  val fd_reg_init = Wire(new IfIdPipelineRegister(w))
+  fd_reg_init.pc := resetVector
+  fd_reg_init.instr := 0.U(32.W)
+  val de_reg_init = Wire(new IdExPipelineRegister(w))
+  de_reg_init := 0.U.asTypeOf(new IdExPipelineRegister(w))
+  de_reg_init.pc := resetVector
+
   // Pipeline Register
-  val fd_reg = RegInit(new IfIdPipelineRegister(w), 0.U.asTypeOf(new IfIdPipelineRegister(w)))
-  val de_reg = RegInit(new IdExPipelineRegister(w), 0.U.asTypeOf(new IdExPipelineRegister(w)))
+  val fd_reg = RegInit(new IfIdPipelineRegister(w), fd_reg_init)
+  val de_reg = RegInit(new IdExPipelineRegister(w), de_reg_init)
   val em_reg = RegInit(new ExMemPipelineRegister(w), 0.U.asTypeOf(new ExMemPipelineRegister(w)))
   val mw_reg = RegInit(new MemWbPipelineRegister(w), 0.U.asTypeOf(new MemWbPipelineRegister(w)))
 
   val halt = RegInit(0.B)
   val trap = RegInit(0.B)
 
-  val resetVector = 0x080000000L.U(w.W)
   // Instruction Fetch
   val branchTarget = Wire(UInt(w.W))
   val pc           = RegInit(resetVector)
