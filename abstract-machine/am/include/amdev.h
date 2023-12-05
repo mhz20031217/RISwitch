@@ -12,10 +12,20 @@
 AM_DEVREG( 1, UART_CONFIG,  RD, bool present);
 AM_DEVREG( 2, UART_TX,      WR, char data);
 AM_DEVREG( 3, UART_RX,      RD, char data);
+/* @member present: whether timer module is present
+ * @member has_rtc: whether real time clock is present 
+ */
 AM_DEVREG( 4, TIMER_CONFIG, RD, bool present, has_rtc);
 AM_DEVREG( 5, TIMER_RTC,    RD, int year, month, day, hour, minute, second);
+/* @member us: microseconds passed since bootup
+ */
 AM_DEVREG( 6, TIMER_UPTIME, RD, uint64_t us);
+/* @member present: whether keyboard is present
+ */
 AM_DEVREG( 7, INPUT_CONFIG, RD, bool present);
+/* @member keydown: whether one of the keys is pressed
+ * @member keycode: AM Keycode for the pressed key
+ */
 AM_DEVREG( 8, INPUT_KEYBRD, RD, bool keydown; int keycode);
 AM_DEVREG( 9, GPU_CONFIG,   RD, bool present, has_accel; int width, height, vmemsz);
 AM_DEVREG(10, GPU_STATUS,   RD, bool ready);
@@ -33,6 +43,22 @@ AM_DEVREG(21, NET_CONFIG,   RD, bool present);
 AM_DEVREG(22, NET_STATUS,   RD, int rx_len, tx_len);
 AM_DEVREG(23, NET_TX,       WR, Area buf);
 AM_DEVREG(24, NET_RX,       WR, Area buf);
+/* @member value: next value to show on 7-seg display
+ */
+AM_DEVREG(25, SEG,          WR, uint32_t value);
+/* @member value: current value of switches
+ */
+AM_DEVREG(26, SWITCH,       RD, uint16_t value);
+/* @member value: next value to show on LED
+ */
+AM_DEVREG(27, LED,          WR, uint16_t value);
+/* @member present: whether char-based memory is present 
+ * @member width: the width of cmem (in chars)
+ * @member heigth: the height of cmem (in chars)
+ */
+AM_DEVREG(28, CMEM_CONFIG,  RD, bool present; int width, height);
+/* Put a char ASCII on (x, y) (starting from 0) with fg_color FG and bg_color BG. */
+AM_DEVREG(29, CMEM_PUTCH,   WR, int x, y; char ascii; uint8_t fg, bg);
 
 // Input
 

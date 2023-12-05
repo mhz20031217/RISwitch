@@ -11,29 +11,22 @@ void imem_load(const char *filename) {
 
   paddr_t i = 0;
   while (fgets(buf, 64, fp)) {
-    // printf("buf: %s\n", buf);
     if (buf[0] == '@') {
       int rc = sscanf(buf + 1, "%x", &i);
-      // printf("reset i at %x %d\n", i, i);
-      assert(i%4 == 0);
+      i %= IMEM_SIZE;
       continue;
     }
     if (i >= IMEM_SIZE/4) {
-      // printf("i error: %x %d\n", i ,i);
       assert(0);
     }
-    int rc = sscanf(buf, "%x", &mem[i/4]);
-    // printf("res: mem[%x(%d)] = %x(%d)", i/4, i/4, mem[i/4], mem[i/4]);
+    int rc = sscanf(buf, "%x", &mem[i]);
     assert(rc);
-    i += 4;
+    i ++;
   }
   fclose(fp);
 }
 
-word_t imem_read(const paddr_t addr) {
-  assert(addr < IMEM_SIZE); // check bound
-  assert((addr & 0x3U) == 0); // check instruction alignment
-  printf("imem_read(%x) = %x(%d)\n", addr, mem[addr >> 2], mem[addr >> 2]);
-  return mem[addr >> 2]; 
+extern "C" void imem_read(paddr_t addr, word_t *data) {
+  *data = mem[((addr & ~0x3U) % IMEM_SIZE) >> 2];
 }
 

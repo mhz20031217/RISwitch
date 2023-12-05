@@ -4,11 +4,11 @@
 # Project type, PROJ_TYPE = {VERILOG, CHISEL}
 PROJ_TYPE = CHISEL
 # Used for NVDL, verilog dut. There should be exact one main() in $(TESTS_DIR)/$(TEST_NAME).
-SIM_TOP = Cpu
+SIM_TOP = System
 # Used for VIVADO, verilog testbench name
 SIM_TB = 
 # The current active test. Both the C++ testbench and verilog testbench should be in the corresponding directory.
-TEST_NAME = nvdl_batch
+TEST_NAME = am-test
 # The unified top_module for evaluation on board.
 EVAL_TOP = top
 # Type of clk. RT: provide CLK (10KHz), PERF: provide the fastest avaliable clk.
@@ -45,12 +45,14 @@ $(shell mkdir -p $(BUILD_DIR))
 
 VSRC_PATTERN = -name "*.v" -or -name "*.sv"
 CSRC_PATTERN = -name "*.c" -or -name "*.cc" -or -name "*.cpp"
+HEADER_PATTERN = -name "*.h" -or -name "*.hpp"
 
 VSRCS += $(shell find $(abspath $(VSRCS_DIR)) $(VSRC_PATTERN))
 ifeq ($(PROJ_TYPE),CHISEL)
 VSRCS += $(shell find $(abspath $(VSRC_GEN_DIR)) $(VSRC_PATTERN)) 
 endif
 CSRCS += $(shell find $(abspath $(CSRCS_DIR)) $(CSRC_PATTERN))
+HEADERS += $(shell find $(abspath $(INCLUDE_DIR)) $(HEADER_PATTERN))
 NXDC_FILE = $(CONSTR_DIR)/$(EVAL_TOP).nxdc
 INCLUDE_PATH = $(INCLUDE_DIR)
 
