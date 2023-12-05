@@ -60,9 +60,10 @@ class Core(w: Int) extends Module {
   val halt = RegInit(0.B)
   val trap = RegInit(0.B)
 
+  val resetVector = 0x080000000L.U(w.W)
   // Instruction Fetch
   val branchTarget = Wire(UInt(w.W))
-  val pc           = RegInit(0x080000000L.U(w.W))
+  val pc           = RegInit(resetVector)
   io.pc := pc
   when(!forwardUnit.io.stallIf) {
     pc := Mux(branchCond.io.pcSrc, branchTarget, pc + 4.U(w.W))
@@ -71,7 +72,8 @@ class Core(w: Int) extends Module {
   io.imem.addr := pc
 
   when(branchCond.io.flushIf) {
-    fd_reg := 0.U.asTypeOf(fd_reg)
+    fd_reg.pc := resetVector
+    fd_reg.instr := 0.U(32.W)
   }.elsewhen(!forwardUnit.io.stallId) {
     fd_reg.instr := io.imem.instr
     fd_reg.pc    := pc
@@ -111,6 +113,7 @@ class Core(w: Int) extends Module {
   import ForwardUnit._
   when(branchCond.io.flushId) {
     de_reg := 0.U.asTypeOf(de_reg)
+    de_reg.pc := resetVector
   }.elsewhen(!forwardUnit.io.stallEx) {
     de_reg.pc      := fd_reg.pc
     de_reg.c       := contrGen.io.c
