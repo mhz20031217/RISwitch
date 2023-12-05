@@ -9,7 +9,7 @@ void delay() {
 void led_test() {
   for (uint16_t i = 1; i; i <<= 1) {
     io_write(AM_LED, i);
-    delay();
+    // delay();
   }
 }
 
