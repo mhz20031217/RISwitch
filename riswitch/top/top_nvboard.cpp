@@ -117,8 +117,12 @@ bool check_status(const std::string &name) {
 void run_test(const std::string name) {
   uint64_t test_start_time = sim_time;
   // std::cout << "Test '"<< name << "', starting at: " << test_start_time << '\n';
-
   while (true) {
+    if (sim_time < 10) {
+      dut->BTN = 0xff;
+    } else {
+      dut->BTN = 0x0;
+    }
     nvdl_loop_begin();
     // printf("sim_time: %ld, pc: %x.\n", sim_time, dut->pc);
     nvdl_loop_end();
