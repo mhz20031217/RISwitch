@@ -7,7 +7,7 @@
 #define NR_REGS 32
 #endif
 
-#define SWTICH_EXIT_SUCCESS 0x00c0ffee
+#define SWITCH_EXIT_SUCCESS 0x00c0ffee
 #define SWITCH_EXIT_FAIL 0xdeadbeef
 
 struct Context {

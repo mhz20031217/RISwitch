@@ -43,3 +43,5 @@ sim: image
 wave: image
 	$(MAKE) -C $(SWITCH_HOME) IMEM_IMG="$(abspath $(IMEM_IMG))" DMEM_IMG="$(abspath $(DMEM_IMG))" PLATFORM=NVDL MODE=SIM wave
 
+eval: image
+	$(MAKE) -C $(SWITCH_HOME) IMEM_IMG="$(abspath $(IMEM_IMG))" DMEM_IMG="$(abspath $(DMEM_IMG))" PLATFORM=NVDL MODE=EVAL nvboard

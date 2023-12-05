@@ -2,9 +2,9 @@ module Mmu(
   input [31:0] addr,
   output [31:0] dout,
 
-  output sel_seg, sel_kbd, sel_timer, sel_cmem, sel_vga, sel_sw, sel_led,
+  output sel_dmem, sel_seg, sel_kbd, sel_timer, sel_cmem, sel_vga, sel_led,
 
-  input [31:0] dout_kbd, dout_timer, dout_sw
+  input [31:0] dout_dmem, dout_kbd, dout_timer, dout_sw
 );
 
 wire [3:0] id = addr[23:20];

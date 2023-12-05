@@ -34,7 +34,7 @@ $(SRC_AUTOBIND): $(NXDC_FILE)
 nvboard: compile
 	$(call git_commit, "eval RTL")
 	@echo "### EVALUATION ###"
-	@cd $(BUILD_DIR) && ./$(BIN)
+	@cd $(BUILD_DIR) && ./$(BIN) $(IMEM_IMG) $(DMEM_IMG)
 
 $(BUILD_DIR)/$(BIN): $(VSRCS) $(CSRCS) nvboard-archive
 	@echo "VSRCS: " $(VSRCS)
