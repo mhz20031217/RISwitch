@@ -11,6 +11,7 @@ void led_test() {
     io_write(AM_LED, i);
     //delay();
   }
+  io_write(AM_LED, 1234);
 }
 
 void seg_test() {
