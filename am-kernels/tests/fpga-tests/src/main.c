@@ -17,7 +17,7 @@ void seg_test() {
   uint32_t v = 0xabcdef88;
   for (int i = 0; i < 100000000; i ++) {
     io_write(AM_SEG, v);
-    //delay();
+    delay();
     v = (v << 4) | (v >> 28);
   }
 }
