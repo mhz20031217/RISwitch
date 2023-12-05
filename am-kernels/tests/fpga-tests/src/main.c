@@ -3,7 +3,7 @@
 #include <klib-macros.h>
 
 void delay() {
-  for (volatile int i = 0; i < 100; i ++);
+  for (volatile int i = 0; i < 10000; i ++);
 }
 
 void led_test() {
@@ -14,8 +14,8 @@ void led_test() {
 }
 
 void seg_test() {
-  uint32_t v = 0xabcdef88;
-  for (int i = 0; i < 100000000; i ++) {
+  volatile uint32_t v = 0xabcdef88;
+  for (volatile int i = 0; i < 100000000; i ++) {
     io_write(AM_SEG, v);
     delay();
     v = (v << 4) | (v >> 28);
