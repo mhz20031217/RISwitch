@@ -96,7 +96,7 @@ static void nvdl_loop_end() {
 #endif
 }
 
-bool check_status(const std::string &name) {
+bool check_status() {
   if (!dut->halt) {
     return false;
   }
@@ -106,15 +106,15 @@ bool check_status(const std::string &name) {
   }
 
   if (dut->trap) {
-    std::cout << "[" << name << "]\tHit GOOD trap.\n";
+    std::cout << "Hit GOOD trap.\n";
     return true;
   } else {
-    std::cout << "[" << name << "]\tHit BAD trap.\n";
+    std::cout << "Hit BAD trap.\n";
     return true;
   }
 }
 
-void run_test(const std::string name) {
+void run_test() {
   uint64_t test_start_time = sim_time;
   // std::cout << "Test '"<< name << "', starting at: " << test_start_time << '\n';
   while (true) {
@@ -126,9 +126,10 @@ void run_test(const std::string name) {
     nvdl_loop_begin();
     // printf("sim_time: %ld, pc: %x.\n", sim_time, dut->pc);
     nvdl_loop_end();
+    if (check_status()) {
+      break;
+    }
   }
-
-  std::cout << "[" << name << "]\t\tThe cpu does not terminate!\n";
 }
 
 int main(int argc, char *argv[], char *envp[]) {
@@ -137,10 +138,7 @@ int main(int argc, char *argv[], char *envp[]) {
   imem_load(IMEM_IMG);
   dmem_load(DMEM_IMG);
 
-  while (true) {
-    nvdl_loop_begin();
-    nvdl_loop_end();
-  }
+  run_test();
 
   return 0;
 }
