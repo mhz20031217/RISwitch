@@ -250,14 +250,14 @@ static int decode_exec(Decode *s) {
   );
   INSTPAT("000000000000 00000 000 00000 11100 11", ecall   , I,
     isa_raise_intr(11, s->pc);
-    s->dnpc = C(CSR_MTVEC_IDX);
+    s->dnpc = C(MTVEC);
   );
   INSTPAT("0011000 00010 00000 000 00000 11100 11", mret   , R,
-    s->dnpc = C(CSR_MEPC_IDX);
-    word_t mstatus = C(CSR_MSTATUS_IDX);
+    s->dnpc = C(MEPC);
+    word_t mstatus = C(MSTATUS);
     word_t mpie = getbit(mstatus, 7);
     mstatus = (mpie) ? setbit(mstatus, 3) : rstbit(mstatus, 3);
-    C(CSR_MSTATUS_IDX) = mstatus;
+    C(MSTATUS) = mstatus;
   );
 
   /* nemu */

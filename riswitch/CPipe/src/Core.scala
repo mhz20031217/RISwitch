@@ -51,9 +51,17 @@ class Core(w: Int) extends Module {
   val branchCond  = Module(new BranchCond)
   val forwardUnit = Module(new ForwardUnit)
 
+  val resetVector = 0x080000000L.U(w.W)
+  val fd_reg_init = Wire(new IfIdPipelineRegister(w))
+  fd_reg_init.pc := resetVector
+  fd_reg_init.instr := 0.U(32.W)
+  val de_reg_init = Wire(new IdExPipelineRegister(w))
+  de_reg_init := 0.U.asTypeOf(new IdExPipelineRegister(w))
+  de_reg_init.pc := resetVector
+
   // Pipeline Register
-  val fd_reg = RegInit(new IfIdPipelineRegister(w), 0.U.asTypeOf(new IfIdPipelineRegister(w)))
-  val de_reg = RegInit(new IdExPipelineRegister(w), 0.U.asTypeOf(new IdExPipelineRegister(w)))
+  val fd_reg = RegInit(new IfIdPipelineRegister(w), fd_reg_init)
+  val de_reg = RegInit(new IdExPipelineRegister(w), de_reg_init)
   val em_reg = RegInit(new ExMemPipelineRegister(w), 0.U.asTypeOf(new ExMemPipelineRegister(w)))
   val mw_reg = RegInit(new MemWbPipelineRegister(w), 0.U.asTypeOf(new MemWbPipelineRegister(w)))
 
@@ -62,7 +70,7 @@ class Core(w: Int) extends Module {
 
   // Instruction Fetch
   val branchTarget = Wire(UInt(w.W))
-  val pc           = RegInit(0.U(w.W))
+  val pc           = RegInit(resetVector)
   io.pc := pc
   when(!forwardUnit.io.stallIf) {
     pc := Mux(branchCond.io.pcSrc, branchTarget, pc + 4.U(w.W))
@@ -71,7 +79,8 @@ class Core(w: Int) extends Module {
   io.imem.addr := pc
 
   when(branchCond.io.flushIf) {
-    fd_reg := 0.U.asTypeOf(fd_reg)
+    fd_reg.pc := resetVector
+    fd_reg.instr := 0.U(32.W)
   }.elsewhen(!forwardUnit.io.stallId) {
     fd_reg.instr := io.imem.instr
     fd_reg.pc    := pc
@@ -111,6 +120,7 @@ class Core(w: Int) extends Module {
   import ForwardUnit._
   when(branchCond.io.flushId) {
     de_reg := 0.U.asTypeOf(de_reg)
+    de_reg.pc := resetVector
   }.elsewhen(!forwardUnit.io.stallEx) {
     de_reg.pc      := fd_reg.pc
     de_reg.c       := contrGen.io.c

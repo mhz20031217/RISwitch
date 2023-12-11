@@ -14,8 +14,8 @@ module top (
   `ifdef NVDL
   output VGA_VALID_N,
   `endif
-  output VGA_HS, VGA_VS
-
+  output VGA_HS, VGA_VS,
+  output halt, trap
 );
 
 /********************
@@ -142,67 +142,97 @@ wire VGA_VALID_N;
 
 /* USERSPACE BEGIN */
 
-wire [31:0] imemaddr, dmemaddr;
-wire [31:0] imemdataout, dmemdatain, dmemdataout;
-wire [2:0] dmemop;
+wire clock = CLK;
+wire reset = BTN[4];
+
+localparam addrWidth = 32;
+localparam dataWidth = 32;
+localparam instrWidth = 32;
+
+wire [addrWidth-1:0] imemaddr, dmemaddr;
+wire [instrWidth-1:0] imemdataout;
+wire [dataWidth-1:0] dmemdatain, dmemdataout;
 wire imemclk, dmemrdclk, dmemwrclk;
+wire [2:0] dmemop;
 wire dmemwe;
-wire halt, trap;
+
+/* verilator lint_off UNUSEDSIGNAL */
+wire [31:0] dontcare;
+/* verilator lint_on UNUSEDSIGNAL */
 
 Cpu cpu(
-  .clock(BTN[4]), 
-  .reset(BTN[3]),
-  .imemaddr(imemaddr),
-  .imemdataout(imemdataout),
-  .imemclk(imemclk),
-  .dmemaddr(dmemaddr),
-  .dmemdataout(dmemdataout),
-  .dmemdatain(dmemdatain),
-  .dmemrdclk(dmemrdclk),
-  .dmemwrclk(dmemwrclk),
-  .dmemop(dmemop),
-  .dmemwe(dmemwe),
-  .dbgdata(SEG_CONTENT[31:0]),
-  .halt(halt),
+  .clock(clock),
+  .reset(reset),
+  .imemaddr(imemaddr), 
+  .imemdataout(imemdataout), 
+  .imemclk(imemclk), 
+  .dmemaddr(dmemaddr), 
+  .dmemdataout(dmemdataout), 
+  .dmemdatain(dmemdatain), 
+  .dmemrdclk(dmemrdclk), 
+  .dmemwrclk(dmemwrclk), 
+  .dmemop(dmemop), 
+  .dmemwe(dmemwe), 
+  .dbgdata(dontcare), 
+  .halt(halt), 
   .trap(trap)
 );
 
-reg state;
-
-initial begin
-  state = 0;
-end
-
-always @(posedge CLK) begin
-  if (halt & trap) begin
-    state <= 1;
-  end else begin
-    state <= state;
-  end
-end
-
-assign LED[0] = state;
-
-InstrMem imem(
-  .address(imemaddr[17:2]),
+InstrMem instrMem(
   .clock(imemclk),
-  .q(imemdataout),
-  .data(32'b0),
-  .wren(1'b0)
+  .addr(imemaddr),
+  .instr(imemdataout)
 );
 
-DataMem dmem(
+wire sel_dmem, sel_seg, sel_kbd, sel_timer, sel_cmem, sel_vga, sel_led;
+wire [31:0] dout_timer, dout_kbd, dout_sw, dout_dmem;
+
+Mmu mmu(
   .addr(dmemaddr),
-  .dataout(dmemdataout),
-  .datain(dmemdatain),
-  .rdclk(dmemrdclk),
-  .wrclk(dmemwrclk),
-  .memop(dmemop),
-  .we(dmemwe)
+  .dout(dmemdataout),
+  .sel_dmem(sel_dmem),
+  .sel_timer(sel_timer),
+  .sel_seg(sel_seg),
+  .sel_kbd(sel_kbd),
+  .sel_cmem(sel_cmem),
+  .sel_vga(sel_vga),
+  .sel_led(sel_led),
+  .dout_timer(dout_timer),
+  .dout_sw(dout_sw),
+  .dout_kbd(dout_kbd),
+  .dout_dmem(dout_dmem)
+);
+
+DataMem dataMem(
+  .addr(dmemaddr),
+  .din(dmemdatain),
+  .dout(dout_dmem),
+  .memOp(dmemop),
+  .clkRd(dmemrdclk),
+  .clkWr(dmemwrclk),
+  .we(dmemwe & sel_dmem)
+);
+
+Led led(
+  .clock(clock),
+  .reset(reset),
+  .sel(sel_led),
+  .we(dmemwe),
+  .din(dmemdatain),
+  .led_out(LED)
+);
+
+Seg seg(
+  .clock(clock),
+  .reset(reset),
+  .sel(sel_seg),
+  .we(dmemwe),
+  .din(dmemdatain),
+  .seg_content(SEG_CONTENT)
 );
 
 assign SEG_EN = 8'b11111111;
-
+assign SEG_DP = 8'b00000000;
 
 /* USERSPACE END */
 

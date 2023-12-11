@@ -1,15 +1,15 @@
 [*]
 [*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
-[*] Fri Dec  1 06:52:54 2023
+[*] Tue Dec  5 02:43:50 2023
 [*]
 [dumpfile] "/home/pc/Learning/02.IT/5.ICS/ics2023/riswitch/build/System.vcd"
-[dumpfile_mtime] "Fri Dec  1 06:51:59 2023"
-[dumpfile_size] 1221882817
+[dumpfile_mtime] "Tue Dec  5 02:43:06 2023"
+[dumpfile_size] 1137385615
 [savefile] "/home/pc/Learning/02.IT/5.ICS/ics2023/riswitch/tests/am-test/System.gtkw"
 [timestart] 1
 [size] 1920 1024
 [pos] 0 32
-*-6.000000 1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-9.000000 1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] TOP.
 [treeopen] TOP.System.
 [treeopen] TOP.System.cpu.
