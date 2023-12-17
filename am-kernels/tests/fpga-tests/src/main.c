@@ -33,14 +33,14 @@ void cmem_test() {
     }
   }
 
-  while (true);
+  // while (true);
 }
 
 int main(const char *args) {
   ioe_init();
 
-  led_test();  
-  seg_test();
+  // led_test();  
+  // seg_test();
 
   cmem_test();
   halt(SWITCH_EXIT_SUCCESS);
