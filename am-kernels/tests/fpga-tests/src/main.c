@@ -28,12 +28,18 @@ void seg_test() {
 }
 
 void cmem_test() {
-  AM_CMEM_CONFIG_T c = io_read(AM_CMEM_CONFIG);
+  // AM_CMEM_CONFIG_T c = io_read(AM_CMEM_CONFIG);
 
-  for (int i = 0; i < c.width; i ++) {
-    for (int j = 0; j < c.height; j ++) {
-      io_write(AM_CMEM_PUTCH, i, j, rand() % 26 + 'a', rand() % 8, rand() % 8);
-    }
+  // for (int i = 0; i < c.width; i ++) {
+  //   for (int j = 0; j < c.height; j ++) {
+  //     io_write(AM_CMEM_PUTCH, i, j, rand() % 26 + 'a', rand() % 8, rand() % 8);
+  //   }
+  // }
+
+  char *hello = "hello, world!";
+  int len = strlen(hello);
+  for (int i = 0; i < len; i ++) {
+    io_write(AM_CMEM_PUTCH, i, 0, hello[i], 0, 7);
   }
 }
 
