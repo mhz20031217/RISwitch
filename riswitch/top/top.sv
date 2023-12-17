@@ -192,7 +192,7 @@ DataMem dataMem(
 );
 
 Led led(
-  .clock(clock),
+  .clock(dmemwrclk),
   .reset(reset),
   .sel(sel_led),
   .we(dmemwe),
@@ -201,7 +201,7 @@ Led led(
 );
 
 Seg seg(
-  .clock(clock),
+  .clock(dmemwrclk),
   .reset(reset),
   .sel(sel_seg),
   .we(dmemwe),
@@ -212,8 +212,8 @@ Seg seg(
 assign SEG_EN = 8'b11111111;
 assign SEG_DP = 8'b00000000;
 
-Vga vga(
-  .clock(clock),
+VgaCmem vcmem(
+  .clock(dmemwrclk),
   .reset(reset),
   .vga_clk(clock),
   .sel(sel_cmem),
@@ -226,6 +226,14 @@ Vga vga(
   .vga_r(VGA_R),
   .vga_g(VGA_G),
   .vga_b(VGA_B)
+);
+
+Timer timer(
+  .clock(dmemrdclk),
+  .reset(reset),
+  .sel(sel_cmem),
+  .addr(dmemaddr),
+  .dout(dout_timer)
 );
 
 /* USERSPACE END */

@@ -1,4 +1,4 @@
-module Vga (
+module VgaCmem (
     input clock, reset,
     input vga_clk,
     input sel, we,
