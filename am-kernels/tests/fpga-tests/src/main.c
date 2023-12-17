@@ -35,8 +35,6 @@ void cmem_test() {
       io_write(AM_CMEM_PUTCH, i, j, rand() % 26 + 'a', rand() % 8, rand() % 8);
     }
   }
-
-  while (true);
 }
 
 int main(const char *args) {
