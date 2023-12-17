@@ -216,7 +216,7 @@ Vga vga(
   .clock(clock),
   .reset(reset),
   .vga_clk(clock),
-  .sel(sel_vga),
+  .sel(sel_cmem),
   .we(dmemwe),
   .din(dmemdatain),
   .addr(dmemaddr),

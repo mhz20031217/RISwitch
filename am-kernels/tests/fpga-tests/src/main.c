@@ -33,7 +33,7 @@ void cmem_test() {
     }
   }
 
-  // while (true);
+  while (true);
 }
 
 int main(const char *args) {
