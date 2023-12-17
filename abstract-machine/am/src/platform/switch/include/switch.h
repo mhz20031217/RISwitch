@@ -4,7 +4,10 @@
 #include <klib-macros.h>
 #include <riscv/riscv.h>
 
-#define switch_trap(code) asm volatile("mv a0, %0; addi s1, sp, 100" : :"r"(code))
+#define switch_trap(code) \
+    asm volatile( \
+        "mv a0, %0;\r\n" \
+        ".word 0xdead10cc\r\n" : :"r"(code))
 
 #define SERIAL_PORT     0x80200000
 #define KBD_ADDR        0x80500000
