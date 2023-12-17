@@ -53,10 +53,10 @@ class Core(w: Int) extends Module {
 
   val resetVector = 0x080000000L.U(w.W)
   val fd_reg_init = Wire(new IfIdPipelineRegister(w))
-  fd_reg_init.pc := resetVector
+  fd_reg_init.pc    := resetVector
   fd_reg_init.instr := 0.U(32.W)
   val de_reg_init = Wire(new IdExPipelineRegister(w))
-  de_reg_init := 0.U.asTypeOf(new IdExPipelineRegister(w))
+  de_reg_init    := 0.U.asTypeOf(new IdExPipelineRegister(w))
   de_reg_init.pc := resetVector
 
   // Pipeline Register
@@ -78,12 +78,14 @@ class Core(w: Int) extends Module {
 
   io.imem.addr := pc
 
-  when(branchCond.io.flushIf) {
-    fd_reg.pc := resetVector
-    fd_reg.instr := 0.U(32.W)
-  }.elsewhen(!forwardUnit.io.stallId) {
-    fd_reg.instr := io.imem.instr
-    fd_reg.pc    := pc
+  when(!forwardUnit.io.stallId) {
+    when(branchCond.io.flushIf) {
+      fd_reg.pc    := resetVector
+      fd_reg.instr := 0.U(32.W)
+    }.otherwise {
+      fd_reg.instr := io.imem.instr
+      fd_reg.pc    := pc
+    }
   }
 
   // Instruction Decode
@@ -118,18 +120,41 @@ class Core(w: Int) extends Module {
   id_rs2Data := Mux(forwardUnit.io.id_rs2_sel, ex_rs2Data, regfile.busB)
 
   import ForwardUnit._
-  when(branchCond.io.flushId) {
-    de_reg := 0.U.asTypeOf(de_reg)
-    de_reg.pc := resetVector
-  }.elsewhen(!forwardUnit.io.stallEx) {
-    de_reg.pc      := fd_reg.pc
-    de_reg.c       := contrGen.io.c
-    de_reg.imm     := immGen.io.imm
-    de_reg.rd      := id_rd
-    de_reg.rs1     := id_rs1
-    de_reg.rs2     := id_rs2
-    de_reg.rs1Data := id_rs1Data
-    de_reg.rs2Data := id_rs2Data
+  // when(branchCond.io.flushId) {
+  //   de_reg    := 0.U.asTypeOf(de_reg)
+  //   de_reg.pc := resetVector
+  // }.elsewhen(!forwardUnit.io.stallEx) {
+  //   de_reg.pc      := fd_reg.pc
+  //   de_reg.c       := contrGen.io.c
+  //   de_reg.imm     := immGen.io.imm
+  //   de_reg.rd      := id_rd
+  //   de_reg.rs1     := id_rs1
+  //   de_reg.rs2     := id_rs2
+  //   de_reg.rs1Data := id_rs1Data
+  //   de_reg.rs2Data := id_rs2Data
+  // }.elsewhen(forwardUnit.io.stallEx) {
+  //   when(forwardUnit.io.id_rs1_sel === FD_EX) {
+  //     de_reg.rs1Data := id_rs1Data
+  //   }
+  //   when(forwardUnit.io.id_rs2_sel === FD_EX) {
+  //     de_reg.rs2Data := id_rs2Data
+  //   }
+  // }
+
+  when(!forwardUnit.io.stallEx) {
+    when(branchCond.io.flushId) {
+      de_reg    := 0.U.asTypeOf(de_reg)
+      de_reg.pc := resetVector
+    }.otherwise {
+      de_reg.pc      := fd_reg.pc
+      de_reg.c       := contrGen.io.c
+      de_reg.imm     := immGen.io.imm
+      de_reg.rd      := id_rd
+      de_reg.rs1     := id_rs1
+      de_reg.rs2     := id_rs2
+      de_reg.rs1Data := id_rs1Data
+      de_reg.rs2Data := id_rs2Data
+    }
   }.elsewhen(forwardUnit.io.stallEx) {
     when(forwardUnit.io.id_rs1_sel === FD_EX) {
       de_reg.rs1Data := id_rs1Data
