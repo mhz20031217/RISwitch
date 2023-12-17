@@ -7,11 +7,10 @@ void delay() {
 }
 
 void led_test() {
-  for (volatile uint16_t i = 1; i; i <<= 1) {
+  for (volatile uint16_t i = 1; i; i = i * 2) {
     io_write(AM_LED, i);
     delay();
   }
-  io_write(AM_LED, 1234);
 }
 
 void seg_test() {
