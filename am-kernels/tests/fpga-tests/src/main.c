@@ -7,7 +7,7 @@ void delay() {
   uint64_t start = io_read(AM_TIMER_UPTIME).us;
 
   // 1 second
-  while (io_read(AM_TIMER_UPTIME).us - start < 1000000);
+  while (io_read(AM_TIMER_UPTIME).us - start < 1000);
 }
 
 void led_test() {
