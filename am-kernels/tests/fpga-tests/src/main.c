@@ -16,7 +16,7 @@ void led_test() {
 
 void seg_test() {
   volatile uint32_t v = 0xabcdef88;
-  for (volatile int i = 0; i < 1000000; i ++) {
+  for (volatile int i = 0; i < 100; i ++) {
     io_write(AM_SEG, v);
     delay();
     v = (v << 4) | (v >> 28);
