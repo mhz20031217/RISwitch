@@ -41,5 +41,7 @@ int main(const char *args) {
 
   led_test();  
   seg_test();
+
+  cmem_test();
   halt(SWITCH_EXIT_SUCCESS);
 }
