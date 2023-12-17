@@ -25,4 +25,5 @@ extern "C" void timer_read(int is_high, word_t *data) {
     now = get_time();
     *data = now;
   }
+  printf("[cpp timer] return %u\n", (uint32_t) *data);
 }
