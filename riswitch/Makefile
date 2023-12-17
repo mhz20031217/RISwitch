@@ -8,7 +8,7 @@ SIM_TOP = System
 # Used for VIVADO, verilog testbench name
 SIM_TB = 
 # The current active test. Both the C++ testbench and verilog testbench should be in the corresponding directory.
-TEST_NAME = nvdl_batch
+TEST_NAME = am-test
 # The unified top_module for evaluation on board.
 EVAL_TOP = top
 # Type of clk. RT: provide CLK (10KHz), PERF: provide the fastest avaliable clk.
