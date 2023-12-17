@@ -5,6 +5,8 @@ include scripts/nvdl.mk
 .DEFAULT_GOAL=nvboard
 
 BIN = V$(EVAL_TOP)_eval
+WAVE = $(BUILD_DIR)/$(EVAL_TOP).vcd
+WAVECFG = $(TOP_DIR)/$(EVAL_TOP).gtkw
 include $(NVBOARD_HOME)/scripts/nvboard.mk
 # Add NVBoard INC_PATH to INCLUDE_PATH
 INCLUDE_PATH += $(INC_PATH)
@@ -39,6 +41,10 @@ nvboard: compile
 	@echo "### EVALUATION ###"
 	@cd $(BUILD_DIR) && ./$(BIN) $(IMEM_IMG) $(DMEM_IMG)
 
+wave:
+	@echo "### WAVEFORM ###"
+	@$(GTKWAVE) --save=$(WAVECFG) --saveonexit $(WAVE)
+
 $(BUILD_DIR)/$(BIN): $(VSRCS) $(CSRCS) nvboard-archive
 	@echo "VSRCS: " $(VSRCS)
 	@echo "CSRCS: " $(CSRCS)
@@ -49,5 +55,3 @@ $(BUILD_DIR)/$(BIN): $(VSRCS) $(CSRCS) nvboard-archive
 .PHONY: compile
 compile: $(BUILD_DIR)/$(BIN)
 	@echo "### COMPILATION ###"
-
-

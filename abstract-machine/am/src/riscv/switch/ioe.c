@@ -17,7 +17,7 @@ static void __am_seg(AM_SEG_T* seg) {
 }
 
 static void __am_led(AM_LED_T* led) {
-  led->value = inl(LED_ADDR);
+  outl(LED_ADDR, led->value);
 }
 
 static void __am_switch(AM_SWITCH_T* s) {

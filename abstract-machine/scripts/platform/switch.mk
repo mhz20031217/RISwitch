@@ -46,5 +46,8 @@ wave: image
 eval: image
 	$(MAKE) -C $(SWITCH_HOME) IMEM_IMG="$(abspath $(IMEM_IMG))" DMEM_IMG="$(abspath $(DMEM_IMG))" PLATFORM=NVDL MODE=EVAL nvboard
 
+evalwave: image
+	$(MAKE) -C $(SWITCH_HOME) IMEM_IMG="$(abspath $(IMEM_IMG))" DMEM_IMG="$(abspath $(DMEM_IMG))" PLATFORM=NVDL MODE=EVAL wave
+
 cleansim:
 	$(MAKE) -C $(SWITCH_HOME) clean

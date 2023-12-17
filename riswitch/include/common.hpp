@@ -10,6 +10,7 @@
 #include <svdpi.h>
 #include <vector>
 #include <set>
+#include "config.h"
 
 #define XLEN 32
 
@@ -30,6 +31,6 @@ typedef word_t vaddr_t;
 #define ROUNDUP(a, sz)   ((((uintptr_t)a) + (sz) - 1) & ~((sz) - 1))
 #define ROUNDDOWN(a, sz) ((((uintptr_t)a)) & ~((sz) - 1))
 
-#define CONFIG_TRACE
+// #define CONFIG_TRACE
 
 #endif // !_COMMON_H_
