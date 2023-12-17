@@ -91,7 +91,11 @@ endif
 
 clean:
 	@echo "### CLEAN ###"
-	-rm -rf $(VSRC_GEN_DIR) $(BUILD_DIR)
+	-rm -rf $(BUILD_DIR)
+
+cleanverilog:
+	@echo "### CLEAN VERILOG ###"
+	-rm -rf $(VSRC_GEN_DIR)
 
 .PHONY: test verilog bsp reformat checkformat clean
 
