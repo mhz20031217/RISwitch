@@ -3,7 +3,7 @@
 #include <klib-macros.h>
 
 void delay() {
-  for (volatile int i = 0; i < 1000000; i ++);
+  for (volatile int i = 0; i < 1000; i ++);
 }
 
 void led_test() {
