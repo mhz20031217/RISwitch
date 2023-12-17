@@ -3,13 +3,13 @@
 #include <klib-macros.h>
 
 void delay() {
-  for (volatile int i = 0; i < 10; i ++);
+  for (volatile int i = 0; i < 100000; i ++);
 }
 
 void led_test() {
   for (volatile uint16_t i = 1; i; i <<= 1) {
     io_write(AM_LED, i);
-    //delay();
+    delay();
   }
   io_write(AM_LED, 1234);
 }
