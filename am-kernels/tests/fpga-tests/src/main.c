@@ -4,7 +4,10 @@
 #include <klib-macros.h>
 
 void delay() {
-  for (volatile int i = 0; i < 10000; i ++);
+  uint64_t start = io_read(AM_TIMER_UPTIME).us;
+
+  // 1 second
+  while (io_read(AM_TIMER_UPTIME).us - start < 1000000);
 }
 
 void led_test() {
@@ -17,7 +20,7 @@ void led_test() {
 
 void seg_test() {
   volatile uint32_t v = 0xabcdef88;
-  for (volatile int i = 0; i < 100; i ++) {
+  for (volatile int i = 0; i < 10; i ++) {
     io_write(AM_SEG, v);
     delay();
     v = (v << 4) | (v >> 28);
@@ -39,9 +42,9 @@ void cmem_test() {
 int main(const char *args) {
   ioe_init();
 
-  // led_test();  
-  // seg_test();
-
   cmem_test();
+  led_test();  
+  seg_test();
+
   halt(SWITCH_EXIT_SUCCESS);
 }
