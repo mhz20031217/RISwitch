@@ -35,6 +35,7 @@ static uint64_t get_time() {
 
 static void nvdl_destroy() {
   nvboard_quit();
+  delete tracer;
 }
 
 static void nvdl_init(int argc, char **argv) {
