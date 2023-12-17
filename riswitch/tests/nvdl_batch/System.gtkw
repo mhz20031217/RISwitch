@@ -14,7 +14,7 @@
 [treeopen] TOP.System.
 [treeopen] TOP.System.cpu.
 [treeopen] TOP.System.cpu.core.
-[sst_width] 44
+[sst_width] 48
 [signals_width] 270
 [sst_expanded] 0
 [sst_vpaned_height] 302
