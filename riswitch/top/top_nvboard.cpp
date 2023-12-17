@@ -35,8 +35,6 @@ static uint64_t get_time() {
 
 static void nvdl_destroy() {
   nvboard_quit();
-  delete tracer;
-  delete dut; 
 }
 
 static void nvdl_init(int argc, char **argv) {
@@ -135,6 +133,8 @@ void run_test() {
 int main(int argc, char *argv[], char *envp[]) {
   nvdl_init(argc, argv);
   // load memory
+  printf("Loading IMEM_IMG: " IMEM_IMG "\n");
+  printf("Loading DMEM_IMG: " DMEM_IMG "\n");
   imem_load(IMEM_IMG);
   dmem_load(DMEM_IMG);
 
