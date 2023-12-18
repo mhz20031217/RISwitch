@@ -52,10 +52,16 @@ void serial_test() {
 }
 
 void timer_test() {
-  printf("Timer test begin.\n");
+  // printf("Timer test begin.\n");
+
+  // for (int i = 0; i < 10; i ++) {
+  //   printf("%u\n", io_read(AM_TIMER_UPTIME).us);
+  // }
 
   for (int i = 0; i < 10; i ++) {
-    printf("%u\n", io_read(AM_TIMER_UPTIME).us);
+    volatile uint64_t t;
+    t = io_read(AM_TIMER_UPTIME).us;
+    (void)t;
   }
 }
 
