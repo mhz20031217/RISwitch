@@ -196,6 +196,7 @@ class Core(w: Int) extends Module {
   io.dmem.din   := em_reg.rs2Data
   io.dmem.memOp := em_reg.c.memOp
   io.dmem.memWe := em_reg.c.memWe
+  io.dmem.memRe := em_reg.c.memRe
 
   val fu = forwardUnit.io
   fu.ex_rd        := de_reg.rd
