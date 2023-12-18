@@ -122,7 +122,7 @@ void run_test(const std::string name) {
     } else {
       dut->reset = 0;
       if (sim_time - test_start_time >= 13) {
-        if (!dut->rootp->System__DOT__cpu__DOT__core__DOT__em_reg_c) {
+        if (!dut->rootp->System__DOT__cpu__DOT__core__DOT__em_reg_c_valid) {
           if (check_status(name)) {
             return;
           }
