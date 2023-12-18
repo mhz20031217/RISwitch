@@ -68,6 +68,7 @@ int main(const char *args) {
   // seg_test();
 
   // serial_test();
+  timer_test();
 
   return 0;
 }
