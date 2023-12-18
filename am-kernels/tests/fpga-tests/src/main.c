@@ -1,3 +1,4 @@
+#include "amdev.h"
 #include <am.h>
 #include <klib.h>
 #include <klib-macros.h>
@@ -60,15 +61,35 @@ void timer_test() {
   }
 }
 
+void keybrd_test() {
+  printf("Keyboard test begin, press a key and it'll showup.\n");
+  if (io_read(AM_INPUT_CONFIG).present == false) {
+    printf("Keybord not present!\n");
+    return;
+  }
+
+  while (true) {
+    AM_INPUT_KEYBRD_T kbd = io_read(AM_INPUT_KEYBRD);
+    if (kbd.keycode == AM_KEY_NONE) continue;
+    if (kbd.keydown) {
+      printf("Key down: %d\n");
+    } else {
+      printf("Key up: %d\n");
+    }
+  }
+}
+
 int main(const char *args) {
   ioe_init();
 
-  cmem_test();
-  led_test();  
-  seg_test();
+  // cmem_test();
+  // led_test();  
+  // seg_test();
 
-  serial_test();
-  timer_test();
+  // serial_test();
+  // timer_test();
+
+  keybrd_test();
 
   return 0;
 }
