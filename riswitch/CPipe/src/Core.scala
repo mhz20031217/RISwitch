@@ -60,7 +60,7 @@ class Core(w: Int) extends Module {
   // Pipeline Register
   val fd_reg = RegInit(new IfIdPipelineRegister(w), fd_reg_init)
   val de_reg = RegInit(new IdExPipelineRegister(w), de_reg_init)
-  val em_reg = RegInit(new ExMemPipelineRegister(w), 0.U.asTypeOf(new ExMemPipelineRegister(w)))
+  val em_reg = dontTouch(RegInit(new ExMemPipelineRegister(w), 0.U.asTypeOf(new ExMemPipelineRegister(w))))
   val mw_reg = RegInit(new MemWbPipelineRegister(w), 0.U.asTypeOf(new MemWbPipelineRegister(w)))
 
   // Instruction Fetch
