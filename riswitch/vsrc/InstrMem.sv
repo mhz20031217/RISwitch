@@ -1,3 +1,5 @@
+`include "config.sv"
+
 import "DPI-C" function void imem_read(input int addr, output int data);
 
 /* verilator lint_off UNUSEDPARAM */ 
