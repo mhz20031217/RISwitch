@@ -5,7 +5,7 @@ module vga_bitmap(
   output vga_bit
 );
 
-reg [11:0] bitmap [4095:0];
+(* ram_style = "block" *) reg [11:0] bitmap [4095:0];
 
 initial begin
   $readmemh("../resources/vga_font.txt", bitmap);

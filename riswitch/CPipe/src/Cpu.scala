@@ -17,6 +17,7 @@ class Cpu(w: Int) extends Module {
     val dmemwrclk   = Output(Clock())
     val dmemop      = Output(UInt(3.W))
     val dmemwe      = Output(Bool())
+    val dmemre      = Output(Bool())
     val dbgdata     = Output(UInt(w.W))
   })
   forceName(io.imemaddr, "imemaddr")
@@ -30,6 +31,7 @@ class Cpu(w: Int) extends Module {
   forceName(io.dbgdata, "dbgdata")
   forceName(io.dmemop, "dmemop")
   forceName(io.dmemwe, "dmemwe")
+  forceName(io.dmemre, "dmemre")
 
   withClock((!clock.asBool).asClock) {
     val core = Module(new Core(w))
@@ -42,6 +44,7 @@ class Cpu(w: Int) extends Module {
     io.dmemdatain := c.dmem.din
     io.dmemop     := c.dmem.memOp
     io.dmemwe     := c.dmem.memWe
+    io.dmemre     := c.dmem.memRe
     io.dbgdata    := c.pc
   }
 

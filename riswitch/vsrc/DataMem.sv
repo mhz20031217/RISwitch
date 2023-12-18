@@ -1,4 +1,4 @@
-`include "config.sv"
+`include "../include/config.sv"
 
 import "DPI-C" function void dmem_read(input int addr, output int data);
 import "DPI-C" function void dmem_write(input int addr, input int data, input byte wmask);
@@ -81,7 +81,7 @@ reg [31:0] din_r;
 wire [31:0] cur;
 
 initial begin
-  $readmemh(DMEM_IMG, ram);
+  $readmemh(`DMEM_IMG, ram);
 end
 
 assign cur = ram[addr[31:2]];
@@ -132,15 +132,18 @@ always @(*) begin
         endcase
 end
 
+reg [31:0] dout_buf;
+assign dout = dout_buf;
+
 always @(posedge clkRd)
 begin
     tempout <= cur;
     case(memOp)
-        3'b000: dout <= {{24{bt[7]}}, bt};
-        3'b001: dout <= {{16{wd[15]}}, wd};
-        3'b010: dout <= cur;
-        3'b100: dout <= {24'b0, bt};
-        3'b101: dout <= {16'b0, wd};
+        3'b000: dout_buf <= {{24{bt[7]}}, bt};
+        3'b001: dout_buf <= {{16{wd[15]}}, wd};
+        3'b010: dout_buf <= cur;
+        3'b100: dout_buf <= {24'b0, bt};
+        3'b101: dout_buf <= {16'b0, wd};
     endcase
 end
 

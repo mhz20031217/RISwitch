@@ -23,4 +23,5 @@ class DataMemIO(w: Int) extends Bundle {
   val dout  = Output(UInt(w.W))
   val memOp = Input(UInt(3.W))
   val memWe = Input(Bool())
+  val memRe = Input(Bool())
 }

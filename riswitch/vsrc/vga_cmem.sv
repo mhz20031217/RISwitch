@@ -13,9 +13,9 @@ module vga_cmem (
   input [2:0] w_bg_color
 );
 
-reg [7:0] mem [2239:0];
-reg [2:0] fg_mem[2239:0];
-reg [2:0] bg_mem[2239:0];
+(* ram_style = "block" *) reg [7:0] mem [2239:0];
+(* ram_style = "block" *) reg [2:0] fg_mem[2239:0];
+(* ram_style = "block" *) reg [2:0] bg_mem[2239:0];
 
 wire [11:0] index, w_index;
 assign index = {c_addr, r_addr};
