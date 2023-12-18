@@ -88,7 +88,7 @@ static void nvdl_loop_end() {
 }
 
 bool check_status(const std::string &name) {
-  for (int i = 0; i < 1; i++) {
+  for (int i = 0; i < 3; i++) {
     nvdl_loop_begin();
     nvdl_loop_end();
   }
@@ -121,7 +121,7 @@ void run_test(const std::string name) {
       dut->reset = 1;
     } else {
       dut->reset = 0;
-      if (sim_time - test_start_time >= 12) {
+      if (sim_time - test_start_time >= 13) {
         if (!dut->rootp->System__DOT__cpu__DOT__core__DOT__em_reg_c_valid) {
           if (check_status(name)) {
             return;
