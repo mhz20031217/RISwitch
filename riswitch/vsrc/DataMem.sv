@@ -70,10 +70,6 @@ assign wmask =
   (memOp == M_SH) ? (4'b0011 << offset) :
   4'b1111;
 
-endmodule
-/* verilator lint_on UNUSEDPARAM */ 
-
-
 `elsif VIVADO
 reg [3:0] ea;
 reg [31:0] tempout;
@@ -83,6 +79,10 @@ reg [7:0] bt = 8'b0;
 reg [15:0] wd = 16'b0;
 reg [31:0] din_r;
 wire [31:0] cur;
+
+initial begin
+  $readmemh(DMEM_IMG, ram);
+end
 
 assign cur = ram[addr[31:2]];
 
@@ -154,5 +154,7 @@ always @(posedge clkWr) begin
         ram[addr[31:2]] <= tempin;
     end
 end
-endmodule
 `endif
+
+endmodule
+/* verilator lint_on UNUSEDPARAM */
