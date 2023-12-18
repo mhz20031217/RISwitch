@@ -52,6 +52,14 @@ void serial_test() {
   printf("%s", hello);
 }
 
+void timer_test() {
+  printf("Timer test begin.\n");
+
+  for (int i = 0; i < 10; i ++) {
+    printf("%u\n", io_read(AM_TIMER_UPTIME).us);
+  }
+}
+
 int main(const char *args) {
   ioe_init();
 
@@ -59,7 +67,7 @@ int main(const char *args) {
   // led_test();  
   // seg_test();
 
-  serial_test();
+  // serial_test();
 
-  halt(SWITCH_EXIT_SUCCESS);
+  return 0;
 }
