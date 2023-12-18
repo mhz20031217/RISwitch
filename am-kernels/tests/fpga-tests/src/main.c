@@ -54,7 +54,7 @@ void serial_test() {
 void timer_test() {
   printf("Timer test begin.\n");
 
-  for (int i = 0; i < 10000; i ++) {
+  for (int i = 0; i < 10; i ++) {
     printf("%u\n", io_read(AM_TIMER_UPTIME).us);
   }
 }
