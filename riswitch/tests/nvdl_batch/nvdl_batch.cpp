@@ -96,13 +96,16 @@ bool check_status(const std::string &name) {
     nvdl_loop_end();
   }
 
-  if (dut->rootp->System__DOT__cpu__DOT__core__DOT__regFile__DOT__mem[10] == 0x00c0ffee) {
+  int ret_value = dut->rootp->System__DOT__cpu__DOT__core__DOT__regFile__DOT__mem[10];
+
+  if (ret_value == 0x00c0ffee) {
     std::cout << "[" << name << "]\tHit GOOD trap.\n";
-    return true;
-  } else {
+  } else if (ret_value == 0xdeadbeef) {
     std::cout << "[" << name << "]\tHit BAD trap.\n";
-    return true;
+  } else {
+    std::cout << "[" << name << "]\tThe CPU is flying.\n";
   }
+  return true;
 }
 
 void run_test(const std::string name) {
