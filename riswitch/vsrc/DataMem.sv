@@ -97,6 +97,7 @@ always @(*) begin
                         3'b000: begin ea[0] = 1; ea[1] = 0; ea[2] = 0; ea[3] = 0; end
                         3'b001: begin ea[0] = 1; ea[1] = 1; ea[2] = 0; ea[3] = 0; end
                         3'b010: begin ea[0] = 1; ea[1] = 1; ea[2] = 1; ea[3] = 1; end
+			default: ea = 3'b000;
                     endcase
                 end
         2'b01:  begin   
@@ -107,6 +108,7 @@ always @(*) begin
                         3'b000: begin ea[0] = 0; ea[1] = 1; ea[2] = 0; ea[3] = 0; end
                         3'b001: begin ea[0] = 0; ea[1] = 0; ea[2] = 0; ea[3] = 0; end
                         3'b010: begin ea[0] = 0; ea[1] = 0; ea[2] = 0; ea[3] = 0; end
+			default: ea = 3'b000;
                     endcase
                 end
         2'b10:  begin
@@ -117,6 +119,7 @@ always @(*) begin
                         3'b000: begin ea[0] = 0; ea[1] = 0; ea[2] = 1; ea[3] = 0; end
                         3'b001: begin ea[0] = 0; ea[1] = 0; ea[2] = 1; ea[3] = 1; end
                         3'b010: begin ea[0] = 0; ea[1] = 0; ea[2] = 0; ea[3] = 0; end
+			default: ea = 3'b000;
                     endcase
                 end
         2'b11:  begin
@@ -127,6 +130,7 @@ always @(*) begin
                         3'b000: begin ea[0] = 0; ea[1] = 0; ea[2] = 0; ea[3] = 1; end
                         3'b001: begin ea[0] = 0; ea[1] = 0; ea[2] = 0; ea[3] = 0; end
                         3'b010: begin ea[0] = 0; ea[1] = 0; ea[2] = 0; ea[3] = 0; end
+			default: ea = 3'b000;
                     endcase
                 end
         endcase

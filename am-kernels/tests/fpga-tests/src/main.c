@@ -1,4 +1,3 @@
-#include "amdev.h"
 #include <am.h>
 #include <klib.h>
 #include <klib-macros.h>
@@ -82,9 +81,9 @@ void keybrd_test() {
 int main(const char *args) {
   ioe_init();
 
-  // cmem_test();
-  // led_test();  
-  // seg_test();
+  cmem_test();
+  led_test();  
+  seg_test();
 
   // serial_test();
   // timer_test();
