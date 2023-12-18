@@ -151,9 +151,7 @@ Cpu cpu(
   .dmemwrclk(dmemwrclk), 
   .dmemop(dmemop), 
   .dmemwe(dmemwe), 
-  .dbgdata(dontcare), 
-  .halt(halt), 
-  .trap(trap)
+  .dbgdata(dontcare)
 );
 
 InstrMem instrMem(
