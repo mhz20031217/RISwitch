@@ -13,10 +13,6 @@ Area heap = RANGE(&_heap_start, PMEM_END);
 #endif
 static const char mainargs[] = MAINARGS;
 
-void putch(char ch) {
-  outl(SERIAL_PORT, (int)ch);
-}
-
 /* Terminate AM Program execution by calling this function
  * 
  * @param code should be SWITCH_EXIT_SUCCESS or SWITCH_EXIT_FAIL
@@ -30,6 +26,10 @@ void halt(int code) {
   // The cpu will determine this condition and in NVDL C++ wrapper,
   // it will terminate simulation automatically.
   while (1);
+}
+
+void putch(char ch) {
+  outl(SERIAL_PORT, (int)ch);
 }
 
 void _trm_init() {
