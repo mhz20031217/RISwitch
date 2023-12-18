@@ -88,7 +88,7 @@ static void nvdl_loop_end() {
 }
 
 bool check_status(const std::string &name) {
-  for (int i = 0; i < 3; i++) {
+  for (int i = 0; i < 10; i++) {
     nvdl_loop_begin();
     nvdl_loop_end();
   }
