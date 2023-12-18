@@ -11,6 +11,7 @@ module InstrMem #(
   output [instrWidth-1:0] instr
 );
 
+`ifdef NVDL
 reg [instrWidth-1:0] instrBuf;
 always @(posedge clock) begin
   imem_read(addr, instrBuf);
@@ -20,3 +21,13 @@ assign instr = instrBuf;
 
 endmodule
 /* verilator lint_on UNUSEDPARAM */ 
+
+
+`elsif VIVADO
+reg [31:0] ram [131072:0];
+always @(posedge clock)
+begin
+    instr <= ram[addr];
+end
+endmodule
+`endif
