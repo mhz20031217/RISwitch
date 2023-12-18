@@ -1,3 +1,4 @@
+#include "amdev.h"
 #include <am.h>
 #include <klib.h>
 #include <klib-macros.h>
@@ -42,12 +43,22 @@ void cmem_test() {
   }
 }
 
+void serial_test() {
+  char *hello = "hello, world!";
+  int len = strlen(hello);
+  for (int i = 0; i < len; i ++) {
+    io_write(AM_SERIAL_PUTCH, hello[i]);
+  }
+}
+
 int main(const char *args) {
   ioe_init();
 
-  cmem_test();
-  led_test();  
-  seg_test();
+  // cmem_test();
+  // led_test();  
+  // seg_test();
+
+  serial_test();
 
   halt(SWITCH_EXIT_SUCCESS);
 }

@@ -9,7 +9,7 @@
         "mv a0, %0;\r\n" \
         ".word 0xdead10cc\r\n" : :"r"(code))
 
-#define SERIAL_PORT     0x80200000
+#define SERIAL_PORT     0x80f00000
 #define KBD_ADDR        0x80500000
 #define RTC_ADDR        0x80300000
 #define VGACTL_ADDR     0x00000000 // not supported yet

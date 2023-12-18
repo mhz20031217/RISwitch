@@ -2,8 +2,7 @@ module Mmu(
   input [31:0] addr,
   output [31:0] dout,
 
-  output sel_dmem, sel_seg, sel_kbd, sel_timer, sel_cmem, sel_vga, sel_led,
-
+  output sel_dmem, sel_seg, sel_kbd, sel_timer, sel_cmem, sel_vga, sel_led, sel_serial,
   input [31:0] dout_dmem, dout_kbd, dout_timer, dout_sw
 );
 
@@ -18,6 +17,7 @@ assign sel_cmem = (id == 4'h4);
 assign sel_vga = (id == 4'h8);
 assign sel_sw = (id == 4'h6);
 assign sel_led = (id == 4'h7);
+assign sel_serial = (id == 4'hf);
 
 assign dout =
   (sel_dmem) ? dout_dmem :
