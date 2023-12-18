@@ -1,33 +1,18 @@
-//////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date: 2023/10/22 17:17:41
-// Design Name: 
-// Module Name: keyboard
-// Project Name: 
-// Target Devices: 
-// Tool Versions: 
-// Description: 
-// 
-// Dependencies: 
-// 
-// Revision:
-// Revision 0.01 - File Created
-// Additional Comments:
-// 
-//////////////////////////////////////////////////////////////////////////////////
-
-
-module Keyboard
+module keyboard
 (
-  input clk,
+    input clk,
 	input clrn,
 	input ps2_clk,
 	input ps2_data,
-	output reg [7:0] key_count,
-	output reg [15:0] cur_key
-);
+	output reg [31:0] cur_key
+//	output [7:0] ascii_key,
+//  output reg [6:0] h,
+//	output reg [7:0] AN,
+//	output dp,
+//	output shift,
+//	output ctrl,
+//	output caps
+	);
 
 // add your definitions here
     wire [7:0] keydata;
@@ -35,25 +20,10 @@ module Keyboard
     wire overflow;
     reg nextdata_n = 0;
     reg release_f = 0;
-    reg shift_state = 0;
-    reg ctrl_state = 0;
-    reg caps_state = 0;
+    reg tri_f = 0;
     
     reg clk_1000HZ;
-    reg [2:0] select = 0;
 
-    
-    assign shift = shift_state;
-    assign ctrl = ctrl_state;
-    assign caps = caps_state;
-    
-//    assign dp = 1;
-//    wire [6:0] h1;
-//    wire [6:0] h2;
-//    wire [6:0] h3;
-//    wire [6:0] h4;
-//    wire [6:0] h5;
-//    wire [6:0] h6;
     
 
 //----DO NOT CHANGE BEGIN----
@@ -87,7 +57,6 @@ ps2_keyboard mykey(clk, clrn, ps2_clk, ps2_data, keydata, ready, nextdata_n, ove
 // add you code here
 always@(posedge clk) begin
     if(clrn == 0) begin
-        key_count <= 8'b00000000;
         cur_key <= 0;
     end
     else begin
@@ -99,53 +68,35 @@ always@(posedge clk) begin
                 cur_key <= cur_key;
             end
             
+            else if(keydata == 8'he0) begin //triple
+                tri_f <= 1;
+                cur_key <= 0;
+            end
+                        
             else if(keydata == 8'hf0) begin //release
                 release_f <= 1;
                 cur_key <= 0;
             end
             
-            else if(keydata == 8'h12 || keydata == 8'h59) begin //shift
-                if(release_f) begin
-                    shift_state <= 0;
-                    release_f <= 0;
-                    cur_key <= {8'hF0, keydata};
-                end
-                
-                else begin
-                    key_count <= key_count + 1;
-                    cur_key <= {8'h00, keydata};
-                    shift_state <= 1;
-                end
-                
-            end
-            
-            else if(keydata == 8'h14) begin //ctrl
-                if(release_f) begin
-                    ctrl_state <= 0;
-                    release_f <= 0;
-                    cur_key <= {8'hF0, keydata};
-                end
-                
-                else begin
-                    key_count <= key_count + 1;
-                    cur_key <= {8'h00, keydata};
-                    ctrl_state <= 1;
-                end
-                
-            end
-            //else if(keydata == 8'h58) begin //caps
-                //caps_state <= ~caps_state;
-            //end
             else if(release_f == 1) begin
-                    if(keydata == 8'h58) caps_state <= ~caps_state;
-                    key_count <= key_count;
                     release_f <= 0;
-                    cur_key <= {8'hF0, keydata};
+                    if(tri_f == 1) begin
+                        cur_key <= {24'h00E0F0, keydata};
+                        tri_f <= 0;
+                    end
+                    else begin
+                        cur_key <= {24'h0000F0, keydata};
+                    end
             end
             
             else begin
-                    key_count <= key_count + 1;
-                    cur_key <= {8'h00, keydata};
+                    if(tri_f == 1) begin
+                        cur_key <= {24'h0000E0, keydata};
+                        tri_f <= 0;
+                    end
+                    else begin
+                        cur_key <= {24'h000000, keydata};
+                    end
             end
             
         end
