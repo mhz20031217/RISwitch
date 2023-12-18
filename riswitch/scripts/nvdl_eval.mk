@@ -12,7 +12,7 @@ include $(NVBOARD_HOME)/scripts/nvboard.mk
 INCLUDE_PATH += $(INC_PATH)
 INCLUDE_PATH += $(NVBOARD_HOME)/include
 
-VERILATOR_FLAGS += --top $(EVAL_TOP) -DEVAL --trace
+VERILATOR_FLAGS += --top $(EVAL_TOP) -DEVAL --trace --public
 CSRCS += $(shell find $(abspath $(TOP_DIR)) $(CSRC_PATTERN))
 VSRCS += $(shell find $(abspath $(TOP_DIR)) $(VSRC_PATTERN))
 
