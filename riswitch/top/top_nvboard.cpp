@@ -109,7 +109,7 @@ bool check_status() {
   } else if (ret_value == 0xdeadbeef) {
     std::cout << "Hit BAD trap.\n";
   } else {
-    std::cout << "The CPU is flying.\n";
+    std::cout << "Ret value: " << ret_value << "\n";
   }
   return true;
 }
