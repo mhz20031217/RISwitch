@@ -4,7 +4,7 @@ module clkgen(
 );
 
 parameter freq_in = 100000000, freq_out = 1000;
-parameter limit = freq_in/2/freq_out - 1;
+localparam limit = freq_in/2/freq_out - 1;
 
 reg [31:0] cnt;
 

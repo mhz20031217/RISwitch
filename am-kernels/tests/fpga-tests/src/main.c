@@ -1,4 +1,3 @@
-#include "amdev.h"
 #include <am.h>
 #include <klib.h>
 #include <klib-macros.h>
@@ -28,19 +27,19 @@ void seg_test() {
 }
 
 void cmem_test() {
-  // AM_CMEM_CONFIG_T c = io_read(AM_CMEM_CONFIG);
+  AM_CMEM_CONFIG_T c = io_read(AM_CMEM_CONFIG);
 
-  // for (int i = 0; i < c.width; i ++) {
-  //   for (int j = 0; j < c.height; j ++) {
-  //     io_write(AM_CMEM_PUTCH, i, j, rand() % 26 + 'a', rand() % 8, rand() % 8);
-  //   }
-  // }
-
-  char *hello = "hello, world!";
-  int len = strlen(hello);
-  for (int i = 0; i < len; i ++) {
-    io_write(AM_CMEM_PUTCH, i, 0, hello[i], 0, 7);
+  for (int i = 0; i < c.width; i ++) {
+    for (int j = 0; j < c.height; j ++) {
+      io_write(AM_CMEM_PUTCH, i, j, rand() % 26 + 'a', rand() % 8, rand() % 8);
+    }
   }
+
+  // char *hello = "hello, world!";
+  // int len = strlen(hello);
+  // for (int i = 0; i < len; i ++) {
+  //   io_write(AM_CMEM_PUTCH, i, 0, hello[i], 0, 7);
+  // }
 }
 
 void serial_test() {
@@ -52,14 +51,24 @@ void serial_test() {
   printf("%s", hello);
 }
 
+void timer_test() {
+  // printf("Timer test begin.\n");
+
+  for (int i = 0; i < 10; i ++) {
+    printf("%llu\n", io_read(AM_TIMER_UPTIME).us);
+    delay();
+  }
+}
+
 int main(const char *args) {
   ioe_init();
 
-  // cmem_test();
-  // led_test();  
-  // seg_test();
+  cmem_test();
+  led_test();  
+  seg_test();
 
   serial_test();
+  timer_test();
 
-  halt(SWITCH_EXIT_SUCCESS);
+  return 0;
 }

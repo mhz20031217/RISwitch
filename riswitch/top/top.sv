@@ -232,7 +232,7 @@ VgaCmem vcmem(
 Timer timer(
   .clock(dmemrdclk),
   .reset(reset),
-  .sel(sel_cmem),
+  .sel(sel_timer),
   .addr(dmemaddr),
   .dout(dout_timer)
 );
