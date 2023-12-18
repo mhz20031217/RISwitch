@@ -17,7 +17,7 @@ uint64_t get_time() {
 }
 
 extern "C" void timer_read(int is_high, word_t *data) {
-  // printf("timer_read(%s)\n", (is_high) ? "high" : "low");
+  printf("timer_read(%s)\n", (is_high) ? "high" : "low");
   static uint64_t now = 0;
   if (is_high) {
     *data = (now >> 32);
@@ -25,5 +25,5 @@ extern "C" void timer_read(int is_high, word_t *data) {
     now = get_time();
     *data = now;
   }
-  // printf("[cpp timer] return %u\n", (uint32_t) *data);
+  printf("[cpp timer] return %u\n", (uint32_t) *data);
 }
