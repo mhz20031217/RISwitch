@@ -125,6 +125,7 @@ class Core(w: Int) extends Module {
     when(branchCond.io.flushId) {
       de_reg    := 0.U.asTypeOf(de_reg)
       de_reg.pc := resetVector
+      de_reg.c.valid := 1.B
     }.otherwise {
       de_reg.pc      := fd_reg.pc
       de_reg.c       := contrGen.io.c
