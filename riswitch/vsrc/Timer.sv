@@ -17,7 +17,6 @@ module Timer (
 always @(posedge clock) begin
   if (sel) begin
     timer_read({31'b0, addr[2]}, dout);
-    $display("[verilog timer] read %x", dout);
   end
 end
 `elsif VIVADO
