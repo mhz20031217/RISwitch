@@ -187,6 +187,7 @@ class Core(w: Int) extends Module {
 
   when(forwardUnit.io.flushEx) {
     em_reg := 0.U.asTypeOf(em_reg)
+    em_reg.c.valid := 1.B
   }.otherwise {
     em_reg.rd      := de_reg.rd
     em_reg.rs2Data := ex_rs2Data
