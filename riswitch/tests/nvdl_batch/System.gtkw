@@ -1,22 +1,22 @@
 [*]
 [*] GTKWave Analyzer v3.3.104 (w)1999-2020 BSI
-[*] Mon Dec 18 04:09:12 2023
+[*] Mon Dec 18 04:13:49 2023
 [*]
 [dumpfile] "/home/pc/Learning/02.IT/5.ICS/ics2023/riswitch/build/System.vcd"
-[dumpfile_mtime] "Mon Dec 18 04:09:09 2023"
-[dumpfile_size] 9488489
+[dumpfile_mtime] "Mon Dec 18 04:13:06 2023"
+[dumpfile_size] 9881250
 [savefile] "/home/pc/Learning/02.IT/5.ICS/ics2023/riswitch/tests/nvdl_batch/System.gtkw"
-[timestart] 1
+[timestart] 1301
 [size] 1920 1024
 [pos] -1 -1
-*-11.000000 12587 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+*-10.000000 12587 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 [treeopen] TOP.
 [treeopen] TOP.System.
 [treeopen] TOP.System.cpu.
 [treeopen] TOP.System.cpu.core.
-[sst_width] 48
+[sst_width] 209
 [signals_width] 270
-[sst_expanded] 0
+[sst_expanded] 1
 [sst_vpaned_height] 302
 @200
 -Top-Mem
@@ -211,5 +211,6 @@ TOP.System.cpu.core.mw_reg_rd[4:0]
 TOP.System.cpu.core.mw_reg_regWe
 @22
 TOP.System.cpu.core.busW[31:0]
+TOP.System.cpu.core.regFile.mem[10][31:0]
 [pattern_trace] 1
 [pattern_trace] 0
