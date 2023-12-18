@@ -46,8 +46,8 @@ CONFIG_VERILOG = $(INCLUDE_DIR)/config.sv
 $(shell mkdir -p $(BUILD_DIR))
 $(shell echo "#define IMEM_IMG \"$(IMEM_IMG)\"" > $(CONFIG))
 $(shell echo "#define DMEM_IMG \"$(DMEM_IMG)\"" >> $(CONFIG))
-$(shell echo "`define IMEM_IMG \"$(IMEM_IMG)\"" > $(CONFIG_VERILOG))
-$(shell echo "`define DMEM_IMG \"$(DMEM_IMG)\"" >> $(CONFIG_VERILOG))
+$(shell echo "\`define IMEM_IMG \"$(IMEM_IMG)\"" > $(CONFIG_VERILOG))
+$(shell echo "\`define DMEM_IMG \"$(DMEM_IMG)\"" >> $(CONFIG_VERILOG))
 
 VSRC_PATTERN = -name "*.v" -or -name "*.sv"
 CSRC_PATTERN = -name "*.c" -or -name "*.cc" -or -name "*.cpp"
