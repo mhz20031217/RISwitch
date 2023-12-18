@@ -20,10 +20,10 @@ void __am_timer_init() {
   boot_time = get_time();
   for (int i = 0; i < 100; i ++) {
     for (volatile int j = 0; j < 1000; j ++);
-    printf("[am-timer] Current: %lu\n", get_time());
+    printf("[am-timer] Current: %lx\n", get_time());
   }
   halt(SWITCH_EXIT_SUCCESS);
-  printf("[am-timer] Init, boot_time = %lu.\n", boot_time);
+  printf("[am-timer] Init, boot_time = %lx.\n", boot_time);
 }
 
 void __am_timer_uptime(AM_TIMER_UPTIME_T *uptime) {
