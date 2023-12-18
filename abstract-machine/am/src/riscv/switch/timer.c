@@ -13,7 +13,7 @@ static inline uint64_t get_time() {
     : [alow] "r"(RTC_ADDR), [ahigh] "r"(RTC_ADDR + 4)
     : "memory", "t0", "t1"
   );
-  return (uint64_t)low | ((uint64_t)high << 32);
+  return (uint64_t)low | (((uint64_t)high) << 32);
 }
 
 void __am_timer_init() {
