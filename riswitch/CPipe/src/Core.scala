@@ -39,8 +39,6 @@ class CoreIO(w: Int) extends Bundle {
   val imem = Flipped(new InstrMemIO(w))
   val dmem = Flipped(new DataMemIO(w))
   val pc   = Output(UInt(w.W))
-  val halt = Output(Bool())
-  val trap = Output(Bool())
 }
 
 class Core(w: Int) extends Module {
@@ -64,9 +62,6 @@ class Core(w: Int) extends Module {
   val de_reg = RegInit(new IdExPipelineRegister(w), de_reg_init)
   val em_reg = RegInit(new ExMemPipelineRegister(w), 0.U.asTypeOf(new ExMemPipelineRegister(w)))
   val mw_reg = RegInit(new MemWbPipelineRegister(w), 0.U.asTypeOf(new MemWbPipelineRegister(w)))
-
-  val halt = RegInit(0.B)
-  val trap = RegInit(0.B)
 
   // Instruction Fetch
   val branchTarget = Wire(UInt(w.W))
@@ -120,31 +115,12 @@ class Core(w: Int) extends Module {
   id_rs2Data := Mux(forwardUnit.io.id_rs2_sel, ex_rs2Data, regfile.busB)
 
   import ForwardUnit._
-  // when(branchCond.io.flushId) {
-  //   de_reg    := 0.U.asTypeOf(de_reg)
-  //   de_reg.pc := resetVector
-  // }.elsewhen(!forwardUnit.io.stallEx) {
-  //   de_reg.pc      := fd_reg.pc
-  //   de_reg.c       := contrGen.io.c
-  //   de_reg.imm     := immGen.io.imm
-  //   de_reg.rd      := id_rd
-  //   de_reg.rs1     := id_rs1
-  //   de_reg.rs2     := id_rs2
-  //   de_reg.rs1Data := id_rs1Data
-  //   de_reg.rs2Data := id_rs2Data
-  // }.elsewhen(forwardUnit.io.stallEx) {
-  //   when(forwardUnit.io.id_rs1_sel === FD_EX) {
-  //     de_reg.rs1Data := id_rs1Data
-  //   }
-  //   when(forwardUnit.io.id_rs2_sel === FD_EX) {
-  //     de_reg.rs2Data := id_rs2Data
-  //   }
-  // }
 
   when(!forwardUnit.io.stallEx) {
     when(branchCond.io.flushId) {
       de_reg    := 0.U.asTypeOf(de_reg)
       de_reg.pc := resetVector
+      de_reg.c.valid := 1.B
     }.otherwise {
       de_reg.pc      := fd_reg.pc
       de_reg.c       := contrGen.io.c
@@ -207,6 +183,7 @@ class Core(w: Int) extends Module {
 
   when(forwardUnit.io.flushEx) {
     em_reg := 0.U.asTypeOf(em_reg)
+    em_reg.c.valid := 1.B
   }.otherwise {
     em_reg.rd      := de_reg.rd
     em_reg.rs2Data := ex_rs2Data
@@ -240,15 +217,4 @@ class Core(w: Int) extends Module {
 
   // Write Back
   busW := Mux(mw_reg.memToReg, mw_reg.memOut, mw_reg.aluF)
-
-  // halt conditiion
-  when(io.imem.instr === 0x0dead10ccL.U(32.W)) {
-    halt := 1.B
-  }
-  io.halt := halt
-
-  when(halt && busW === 0x0c0ffeeL.U(32.W)) {
-    trap := 1.B
-  }
-  io.trap := trap
 }

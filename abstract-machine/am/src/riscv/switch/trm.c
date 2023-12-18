@@ -14,7 +14,7 @@ Area heap = RANGE(&_heap_start, PMEM_END);
 static const char mainargs[] = MAINARGS;
 
 void putch(char ch) {
-  outl(SEG_ADDR, (unsigned char)ch);
+  outl(SERIAL_PORT, (int)ch);
 }
 
 /* Terminate AM Program execution by calling this function

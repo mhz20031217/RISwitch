@@ -7,6 +7,7 @@
 #include <verilated.h>
 #include <verilated_vcd_c.h>
 #include <nvboard.h>
+#include <Vtop___024root.h>
 
 extern void nvboard_bind_all_pins(Vtop *top);
 
@@ -96,21 +97,21 @@ static void nvdl_loop_end() {
 }
 
 bool check_status() {
-  if (!dut->halt) {
-    return false;
-  }
-  for (int i = 0; i < 5; i++) {
+  for (int i = 0; i < 3; i++) {
     nvdl_loop_begin();
     nvdl_loop_end();
   }
 
-  if (dut->trap) {
+  int ret_value = dut->rootp->top__DOT__cpu__DOT__core__DOT__regFile__DOT__mem[10];
+
+  if (ret_value == 0x00c0ffee) {
     std::cout << "Hit GOOD trap.\n";
-    return true;
-  } else {
+  } else if (ret_value == 0xdeadbeef) {
     std::cout << "Hit BAD trap.\n";
-    return true;
+  } else {
+    std::cout << "Ret value: " << ret_value << "\n";
   }
+  return true;
 }
 
 void run_test() {
@@ -121,13 +122,17 @@ void run_test() {
       dut->BTN = 0xff;
     } else {
       dut->BTN = 0x0;
+      if (sim_time - test_start_time >= 13) {
+        if (!dut->rootp->top__DOT__cpu__DOT__core__DOT__em_reg_c_valid) {
+          if (check_status()) {
+            return;
+          }
+        }
+      }
     }
     nvdl_loop_begin();
     // printf("sim_time: %ld, pc: %x.\n", sim_time, dut->pc);
     nvdl_loop_end();
-    if (check_status()) {
-      break;
-    }
   }
 }
 

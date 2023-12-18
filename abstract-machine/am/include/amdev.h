@@ -59,6 +59,7 @@ AM_DEVREG(27, LED,          WR, uint16_t value);
 AM_DEVREG(28, CMEM_CONFIG,  RD, bool present; int width, height);
 /* Put a char ASCII on (x, y) (starting from 0) with fg_color FG and bg_color BG. */
 AM_DEVREG(29, CMEM_PUTCH,   WR, int x, y; char ascii; uint8_t fg, bg);
+AM_DEVREG(30, SERIAL_PUTCH, WR, char ch);
 
 // Input
 
