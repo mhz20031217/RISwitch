@@ -13,7 +13,7 @@ module Timer (
 `ifdef NVDL
 always @(posedge clock) begin
   if (sel) begin
-    // $display("[verilog timer] read");
+    $display("[verilog timer] read");
     timer_read({31'b0, addr[2]}, dout);
   end
 end
