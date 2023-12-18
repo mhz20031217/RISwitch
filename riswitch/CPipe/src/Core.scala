@@ -65,7 +65,7 @@ class Core(w: Int) extends Module {
   val em_reg = RegInit(new ExMemPipelineRegister(w), 0.U.asTypeOf(new ExMemPipelineRegister(w)))
   val mw_reg = RegInit(new MemWbPipelineRegister(w), 0.U.asTypeOf(new MemWbPipelineRegister(w)))
 
-  val halt = !em_reg.c.valid
+  val halt = RegInit(0.B)
   val trap = RegInit(0.B)
 
   // Instruction Fetch
@@ -222,6 +222,9 @@ class Core(w: Int) extends Module {
   busW := Mux(mw_reg.memToReg, mw_reg.memOut, mw_reg.aluF)
 
   // halt conditiion
+  when(!em_reg.c.valid) {
+    halt := 1.B
+  }
   io.halt := halt
 
   when(halt && busW === 0x0c0ffeeL.U(32.W)) {
