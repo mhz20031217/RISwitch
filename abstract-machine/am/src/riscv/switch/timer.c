@@ -11,6 +11,11 @@ static inline uint64_t get_time() {
 
 void __am_timer_init() {
   boot_time = get_time();
+  for (int i = 0; i < 100; i ++) {
+    for (volatile int j = 0; j < 1000; j ++);
+    printf("[am-timer] Current: %lu", get_time());
+  }
+  halt(SWITCH_EXIT_SUCCESS);
   printf("[am-timer] Init, boot_time = %lu.\n", boot_time);
 }
 
