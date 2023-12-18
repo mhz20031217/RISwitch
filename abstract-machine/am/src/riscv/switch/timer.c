@@ -1,11 +1,16 @@
 #include <am.h>
+#include <klib.h>
 #include <switch.h>
 
 static uint64_t boot_time = 0;
 
 static inline uint64_t get_time() {
-  uint64_t now = inl(RTC_ADDR);
-  return now | ((uint64_t)inl(RTC_ADDR + 4) << 32);
+  volatile uint64_t now;
+  volatile uint64_t low, high;
+  low = inl(RTC_ADDR);
+  high = inl(RTC_ADDR + 4);
+  now = (high << 32) | low;
+  return now;
 }
 
 void __am_timer_init() {

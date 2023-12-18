@@ -114,28 +114,6 @@ assign {DP, CG, CF, CE, CD, CC, CB, CA}
 
 `endif
 
-/********************************************
-* VGA_VALID, VGA_DATA, VGA_HADDR, VGA_VADDR *
-********************************************/
-
-
-wire [11:0] VGA_DATA;
-wire [9:0] VGA_HADDR, VGA_VADDR;
-
-vga_ctrl vga_ctrl(
-  .pclk(CLK),
-  .reset(1'b0),
-  .vga_data(VGA_DATA),
-  .h_addr(VGA_HADDR),
-  .v_addr(VGA_VADDR),
-  .hsync(VGA_HS),
-  .vsync(VGA_VS),
-  .valid(VGA_VALID_N),
-  .vga_r(VGA_R),
-  .vga_g(VGA_G),
-  .vga_b(VGA_B)
-);
-
 `ifndef NVDL
 wire VGA_VALID_N;
 `endif
@@ -184,7 +162,7 @@ InstrMem instrMem(
   .instr(imemdataout)
 );
 
-wire sel_dmem, sel_seg, sel_kbd, sel_timer, sel_cmem, sel_vga, sel_led;
+wire sel_dmem, sel_seg, sel_kbd, sel_timer, sel_cmem, sel_vga, sel_led, sel_serial;
 wire [31:0] dout_timer, dout_kbd, dout_sw, dout_dmem;
 
 Mmu mmu(
@@ -197,6 +175,7 @@ Mmu mmu(
   .sel_cmem(sel_cmem),
   .sel_vga(sel_vga),
   .sel_led(sel_led),
+  .sel_serial(sel_serial),
   .dout_timer(dout_timer),
   .dout_sw(dout_sw),
   .dout_kbd(dout_kbd),
@@ -214,7 +193,7 @@ DataMem dataMem(
 );
 
 Led led(
-  .clock(clock),
+  .clock(dmemwrclk),
   .reset(reset),
   .sel(sel_led),
   .we(dmemwe),
@@ -223,7 +202,7 @@ Led led(
 );
 
 Seg seg(
-  .clock(clock),
+  .clock(dmemwrclk),
   .reset(reset),
   .sel(sel_seg),
   .we(dmemwe),
@@ -234,7 +213,38 @@ Seg seg(
 assign SEG_EN = 8'b11111111;
 assign SEG_DP = 8'b00000000;
 
+VgaCmem vcmem(
+  .clock(dmemwrclk),
+  .reset(reset),
+  .vga_clk(clock),
+  .sel(sel_cmem),
+  .we(dmemwe),
+  .din(dmemdatain),
+  .addr(dmemaddr),
+  .hsync(VGA_HS),
+  .vsync(VGA_VS),
+  .valid(VGA_VALID_N),
+  .vga_r(VGA_R),
+  .vga_g(VGA_G),
+  .vga_b(VGA_B)
+);
+
+Timer timer(
+  .clock(dmemrdclk),
+  .reset(reset),
+  .sel(sel_timer),
+  .addr(dmemaddr),
+  .dout(dout_timer)
+);
+
+Serial serial(
+  .clock(dmemrdclk),
+  .reset(reset),
+  .sel(sel_serial),
+  .we(dmemwe),
+  .din(dmemdatain)
+);
+
 /* USERSPACE END */
 
 endmodule
-

@@ -29,9 +29,7 @@ Cpu cpu(
   .dmemwrclk(dmemwrclk), 
   .dmemop(dmemop), 
   .dmemwe(dmemwe), 
-  .dbgdata(pc), 
-  .halt(halt), 
-  .trap(trap)
+  .dbgdata(pc),
 );
 
 InstrMem instrMem(

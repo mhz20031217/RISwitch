@@ -1,3 +1,4 @@
+#include "amdev.h"
 #include <am.h>
 #include <switch.h>
 #include <klib-macros.h>
@@ -17,7 +18,7 @@ static void __am_seg(AM_SEG_T* seg) {
 }
 
 static void __am_led(AM_LED_T* led) {
-  led->value = inl(LED_ADDR);
+  outl(LED_ADDR, led->value);
 }
 
 static void __am_switch(AM_SWITCH_T* s) {
@@ -31,6 +32,10 @@ static void __am_cmem_putch(AM_CMEM_PUTCH_T* ch) {
   outw(addr, cell);
 }
 
+static void __am_serial_putch(AM_SERIAL_PUTCH_T *ch) {
+  outl(SERIAL_PORT, (int)ch->ch);
+}
+
 typedef void (*handler_t)(void *buf);
 static void *lut[128] = {
   [AM_TIMER_CONFIG] = __am_timer_config,
@@ -41,7 +46,8 @@ static void *lut[128] = {
   [AM_SWITCH      ] = __am_switch,
   [AM_LED         ] = __am_led,
   [AM_CMEM_CONFIG ] = __am_cmem_config,
-  [AM_CMEM_PUTCH  ] = __am_cmem_putch
+  [AM_CMEM_PUTCH  ] = __am_cmem_putch,
+  [AM_SERIAL_PUTCH] = __am_serial_putch
 };
 
 static void fail(void *buf) { panic("access nonexist register"); }

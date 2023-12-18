@@ -14,10 +14,10 @@
 [treeopen] TOP.System.
 [treeopen] TOP.System.cpu.
 [treeopen] TOP.System.cpu.core.
-[sst_width] 48
+[sst_width] 209
 [signals_width] 270
-[sst_expanded] 0
-[sst_vpaned_height] 302
+[sst_expanded] 1
+[sst_vpaned_height] 210
 @200
 -Top-Mem
 @22
@@ -54,7 +54,6 @@ TOP.System.cpu.core.pc[31:0]
 @28
 [color] 3
 TOP.System.cpu.core.halt
-@29
 [color] 3
 TOP.System.cpu.core.trap
 @200
@@ -142,6 +141,7 @@ TOP.System.cpu.core.alu_io_zero
 TOP.System.clock
 [color] 3
 TOP.System.reset
+@29
 [color] 7
 TOP.System.cpu.core.forwardUnit_io_flushEx
 @22
@@ -212,5 +212,8 @@ TOP.System.cpu.core.mw_reg_rd[4:0]
 TOP.System.cpu.core.mw_reg_regWe
 @22
 TOP.System.cpu.core.busW[31:0]
+TOP.System.cpu.core.regFile.mem[10][31:0]
+@28
+TOP.System.cpu.core.em_reg_c_valid
 [pattern_trace] 1
 [pattern_trace] 0
