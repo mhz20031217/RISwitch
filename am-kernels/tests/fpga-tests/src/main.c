@@ -44,11 +44,12 @@ void cmem_test() {
 }
 
 void serial_test() {
-  char *hello = "hello, world!";
+  char *hello = "hello, world!\n";
   int len = strlen(hello);
   for (int i = 0; i < len; i ++) {
     io_write(AM_SERIAL_PUTCH, hello[i]);
   }
+  printf("%s", hello);
 }
 
 int main(const char *args) {
