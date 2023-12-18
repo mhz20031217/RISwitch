@@ -5,9 +5,15 @@
 static uint64_t boot_time = 0;
 
 static inline uint64_t get_time() {
-  volatile uint64_t now = inl(RTC_ADDR);
-  printf("%lu ", now);
-  return (now | ((volatile uint64_t)inl(RTC_ADDR + 4)) << 32);
+  uint32_t high, low;
+  asm volatile (
+    "lw %[high], 0(%[ahigh])\r\n"
+    "lw %[low], 0(%[alow])\r\n"
+    : [high] "=r"(high), [low] "=r"(low)
+    : [alow] "r"(RTC_ADDR), [ahigh] "r"(RTC_ADDR + 4)
+    : "memory", "t0", "t1"
+  );
+  return (uint64_t)low | ((uint64_t)high << 32);
 }
 
 void __am_timer_init() {
