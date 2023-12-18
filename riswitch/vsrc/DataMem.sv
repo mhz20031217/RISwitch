@@ -17,6 +17,7 @@ module DataMem #(
   input we
 );
 
+`ifdef NVDL
 localparam M_LB = 3'd0;
 localparam M_LH = 3'd1;
 localparam M_LW = 3'd2;
@@ -71,3 +72,87 @@ assign wmask =
 
 endmodule
 /* verilator lint_on UNUSEDPARAM */ 
+
+
+`elsif VIVADO
+reg [3:0] ea;
+reg [31:0] tempout;
+wire [31:0] tempin;
+reg [31:0] ram [32767:0];
+reg [7:0] bt = 8'b0;
+reg [15:0] wd = 16'b0;
+reg [31:0] din_r;
+wire [31:0] cur;
+
+assign cur = ram[addr[31:2]];
+
+always @(*) begin
+
+        case(addr[1:0])
+        2'b00:  begin
+                    bt = cur[7:0];
+                    wd = cur[15:0];
+                    din_r = din;
+                    case(memOp)
+                        3'b000: begin ea[0] = 1; ea[1] = 0; ea[2] = 0; ea[3] = 0; end
+                        3'b001: begin ea[0] = 1; ea[1] = 1; ea[2] = 0; ea[3] = 0; end
+                        3'b010: begin ea[0] = 1; ea[1] = 1; ea[2] = 1; ea[3] = 1; end
+                    endcase
+                end
+        2'b01:  begin   
+                    bt = cur[15:8];
+                    wd = 0;
+                    din_r = din << 8;
+                    case(memOp)
+                        3'b000: begin ea[0] = 0; ea[1] = 1; ea[2] = 0; ea[3] = 0; end
+                        3'b001: begin ea[0] = 0; ea[1] = 0; ea[2] = 0; ea[3] = 0; end
+                        3'b010: begin ea[0] = 0; ea[1] = 0; ea[2] = 0; ea[3] = 0; end
+                    endcase
+                end
+        2'b10:  begin
+                    bt = cur[23:16];
+                    wd = cur[31:16];
+                    din_r = din << 16;
+                    case(memOp)
+                        3'b000: begin ea[0] = 0; ea[1] = 0; ea[2] = 1; ea[3] = 0; end
+                        3'b001: begin ea[0] = 0; ea[1] = 0; ea[2] = 1; ea[3] = 1; end
+                        3'b010: begin ea[0] = 0; ea[1] = 0; ea[2] = 0; ea[3] = 0; end
+                    endcase
+                end
+        2'b11:  begin
+                    bt = cur[31:24];
+                    wd = 0; 
+                    din_r = din << 24;
+                    case(memOp)
+                        3'b000: begin ea[0] = 0; ea[1] = 0; ea[2] = 0; ea[3] = 1; end
+                        3'b001: begin ea[0] = 0; ea[1] = 0; ea[2] = 0; ea[3] = 0; end
+                        3'b010: begin ea[0] = 0; ea[1] = 0; ea[2] = 0; ea[3] = 0; end
+                    endcase
+                end
+        endcase
+end
+
+always @(posedge clkRd)
+begin
+    tempout <= cur;
+    case(memOp)
+        3'b000: dout <= {{24{bt[7]}}, bt};
+        3'b001: dout <= {{16{wd[15]}}, wd};
+        3'b010: dout <= cur;
+        3'b100: dout <= {24'b0, bt};
+        3'b101: dout <= {16'b0, wd};
+    endcase
+end
+
+assign tempin[7:0] = (ea[0])? din_r[7:0] : tempout[7:0];
+assign tempin[15:8] = (ea[1])? din_r[15:8] : tempout[15:8];
+assign tempin[23:16] = (ea[2])? din_r[23:16] : tempout[23:16];
+assign tempin[31:24] = (ea[3])? din_r[31:24] : tempout[31:24];
+
+always @(posedge clkWr) begin
+    if(we) begin
+        ram[addr[31:2]] <= tempin;
+    end
+end
+endmodule
+`endif
