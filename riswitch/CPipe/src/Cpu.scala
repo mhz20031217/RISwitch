@@ -18,8 +18,6 @@ class Cpu(w: Int) extends Module {
     val dmemop      = Output(UInt(3.W))
     val dmemwe      = Output(Bool())
     val dbgdata     = Output(UInt(w.W))
-    val halt        = Output(Bool())
-    val trap        = Output(Bool())
   })
   forceName(io.imemaddr, "imemaddr")
   forceName(io.imemdataout, "imemdataout")
@@ -32,8 +30,6 @@ class Cpu(w: Int) extends Module {
   forceName(io.dbgdata, "dbgdata")
   forceName(io.dmemop, "dmemop")
   forceName(io.dmemwe, "dmemwe")
-  forceName(io.halt, "halt")
-  forceName(io.trap, "trap")
 
   withClock((!clock.asBool).asClock) {
     val core = Module(new Core(w))
@@ -47,13 +43,9 @@ class Cpu(w: Int) extends Module {
     io.dmemop     := c.dmem.memOp
     io.dmemwe     := c.dmem.memWe
     io.dbgdata    := c.pc
-    io.halt       := c.halt
-    io.trap       := c.trap
-
   }
 
   io.imemclk   := clock
   io.dmemrdclk := clock
   io.dmemwrclk := (!clock.asBool).asClock
-
 }

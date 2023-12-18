@@ -39,8 +39,6 @@ class CoreIO(w: Int) extends Bundle {
   val imem = Flipped(new InstrMemIO(w))
   val dmem = Flipped(new DataMemIO(w))
   val pc   = Output(UInt(w.W))
-  val halt = Output(Bool())
-  val trap = Output(Bool())
 }
 
 class Core(w: Int) extends Module {
@@ -64,9 +62,6 @@ class Core(w: Int) extends Module {
   val de_reg = RegInit(new IdExPipelineRegister(w), de_reg_init)
   val em_reg = RegInit(new ExMemPipelineRegister(w), 0.U.asTypeOf(new ExMemPipelineRegister(w)))
   val mw_reg = RegInit(new MemWbPipelineRegister(w), 0.U.asTypeOf(new MemWbPipelineRegister(w)))
-
-  val halt = RegInit(0.B)
-  val trap = RegInit(0.B)
 
   // Instruction Fetch
   val branchTarget = Wire(UInt(w.W))
@@ -222,15 +217,4 @@ class Core(w: Int) extends Module {
 
   // Write Back
   busW := Mux(mw_reg.memToReg, mw_reg.memOut, mw_reg.aluF)
-
-  // halt conditiion
-  when(!em_reg.c.valid) {
-    halt := 1.B
-  }
-  io.halt := halt
-
-  when(halt && busW === 0x0c0ffeeL.U(32.W)) {
-    trap := 1.B
-  }
-  io.trap := trap
 }
