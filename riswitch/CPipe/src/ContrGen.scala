@@ -72,7 +72,7 @@ class ContrSignals extends Bundle {
   val memWe    = Output(Bool())
   val memOp    = Output(UInt(3.W))
   val branch   = Output(UInt(3.W))
-  val valid    = Output(Bool())
+  val valid    = dontTouch(Output(Bool()))
 }
 
 class ContrGen extends Module {
