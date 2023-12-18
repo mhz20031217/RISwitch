@@ -65,7 +65,7 @@ class Core(w: Int) extends Module {
   val em_reg = RegInit(new ExMemPipelineRegister(w), 0.U.asTypeOf(new ExMemPipelineRegister(w)))
   val mw_reg = RegInit(new MemWbPipelineRegister(w), 0.U.asTypeOf(new MemWbPipelineRegister(w)))
 
-  val halt = RegInit(0.B)
+  val halt = !em_reg.c.valid
   val trap = RegInit(0.B)
 
   // Instruction Fetch
@@ -120,26 +120,6 @@ class Core(w: Int) extends Module {
   id_rs2Data := Mux(forwardUnit.io.id_rs2_sel, ex_rs2Data, regfile.busB)
 
   import ForwardUnit._
-  // when(branchCond.io.flushId) {
-  //   de_reg    := 0.U.asTypeOf(de_reg)
-  //   de_reg.pc := resetVector
-  // }.elsewhen(!forwardUnit.io.stallEx) {
-  //   de_reg.pc      := fd_reg.pc
-  //   de_reg.c       := contrGen.io.c
-  //   de_reg.imm     := immGen.io.imm
-  //   de_reg.rd      := id_rd
-  //   de_reg.rs1     := id_rs1
-  //   de_reg.rs2     := id_rs2
-  //   de_reg.rs1Data := id_rs1Data
-  //   de_reg.rs2Data := id_rs2Data
-  // }.elsewhen(forwardUnit.io.stallEx) {
-  //   when(forwardUnit.io.id_rs1_sel === FD_EX) {
-  //     de_reg.rs1Data := id_rs1Data
-  //   }
-  //   when(forwardUnit.io.id_rs2_sel === FD_EX) {
-  //     de_reg.rs2Data := id_rs2Data
-  //   }
-  // }
 
   when(!forwardUnit.io.stallEx) {
     when(branchCond.io.flushId) {
@@ -242,9 +222,6 @@ class Core(w: Int) extends Module {
   busW := Mux(mw_reg.memToReg, mw_reg.memOut, mw_reg.aluF)
 
   // halt conditiion
-  when(io.imem.instr === 0x0dead10ccL.U(32.W)) {
-    halt := 1.B
-  }
   io.halt := halt
 
   when(halt && busW === 0x0c0ffeeL.U(32.W)) {
