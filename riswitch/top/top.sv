@@ -161,7 +161,7 @@ InstrMem instrMem(
 );
 
 wire sel_dmem, sel_seg, sel_kbd, sel_timer, sel_cmem, sel_vga, sel_led, sel_serial;
-wire [31:0] dout_timer, dout_kbd, dout_sw, dout_dmem;
+wire [31:0] dout_timer, dout_kbd, dout_sw, dout_dmem, dout_kbd;
 
 Mmu mmu(
   .addr(dmemaddr),
@@ -214,29 +214,29 @@ assign SEG_DP = 8'b00000000;
 `ifdef VIVADO
 wire clk_vga;
 clkgen #(100000000, 25000000) clk_vga_gen(
-   .in(CLK_INPUT),
-   .out(clk_vga)
+  .in(CLK_INPUT),
+  .out(clk_vga)
 );
 `endif
 
 VgaCmem vcmem(
- .clock(dmemwrclk),
- .reset(reset),
- `ifdef NVDL
- .vga_clk(clock),
- `elsif VIVADO
- .vga_clk(clk_vga),
- `endif
- .sel(sel_cmem),
- .we(dmemwe),
- .din(dmemdatain),
- .addr(dmemaddr),
- .hsync(VGA_HS),
- .vsync(VGA_VS),
- .valid(VGA_VALID_N),
- .vga_r(VGA_R),
- .vga_g(VGA_G),
- .vga_b(VGA_B)
+  .clock(dmemwrclk),
+  .reset(reset),
+  `ifdef NVDL
+  .vga_clk(clock),
+  `elsif VIVADO
+  .vga_clk(clk_vga),
+  `endif
+  .sel(sel_cmem),
+  .we(dmemwe),
+  .din(dmemdatain),
+  .addr(dmemaddr),
+  .hsync(VGA_HS),
+  .vsync(VGA_VS),
+  .valid(VGA_VALID_N),
+  .vga_r(VGA_R),
+  .vga_g(VGA_G),
+  .vga_b(VGA_B)
 );
 
 Timer timer(

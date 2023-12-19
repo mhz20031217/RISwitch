@@ -1,4 +1,4 @@
-module keyboard
+module Keyboard
 (
     input clk,
 	input clrn,
