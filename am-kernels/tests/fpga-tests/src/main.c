@@ -71,9 +71,9 @@ void keybrd_test() {
     AM_INPUT_KEYBRD_T kbd = io_read(AM_INPUT_KEYBRD);
     if (kbd.keycode == AM_KEY_NONE) continue;
     if (kbd.keydown) {
-      printf("Key down: %d\n");
+      printf("Key down: %d\n", kbd.keycode);
     } else {
-      printf("Key up: %d\n");
+      printf("Key up: %d\n", kbd.keycode);
     }
   }
 }
