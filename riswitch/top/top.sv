@@ -161,7 +161,7 @@ InstrMem instrMem(
 );
 
 wire sel_dmem, sel_seg, sel_kbd, sel_timer, sel_cmem, sel_vga, sel_led, sel_serial;
-wire [31:0] dout_timer, dout_kbd, dout_sw, dout_dmem, dout_kbd;
+wire [31:0] dout_timer, dout_sw, dout_dmem, dout_kbd;
 
 keyboard mykbd(
         .clk(clock),
@@ -170,7 +170,7 @@ keyboard mykbd(
         .ps2_data(PS2_DAT),
         .en(sel_kbd & dmemre),
         .cur_key(dout_kbd)
-)
+);
 
 Mmu mmu(
   .addr(dmemaddr),
