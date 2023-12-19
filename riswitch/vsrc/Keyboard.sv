@@ -29,7 +29,7 @@ always@(posedge clk) begin
 //        cur_key <= 32'h0000001c;
 //    end
 
-        if(en == 0) begin
+        if(en == 1) begin
             //cur_key <= cur_key;
             cur_key <= 32'h0000F01c;
             nextdata_n <= 1;
