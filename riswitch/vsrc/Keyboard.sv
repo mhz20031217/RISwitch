@@ -31,7 +31,7 @@ always@(posedge clk) begin
 
         if(en == 1) begin
             //cur_key <= cur_key;
-            cur_key <= 32'h0000F01c;
+            cur_key <= 32'h0000F01b;
             nextdata_n <= 1;
         end
         else if(nextdata_n == 0) nextdata_n <= 1;
