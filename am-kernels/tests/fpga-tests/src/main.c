@@ -71,10 +71,10 @@ void keybrd_test() {
     AM_INPUT_KEYBRD_T kbd = io_read(AM_INPUT_KEYBRD);
     if (kbd.keycode == AM_KEY_NONE) 
     {
-    	printf("None.");
+    	//printf("None.");
     	continue;
     }
-    if (kbd.keydown) {
+    else if (kbd.keydown) {
       printf("Key down: %d\n", kbd.keycode);
     } else {
       printf("Key up: %d\n", kbd.keycode);
@@ -85,9 +85,9 @@ void keybrd_test() {
 int main(const char *args) {
   ioe_init();
 
-  cmem_test();
-  led_test();  
-  seg_test();
+  //cmem_test();
+  //led_test();  
+  //seg_test();
 
   // serial_test();
   // timer_test();
