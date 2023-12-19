@@ -38,7 +38,7 @@ always@(posedge clk) begin
         else if(ready == 1) begin
             nextdata_n <= 0;
             
-            if(cur_key == keydata) begin //keep
+            if(cur_key[7:0] == keydata) begin //keep
                 cur_key <= cur_key;
             end
             

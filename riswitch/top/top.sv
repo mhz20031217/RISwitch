@@ -163,7 +163,7 @@ InstrMem instrMem(
 wire sel_dmem, sel_seg, sel_kbd, sel_timer, sel_cmem, sel_vga, sel_led, sel_serial;
 wire [31:0] dout_timer, dout_sw, dout_dmem, dout_kbd;
 
-keyboard mykbd(
+Keyboard mykbd(
         .clk(clock),
         .clrn(reset),
         .ps2_clk(PS2_CLK),
