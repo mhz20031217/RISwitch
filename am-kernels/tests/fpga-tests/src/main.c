@@ -67,7 +67,7 @@ void keybrd_test() {
     return;
   }
 
-  while (true) {
+  for (int i = 0; i < 1000; i ++) {
     AM_INPUT_KEYBRD_T kbd = io_read(AM_INPUT_KEYBRD);
     if (kbd.keycode == AM_KEY_NONE) 
     {
