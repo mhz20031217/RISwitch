@@ -1,7 +1,6 @@
 module Keyboard
 (
     input clk,
-	input clrn,
 	input ps2_clk,
 	input ps2_data,
 	input en,
@@ -19,17 +18,17 @@ module Keyboard
     
     reg clk_1000HZ;
 
-    assign reset = (~clrn) | overflow;
+    assign reset = overflow;
 
 //PS2 interface
 ps2_keyboard mykey(clk, reset, ps2_clk, ps2_data, keydata, ready, nextdata_n, overflow);
 
 // add you code here
 always@(posedge clk) begin
-    if(clrn == 0) begin
-        cur_key <= 32'h0000001c;
-    end
-    else begin
+//    if(clrn == 0) begin
+//        cur_key <= 32'h0000001c;
+//    end
+
         if(en == 0) begin
             cur_key <= cur_key;
             nextdata_n <= 1;
@@ -77,7 +76,7 @@ always@(posedge clk) begin
         else begin
             nextdata_n <= 0;
         end
-    end
+
 end
 
     //自定义时钟
