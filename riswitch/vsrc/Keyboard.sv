@@ -77,6 +77,7 @@ always@(posedge clk) begin
         end
         else begin
             nextdata_n <= 0;
+            cur_key <= 0;
         end
     end
 end
