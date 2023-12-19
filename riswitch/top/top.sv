@@ -4,10 +4,10 @@ module top (
   input [4:0] BTN,
   output [15:0] LED,
   `ifdef NVDL
-    output [7:0] SEG0, SEG1, SEG2, SEG3, SEG4, SEG5, SEG6, SEG7,
+  output [7:0] SEG0, SEG1, SEG2, SEG3, SEG4, SEG5, SEG6, SEG7,
   `elsif VIVADO
-    output [7:0] AN,
-    output CA, CB, CC, CD, CE, CF, CG, DP,
+  output [7:0] AN,
+  output CA, CB, CC, CD, CE, CF, CG, DP,
   `endif
   input PS2_CLK, PS2_DAT,
   output [3:0] VGA_R, VGA_G, VGA_B,
@@ -18,20 +18,8 @@ module top (
 );
 
 /********************
-*   CLK (10MHz)    *
+*   CLK (100MHz)    *
 ********************/
-
-wire CLK; // RT: 10MHz, PERF: maxinum frequency provided by platform
-
-`ifdef CLK_RT
-`ifdef NVDL
-assign CLK = CLK_INPUT;
-`elsif VIVADO
-clkgen #(100000000, 10000000) clk_10khz_gen(.in(CLK_INPUT), .out(CLK));
-`endif
-`elsif CLK_PERF
-assign CLK = CLK_INPUT;
-`endif
 
 /***********************************
 *   SEG_CONTENT, SEG_DP, SEG_EN    *
@@ -119,7 +107,6 @@ wire VGA_VALID_N;
 
 /* USERSPACE BEGIN */
 
-wire clock = CLK;
 wire reset = BTN[4];
 
 localparam addrWidth = 32;
@@ -138,7 +125,7 @@ wire [31:0] dontcare;
 /* verilator lint_on UNUSEDSIGNAL */
 
 Cpu cpu(
-  .clock(clock),
+  .clock(CLK_INPUT),
   .reset(reset),
   .imemaddr(imemaddr), 
   .imemdataout(imemdataout), 
@@ -161,7 +148,7 @@ InstrMem instrMem(
 );
 
 wire sel_dmem, sel_seg, sel_kbd, sel_timer, sel_cmem, sel_vga, sel_led, sel_serial;
-wire [31:0] dout_timer, dout_kbd, dout_sw, dout_dmem, dout_kbd;
+wire [31:0] dout_timer, dout_sw, dout_dmem, dout_kbd;
 
 Mmu mmu(
   .addr(dmemaddr),
@@ -211,33 +198,33 @@ Seg seg(
 assign SEG_EN = 8'b11111111;
 assign SEG_DP = 8'b00000000;
 
-`ifdef VIVADO
-wire clk_vga;
-clkgen #(100000000, 25000000) clk_vga_gen(
-  .in(CLK_INPUT),
-  .out(clk_vga)
-);
-`endif
+//`ifdef VIVADO
+//wire clk_vga;
+//clkgen #(100000000, 25000000) clk_vga_gen(
+//  .in(CLK_INPUT),
+//  .out(clk_vga)
+//);
+//`endif
 
-VgaCmem vcmem(
-  .clock(dmemwrclk),
-  .reset(reset),
-  `ifdef NVDL
-  .vga_clk(clock),
-  `elsif VIVADO
-  .vga_clk(clk_vga),
-  `endif
-  .sel(sel_cmem),
-  .we(dmemwe),
-  .din(dmemdatain),
-  .addr(dmemaddr),
-  .hsync(VGA_HS),
-  .vsync(VGA_VS),
-  .valid(VGA_VALID_N),
-  .vga_r(VGA_R),
-  .vga_g(VGA_G),
-  .vga_b(VGA_B)
-);
+//VgaCmem vcmem(
+//  .clock(dmemwrclk),
+//  .reset(reset),
+//  `ifdef NVDL
+//  .vga_clk(clock),
+//  `elsif VIVADO
+//  .vga_clk(clk_vga),
+//  `endif
+//  .sel(sel_cmem),
+//  .we(dmemwe),
+//  .din(dmemdatain),
+//  .addr(dmemaddr),
+//  .hsync(VGA_HS),
+//  .vsync(VGA_VS),
+//  .valid(VGA_VALID_N),
+//  .vga_r(VGA_R),
+//  .vga_g(VGA_G),
+//  .vga_b(VGA_B)
+//);
 
 Timer timer(
   `ifdef VIVADO

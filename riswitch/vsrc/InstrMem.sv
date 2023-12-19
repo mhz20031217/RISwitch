@@ -13,8 +13,9 @@ module InstrMem #(
   output [instrWidth-1:0] instr
 );
 
-`ifdef NVDL
 reg [instrWidth-1:0] instrBuf;
+
+`ifdef NVDL
 
 always @(posedge clock) begin
   imem_read(addr, instrBuf);
