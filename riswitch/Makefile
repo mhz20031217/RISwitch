@@ -41,7 +41,13 @@ endif
 
 export PATH := $(PATH):$(abspath ./utils)
 
+CONFIG = $(INCLUDE_DIR)/config.h
+CONFIG_VERILOG = $(INCLUDE_DIR)/config.sv
 $(shell mkdir -p $(BUILD_DIR))
+$(shell echo "#define IMEM_IMG \"$(IMEM_IMG)\"" > $(CONFIG))
+$(shell echo "#define DMEM_IMG \"$(DMEM_IMG)\"" >> $(CONFIG))
+$(shell echo "\`define IMEM_IMG \"$(IMEM_IMG)\"" > $(CONFIG_VERILOG))
+$(shell echo "\`define DMEM_IMG \"$(DMEM_IMG)\"" >> $(CONFIG_VERILOG))
 
 VSRC_PATTERN = -name "*.v" -or -name "*.sv"
 CSRC_PATTERN = -name "*.c" -or -name "*.cc" -or -name "*.cpp"
@@ -91,7 +97,11 @@ endif
 
 clean:
 	@echo "### CLEAN ###"
-	-rm -rf $(VSRC_GEN_DIR) $(BUILD_DIR)
+	-rm -rf $(BUILD_DIR)
+
+cleanverilog:
+	@echo "### CLEAN VERILOG ###"
+	-rm -rf $(VSRC_GEN_DIR)
 
 .PHONY: test verilog bsp reformat checkformat clean
 

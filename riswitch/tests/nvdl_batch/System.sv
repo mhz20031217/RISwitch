@@ -14,7 +14,7 @@ wire [instrWidth-1:0] imemdataout;
 wire [dataWidth-1:0] dmemdatain, dmemdataout;
 wire imemclk, dmemrdclk, dmemwrclk;
 wire [2:0] dmemop;
-wire dmemwe;
+wire dmemwe, dmemre;
 
 Cpu cpu(
   .clock(clock),
@@ -28,10 +28,9 @@ Cpu cpu(
   .dmemrdclk(dmemrdclk), 
   .dmemwrclk(dmemwrclk), 
   .dmemop(dmemop), 
-  .dmemwe(dmemwe), 
-  .dbgdata(pc), 
-  .halt(halt), 
-  .trap(trap)
+  .dmemwe(dmemwe),
+  .dmemre(dmemre),
+  .dbgdata(pc)
 );
 
 InstrMem instrMem(

@@ -1,3 +1,5 @@
+`include "../include/config.sv"
+
 import "DPI-C" function void imem_read(input int addr, output int data);
 
 /* verilator lint_off UNUSEDPARAM */ 
@@ -13,21 +15,26 @@ module InstrMem #(
 
 `ifdef NVDL
 reg [instrWidth-1:0] instrBuf;
+
 always @(posedge clock) begin
   imem_read(addr, instrBuf);
 end
 
 assign instr = instrBuf;
 
+`elsif VIVADO
+
+reg [instrWidth-1:0] mem [depth-1:0];
+
+always @(posedge clock) begin
+  instrBuf <= mem[addr[17:2]];
+end
+
+initial begin
+  $readmemh(`IMEM_IMG, mem);
+end
+
+`endif
+
 endmodule
 /* verilator lint_on UNUSEDPARAM */ 
-
-
-`elsif VIVADO
-reg [31:0] ram [131072:0];
-always @(posedge clock)
-begin
-    instr <= ram[addr];
-end
-endmodule
-`endif

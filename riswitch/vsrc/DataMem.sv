@@ -1,3 +1,5 @@
+`include "../include/config.sv"
+
 import "DPI-C" function void dmem_read(input int addr, output int data);
 import "DPI-C" function void dmem_write(input int addr, input int data, input byte wmask);
 
@@ -32,13 +34,6 @@ wire extendBit;
 
 always @(posedge clkRd) begin
   dmem_read(addr, rdBuf);
-  // $display("dmem_read(addr = %x, memOp = %x) = %x -> %x", addr, memOp, rdBuf, dout);
-end
-
-always @(*) begin
-  // `ifdef CONFIG_MTRACE
-  // $display("dmem_read(addr = %x, memOp = %x) = %x", addr, memOp, dout);
-  // `endif
 end
 
 assign extendBit = (memOp == M_LBU || memOp == M_LHU) ? 0 : 1;
@@ -59,9 +54,6 @@ wire [3:0] wmask;
 always @(posedge clkWr) begin
   if (we) begin
     dmem_write(addr, wrBuf, {4'b0, wmask});
-    // `ifdef CONFIG_MTRACE
-    // $display("dmem_write(addr = %x, memOp = %x, data = %x)", addr, memOp, din);
-    // `endif
   end
 end
 
@@ -78,10 +70,6 @@ assign wmask =
   (memOp == M_SH) ? (4'b0011 << offset) :
   4'b1111;
 
-endmodule
-/* verilator lint_on UNUSEDPARAM */ 
-
-
 `elsif VIVADO
 reg [3:0] ea;
 reg [31:0] tempout;
@@ -91,6 +79,10 @@ reg [7:0] bt = 8'b0;
 reg [15:0] wd = 16'b0;
 reg [31:0] din_r;
 wire [31:0] cur;
+
+initial begin
+  $readmemh(`DMEM_IMG, ram);
+end
 
 assign cur = ram[addr[31:2]];
 
@@ -144,15 +136,18 @@ always @(*) begin
         endcase
 end
 
+reg [31:0] dout_buf;
+assign dout = dout_buf;
+
 always @(posedge clkRd)
 begin
     tempout <= cur;
     case(memOp)
-        3'b000: dout <= {{24{bt[7]}}, bt};
-        3'b001: dout <= {{16{wd[15]}}, wd};
-        3'b010: dout <= cur;
-        3'b100: dout <= {24'b0, bt};
-        3'b101: dout <= {16'b0, wd};
+        3'b000: dout_buf <= {{24{bt[7]}}, bt};
+        3'b001: dout_buf <= {{16{wd[15]}}, wd};
+        3'b010: dout_buf <= cur;
+        3'b100: dout_buf <= {24'b0, bt};
+        3'b101: dout_buf <= {16'b0, wd};
     endcase
 end
 
@@ -166,5 +161,7 @@ always @(posedge clkWr) begin
         ram[addr[31:2]] <= tempin;
     end
 end
-endmodule
 `endif
+
+endmodule
+/* verilator lint_on UNUSEDPARAM */

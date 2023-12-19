@@ -14,8 +14,7 @@ module top (
   `ifdef NVDL
   output VGA_VALID_N,
   `endif
-  output VGA_HS, VGA_VS,
-  output halt, trap
+  output VGA_HS, VGA_VS
 );
 
 /********************
@@ -114,28 +113,6 @@ assign {DP, CG, CF, CE, CD, CC, CB, CA}
 
 `endif
 
-/********************************************
-* VGA_VALID, VGA_DATA, VGA_HADDR, VGA_VADDR *
-********************************************/
-
-
-wire [11:0] VGA_DATA;
-wire [9:0] VGA_HADDR, VGA_VADDR;
-
-vga_ctrl vga_ctrl(
-  .pclk(CLK),
-  .reset(1'b0),
-  .vga_data(VGA_DATA),
-  .h_addr(VGA_HADDR),
-  .v_addr(VGA_VADDR),
-  .hsync(VGA_HS),
-  .vsync(VGA_VS),
-  .valid(VGA_VALID_N),
-  .vga_r(VGA_R),
-  .vga_g(VGA_G),
-  .vga_b(VGA_B)
-);
-
 `ifndef NVDL
 wire VGA_VALID_N;
 `endif
@@ -154,7 +131,7 @@ wire [instrWidth-1:0] imemdataout;
 wire [dataWidth-1:0] dmemdatain, dmemdataout;
 wire imemclk, dmemrdclk, dmemwrclk;
 wire [2:0] dmemop;
-wire dmemwe;
+wire dmemwe, dmemre;
 
 /* verilator lint_off UNUSEDSIGNAL */
 wire [31:0] dontcare;
@@ -173,9 +150,8 @@ Cpu cpu(
   .dmemwrclk(dmemwrclk), 
   .dmemop(dmemop), 
   .dmemwe(dmemwe), 
-  .dbgdata(dontcare), 
-  .halt(halt), 
-  .trap(trap)
+  .dmemre(dmemre),
+  .dbgdata(dontcare)
 );
 
 InstrMem instrMem(
@@ -184,8 +160,8 @@ InstrMem instrMem(
   .instr(imemdataout)
 );
 
-wire sel_dmem, sel_seg, sel_kbd, sel_timer, sel_cmem, sel_vga, sel_led;
-wire [31:0] dout_timer, dout_kbd, dout_sw, dout_dmem;
+wire sel_dmem, sel_seg, sel_kbd, sel_timer, sel_cmem, sel_vga, sel_led, sel_serial;
+wire [31:0] dout_timer, dout_kbd, dout_sw, dout_dmem, dout_kbd;
 
 Mmu mmu(
   .addr(dmemaddr),
@@ -197,6 +173,7 @@ Mmu mmu(
   .sel_cmem(sel_cmem),
   .sel_vga(sel_vga),
   .sel_led(sel_led),
+  .sel_serial(sel_serial),
   .dout_timer(dout_timer),
   .dout_sw(dout_sw),
   .dout_kbd(dout_kbd),
@@ -214,7 +191,7 @@ DataMem dataMem(
 );
 
 Led led(
-  .clock(clock),
+  .clock(dmemwrclk),
   .reset(reset),
   .sel(sel_led),
   .we(dmemwe),
@@ -223,7 +200,7 @@ Led led(
 );
 
 Seg seg(
-  .clock(clock),
+  .clock(dmemwrclk),
   .reset(reset),
   .sel(sel_seg),
   .we(dmemwe),
@@ -234,7 +211,53 @@ Seg seg(
 assign SEG_EN = 8'b11111111;
 assign SEG_DP = 8'b00000000;
 
+`ifdef VIVADO
+wire clk_vga;
+clkgen #(100000000, 25000000) clk_vga_gen(
+  .in(CLK_INPUT),
+  .out(clk_vga)
+);
+`endif
+
+VgaCmem vcmem(
+  .clock(dmemwrclk),
+  .reset(reset),
+  `ifdef NVDL
+  .vga_clk(clock),
+  `elsif VIVADO
+  .vga_clk(clk_vga),
+  `endif
+  .sel(sel_cmem),
+  .we(dmemwe),
+  .din(dmemdatain),
+  .addr(dmemaddr),
+  .hsync(VGA_HS),
+  .vsync(VGA_VS),
+  .valid(VGA_VALID_N),
+  .vga_r(VGA_R),
+  .vga_g(VGA_G),
+  .vga_b(VGA_B)
+);
+
+Timer timer(
+  `ifdef VIVADO
+  .CLK_INPUT(CLK_INPUT),
+  `endif
+  .clock(dmemrdclk),
+  .reset(reset),
+  .sel(sel_timer & dmemre),
+  .addr(dmemaddr),
+  .dout(dout_timer)
+);
+
+Serial serial(
+  .clock(dmemrdclk),
+  .reset(reset),
+  .sel(sel_serial),
+  .we(dmemwe),
+  .din(dmemdatain)
+);
+
 /* USERSPACE END */
 
 endmodule
-

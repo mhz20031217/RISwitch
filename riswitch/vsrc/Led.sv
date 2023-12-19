@@ -12,6 +12,8 @@ always @(posedge clock) begin
     led_out <= 0;
   end else if (sel & we) begin
     led_out <= din[15:0];
+  end else begin
+    led_out <= led_out;
   end
 end
   

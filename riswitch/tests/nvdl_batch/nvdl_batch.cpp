@@ -1,4 +1,5 @@
 #include <VSystem.h>
+#include <VSystem___024root.h>
 #include <common.hpp>
 #include <cstdlib>
 #include <instructions.hpp>
@@ -46,9 +47,9 @@ static void nvdl_init(int argc, char **argv) {
   clk_cnt = 0;
 }
 
-static void nvdl_destroy() { 
+static void nvdl_destroy() {
   delete tracer;
-  delete dut; 
+  delete dut;
 }
 
 static void nvdl_loop_begin() {
@@ -87,21 +88,21 @@ static void nvdl_loop_end() {
 }
 
 bool check_status(const std::string &name) {
-  if (!dut->halt) {
-    return false;
-  }
-  for (int i = 0; i < 5; i++) {
+  for (int i = 0; i < 3; i++) {
     nvdl_loop_begin();
     nvdl_loop_end();
   }
 
-  if (dut->trap) {
+  int ret_value = dut->rootp->System__DOT__cpu__DOT__core__DOT__regFile__DOT__mem[10];
+
+  if (ret_value == 0x00c0ffee) {
     std::cout << "[" << name << "]\tHit GOOD trap.\n";
-    return true;
-  } else {
+  } else if (ret_value == 0xdeadbeef) {
     std::cout << "[" << name << "]\tHit BAD trap.\n";
-    return true;
+  } else {
+    std::cout << "[" << name << "]\tThe CPU is flying.\n";
   }
+  return true;
 }
 
 void run_test(const std::string name) {
@@ -110,7 +111,8 @@ void run_test(const std::string name) {
   imem_load(("../tests/cpu_pipebatch/rv32ui-p-" + name + ".hex").c_str());
   dmem_load(("../tests/cpu_pipebatch/rv32ui-p-" + name + "_d.hex").c_str());
 
-  // std::cout << "Test '"<< name << "', starting at: " << test_start_time << '\n';
+  // std::cout << "Test '"<< name << "', starting at: " << test_start_time <<
+  // '\n';
 
   while (sim_time - test_start_time < max_test_time &&
          sim_time < max_sim_time) {
@@ -119,13 +121,17 @@ void run_test(const std::string name) {
       dut->reset = 1;
     } else {
       dut->reset = 0;
+      if (sim_time - test_start_time >= 13) {
+        if (!dut->rootp->System__DOT__cpu__DOT__core__DOT__em_reg_c_valid) {
+          if (check_status(name)) {
+            return;
+          }
+        }
+      }
     }
     nvdl_loop_begin();
     // printf("sim_time: %ld, pc: %x.\n", sim_time, dut->pc);
     nvdl_loop_end();
-    if (check_status(name)) {
-      return;
-    }
   }
 
   std::cout << "[" << name << "]\t\tThe cpu does not terminate!\n";

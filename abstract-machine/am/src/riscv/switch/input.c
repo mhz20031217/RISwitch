@@ -1,6 +1,51 @@
 #include <am.h>
+#include <switch.h>
+
+#define K(scan, key) [scan] = AM_KEY_##key,
+
+// all keys are set to AM_KEY_NONE by default
+static int lut[256] = {
+  K(0x1, F9) K(0x3, F5) K(0x4, F3) K(0x5, F1) K(0x6, F2)
+  K(0x7, F12) K(0x9, F10) K(0xA, F8) K(0xB, F6) K(0xC, F4)
+  K(0xD, TAB) K(0xE, GRAVE) K(0x11, LALT) K(0x12, LSHIFT)
+  K(0x14, LCTRL) K(0x15, Q) K(0x16, 1) K(0x1A, Z)
+  K(0x1B, S) K(0x1C, A) K(0x1D, W) K(0x1E, 2)
+  K(0x21, C) K(0x22, X) K(0x23, D) K(0x24, E)
+  K(0x25, 4) K(0x26, 3) K(0x29, SPACE) K(0x2A, V)
+  K(0x2B, F) K(0x2C, T) K(0x2D, R) K(0x2E, 5)
+  K(0x31, N) K(0x32, B) K(0x33, H) K(0x34, G)
+  K(0x35, Y) K(0x36, 6) K(0x3A, M) K(0x3B, J)
+  K(0x3C, U) K(0x3D, 7) K(0x3E, 8) K(0x41, COMMA)
+  K(0x42, K) K(0x43, I) K(0x44, O) K(0x45, 0)
+  K(0x46, 9) K(0x49, PERIOD) K(0x4A, SLASH) K(0x4B, L)
+  K(0x4C, SEMICOLON) K(0x4D, P) K(0x4E, MINUS) K(0x52, APOSTROPHE)
+  K(0x54, LEFTBRACKET) K(0x55, EQUALS) K(0x58, CAPSLOCK) K(0x59, RSHIFT)
+  K(0x5A, RETURN) K(0x5B, RIGHTBRACKET) K(0x5D, BACKSLASH) K(0x66, BACKSPACE)
+  K(0x69, 1) K(0x6B, 4) K(0x6C, 7) K(0x70, 0)
+  K(0x71, PERIOD) K(0x72, 2) K(0x73, 5) K(0x74, 6) 
+  K(0x75, 8) K(0x76, ESCAPE) /* Numlock 0x77 */ K(0x78, F11) /* Keypad + 0x79 */
+  K(0x7A, 3) K(0x7B, MINUS) /* Keypad * 0x7C */ K(0x7D, 9)
+  K(0x83, F7) 
+};
+
+static int elut[128] = {
+  K(0x1F, APPLICATION) K(0x11, RALT) K(0x27, APPLICATION) K(0x14, RCTRL)
+  K(0x70, INSERT) K(0x6c, HOME) K(0x7D, PAGEUP) K(0x71, DELETE)
+  K(0x69, END) K(0x7A, PAGEDOWN) K(0x75, UP) K(0x6B, LEFT) 
+  K(0x72, DOWN) K(0x74, RIGHT) K(0x5A, RETURN)
+};
+
+#undef K
 
 void __am_input_keybrd(AM_INPUT_KEYBRD_T *kbd) {
-  kbd->keydown = 0;
-  kbd->keycode = AM_KEY_NONE;
+  uint32_t keycode = inl(KBD_ADDR);
+  uint8_t b0 = keycode, b1 = keycode >> 8, b2 = keycode >> 16;
+
+  if (b1 == 0xf0) { // keyup
+    kbd->keydown = false;
+    kbd->keycode = (b2 == 0xe0) ? elut[b0] : lut[b0];
+  } else { // keydown
+    kbd->keydown = true;
+    kbd->keycode = (b1 == 0xe0) ? elut[b0] : lut[b0];
+  }
 }

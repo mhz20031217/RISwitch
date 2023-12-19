@@ -16,8 +16,8 @@ static const char *dmem_img = DMEM_IMG;
 VSystem *dut;
 VerilatedVcdC *tracer;
 
-const uint64_t max_sim_time = 1000000;
-const uint64_t max_test_time = 1000000;
+const uint64_t max_sim_time = 100000;
+const uint64_t max_test_time = 100000;
 uint64_t sim_time;
 uint32_t clk_cnt;
 

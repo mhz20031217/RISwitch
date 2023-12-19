@@ -34,10 +34,6 @@ void dmem_load(const char *filename) {
 
 extern "C" void dmem_read(paddr_t addr, word_t *data) {
   *data = mem[((addr & ~0x3U) % DMEM_SIZE) >> 2];
-  
-  // if (0x2000 <= addr && addr <= 0x2010) {
-  //   printf("C dmem_read %x (mem[%x]) is %x.\n", addr, ((addr&~0x3U)%DMEM_SIZE)>>2, *data);
-  // }
 }
 
 extern "C" void dmem_write(paddr_t addr, word_t data, vluint8_t wmask) {
@@ -51,11 +47,7 @@ extern "C" void dmem_write(paddr_t addr, word_t data, vluint8_t wmask) {
 
   word_t x = mem[index >> 2] & ~mask;
   x |= mask & data;
-  // debug
-  // if (0x2000 <= addr && addr < 0x2010) {
-  //   printf("C dmem_write %x (mem[%lx]) changed from %x to %x.\n", addr, index >> 2, mem[index >> 2], x);
-  // }
+
   mem[index >> 2] = x;
 
 }
-

@@ -100,7 +100,73 @@ export SWITCH_HOME=/path/to/riswitch-repo/riswitch
 
 ## 使用 NVDL 进行虚拟上板
 
-#TODO
+### NVDL 主 Makefile 介绍
+
+后文有使用示例。
+
+NVDL 和 Vivado 的逻辑类似。上板时只有一个 Top Module，是 `riswitch/top/top.sv:top`。放着测试可以有多个，对应着 `riswtich/tests` 中的各个文件夹。
+
+当在命令行中指定 `MODE=SIM` 时，是测试模式，构建系统将取出 `vsrc`, `vsrc_gen` （对应 Design Sources）中的 Verilog 文件，以及 `tests/$(TEST_NAME)` 中的 Verilog 文件（对应 Simulation Sources）进行编译。在 `csrc` 和 `tests/$(TEST_NAME)` 中的 C, Cpp 文件用于 NVDL 仿真或上板。
+
+在使用 RISwitch 开发环境时，进行 AM 程序的仿真（仅判断是否 Hit Good Trap，生成波形），请将 `TEST_NAME` 设置为 `am-test`，指定 `MODE=SIM`。使用 NVBoard 进行虚拟上板，没有设置需要修改，指定 `MODE=EVAL` 即可。
+
+#### 选项
+
+NVDL 还没有加入 KConfig 等配置系统，目前各个配置选项都在 Makefile 中直接修改。以下是和 RISwitch 仿真环境有关的选项。
+
+```Makefile
+TEST_NAME = am-test # 指定测试在文件夹 tests/$(TEST_NAME) 中
+SIM_TOP = System # 无需改动，对应着 System 模块
+SIM_TB = ? # 如果需要用 NVDL 启动 Vivado 测试某一个模块，需要设置 TEST_NAME，并在此指定 Testbench 模块名，如果是直接建立 Vivado 工程文件来测试，没有使用 NVDL 构建系统，此选项无效
+EVAL_TOP = top # 无需改动。对应着虚拟/真实上板时使用的 NVDL 通用顶层模块
+CLOCK_TYPE = PERF # 无需改动，本项目使用最高频率的时钟（降频不发生在 NVDL 层面）
+```
+
+#### 已有的测试
+
+测试分为两种，一种是能在 NVDL 仿真环境中跑的，另一种就是 Vivado 中的 Testbench。
+
+1. am-test: 不在 RISwitch 文件夹下直接使用，在 AM 项目中使用 `make ARCH=riscv32-switch sim` 构建。
+
+2. nvdl_batch: 移植了课程提供的 RISC-V 官方 Cpu 测试集到 NVDL。
+3. cpu_pipebatch: 即课程提供的官方测试集，可以在 Vivado 中测试 Cpu。
+
+### 使用示例
+
+#### 使用 NVDL 仿真测试某一个单独的模块
+
+该模块设计文件位于 `riswitch/vsrc/my_module.sv:my_module`，测试使用的 C++ Wrapper 和（可以没有，在 C++ 中直接例化模块）Verilog Testbench 位于 `riswitch/tests/my_test/`。
+
+（以下是 C++ Wrapper 直接例化模块的方式）
+
+（注意，是否生成波形取决于 C++ Wrapper，判定 Hit trap 也取决于 C++ Wrapper，仿真何时停止也取决于 C++ Wrapper）
+
+（如果生成波形，请确保波形名和 `SIM_TOP` 一致，以便 NVDL 的 `wave` 目标正常工作）
+
+1. 在 Makefile 中修改 `SIM_TOP = my_module`，`TEST_NAME = my_test`。
+2. 在 `riswitch` 文件夹下，执行
+
+    ```sh
+    $ make PLATFORM=NVDL MODE=SIM # 仿真，不自动打开波形
+    $ make PLATFORM=NVDL MODE=SIM wave # 仿真，自动打开波形（如果 C++ Wrapper 没有输出波形则失败）
+    ```
+
+    进行仿真。
+
+#### 使用 Vivado 仿真测试某一个单独的模块
+
+目前 NVDL 只加入了 Vivado 仿真功能，不支持生成 Bitstream 和上板。
+
+和上个示例中模块的位置相同，添加了 Verilog Testbench `tests/my_test/TB.sv:TB`。在 Makefile 中设置 `SIM_TB = TB`，`TEST_NAME` 不变。
+
+在 `riswitch` 文件夹下，执行
+
+```sh
+$ make PLATFORM=VIVADO MODE=SIM # 仿真，不自动打开波形
+$ make PLATFORM=VIVADO MODE=SIM wave # 仿真，自动打开波形
+```
+
+至于如何用 Vivado 直接仿真，新建工程，手动添加文件即可。
 
 ## 使用 AM 编写应用程序并生成镜像
 
@@ -153,3 +219,36 @@ Memory region         Used Size  Region Size  %age Used
 
 需要注意的是，`ARCH=native`, `ARCH=riscv32-nemu` 和 `ARCH=riscv32-switch` 上的设备不尽相同，在 NVDL 仿真（不使用 NVBoard 虚拟上板）时，如字符显存等设备不能使用，需要改用 `printf` 调试法输出。 
 
+## 使用 NVDL 进行 AM 程序的仿真和上板
+
+### 仿真（此功能一般是硬件开发人员使用）
+
+有一个 AM 程序，它的 Makefile 在 `am-kernels/kernels/my_program/Makefile`，这个 Makefile 已经根据上文要求写好，并且能在 `ARCH=native` 等架构上编译成功。
+
+1. 设置 NVDL Makefile `riswitch/Makefile`，`TEST_NAME = am-test` （已写好，用于加载 AM 程序，仿真并生成波形）
+
+2. 在 `am-kernels/kernels/my_program/` 下，执行
+
+    ```sh
+    # 阅读 abstract-machine/scripts/platform/switch.mk 详细了解各个目标
+    $ make ARCH=riscv32-switch # 编译并生成 IMEM_IMG 和 DMEM_IMG
+    $ make ARCH=riscv32-switch sim # 仿真，不自动打开波形（只有 Hit Trap 提示）
+    $ make ARCH=riscv32-switch wave # 仿真并自动打开波形
+    $ mkae ARCH=riscv32-switch cleansim # 只删除仿真可执行文件和波形
+    ```
+
+### 虚拟上板（此功能一般是 AM 软件开发人员使用）
+
+AM 程序和上文一样。
+
+首先，配置是否生成波形（建议运行时长超过 10s 的程序都不要生成波形，否则磁盘空间满）
+
+在 `riswitch/include/common.hpp` 中，注释掉 `#define CONFIG_TRACE` 关闭波形生成。
+
+在 `am-kernels/kernels/my_program/` 下，执行
+
+```sh
+# 阅读 abstract-machine/scripts/platform/switch.mk 详细了解各个目标
+$ make ARCH=riscv32-switch eval # 虚拟上板
+$ make ARCH=riscv32-switch evalwave # 虚拟上板，结束后自动打开波形
+```
