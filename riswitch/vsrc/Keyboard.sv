@@ -27,7 +27,7 @@ ps2_keyboard mykey(clk, reset, ps2_clk, ps2_data, keydata, ready, nextdata_n, ov
 // add you code here
 always@(posedge clk) begin
     if(clrn == 0) begin
-        cur_key <= 0;
+        cur_key <= 32'h0000001c;
     end
     else begin
         if(en == 0) begin
