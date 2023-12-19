@@ -165,6 +165,7 @@ wire [31:0] dout_timer, dout_sw, dout_dmem, dout_kbd;
 
 Keyboard mykbd(
         .clk(clock),
+        .clrn(~reset),
         .ps2_clk(PS2_CLK),
         .ps2_data(PS2_DAT),
         .en(sel_kbd & dmemre),
