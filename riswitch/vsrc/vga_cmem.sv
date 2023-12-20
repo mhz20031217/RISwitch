@@ -14,22 +14,38 @@ module vga_cmem (
   input [2:0] w_bg_color
 );
 
-(* ram_style = "block" *) reg [15:0] mem [2239:0];
 
 wire [11:0] index, w_index;
 assign index = {c_addr, r_addr};
 assign w_index = {wc_addr, wr_addr};
 
-wire [15:0] mem_inbuf, mem_outbuf;
-assign mem_outbuf = mem[index];
+wire [13:0] mem_inbuf, mem_outbuf;
 
-assign {bg_color, fg_color, ascii} = mem_outbuf[13:0];
-assign mem_inbuf = {2'b0, w_bg_color, w_fg_color, w_ascii};
+assign {bg_color, fg_color, ascii} = mem_outbuf;
+assign mem_inbuf = {w_bg_color, w_fg_color, w_ascii};
+
+`ifdef NVDL
+(* ram_style = "block" *) reg [13:0] mem [2239:0];
+assign mem_outbuf = mem[index];
 
 always @(posedge clk) begin
   if (we) begin
     mem[w_index] <= mem_inbuf;
   end
 end
+`elsif VIVADO
+CmemGenerator mem(
+  .addra(w_index),
+  .clka(clk),
+  .dina(mem_inbuf),
+  .ena(1'b1),
+  .wea(we),
+  .addrb(index),
+  .clkb(clk),
+  .doutb(mem_outbuf),
+  .enb(1'b1)
+);
+`endif
+
 
 endmodule
