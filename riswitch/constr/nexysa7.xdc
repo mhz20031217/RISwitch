@@ -5,10 +5,7 @@
 
 ## Clock signal
 set_property -dict {PACKAGE_PIN E3 IOSTANDARD LVCMOS33} [get_ports CLK_INPUT]
-#create_clock -add -name sys_clk_pin -period 10.00 -waveform {0 5} [get_ports {CLK}];
-
-# Allow BTNC act as clk
-#set_property CLOCK_DEDICATED_ROUTE FALSE [get_nets BTN_IBUF[4]];
+create_clock -period 10.000 -name CLK_IMPUT -waveform {0.000 5.000} [get_ports -filter { NAME =~  "*CLK_INPUT*" && DIRECTION == "IN" }]
 
 
 ##Switches
@@ -215,4 +212,3 @@ set_property -dict {PACKAGE_PIN B2 IOSTANDARD LVCMOS33} [get_ports PS2_DAT]
 #set_property -dict { PACKAGE_PIN M14   IOSTANDARD LVCMOS33 } [get_ports { QSPI_DQ[3] }]; #IO_L2N_T0_D03_14 Sch=qspi_dq[3]
 #set_property -dict { PACKAGE_PIN L13   IOSTANDARD LVCMOS33 } [get_ports { QSPI_CSN }]; #IO_L6P_T0_FCS_B_14 Sch=qspi_csn
 
-create_clock -period 10.000 -name CLK_IMPUT -waveform {0.000 5.000} [get_ports -filter { NAME =~  "*CLK_INPUT*" && DIRECTION == "IN" }]

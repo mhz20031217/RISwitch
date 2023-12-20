@@ -1,7 +1,9 @@
 `include "../include/config.sv"
 
+`ifdef NVDL
 import "DPI-C" function void dmem_read(input int addr, output int data);
 import "DPI-C" function void dmem_write(input int addr, input int data, input byte wmask);
+`endif
 
 /* verilator lint_off UNUSEDPARAM */ 
 module DataMem #(
@@ -17,7 +19,6 @@ module DataMem #(
   input we
 );
 
-`ifdef NVDL
 localparam M_LB = 3'd0;
 localparam M_LH = 3'd1;
 localparam M_LW = 3'd2;
@@ -29,12 +30,16 @@ localparam M_SW = M_LW;
 
 wire [1:0] offset = addr[1:0];
 
-reg [dataWidth-1:0] rdBuf, validRd;
-wire extendBit;
+`ifdef NVDL
+reg [dataWidth-1:0] rdBuf;
+`endif
 
-always @(posedge clkRd) begin
-  dmem_read(addr, rdBuf);
-end
+`ifdef VIVADO
+wire [dataWidth-1:0] rdBuf;
+`endif
+
+wire [dataWidth-1:0] validRd;
+wire extendBit;
 
 assign extendBit = (memOp == M_LBU || memOp == M_LHU) ? 0 : 1;
 assign validRd =
@@ -51,11 +56,6 @@ assign dout =
 
 wire [dataWidth-1:0] wrBuf, validWr;
 wire [3:0] wmask;
-always @(posedge clkWr) begin
-  if (we) begin
-    dmem_write(addr, wrBuf, {4'b0, wmask});
-  end
-end
 
 assign validWr =
   (offset == 2'd0) ? din :
@@ -69,98 +69,34 @@ assign wmask =
   (memOp == M_SB) ? (4'b0001 << offset) :
   (memOp == M_SH) ? (4'b0011 << offset) :
   4'b1111;
+  
+`ifdef NVDL
 
-`elsif VIVADO
-reg [3:0] ea;
-reg [31:0] tempout;
-wire [31:0] tempin;
-reg [31:0] ram [32767:0];
-reg [7:0] bt = 8'b0;
-reg [15:0] wd = 16'b0;
-reg [31:0] din_r;
-wire [31:0] cur;
-
-initial begin
-  $readmemh(`DMEM_IMG, ram);
+always @(posedge clkRd) begin
+  dmem_read(addr, rdBuf);
 end
-
-assign cur = ram[addr[31:2]];
-
-always @(*) begin
-
-        case(addr[1:0])
-        2'b00:  begin
-                    bt = cur[7:0];
-                    wd = cur[15:0];
-                    din_r = din;
-                    case(memOp)
-                        3'b000: begin ea[0] = 1; ea[1] = 0; ea[2] = 0; ea[3] = 0; end
-                        3'b001: begin ea[0] = 1; ea[1] = 1; ea[2] = 0; ea[3] = 0; end
-                        3'b010: begin ea[0] = 1; ea[1] = 1; ea[2] = 1; ea[3] = 1; end
-			default: ea = 3'b000;
-                    endcase
-                end
-        2'b01:  begin   
-                    bt = cur[15:8];
-                    wd = 0;
-                    din_r = din << 8;
-                    case(memOp)
-                        3'b000: begin ea[0] = 0; ea[1] = 1; ea[2] = 0; ea[3] = 0; end
-                        3'b001: begin ea[0] = 0; ea[1] = 0; ea[2] = 0; ea[3] = 0; end
-                        3'b010: begin ea[0] = 0; ea[1] = 0; ea[2] = 0; ea[3] = 0; end
-			default: ea = 3'b000;
-                    endcase
-                end
-        2'b10:  begin
-                    bt = cur[23:16];
-                    wd = cur[31:16];
-                    din_r = din << 16;
-                    case(memOp)
-                        3'b000: begin ea[0] = 0; ea[1] = 0; ea[2] = 1; ea[3] = 0; end
-                        3'b001: begin ea[0] = 0; ea[1] = 0; ea[2] = 1; ea[3] = 1; end
-                        3'b010: begin ea[0] = 0; ea[1] = 0; ea[2] = 0; ea[3] = 0; end
-			default: ea = 3'b000;
-                    endcase
-                end
-        2'b11:  begin
-                    bt = cur[31:24];
-                    wd = 0; 
-                    din_r = din << 24;
-                    case(memOp)
-                        3'b000: begin ea[0] = 0; ea[1] = 0; ea[2] = 0; ea[3] = 1; end
-                        3'b001: begin ea[0] = 0; ea[1] = 0; ea[2] = 0; ea[3] = 0; end
-                        3'b010: begin ea[0] = 0; ea[1] = 0; ea[2] = 0; ea[3] = 0; end
-			default: ea = 3'b000;
-                    endcase
-                end
-        endcase
-end
-
-reg [31:0] dout_buf;
-assign dout = dout_buf;
-
-always @(posedge clkRd)
-begin
-    tempout <= cur;
-    case(memOp)
-        3'b000: dout_buf <= {{24{bt[7]}}, bt};
-        3'b001: dout_buf <= {{16{wd[15]}}, wd};
-        3'b010: dout_buf <= cur;
-        3'b100: dout_buf <= {24'b0, bt};
-        3'b101: dout_buf <= {16'b0, wd};
-    endcase
-end
-
-assign tempin[7:0] = (ea[0])? din_r[7:0] : tempout[7:0];
-assign tempin[15:8] = (ea[1])? din_r[15:8] : tempout[15:8];
-assign tempin[23:16] = (ea[2])? din_r[23:16] : tempout[23:16];
-assign tempin[31:24] = (ea[3])? din_r[31:24] : tempout[31:24];
 
 always @(posedge clkWr) begin
-    if(we) begin
-        ram[addr[31:2]] <= tempin;
-    end
+  if (we) begin
+    dmem_write(addr, wrBuf, {4'b0, wmask});
+  end
 end
+`endif
+
+`ifdef VIVADO
+
+DataMemGenerator dataMemInternal(
+  .addra(addr[16:2]),
+  .clka(clkWr),
+  .dina(wrBuf),
+  .ena(we),
+  .wea(wmask),
+  .addrb(addr[16:2]),
+  .clkb(clkRd),
+  .doutb(dout),
+  .enb(1'b1)
+);
+
 `endif
 
 endmodule

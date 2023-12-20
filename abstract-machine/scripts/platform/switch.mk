@@ -22,6 +22,8 @@ CFLAGS += -I$(AM_HOME)/am/src/platform/switch/include
 
 IMEM_IMG = $(IMAGE_REL).hex
 DMEM_IMG = $(IMAGE_REL)_d.hex
+IMEM_COE = $(IMAGE_REL).coe
+DMEM_COE = $(IMAGE_REL)_d.coe
 
 PYTHON = python3
 HEXGEN = $(AM_HOME)/tools/switch-img.py
@@ -33,9 +35,9 @@ image: $(IMAGE).elf
 	@echo + OBJCOPY "->" $(IMAGE_REL)_d.bin
 	@$(OBJCOPY) -S --only-section=*data* --only-section=*bss* --set-section-flags .bss=alloc,contents -O binary $(IMAGE).elf $(IMAGE)_d.bin
 	@echo + HEXGEN "->" $(IMAGE_REL).hex \(InstrMem Image\)
-	@$(PYTHON) $(HEXGEN) $(IMAGE_REL).bin $(IMEM_IMG)
+	@$(PYTHON) $(HEXGEN) $(IMAGE_REL).bin $(IMEM_IMG) $(IMEM_COE)
 	@echo + HEXGEN "->" $(IMAGE_REL)_d.hex \(DataMem Image\)
-	@$(PYTHON) $(HEXGEN) $(IMAGE_REL)_d.bin $(DMEM_IMG)
+	@$(PYTHON) $(HEXGEN) $(IMAGE_REL)_d.bin $(DMEM_IMG) $(DMEM_COE)
 	
 sim: image
 	$(MAKE) -C $(SWITCH_HOME) IMEM_IMG="$(abspath $(IMEM_IMG))" DMEM_IMG="$(abspath $(DMEM_IMG))" PLATFORM=NVDL MODE=SIM
@@ -51,3 +53,6 @@ evalwave: image
 
 cleansim:
 	$(MAKE) -C $(SWITCH_HOME) clean
+
+vivado: image
+	$(MAKE) -C $(SWITCH_HOME) IMEM_IMG="$(abspath $(IMEM_IMG))" DMEM_IMG="$(abspath $(DMEM_IMG))" IMEM_COE="$(abspath $(IMEM_COE))" DMEM_COE="$(abspath $(DMEM_COE))" PLATFORM=VIVADO MODE=EVAL

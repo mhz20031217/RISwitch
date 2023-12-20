@@ -150,6 +150,8 @@ InstrMem instrMem(
 wire sel_dmem, sel_seg, sel_kbd, sel_timer, sel_cmem, sel_vga, sel_led, sel_serial;
 wire [31:0] dout_timer, dout_sw, dout_dmem, dout_kbd;
 
+assign dout_sw = SW;
+
 Mmu mmu(
   .addr(dmemaddr),
   .dout(dmemdataout),
@@ -237,6 +239,7 @@ Timer timer(
   .dout(dout_timer)
 );
 
+`ifdef NVDL
 Serial serial(
   .clock(dmemrdclk),
   .reset(reset),
@@ -244,6 +247,7 @@ Serial serial(
   .we(dmemwe),
   .din(dmemdatain)
 );
+`endif
 
 /* USERSPACE END */
 
