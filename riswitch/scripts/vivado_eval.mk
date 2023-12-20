@@ -15,5 +15,5 @@ $(error Invalid DMEM_COE.)
 endif
 
 image:
-	cp $(IMEM_COE) $(VIVADO_IMEM_COE)
-	cp $(DMEM_COE) $(VIVADO_DMEM_COE)
+	@cp $(IMEM_COE) $(VIVADO_IMEM_COE)
+	@cp $(DMEM_COE) $(VIVADO_DMEM_COE)

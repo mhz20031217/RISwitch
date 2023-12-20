@@ -5,7 +5,7 @@
 
 ## Clock signal
 set_property -dict {PACKAGE_PIN E3 IOSTANDARD LVCMOS33} [get_ports CLK_INPUT]
-create_clock -period 10.000 -name CLK_IMPUT -waveform {0.000 5.000} [get_ports -filter { NAME =~  "*CLK_INPUT*" && DIRECTION == "IN" }]
+create_clock -period 10.000 -name CLK_INPUT -waveform {0.000 5.000} [get_ports -filter { NAME =~  "*CLK_INPUT*" && DIRECTION == "IN" }]
 
 
 ##Switches

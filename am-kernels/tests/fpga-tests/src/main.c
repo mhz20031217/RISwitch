@@ -6,13 +6,13 @@ void delay() {
   uint64_t start = io_read(AM_TIMER_UPTIME).us;
 
   // 1 second
-  while (io_read(AM_TIMER_UPTIME).us - start < 10);
+  while (io_read(AM_TIMER_UPTIME).us - start < 10000);
 }
 
 void led_test() {
   for (volatile uint16_t i = 1; i; i = i * 2) {
     io_write(AM_LED, i);
-    delay();
+    // delay();
   }
   io_write(AM_LED, 1234);
 }
@@ -21,7 +21,7 @@ void seg_test() {
   volatile uint32_t v = 0xabcdef88;
   for (volatile int i = 0; i < 10; i ++) {
     io_write(AM_SEG, v);
-    delay();
+    // delay();
     v = (v << 4) | (v >> 28);
   }
 }
@@ -76,8 +76,10 @@ void keybrd_test() {
     }
     else if (kbd.keydown) {
       printf("Key down: %d\n", kbd.keycode);
+      io_write(AM_SEG, 0x5);
     } else {
       printf("Key up: %d\n", kbd.keycode);
+      io_write(AM_SEG, 0x6);
     }
   }
 }
@@ -86,13 +88,13 @@ int main(const char *args) {
   ioe_init();
 
   //cmem_test();
-  //led_test();  
-  //seg_test();
+  led_test();  
+  seg_test();
 
   // serial_test();
   // timer_test();
 
-  keybrd_test();
+  // keybrd_test();
 
   return 0;
 }

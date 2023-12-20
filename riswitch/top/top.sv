@@ -18,8 +18,29 @@ module top (
 );
 
 /********************
-*   CLK (100MHz)    *
+*   CLK             *
 ********************/
+
+wire CLK_100MHz, CLK_80MHz, CLK_50MHz, CLK_25MHz, CLK_10MHz;
+`ifdef NVDL
+assign CLK_100MHz = CLK_INPUT;
+assign CLK_80MHz = CLK_INPUT;
+assign CLK_50MHz = CLK_INPUT;
+assign CLK_25MHz = CLK_INPUT;
+assign CLK_10MHz = CLK_INPUT;
+`elsif VIVADO
+ClockGenerator clkgen(
+  .reset(1'b0),
+  .clk_in1(CLK_INPUT),
+  .clk_100mhz(CLK_100MHz),
+  .clk_80mhz(CLK_80MHz),
+  .clk_50mhz(CLK_50MHz),
+  .clk_25mhz(CLK_25MHz),
+  .clk_10mhz(CLK_10MHz),
+  .locked()
+);
+`endif
+
 
 /***********************************
 *   SEG_CONTENT, SEG_DP, SEG_EN    *
@@ -81,10 +102,10 @@ initial begin
 end
 
 
-wire clk_1khz;
-clkgen #(100000000, 1000) clk_1khz_gen(.in(CLK_INPUT), .out(clk_1khz));
+//wire clk_1khz;
+//clkgen #(100000000, 1000) clk_1khz_gen(.in(CLK_INPUT), .out(clk_1khz));
 
-always @(posedge clk_1khz) begin
+always @(posedge CLK_10MHz) begin
     select <= select + 1;
 end
 
@@ -107,6 +128,7 @@ wire VGA_VALID_N;
 
 /* USERSPACE BEGIN */
 
+wire clock = CLK_10MHz;
 wire reset = BTN[4];
 
 localparam addrWidth = 32;
@@ -125,7 +147,7 @@ wire [31:0] dontcare;
 /* verilator lint_on UNUSEDSIGNAL */
 
 Cpu cpu(
-  .clock(CLK_INPUT),
+  .clock(clock),
   .reset(reset),
   .imemaddr(imemaddr), 
   .imemdataout(imemdataout), 
@@ -138,7 +160,7 @@ Cpu cpu(
   .dmemop(dmemop), 
   .dmemwe(dmemwe), 
   .dmemre(dmemre),
-  .dbgdata(dontcare)
+  .dbgdata(SEG_CONTENT)
 );
 
 InstrMem instrMem(
@@ -150,7 +172,7 @@ InstrMem instrMem(
 wire sel_dmem, sel_seg, sel_kbd, sel_timer, sel_cmem, sel_vga, sel_led, sel_serial;
 wire [31:0] dout_timer, dout_sw, dout_dmem, dout_kbd;
 
-assign dout_sw = SW;
+assign dout_sw = {16'b0, SW};
 
 Keyboard mykbd(
         .clk(clock),
@@ -203,7 +225,7 @@ Seg seg(
   .sel(sel_seg),
   .we(dmemwe),
   .din(dmemdatain),
-  .seg_content(SEG_CONTENT)
+  .seg_content(dontcare)
 );
 
 assign SEG_EN = 8'b11111111;
