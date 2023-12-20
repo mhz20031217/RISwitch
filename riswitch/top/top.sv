@@ -191,7 +191,7 @@ InstrMem instrMem(
   .instr(imemdataout)
 );
 
-wire sel_dmem, sel_seg, sel_kbd, sel_timer, sel_cmem, sel_vga, sel_led, sel_serial;
+wire sel_dmem, sel_seg, sel_kbd, sel_timer, sel_cmem, sel_fb, sel_vgamode, sel_led, sel_serial;
 wire [31:0] dout_timer, dout_sw, dout_dmem, dout_kbd;
 
 assign dout_sw = {16'b0, SW};
@@ -213,9 +213,10 @@ Mmu mmu(
   .sel_seg(sel_seg),
   .sel_kbd(sel_kbd),
   .sel_cmem(sel_cmem),
-  .sel_vga(sel_vga),
+  .sel_fb(sel_fb),
   .sel_led(sel_led),
   .sel_serial(sel_serial),
+  .sel_vgamode(sel_vgamode),
   .dout_timer(dout_timer),
   .dout_sw(dout_sw),
   .dout_kbd(dout_kbd),
@@ -254,7 +255,13 @@ assign SEG_EN = 8'b11111111;
 assign SEG_DP = 8'b00000000;
 
 wire [31:0] vga_cmem_data, vga_fb_data;
-assign VGA_DATA = vga_cmem_data;
+reg vga_mode;
+always @(posedge dmemwrclk) begin
+  if (dmemwe & sel_vgamode) begin
+    vga_mode <= dmemdatain[0];
+  end
+end
+assign VGA_DATA = (vga_mode) ? vga_cmem_data : vga_fb_data;
 
 VgaCmem vcmem(
   .clock(dmemwrclk),
@@ -266,6 +273,18 @@ VgaCmem vcmem(
   .h_addr(VGA_HADDR),
   .v_addr(VGA_VADDR),
   .vga_data(vga_cmem_data)
+);
+
+VgaFb vfb(
+  .clock(dmemwrclk),
+  .reset(reset),
+  .sel(sel_fb),
+  .we(dmemwe),
+  .din(dmemdatain),
+  .addr(dmemaddr),
+  .h_addr(VGA_HADDR),
+  .v_addr(VGA_VADDR),
+  .vga_data(vga_fb_data)
 );
 
 `ifdef VIVADO

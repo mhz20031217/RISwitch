@@ -1,3 +1,4 @@
+#include "amdev.h"
 #include <am.h>
 #include <klib.h>
 #include <klib-macros.h>
@@ -84,6 +85,7 @@ void update_device() {
 }
 
 int main() {
+    io_write(AM_VGACTRL, 1);
     memset(screen, 0, sizeof(screen));
     memset(fg_color, 0xff, sizeof(fg_color));
     memset(bg_color, 0, sizeof(bg_color));
