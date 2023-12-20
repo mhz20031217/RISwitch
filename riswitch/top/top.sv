@@ -119,9 +119,34 @@ assign {DP, CG, CF, CE, CD, CC, CB, CA}
 
 `endif
 
+/***************
+*     VGA      *
+***************/
+
 `ifndef NVDL
 wire VGA_VALID_N;
 `endif
+
+wire [9:0] VGA_HADDR, VGA_VADDR;
+wire [11:0] VGA_DATA;
+
+vga_ctrl ctrl(
+    `ifdef NVDL
+    .pclk(CLK_INPUT),
+    `elsif VIVADO
+    .pclk(CLK_25MHz),
+    `endif
+    .reset(BTN[4]),
+    .vga_data(VGA_DATA),
+    .h_addr(VGA_HADDR),
+    .v_addr(VGA_VADDR),
+    .hsync(VGA_HS),
+    .vsync(VGA_VS),
+    .valid(VGA_VALID_N),
+    .vga_r(VGA_R),
+    .vga_g(VGA_G),
+    .vga_b(VGA_B)
+);
 
 /* USERSPACE BEGIN */
 
@@ -228,24 +253,19 @@ Seg seg(
 assign SEG_EN = 8'b11111111;
 assign SEG_DP = 8'b00000000;
 
+wire [31:0] vga_cmem_data, vga_fb_data;
+assign VGA_DATA = vga_cmem_data;
+
 VgaCmem vcmem(
   .clock(dmemwrclk),
   .reset(reset),
-  `ifdef NVDL
-  .vga_clk(clock),
-  `elsif VIVADO
-  .vga_clk(CLK_25MHz),
-  `endif
   .sel(sel_cmem),
   .we(dmemwe),
   .din(dmemdatain),
   .addr(dmemaddr),
-  .hsync(VGA_HS),
-  .vsync(VGA_VS),
-  .valid(VGA_VALID_N),
-  .vga_r(VGA_R),
-  .vga_g(VGA_G),
-  .vga_b(VGA_B)
+  .h_addr(VGA_HADDR),
+  .v_addr(VGA_VADDR),
+  .vga_data(vga_cmem_data)
 );
 
 `ifdef VIVADO

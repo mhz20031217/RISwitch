@@ -1,16 +1,12 @@
 `timescale 10ns/1ns
 module VgaCmem (
     input clock, reset,
-    input vga_clk,
     input sel, we,
+    input [9:0] h_addr, v_addr,
     input [31:0] addr,
     input [31:0] din,
-    output hsync, vsync, valid,
-    output [3:0] vga_r, vga_g, vga_b
+    output [11:0] vga_data
 );
-
-wire [9:0] h_addr, v_addr;
-wire [11:0] vga_data;
 
 wire [2:0] fg_color, bg_color, w_fg_color, w_bg_color;
 wire [7:0] ascii, w_ascii;
@@ -52,24 +48,6 @@ vga_cmem cmem(
     .w_ascii(w_ascii),
     .w_fg_color(w_fg_color),
     .w_bg_color(w_bg_color)
-);
-
-vga_ctrl ctrl(
-    `ifdef NVDL
-    .pclk(clock),
-    `elsif VIVADO
-    .pclk(vga_clk),
-    `endif
-    .reset(reset),
-    .vga_data(vga_data),
-    .h_addr(h_addr),
-    .v_addr(v_addr),
-    .hsync(hsync),
-    .vsync(vsync),
-    .valid(valid),
-    .vga_r(vga_r),
-    .vga_g(vga_g),
-    .vga_b(vga_b)
 );
 
 vga_bitmap vga_bitmap(
