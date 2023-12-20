@@ -102,10 +102,6 @@ initial begin
     select = 0;
 end
 
-
-//wire clk_1khz;
-//clkgen #(100000000, 1000) clk_1khz_gen(.in(CLK_INPUT), .out(clk_1khz));
-
 always @(posedge CLK_10MHz) begin
     select <= select + 1;
 end
@@ -251,6 +247,14 @@ VgaCmem vcmem(
   .vga_g(VGA_G),
   .vga_b(VGA_B)
 );
+
+`ifdef VIVADO
+wire CLK_1MHz;
+clkgen #(10000000, 1000000) clk_1mhz_gen(
+  .in(CLK_10MHz),
+  .out(CLK_1MHz)
+);
+`endif
 
 Timer timer(
   `ifdef VIVADO
