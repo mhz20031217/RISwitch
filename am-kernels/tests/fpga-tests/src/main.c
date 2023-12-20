@@ -95,6 +95,7 @@ int main(const char *args) {
   // timer_test();
 
   // keybrd_test();
+  while (true);
 
   return 0;
 }
