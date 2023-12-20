@@ -12,7 +12,7 @@ void delay() {
 void led_test() {
   for (volatile uint16_t i = 1; i; i = i * 2) {
     io_write(AM_LED, i);
-    // delay();
+    delay();
   }
   io_write(AM_LED, 1234);
 }
@@ -21,7 +21,7 @@ void seg_test() {
   volatile uint32_t v = 0xabcdef88;
   for (volatile int i = 0; i < 10; i ++) {
     io_write(AM_SEG, v);
-    // delay();
+    delay();
     v = (v << 4) | (v >> 28);
   }
 }
@@ -35,11 +35,11 @@ void cmem_test() {
     }
   }
 
-  // char *hello = "hello, world!";
-  // int len = strlen(hello);
-  // for (int i = 0; i < len; i ++) {
-  //   io_write(AM_CMEM_PUTCH, i, 0, hello[i], 0, 7);
-  // }
+  char *hello = "hello, world!";
+  int len = strlen(hello);
+  for (int i = 0; i < len; i ++) {
+    io_write(AM_CMEM_PUTCH, i, 0, hello[i], 0, 7);
+  }
 }
 
 void serial_test() {
@@ -87,14 +87,14 @@ void keybrd_test() {
 int main(const char *args) {
   ioe_init();
 
-  //cmem_test();
+  cmem_test();
   led_test();  
   seg_test();
 
-  // serial_test();
+  serial_test();
   // timer_test();
 
-  // keybrd_test();
+  keybrd_test();
   while (true);
 
   return 0;

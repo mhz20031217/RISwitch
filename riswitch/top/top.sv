@@ -239,29 +239,29 @@ assign SEG_DP = 8'b00000000;
 //);
 //`endif
 
-//VgaCmem vcmem(
-//  .clock(dmemwrclk),
-//  .reset(reset),
-//  `ifdef NVDL
-//  .vga_clk(clock),
-//  `elsif VIVADO
-//  .vga_clk(clk_vga),
-//  `endif
-//  .sel(sel_cmem),
-//  .we(dmemwe),
-//  .din(dmemdatain),
-//  .addr(dmemaddr),
-//  .hsync(VGA_HS),
-//  .vsync(VGA_VS),
-//  .valid(VGA_VALID_N),
-//  .vga_r(VGA_R),
-//  .vga_g(VGA_G),
-//  .vga_b(VGA_B)
-//);
+VgaCmem vcmem(
+ .clock(dmemwrclk),
+ .reset(reset),
+ `ifdef NVDL
+ .vga_clk(clock),
+ `elsif VIVADO
+ .vga_clk(clk_vga),
+ `endif
+ .sel(sel_cmem),
+ .we(dmemwe),
+ .din(dmemdatain),
+ .addr(dmemaddr),
+ .hsync(VGA_HS),
+ .vsync(VGA_VS),
+ .valid(VGA_VALID_N),
+ .vga_r(VGA_R),
+ .vga_g(VGA_G),
+ .vga_b(VGA_B)
+);
 
 Timer timer(
   `ifdef VIVADO
-  .CLK_INPUT(CLK_INPUT),
+  .CLK_1MHz(CLK_1MHz),
   `endif
   .clock(dmemrdclk),
   .reset(reset),

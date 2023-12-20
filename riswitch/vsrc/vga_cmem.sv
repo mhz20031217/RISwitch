@@ -37,8 +37,4 @@ always @(negedge clk) begin
   end
 end
 
-`ifdef VIVADO
-assign test_cfg = fg_mem[0];
-assign test_cbg = bg_mem[0];
-`endif
 endmodule

@@ -16,5 +16,5 @@ always @(posedge clock) begin
     led_out <= led_out;
   end
 end
-  
+
 endmodule
