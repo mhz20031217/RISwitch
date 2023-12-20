@@ -59,6 +59,8 @@ static void __am_gpu_config(AM_GPU_CONFIG_T *c) {
 }
 
 static void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *c) {
+  if (!c) return;
+  if (!c->pixels) return;
   int x = c->x, y = c->y, w = c->w, h = c->h;
   if (x < 0 || y < 0 || x + w > VGA_W || y + h > VGA_H) {
     return;
