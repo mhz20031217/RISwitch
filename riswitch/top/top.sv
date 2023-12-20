@@ -256,7 +256,7 @@ Seg seg(
 assign SEG_EN = 8'b11111111;
 assign SEG_DP = 8'b00000000;
 
-wire [31:0] vga_cmem_data, vga_fb_data;
+wire [11:0] vga_cmem_data, vga_fb_data;
 reg vga_mode;
 always @(posedge dmemwrclk) begin
   if (dmemwe & sel_vgamode) begin

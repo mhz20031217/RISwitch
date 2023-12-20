@@ -65,5 +65,5 @@ vga_render render(
     .bg_color(bg_color),
     .vga_data(vga_data)
 );
-    
+
 endmodule

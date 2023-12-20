@@ -34,7 +34,7 @@ FramebufferGenerator mem(
   .dina(din[11:0]),
   .ena(sel),
   .wea(we),
-  .addr(addr_r),
+  .addrb(addr_r),
   .clkb(vga_clk),
   .doutb(vga_data),
   .enb(1'b1)

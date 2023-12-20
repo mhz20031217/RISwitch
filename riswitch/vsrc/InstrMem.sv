@@ -28,13 +28,18 @@ assign instr = instrBuf;
 
 `elsif VIVADO
 
-InstrMemGenerator instrMemInternal(
-  .addra(addr[16:2]),
-  .clka(clock),
-  .douta(instr),
-  .ena(1'b1)
-);
+//InstrMemGenerator instrMemInternal(
+//  .addra(addr[16:2]),
+//  .clka(clock),
+//  .douta(instr),
+//  .ena(1'b1)
+//);
   
+InstrMemGeneratorDistributed instrMemInternal(
+  .a(addr[16:2]),
+  .clk(clock),
+  .qspo(instr)
+);
 
 `endif
 
