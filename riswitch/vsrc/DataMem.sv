@@ -94,7 +94,7 @@ DataMemGenerator dataMemInternal(
   .wea(wmask),
   .addrb(addr[16:2]),
   .clkb(clkRd),
-  .doutb(dout),
+  .doutb(rdBuf),
   .enb(1'b1)
 );
 

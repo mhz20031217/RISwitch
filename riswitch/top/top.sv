@@ -129,7 +129,7 @@ wire VGA_VALID_N;
 
 /* USERSPACE BEGIN */
 
-wire clock = CLK_10MHz;
+wire clock = CLK_50MHz;
 wire reset = BTN[4];
 
 localparam addrWidth = 32;
@@ -161,7 +161,7 @@ Cpu cpu(
   .dmemop(dmemop), 
   .dmemwe(dmemwe), 
   .dmemre(dmemre),
-  .dbgdata(SEG_CONTENT)
+  .dbgdata(dontcare)
 );
 
 InstrMem instrMem(
@@ -226,38 +226,30 @@ Seg seg(
   .sel(sel_seg),
   .we(dmemwe),
   .din(dmemdatain),
-  .seg_content(dontcare)
+  .seg_content(SEG_CONTENT)
 );
 
 assign SEG_EN = 8'b11111111;
 assign SEG_DP = 8'b00000000;
 
-//`ifdef VIVADO
-//wire clk_vga;
-//clkgen #(100000000, 25000000) clk_vga_gen(
-//  .in(CLK_INPUT),
-//  .out(clk_vga)
-//);
-//`endif
-
 VgaCmem vcmem(
- .clock(dmemwrclk),
- .reset(reset),
- `ifdef NVDL
- .vga_clk(clock),
- `elsif VIVADO
- .vga_clk(clk_vga),
- `endif
- .sel(sel_cmem),
- .we(dmemwe),
- .din(dmemdatain),
- .addr(dmemaddr),
- .hsync(VGA_HS),
- .vsync(VGA_VS),
- .valid(VGA_VALID_N),
- .vga_r(VGA_R),
- .vga_g(VGA_G),
- .vga_b(VGA_B)
+  .clock(dmemwrclk),
+  .reset(reset),
+  `ifdef NVDL
+  .vga_clk(clock),
+  `elsif VIVADO
+  .vga_clk(CLK_25MHz),
+  `endif
+  .sel(sel_cmem),
+  .we(dmemwe),
+  .din(dmemdatain),
+  .addr(dmemaddr),
+  .hsync(VGA_HS),
+  .vsync(VGA_VS),
+  .valid(VGA_VALID_N),
+  .vga_r(VGA_R),
+  .vga_g(VGA_G),
+  .vga_b(VGA_B)
 );
 
 Timer timer(

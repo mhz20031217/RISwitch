@@ -31,13 +31,13 @@ assign wc_addr = addr[12:6];
 assign r_addr = v_addr[8:4];
 assign ir_addr = v_addr[3:0];
 
-//assign c_addr = h_addr / 9;
-//assign ic_addr = h_addr % 9;
+assign c_addr = h_addr / 9;
+assign ic_addr = h_addr % 9;
 
-wire [63:0] intermediate;
-assign intermediate = h_addr * 477218588; // 2^32 / 9
-assign c_addr = intermediate[63:32]; // intermediate / 2^32
-assign ic_addr = h_addr - (c_addr*9);
+//wire [63:0] intermediate;
+//assign intermediate = h_addr * 477218588; // 2^32 / 9
+//assign c_addr = intermediate[63:32]; // intermediate / 2^32
+//assign ic_addr = h_addr - (c_addr*9);
 
 vga_cmem cmem(
     .clk(clock),
@@ -55,7 +55,11 @@ vga_cmem cmem(
 );
 
 vga_ctrl ctrl(
+    `ifdef NVDL
     .pclk(clock),
+    `elsif VIVADO
+    .pclk(vga_clk),
+    `endif
     .reset(reset),
     .vga_data(vga_data),
     .h_addr(h_addr),
