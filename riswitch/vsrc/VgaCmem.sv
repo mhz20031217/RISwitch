@@ -1,5 +1,6 @@
 `timescale 10ns/1ns
 module VgaCmem (
+    input vga_clk,
     input clock, reset,
     input sel, we,
     input [9:0] h_addr, v_addr,
@@ -36,6 +37,7 @@ assign ic_addr = h_addr % 9;
 //assign ic_addr = h_addr - (c_addr*9);
 
 vga_cmem cmem(
+    .vga_clk(vga_clk),
     .clk(clock),
     .r_addr(r_addr),
     .c_addr(c_addr),

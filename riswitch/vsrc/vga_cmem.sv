@@ -1,5 +1,6 @@
 `timescale 10ns/1ns
 module vga_cmem (
+  input vga_clk,
   input clk,
   input [4:0] r_addr, // [0, 29)
   input [6:0] c_addr, // [0, 69)
@@ -41,7 +42,7 @@ CmemGenerator mem(
   .ena(1'b1),
   .wea(we),
   .addrb(index),
-  .clkb(clk),
+  .clkb(vga_clk),
   .doutb(mem_outbuf),
   .enb(1'b1)
 );

@@ -129,13 +129,15 @@ wire VGA_VALID_N;
 
 wire [9:0] VGA_HADDR, VGA_VADDR;
 wire [11:0] VGA_DATA;
+wire VGA_CLK;
+`ifdef NVDL
+assign VGA_CLK = CLK_INPUT;
+`elsif VIVADO
+assign VGA_CLK = CLK_25MHz;
+`endif
 
 vga_ctrl ctrl(
-  `ifdef NVDL
-  .pclk(CLK_INPUT),
-  `elsif VIVADO
-  .pclk(CLK_25MHz),
-  `endif
+  .pclk(VGA_CLK),
   .reset(BTN[4]),
   .vga_data(VGA_DATA),
   .h_addr(VGA_HADDR),
@@ -264,6 +266,7 @@ end
 assign VGA_DATA = (vga_mode) ? vga_cmem_data : vga_fb_data;
 
 VgaCmem vcmem(
+  .vga_clk(VGA_CLK),
   .clock(dmemwrclk),
   .reset(reset),
   .sel(sel_cmem),
@@ -276,6 +279,7 @@ VgaCmem vcmem(
 );
 
 VgaFb vfb(
+  .vga_clk(VGA_CLK),
   .clock(dmemwrclk),
   .reset(reset),
   .sel(sel_fb),
