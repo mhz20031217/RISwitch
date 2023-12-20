@@ -17,8 +17,9 @@ always @(posedge clock) begin
   if (sel & we) begin
     mem[addr[19:1]] <= din;
   end
-  vga_data <= mem[addr_r];
 end
+
+assign vga_data = mem[addr_r];
 
 `elsif VIVADO
 
