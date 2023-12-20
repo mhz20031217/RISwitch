@@ -29,9 +29,15 @@ assign wr_addr = addr[5:1];
 assign wc_addr = addr[12:6];
 
 assign r_addr = v_addr[8:4];
-assign c_addr = h_addr / 9;
 assign ir_addr = v_addr[3:0];
-assign ic_addr = h_addr % 9;
+
+//assign c_addr = h_addr / 9;
+//assign ic_addr = h_addr % 9;
+
+wire [63:0] intermediate;
+assign intermediate = h_addr * 477218588; // 2^32 / 9
+assign c_addr = intermediate[63:32]; // intermediate / 2^32
+assign ic_addr = h_addr - (c_addr*9);
 
 vga_cmem cmem(
     .clk(clock),

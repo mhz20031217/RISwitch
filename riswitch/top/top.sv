@@ -129,7 +129,7 @@ wire VGA_VALID_N;
 
 /* USERSPACE BEGIN */
 
-wire clock = CLK_100MHz;
+wire clock = CLK_10MHz;
 wire reset = BTN[4];
 
 localparam addrWidth = 32;
