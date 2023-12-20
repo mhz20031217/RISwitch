@@ -131,21 +131,21 @@ wire [9:0] VGA_HADDR, VGA_VADDR;
 wire [11:0] VGA_DATA;
 
 vga_ctrl ctrl(
-    `ifdef NVDL
-    .pclk(CLK_INPUT),
-    `elsif VIVADO
-    .pclk(CLK_25MHz),
-    `endif
-    .reset(BTN[4]),
-    .vga_data(VGA_DATA),
-    .h_addr(VGA_HADDR),
-    .v_addr(VGA_VADDR),
-    .hsync(VGA_HS),
-    .vsync(VGA_VS),
-    .valid(VGA_VALID_N),
-    .vga_r(VGA_R),
-    .vga_g(VGA_G),
-    .vga_b(VGA_B)
+  `ifdef NVDL
+  .pclk(CLK_INPUT),
+  `elsif VIVADO
+  .pclk(CLK_25MHz),
+  `endif
+  .reset(BTN[4]),
+  .vga_data(VGA_DATA),
+  .h_addr(VGA_HADDR),
+  .v_addr(VGA_VADDR),
+  .hsync(VGA_HS),
+  .vsync(VGA_VS),
+  .valid(VGA_VALID_N),
+  .vga_r(VGA_R),
+  .vga_g(VGA_G),
+  .vga_b(VGA_B)
 );
 
 /* USERSPACE BEGIN */
