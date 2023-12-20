@@ -85,7 +85,7 @@ void update_device() {
 
 int main() {
     memset(screen, 0, sizeof(screen));
-    memset(fg_color, 0, sizeof(fg_color));
+    memset(fg_color, 0xff, sizeof(fg_color));
     memset(bg_color, 0, sizeof(bg_color));
     AM_CMEM_CONFIG_T cmem_conf = io_read(AM_CMEM_CONFIG);
     AM_INPUT_CONFIG_T input_conf = io_read(AM_INPUT_CONFIG);
