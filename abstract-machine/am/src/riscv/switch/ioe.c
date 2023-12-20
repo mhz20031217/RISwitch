@@ -68,7 +68,7 @@ static void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *c) {
   uint16_t *buf = (uint16_t *)FB_ADDR;
   for (int i = 0; i < c->w; i ++) {
     for (int j = 0; j < c->h; j ++) {
-      uintptr_t addr = (uintptr_t)(buf + ((x+i) * 512 + (y+j)) * 2);
+      uintptr_t addr = (uintptr_t)(buf + ((x+i) * 512 + (y+j)));
       uint32_t pixel = *(pixels + (w*j + i));
       uint16_t data = 
         ((pixel >> 20) << 8) | 
