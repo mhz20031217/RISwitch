@@ -1,3 +1,4 @@
+`timescale 10ns/1ns
 module vga_ctrl(
     input pclk,
     input reset,

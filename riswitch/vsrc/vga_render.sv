@@ -1,3 +1,4 @@
+`timescale 10ns/1ns
 module vga_render(
   input [2:0] fg_color,
   input [2:0] bg_color,

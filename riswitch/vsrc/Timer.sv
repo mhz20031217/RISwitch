@@ -1,3 +1,4 @@
+`timescale 10ns/1ns
 `ifdef NVDL
 import "DPI-C" function void timer_read(input int is_high, output int data);
 `endif

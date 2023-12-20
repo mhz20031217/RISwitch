@@ -1,3 +1,4 @@
+`timescale 10ns/1ns
 module vga_bitmap(
   input [7:0] ascii,
   input [3:0] ir_addr,

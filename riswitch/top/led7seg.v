@@ -1,3 +1,4 @@
+`timescale 10ns/1ns
 /*
     @param in 4-bit binary (0-f)
     @param out 7-bit output (active high)

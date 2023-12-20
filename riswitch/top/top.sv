@@ -1,3 +1,4 @@
+`timescale 10ns/1ns
 module top (
   input CLK_INPUT,
   input [15:0] SW,
@@ -128,7 +129,7 @@ wire VGA_VALID_N;
 
 /* USERSPACE BEGIN */
 
-wire clock = CLK_10MHz;
+wire clock = CLK_100MHz;
 wire reset = BTN[4];
 
 localparam addrWidth = 32;

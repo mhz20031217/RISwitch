@@ -1,3 +1,4 @@
+`timescale 10ns/1ns
 `include "../include/config.sv"
 
 `ifdef NVDL

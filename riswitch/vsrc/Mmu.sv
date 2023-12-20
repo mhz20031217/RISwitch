@@ -1,3 +1,4 @@
+`timescale 10ns/1ns
 module Mmu(
   input [31:0] addr,
   output [31:0] dout,

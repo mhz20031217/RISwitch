@@ -1,3 +1,4 @@
+`timescale 10ns/1ns
 module VgaCmem (
     input clock, reset,
     input vga_clk,
