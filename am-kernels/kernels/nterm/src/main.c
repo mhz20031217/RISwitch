@@ -235,6 +235,7 @@ void init_terminal(int width, int height) {
       putcha(x, y, EMPTY);
     }
   }
+  printf("Terminal initialized!\n");
 }
 
 void destroy_terminal() {
