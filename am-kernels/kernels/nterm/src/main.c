@@ -392,7 +392,7 @@ void putcha(int x, int y, char ch) {
   buf[x + y * w] = ch;
   color[x + y * w] = (col_f << 4) | col_b;
   dirty[x + y * w] = true;
-  printf("Putcha '%c' at (%d, %d)\n", ch, x, y);
+  // printf("Putcha '%c' at (%d, %d)\n", ch, x, y);
 }
 
 enum Color foreground(int x, int y) { return color[x + y * w] >> 4; }
