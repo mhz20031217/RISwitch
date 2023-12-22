@@ -226,6 +226,7 @@ void init_terminal(int width, int height) {
   buf = malloc(w * h * sizeof(char));
   color = malloc(w * h * sizeof(uint8_t));
   dirty = malloc(w * h * sizeof(bool));
+  assert(buf && color && dirty);
   inp_len = 0;
   col_f = BLACK;
   col_b = WHITE;
@@ -393,7 +394,7 @@ void putcha(int x, int y, char ch) {
   dirty[x + y * w] = true;
 }
 
-enum Color foreground(int x, int y) { return color[x + y * w]; }
+enum Color foreground(int x, int y) { return color[x + y * w] >> 4; }
 
 enum Color background(int x, int y) { return color[x + y * w] & 0xf; }
 
