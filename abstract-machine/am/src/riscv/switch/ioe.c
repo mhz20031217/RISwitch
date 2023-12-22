@@ -67,15 +67,15 @@ static void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *c) {
   }
   
   uint32_t *pixels = c->pixels;
-  uint16_t *buf = (uint16_t *)FB_ADDR;
+  uint8_t *buf = (uint8_t *)FB_ADDR;
   for (int i = 0; i < c->w; i ++) {
     for (int j = 0; j < c->h; j ++) {
       uintptr_t addr = (uintptr_t)(buf + ((x+i) * 512 + (y+j)));
       uint32_t pixel = *(pixels + (w*j + i));
-      uint16_t data = 
-        ((pixel >> 20) << 8) | 
-        ((pixel & 0x0f000) >> 8) |
-        ((pixel & 0x0f0) >> 4);
+      uint8_t data = 
+        ((pixel & 0x0c00000) >> 18) | 
+        ((pixel & 0x0c000) >> 12) |
+        ((pixel & 0x0c0) >> 6);
       outl(addr, data);
     }
   }
