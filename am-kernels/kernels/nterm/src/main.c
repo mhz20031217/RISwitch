@@ -408,39 +408,36 @@ char screen[W][H];
 uint8_t fg_color[W][H], bg_color[W][H];
 
 void draw_ch(int x, int y, char ch, enum Color fg, enum Color bg) {
-  screen[x][y] = ch;
-  fg_color[x][y] = fg;
-  bg_color[x][y] = bg;
+  printf("Draw char '%c' at (%d, %d) with fg = %d, bg = %d", fg, bg);
+  io_write(AM_CMEM_PUTCH, x, y, ch, fg, bg);
 }
 
 void refresh_terminal() {
-  int needsync = 0;
   for (int i = 0; i < W; i++)
     for (int j = 0; j < H; j++)
       if (is_dirty(i, j)) {
         draw_ch(i, j, getch(i, j), foreground(i, j), background(i, j));
-        needsync = 1;
       }
   clear();
 
-  uint64_t last = 0;
-  int flip = 0;
-  uint64_t now = io_read(AM_TIMER_UPTIME).us;
-  if (now - last > 500000 || needsync) {
-    int x = cursor.x, y = cursor.y;
-    uint32_t color = (flip ? foreground(x, y) : background(x, y));
-    draw_ch(x, y, ' ', 0, color);
-    for (int i = 0; i < W; i++) {
-      for (int j = 0; j < H; j++) {
-        io_write(AM_CMEM_PUTCH, i, j, screen[i][j], fg_color[i][j],
-                 bg_color[i][j]);
-      }
-    }
-    if (now - last > 500000) {
-      flip = !flip;
-      last = now;
-    }
-  }
+  // uint64_t last = 0;
+  // int flip = 0;
+  // uint64_t now = io_read(AM_TIMER_UPTIME).us;
+  // if (now - last > 500000 || needsync) {
+  //   int x = cursor.x, y = cursor.y;
+  //   uint32_t color = (flip ? foreground(x, y) : background(x, y));
+  //   draw_ch(x, y, ' ', 0, color);
+  //   for (int i = 0; i < W; i++) {
+  //     for (int j = 0; j < H; j++) {
+  //       io_write(AM_CMEM_PUTCH, i, j, screen[i][j], fg_color[i][j],
+  //                bg_color[i][j]);
+  //     }
+  //   }
+  //   if (now - last > 500000) {
+  //     flip = !flip;
+  //     last = now;
+  //   }
+  // }
 }
 
 #define ENTRY(KEYNAME, NOSHIFT, SHIFT) [AM_KEY_##KEYNAME] = {NOSHIFT, SHIFT}
