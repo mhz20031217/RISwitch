@@ -259,7 +259,9 @@ assign SEG_DP = 8'b00000000;
 wire [11:0] vga_cmem_data, vga_fb_data;
 reg vga_mode;
 always @(posedge dmemwrclk) begin
-  if (dmemwe & sel_vgamode) begin
+  if (BTN[3]) begin
+    vga_mode <= ~vga_mode;
+  end else if (dmemwe & sel_vgamode) begin
     vga_mode <= dmemdatain[0];
   end
 end
