@@ -497,6 +497,24 @@ char handle_key(AM_INPUT_KEYBRD_T *k) {
   return '\0';
 }
 
+#define FG_BLACK "\x1b[30m"
+#define FG_RED "\x1b[31m"
+#define FG_GREEN "\x1b[32m"
+#define FG_YELLOW "\x1b[33m"
+#define FG_BLUE "\x1b[34m"
+#define FG_MAGENTA "\x1b[35m"
+#define FG_CYAN "\x1b[36m"
+#define FG_WHITE "\x1b[37m"
+#define BG_BLACK "\x1b[40m"
+#define BG_RED "\x1b[41m"
+#define BG_GREEN "\x1b[42m"
+#define BG_YELLOW "\x1b[43m"
+#define BG_BLUE "\x1b[44m"
+#define BG_MAGENTA "\x1b[45m"
+#define BG_CYAN "\x1b[46m"
+#define BG_WHITE "\x1b[47m"
+#define COLOR_RESET "\x1b[0m"
+
 void sh_printf(const char *format, ...) {
   char buf[256] = {};
   va_list ap;
@@ -507,7 +525,7 @@ void sh_printf(const char *format, ...) {
   printf("sh_printf(%s)\n", buf);
 }
 
-void sh_banner() { sh_printf("Built-in Shell in NTerm (NJU Terminal)\n\n"); }
+void sh_banner() { sh_printf(FG_WHITE BG_RED "RISwitch " BG_GREEN "Computer "COLOR_RESET"System\n\n"); }
 
 void sh_prompt() { sh_printf("sh> "); }
 
