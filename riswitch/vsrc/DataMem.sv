@@ -86,27 +86,27 @@ end
 
 `ifdef VIVADO
 
-//DataMemGenerator dataMemInternal(
-//  .addra(addr[16:2]),
-//  .clka(clkWr),
-//  .dina(wrBuf),
-//  .ena(we),
-//  .wea(wmask),
-//  .addrb(addr[16:2]),
-//  .clkb(clkRd),
-//  .doutb(rdBuf),
-//  .enb(1'b1)
-//);
-
-DataMemGeneratorDistributed dataMemInternal(
-  .a(addr[16:2]),
-  .d(wrBuf),
-  .clk(clkWr),
-  .dpra(addr[16:2]),
-  .qdpo_clk(clkRd),
-  .we(we),
-  .qdpo(rdBuf)
+DataMemGenerator dataMemInternal(
+  .addra(addr[16:2]),
+  .clka(clkWr),
+  .dina(wrBuf),
+  .ena(we),
+  .wea(wmask),
+  .addrb(addr[16:2]),
+  .clkb(clkRd),
+  .doutb(rdBuf),
+  .enb(1'b1)
 );
+
+//DataMemGeneratorDistributed dataMemInternal(
+//  .a(addr[16:2]),
+//  .d(wrBuf),
+//  .clk(clkWr),
+//  .dpra(addr[16:2]),
+//  .qdpo_clk(clkRd),
+//  .we(we),
+//  .qdpo(rdBuf)
+//);
 
 `endif
 

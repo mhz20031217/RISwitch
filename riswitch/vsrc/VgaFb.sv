@@ -64,7 +64,6 @@ assign r_buf = mem[addr_r];
 
 `elsif VIVADO
 
-wire 
 FramebufferGenerator mem(
   .addra(addr[19:0]),
   .clka(clock),
