@@ -392,7 +392,6 @@ void putcha(int x, int y, char ch) {
   buf[x + y * w] = ch;
   color[x + y * w] = (col_f << 4) | col_b;
   dirty[x + y * w] = true;
-  // printf("Putcha '%c' at (%d, %d)\n", ch, x, y);
 }
 
 enum Color foreground(int x, int y) { return color[x + y * w] >> 4; }
@@ -522,12 +521,18 @@ void sh_printf(const char *format, ...) {
   int len = vsnprintf(buf, 256, format, ap);
   va_end(ap);
   write(buf, len);
-  printf("sh_printf(%s)\n", buf);
+  // printf("sh_printf(%s)\n", buf);
 }
 
-void sh_banner() { sh_printf(FG_WHITE BG_RED "RISwitch" COLOR_RESET " " BG_GREEN "Computer"COLOR_RESET" System\n\n"); }
+void sh_banner() {
+  sh_printf(FG_WHITE BG_RED "RISwitch" COLOR_RESET " " BG_GREEN
+                            "Computer" COLOR_RESET " System\n\n");
+}
 
-void sh_prompt() { sh_printf("sh> "); }
+void sh_prompt() {
+  sh_printf(COLOR_RESET FG_GREEN "nterm@RISwitch" COLOR_RESET ":" FG_BLUE
+                                 "~" COLOR_RESET "$");
+}
 
 uint64_t fib(int n) {
   if (n < 0)
