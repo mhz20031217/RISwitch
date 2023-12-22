@@ -56,7 +56,7 @@ reg [5:0] mem [327679:0];
 
 always @(posedge clock) begin
   if (sel & we) begin
-    mem[addr[19:0]] <= din[5:0];
+    mem[addr[18:0]] <= din[5:0];
   end
 end
 
@@ -65,7 +65,7 @@ assign r_buf = mem[addr_r];
 `elsif VIVADO
 
 FramebufferGenerator mem(
-  .addra(addr[19:0]),
+  .addra(addr[18:0]),
   .clka(clock),
   .dina(din[5:0]),
   .ena(sel),
