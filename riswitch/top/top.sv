@@ -263,11 +263,7 @@ initial begin
   vga_mode = 0;
 end
 always @(posedge dmemwrclk) begin
-  vga_mode_buf[1] <= vga_mode_buf[0];
-  vga_mode_buf[0] <= BTN[3];
-  if (~vga_mode_buf[1] & vga_mode_buf[0]) begin
-    vga_mode <= ~vga_mode;
-  end else if (dmemwe & sel_vgamode) begin
+  if (dmemwe & sel_vgamode) begin
     vga_mode <= dmemdatain[0];
   end
 end
