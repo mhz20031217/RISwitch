@@ -565,6 +565,7 @@ void builtin_sh_run() {
 
 int main(const char *args) {
   ioe_init();
+  io_write(AM_VGACTRL, 1);
   init_terminal(W, H);
 
   builtin_sh_run();
