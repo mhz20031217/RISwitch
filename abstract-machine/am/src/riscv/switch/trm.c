@@ -24,6 +24,11 @@ void putch(char ch) {
  * This function does not return.
  * */
 void halt(int code) {
+  if (code == 0 || code == SWITCH_EXIT_SUCCESS) {
+    io_write(AM_SEG, 0x0C0FFEE);
+  } else {
+    io_write(AM_SEG, 0xDEADDEAD);
+  }
   switch_trap(code);
 
   // should always reach here
