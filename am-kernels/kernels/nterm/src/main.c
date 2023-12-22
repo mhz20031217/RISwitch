@@ -406,11 +406,8 @@ void clear() {
   dirty[cursor.x + cursor.y * w] = true;
 }
 
-char screen[W][H];
-uint8_t fg_color[W][H], bg_color[W][H];
-
 void draw_ch(int x, int y, char ch, enum Color fg, enum Color bg) {
-  // printf("Draw char '%c' at (%d, %d) with fg = %d, bg = %d\n", ch, x, y, fg, bg);
+  printf("Draw char '%c' at (%d, %d) with fg = %d, bg = %d\n", ch, x, y, fg, bg);
   io_write(AM_CMEM_PUTCH, x, y, ch, fg, bg);
 }
 
