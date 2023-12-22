@@ -525,7 +525,7 @@ void sh_printf(const char *format, ...) {
   printf("sh_printf(%s)\n", buf);
 }
 
-void sh_banner() { sh_printf(FG_WHITE BG_RED "RISwitch " BG_GREEN "Computer "COLOR_RESET"System\n\n"); }
+void sh_banner() { sh_printf(FG_WHITE BG_RED "RISwitch" COLOR_RESET " " BG_GREEN "Computer"COLOR_RESET" System\n\n"); }
 
 void sh_prompt() { sh_printf("sh> "); }
 
