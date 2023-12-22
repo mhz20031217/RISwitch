@@ -531,7 +531,7 @@ void sh_banner() {
 
 void sh_prompt() {
   sh_printf(COLOR_RESET FG_GREEN "nterm@RISwitch" COLOR_RESET ":" FG_BLUE
-                                 "~" COLOR_RESET "$");
+                                 "~" COLOR_RESET "$ ");
 }
 
 uint64_t fib(int n) {
