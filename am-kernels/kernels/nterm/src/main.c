@@ -1,3 +1,4 @@
+#include "amdev.h"
 #include <am.h>
 #include <klib-macros.h>
 #include <klib.h>
@@ -553,6 +554,7 @@ void builtin_sh_run() {
 
   while (1) {
     AM_INPUT_KEYBRD_T key = io_read(AM_INPUT_KEYBRD);
+    if (key.keycode == AM_KEY_NONE) continue;
     const char *res = keypress(handle_key(&key));
     if (res) {
       sh_handle_cmd(res);
