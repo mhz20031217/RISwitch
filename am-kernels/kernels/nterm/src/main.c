@@ -532,7 +532,7 @@ uint64_t fib(int n) {
 
 static void sh_handle_cmd(const char *command) {
   sh_printf("%s\n", command);
-  sh_printf("\033[32mHello, \033[33mworld!\033[30m\n");
+  sh_printf("\033[31mHello, \032[33mworld!\033[30m\n");
 }
 
 void builtin_sh_run() {
