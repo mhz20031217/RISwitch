@@ -1,6 +1,7 @@
 #include "amdev.h"
 #include <am.h>
 #include <stdbool.h>
+#include <stdio.h>
 #include <switch.h>
 #include <klib-macros.h>
 
@@ -28,6 +29,7 @@ static void __am_switch(AM_SWITCH_T* s) {
 }
 
 static void __am_cmem_putch(AM_CMEM_PUTCH_T* ch) {
+  printf("CMEM putchar '%c' at (%d, %d) with fg = %d, bg = %d", ch->ascii, ch->x, ch->y, ch->fg, ch->bg);
   uintptr_t addr = CMEM_ADDR + (ch->x*32+ch->y)*2;
   uint16_t cell = 
     ((unsigned char)ch->ascii) | (((uint16_t)ch->fg & 0x7U) << 8) | (((uint16_t)ch->bg & 0x7U) << 11);
