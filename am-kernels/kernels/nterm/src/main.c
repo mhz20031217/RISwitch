@@ -237,7 +237,6 @@ void init_terminal(int width, int height) {
       putcha(x, y, EMPTY);
     }
   }
-  refresh_terminal();
   printf("Terminal initialized!\n");
 }
 
@@ -409,7 +408,8 @@ void clear() {
 }
 
 void draw_ch(int x, int y, char ch, enum Color fg, enum Color bg) {
-  // printf("Draw char '%c' at (%d, %d) with fg = %d, bg = %d\n", ch, x, y, fg, bg);
+  // printf("Draw char '%c' at (%d, %d) with fg = %d, bg = %d\n", ch, x, y, fg,
+  // bg);
   io_write(AM_CMEM_PUTCH, x, y, ch, fg, bg);
 }
 
@@ -420,25 +420,6 @@ void refresh_terminal() {
         draw_ch(i, j, getch(i, j), foreground(i, j), background(i, j));
       }
   clear();
-
-  // uint64_t last = 0;
-  // int flip = 0;
-  // uint64_t now = io_read(AM_TIMER_UPTIME).us;
-  // if (now - last > 500000 || needsync) {
-  //   int x = cursor.x, y = cursor.y;
-  //   uint32_t color = (flip ? foreground(x, y) : background(x, y));
-  //   draw_ch(x, y, ' ', 0, color);
-  //   for (int i = 0; i < W; i++) {
-  //     for (int j = 0; j < H; j++) {
-  //       io_write(AM_CMEM_PUTCH, i, j, screen[i][j], fg_color[i][j],
-  //                bg_color[i][j]);
-  //     }
-  //   }
-  //   if (now - last > 500000) {
-  //     flip = !flip;
-  //     last = now;
-  //   }
-  // }
 }
 
 #define ENTRY(KEYNAME, NOSHIFT, SHIFT) [AM_KEY_##KEYNAME] = {NOSHIFT, SHIFT}
@@ -531,14 +512,20 @@ void sh_banner() { sh_printf("Built-in Shell in NTerm (NJU Terminal)\n\n"); }
 void sh_prompt() { sh_printf("sh> "); }
 
 uint64_t fib(int n) {
-  if (n < 0) return 0;
+  if (n < 0)
+    return 0;
   uint64_t t1 = 0, t2 = 1, now = 1;
-  if (n == 0) return t1;
-  else if (n == 1) return t2;
-  else if (n == 3) return now;
+  if (n == 0)
+    return t1;
+  else if (n == 1)
+    return t2;
+  else if (n == 3)
+    return now;
   while (n > 3) {
-    t1 = t2; t2 = now; now = t1 + t2;
-    n --;
+    t1 = t2;
+    t2 = now;
+    now = t1 + t2;
+    n--;
   }
   return now;
 }
@@ -548,14 +535,26 @@ static void sh_handle_cmd(const char *command) {
   sh_printf("Hello, world!\n");
 }
 
-
 void builtin_sh_run() {
   sh_banner();
   sh_prompt();
+  refresh_terminal();
 
   while (1) {
+    static uint64_t last = 0;
+    int flip = 0;
+    uint64_t now = io_read(AM_TIMER_UPTIME).us;
+    if (now - last > 500000) {
+      refresh_terminal();
+      if (now - last > 500000) {
+        flip = !flip;
+        last = now;
+      }
+    }
+
     AM_INPUT_KEYBRD_T key = io_read(AM_INPUT_KEYBRD);
-    if (key.keycode == AM_KEY_NONE) continue;
+    if (key.keycode == AM_KEY_NONE)
+      continue;
     const char *res = keypress(handle_key(&key));
     if (res) {
       sh_handle_cmd(res);
