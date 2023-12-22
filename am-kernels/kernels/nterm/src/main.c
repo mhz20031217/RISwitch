@@ -525,6 +525,7 @@ void sh_printf(const char *format, ...) {
   int len = vsnprintf(buf, 256, format, ap);
   va_end(ap);
   write(buf, len);
+  printf("sh_printf(%s)\n", buf);
 }
 
 void sh_banner() { sh_printf("Built-in Shell in NTerm (NJU Terminal)\n\n"); }
