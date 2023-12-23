@@ -87,36 +87,39 @@ AbstractMachine 作为计算机，提供一些寄存器可以读取和写入。�
 
 ```c 
 /* @member present: whether timer module is present
- * @member has_rtc: whether real time clock is present 
- */
+ * @member has_rtc: whether real time clock is present */
 AM_DEVREG( 4, TIMER_CONFIG, RD, bool present, has_rtc);
 AM_DEVREG( 5, TIMER_RTC,    RD, int year, month, day, hour, minute, second);
-/* @member us: microseconds passed since bootup
- */
+/* @member us: microseconds passed since bootup */
 AM_DEVREG( 6, TIMER_UPTIME, RD, uint64_t us);
-/* @member present: whether keyboard is present
- */
+/* @member present: whether keyboard is present */
 AM_DEVREG( 7, INPUT_CONFIG, RD, bool present);
 /* @member keydown: whether one of the keys is pressed
- * @member keycode: AM Keycode for the pressed key
- */
+ * @member keycode: AM Keycode for the pressed key */
 AM_DEVREG( 8, INPUT_KEYBRD, RD, bool keydown; int keycode);
-/* @member value: next value to show on 7-seg display
- */
+/* @member vmemsz: the size of video memory, draw ops should be within this range. */
+AM_DEVREG( 9, GPU_CONFIG,   RD, bool present, has_accel; int width, height, vmemsz);
+/* @member ready: always true on most of ARCHs */
+AM_DEVREG(10, GPU_STATUS,   RD, bool ready);
+/* Draw a row-first w x h rectangle of pixels at (x, y) */
+AM_DEVREG(11, GPU_FBDRAW,   WR, int x, y; void *pixels; int w, h; bool sync);
+
+/* RISwitch Specific */
+/* @member value: next value to show on 7-seg display */
 AM_DEVREG(25, SEG,          WR, uint32_t value);
-/* @member value: current value of switches
- */
+/* @member value: current value of switches */
 AM_DEVREG(26, SWITCH,       RD, uint16_t value);
-/* @member value: next value to show on LED
- */
+/* @member value: next value to show on LED */
 AM_DEVREG(27, LED,          WR, uint16_t value);
 /* @member present: whether char-based memory is present 
  * @member width: the width of cmem (in chars)
- * @member heigth: the height of cmem (in chars)
- */
+ * @member heigth: the height of cmem (in chars) */
 AM_DEVREG(28, CMEM_CONFIG,  RD, bool present; int width, height);
 /* Put a char ASCII on (x, y) (starting from 0) with fg_color FG and bg_color BG. */
 AM_DEVREG(29, CMEM_PUTCH,   WR, int x, y; char ascii; uint8_t fg, bg);
+AM_DEVREG(30, SERIAL_PUTCH, WR, char ch);
+/* @member mode: 0 for CMEM, 1 for VGA */
+AM_DEVREG(31, VGACTRL,      WR, uint8_t mode);
 ```
 
 #### 使用示例
