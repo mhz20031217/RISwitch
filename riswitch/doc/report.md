@@ -1,4 +1,4 @@
-# RISwitch 计算机系统和配套软件开发环境
+# RISwitch 计算机系统和配套集成开发环境
 
 ## 技术指标
 
@@ -14,15 +14,15 @@
 
 陈佳皓：移植 AM 软件到 `ARCH=riscv32-switch`，如 NTerm，Typing-game，OSLab 等，实现“运行诞生于未来的程序”；
 
-茆弘之：实现 CPU CPipe，起草 RISWitch 规约，全系统仿真环境搭建，实现“不停计算的机器”；
+茆弘之：实现五段流水线 CPU CPipe，起草 RISwitch 规约，全系统仿真环境搭建，实现“不停计算的机器”；
 
 宋承柏：实现 DataMem，支持长度不超过 4 字节键码的键盘，字符终端，VGA，七段数码管，开关，LED 等外设，实现“来自外部的声音”；
 
 ## 项目特色
 
-本项目的初始目标是在 FPGA 上启动马里奥，所以以 RISwitch (RISC-V + Switch) 为名，后续因为板上空间不够容纳 LiteNES 而放弃。
+本项目的初始目标是在 FPGA 上用 Nanos-lite 启动马里奥，所以以 RISwitch (RISC-V + Switch) 为名，后续因为板上空间不够容纳 LiteNES（虚拟上板，修改内存容量后还是能跑的），时间不够大改 CPU 架构实现 CSR 和特权指令而放弃。
 
-本项目有着十分完备的基础设施，能够通过虚拟上板的方式弥补没有实现串口调试，物理上板综合时间长的问题。值得一提的是，不同于在 `ARCH=native` 或 `ARCH=riscv32-nemu` 上调试 AM 程序后再在板上验证的方式，本项目的虚拟上板同时能够仿真 RTL，在验证软件的同时验证硬件功能正确。因为保证了虚拟设备在时序等方面和硬件完全一致，实现了“只要虚拟上板能跑，物理上板只可能有时序问题，逻辑一定正确”的效果。
+本项目有着十分完备的基础设施，能够通过虚拟上板的方式弥补没有实现串口调试，物理上板综合时间长的问题。值得一提的是，不同于在 `ARCH=native` 或 `ARCH=riscv32-nemu` 上调试 AM 程序后再在板上验证的方式，本项目的虚拟上板同时能够仿真 RTL，在验证软件的同时测试硬件功能正确。因为保证了虚拟设备在时序等方面和硬件完全一致，实现了“只要虚拟上板能跑，物理上板只可能有时序问题，逻辑一定正确”的效果。
 
 ### 一键虚拟上板（全系统软件仿真）
 
@@ -34,142 +34,6 @@
 
 ### 由 AM 驱动的应用程序集成开发环境
 
-
-
-## 流水线 CPU 设计
-
-### “抄手册”宏
-
-CPU 作者 mhz 在在暑假了解了更多软件工程相关的知识后，认为设计应该便于修改，且做到“代码即注释”。在 ICS PA 中做了 riscv32-nemu 后，学到了“抄手册宏”，如下图所示
-
-![manual_pa](img/manual_pa.png)
-
-如果能够在数电实验中实现“抄手册宏”，那么工作量会大大减轻，出现 Bug 时也能够迅速定位——只要阅读“注释”就好了。
-
-利用 Chisel 的 ListLookup API，能够便捷地实现指令译码。
-
-指令格式这样定义
-
-
-```scala
-object Instructions {
-  def LUI = BitPat("b?????????????????????????0110111")
-  def AUIPC = BitPat("b?????????????????????????0010111")
-  // rArith
-  def ADD = BitPat("b0000000??????????000?????0110011")
-  def SUB = BitPat("b0100000??????????000?????0110011")
-  ...
-```
-
-定义查找表
-
-```scala
-  //                                      memToReg memOp                valid
-  //            aluASrc aluBSrc aluCtr regWe | memWe |   extOp  branch    |
-  val default = // |      |       |       |  |  |    |      |      |      |
-             List(A_X  , B_X  , ALU_X   , N, N, N, M_X  , EOP_X, BR_N,    N)
-  val map = Array(
-    LUI   -> List(A_X  , B_IMM, ALU_SRCB, Y, N, N, M_X  , EOP_U, BR_N,    Y),
-    AUIPC -> List(A_PC , B_IMM, ALU_ADD , Y, N, N, M_X  , EOP_U, BR_N,    Y),
-    JAL   -> List(A_PC , B_4  , ALU_ADD , Y, N, N, M_X  , EOP_J, BR_JAL,  Y),
-    JALR  -> List(A_PC , B_4  , ALU_ADD , Y, N, N, M_X  , EOP_I, BR_JALR, Y),
-    BEQ   -> List(A_RS1, B_RS2, ALU_SLT , N, N, N, M_X  , EOP_B, BR_BEQ,  Y),
-    BNE   -> List(A_RS1, B_RS2, ALU_SLT , N, N, N, M_X  , EOP_B, BR_BNE,  Y),
-  ...
-```
-
-下文这样匹配
-
-```scala
-  val contr = ListLookup(io.instr, Control.default, Control.map)
-
-  io.aluASrc  := contr(0)
-  io.aluBSrc  := contr(1)
-  ...
-```
-
-在后续实现外设时钟时，发现讲义提供的设计控制信号不够充分：scb 提出当读取 64 位时钟寄存器时，需要区分是不是在读取、是在读取高 32 位还是低 32 位，因此需要增加读使能信号。添加这个功能，只花了 1min 在查找表中添加一列、20s 编译生成 Verilog 就完成了。
-
-### 函数式编程简化桶形移位器实现
-
-```scala
-// Adapted from YSYX PPT: https://ysyx.oscc.cc/slides/2306/13.html#/chisel%E9%87%8D%E7%A3%85%E7%A6%8F%E5%88%A9
-class BarrelShift(w: Int) extends Module {
-  val io = IO(new Bundle {
-    val in      = Input(UInt(w.W))
-    val shamt   = Input(UInt(log2Up(w).W))
-    val isLeft  = Input(Bool())
-    val isArith = Input(Bool())
-    val out     = Output(UInt(w.W))
-  })
-  val leftIn = Mux(io.isArith, io.in(w - 1), false.B) // 右移时从左边移入的位
-  def layer(din: Seq[Bool], n: Int): Seq[Bool] = { // 描述第n级选择器如何排布
-    val s = 1 << n // 需要移动的位数
-    def shiftRight(i: Int) = if (i + s >= w) leftIn else din(i + s) // 描述右移时第i位输出
-    def shiftLeft(i:  Int) = if (i < s) false.B else din(i - s) // 描述左移时第i位输出
-    val sel = Cat(io.isLeft, io.shamt(n)) // 将移位方向和移位量作为选择器的选择信号
-    din.zipWithIndex.map {
-      case (b, i) => // 对于每一位输入b,
-        VecInit(b, shiftRight(i), b, shiftLeft(i))(sel)
-    } // 都从4种输入中选择一种作为输出
-  }
-  def barrelshift(din: Seq[Bool], k: Int): Seq[Bool] = // 描述有k级的桶形移位器如何排布
-    if (k == 0) din // 若移位器只有0级, 则结果和输入相同
-    // 否则实例化一个有k-1级的桶形移位器和第k-1级选择器, 并将后者的输出作为前者的输入
-    else barrelshift(layer(din, k - 1), k - 1)
-  io.out := Cat(barrelshift(io.in.asBools, log2Up(w)).reverse) // 实例化一个有log2(w)级的桶形移位器
-}
-```
-
-### 使用 Bundle 和重连语义简化流水段寄存器的实现
-
-使用 Verilog 实现流水段寄存器是一件比较麻烦的事情。如果不为流水段寄存器设计一个 Module，那么在 CPU 顶层模块中将出现大量单独的信号定义。即使用讲义推荐的方式，将各个字段拼接后“打包”，各个信号仅仅以下标为标识，不易记忆，如果需要添加或删除字段，又需要进行大量的删改。如果单独增加一个 Module，那么连线将是一件体力活，而且容易出错。Verilog 中的信号不能嵌套，这会导致 ID/EX, EX/MEM 寄存器中大量相同的控制信号都需要一一连接（对于一条指令，控制信号是相同的）。
-
-在 ContrGen 模块中，定义了控制信号 Bundle
-
-```scala
-class ContrSignals extends Bundle {
-  val aluASrc  = Output(Bool())
-  val aluBSrc  = Output(UInt(2.W))
-  val aluOp    = Output(UInt(4.W))
-  val regWe    = Output(Bool())
-  val memToReg = Output(Bool())
-  val memRe    = Output(Bool())
-  val memWe    = Output(Bool())
-  val memOp    = Output(UInt(3.W))
-  val branch   = Output(UInt(3.W))
-  val valid    = Output(Bool())
-}
-```
-
-在流水段寄存器中，嵌套一个 `ContrSignals`
-
-```scala
-class IdExPipelineRegister(w: Int) extends Bundle {
-  ...
-  val rs2Data = UInt(w.W)
-  val c       = new ContrSignals
-}
-
-class ExMemPipelineRegister(w: Int) extends Bundle {
-  val aluF    = UInt(w.W)
-  val rs2Data = UInt(w.W)
-  val rd      = UInt(5.W)
-  val c       = new ContrSignals
-}
-```
-
-后文更新 EX/MEM 寄存器时，控制信号连接只需 1 行
-
-```scala
-  when(forwardUnit.io.flushEx) {
-    em_reg := 0.U.asTypeOf(em_reg)
-    em_reg.c.valid := 1.B
-  }.otherwise {
-    ...
-    em_reg.c       := de_reg.c
-  }
-```
 
 ## RISwitch 计算机系统规约
 
@@ -606,6 +470,153 @@ $ make ARCH=riscv32-switch evalwave # 虚拟上板，结束后自动打开波形
 $ make ARCH=riscv32-switch vivado # 生成 COE 文件，并由 NVDL Makefile 放在 Vivado 指定的位置
 ```
 
+
+
+## 流水线 CPU 设计
+
+### “抄手册”宏
+
+CPU 作者 mhz 在在暑假了解了更多软件工程相关的知识后，认为设计应该便于修改，且做到“代码即注释”。在 ICS PA 中做了 riscv32-nemu 后，学到了“抄手册宏”，如下图所示
+
+![manual_pa](img/manual_pa.png)
+
+如果能够在数电实验中实现“抄手册宏”，那么工作量会大大减轻，出现 Bug 时也能够迅速定位——只要阅读“注释”就好了。
+
+利用 Chisel 的 ListLookup API，能够便捷地实现指令译码。
+
+指令格式这样定义
+
+
+```scala
+object Instructions {
+  def LUI = BitPat("b?????????????????????????0110111")
+  def AUIPC = BitPat("b?????????????????????????0010111")
+  // rArith
+  def ADD = BitPat("b0000000??????????000?????0110011")
+  def SUB = BitPat("b0100000??????????000?????0110011")
+  ...
+```
+
+定义查找表
+
+```scala
+  //                                      memToReg memOp                valid
+  //            aluASrc aluBSrc aluCtr regWe | memWe |   extOp  branch    |
+  val default = // |      |       |       |  |  |    |      |      |      |
+             List(A_X  , B_X  , ALU_X   , N, N, N, M_X  , EOP_X, BR_N,    N)
+  val map = Array(
+    LUI   -> List(A_X  , B_IMM, ALU_SRCB, Y, N, N, M_X  , EOP_U, BR_N,    Y),
+    AUIPC -> List(A_PC , B_IMM, ALU_ADD , Y, N, N, M_X  , EOP_U, BR_N,    Y),
+    JAL   -> List(A_PC , B_4  , ALU_ADD , Y, N, N, M_X  , EOP_J, BR_JAL,  Y),
+    JALR  -> List(A_PC , B_4  , ALU_ADD , Y, N, N, M_X  , EOP_I, BR_JALR, Y),
+    BEQ   -> List(A_RS1, B_RS2, ALU_SLT , N, N, N, M_X  , EOP_B, BR_BEQ,  Y),
+    BNE   -> List(A_RS1, B_RS2, ALU_SLT , N, N, N, M_X  , EOP_B, BR_BNE,  Y),
+  ...
+```
+
+下文这样匹配
+
+```scala
+  val contr = ListLookup(io.instr, Control.default, Control.map)
+
+  io.aluASrc  := contr(0)
+  io.aluBSrc  := contr(1)
+  ...
+```
+
+在后续实现外设时钟时，发现讲义提供的设计控制信号不够充分：scb 提出当读取 64 位时钟寄存器时，需要区分是不是在读取、是在读取高 32 位还是低 32 位，因此需要增加读使能信号。添加这个功能，只花了 1min 在查找表中添加一列、20s 编译生成 Verilog 就完成了。
+
+### 函数式编程简化桶形移位器实现
+
+```scala
+// Adapted from YSYX PPT: https://ysyx.oscc.cc/slides/2306/13.html#/chisel%E9%87%8D%E7%A3%85%E7%A6%8F%E5%88%A9
+class BarrelShift(w: Int) extends Module {
+  val io = IO(new Bundle {
+    val in      = Input(UInt(w.W))
+    val shamt   = Input(UInt(log2Up(w).W))
+    val isLeft  = Input(Bool())
+    val isArith = Input(Bool())
+    val out     = Output(UInt(w.W))
+  })
+  val leftIn = Mux(io.isArith, io.in(w - 1), false.B) // 右移时从左边移入的位
+  def layer(din: Seq[Bool], n: Int): Seq[Bool] = { // 描述第n级选择器如何排布
+    val s = 1 << n // 需要移动的位数
+    def shiftRight(i: Int) = if (i + s >= w) leftIn else din(i + s) // 描述右移时第i位输出
+    def shiftLeft(i:  Int) = if (i < s) false.B else din(i - s) // 描述左移时第i位输出
+    val sel = Cat(io.isLeft, io.shamt(n)) // 将移位方向和移位量作为选择器的选择信号
+    din.zipWithIndex.map {
+      case (b, i) => // 对于每一位输入b,
+        VecInit(b, shiftRight(i), b, shiftLeft(i))(sel)
+    } // 都从4种输入中选择一种作为输出
+  }
+  def barrelshift(din: Seq[Bool], k: Int): Seq[Bool] = // 描述有k级的桶形移位器如何排布
+    if (k == 0) din // 若移位器只有0级, 则结果和输入相同
+    // 否则实例化一个有k-1级的桶形移位器和第k-1级选择器, 并将后者的输出作为前者的输入
+    else barrelshift(layer(din, k - 1), k - 1)
+  io.out := Cat(barrelshift(io.in.asBools, log2Up(w)).reverse) // 实例化一个有log2(w)级的桶形移位器
+}
+```
+
+### 使用 Bundle 和重连语义简化流水段寄存器的实现
+
+使用 Verilog 实现流水段寄存器是一件比较麻烦的事情。如果不为流水段寄存器设计一个 Module，那么在 CPU 顶层模块中将出现大量单独的信号定义。即使用讲义推荐的方式，将各个字段拼接后“打包”，各个信号仅仅以下标为标识，不易记忆，如果需要添加或删除字段，又需要进行大量的删改。如果单独增加一个 Module，那么连线将是一件体力活，而且容易出错。Verilog 中的信号不能嵌套，这会导致 ID/EX, EX/MEM 寄存器中大量相同的控制信号都需要一一连接（对于一条指令，控制信号是相同的）。
+
+在 ContrGen 模块中，定义了控制信号 Bundle
+
+```scala
+class ContrSignals extends Bundle {
+  val aluASrc  = Output(Bool())
+  val aluBSrc  = Output(UInt(2.W))
+  val aluOp    = Output(UInt(4.W))
+  val regWe    = Output(Bool())
+  val memToReg = Output(Bool())
+  val memRe    = Output(Bool())
+  val memWe    = Output(Bool())
+  val memOp    = Output(UInt(3.W))
+  val branch   = Output(UInt(3.W))
+  val valid    = Output(Bool())
+}
+```
+
+在流水段寄存器中，嵌套一个 `ContrSignals`
+
+```scala
+class IdExPipelineRegister(w: Int) extends Bundle {
+  ...
+  val rs2Data = UInt(w.W)
+  val c       = new ContrSignals
+}
+
+class ExMemPipelineRegister(w: Int) extends Bundle {
+  val aluF    = UInt(w.W)
+  val rs2Data = UInt(w.W)
+  val rd      = UInt(5.W)
+  val c       = new ContrSignals
+}
+```
+
+后文更新 EX/MEM 寄存器时，控制信号连接只需 1 行
+
+```scala
+  when(forwardUnit.io.flushEx) {
+    em_reg := 0.U.asTypeOf(em_reg)
+    em_reg.c.valid := 1.B
+  }.otherwise {
+    ...
+    em_reg.c       := de_reg.c
+  }
+```
+
+## 外设的设计
+
+本节介绍本项目中比较复杂和重要的外设。
+
+### 键盘
+
+### 时钟
+
+### 字符终端
+
 ## 展示
 
 本节展示 RISwitch 计算机系统在仿真和上板时的表现。
@@ -614,6 +625,10 @@ $ make ARCH=riscv32-switch vivado # 生成 COE 文件，并由 NVDL Makefile 放
 
 1. NTerm
 
-借助 cjh 移植的 NTerm，实现了大小写、换行、退格、多行命令、滚屏、ANSI Escape Code 处理。充分利用了底层硬件提供的 8 种颜色显示的功能。
+借助 cjh 移植的 NTerm，软件实现了大小写、换行、退格、多行命令、滚屏、ANSI Escape Code 处理。充分利用了底层硬件提供的 8 种颜色显示的功能。
 
-2. typing-game
+2. Typing-game
+
+3. Snake
+
+4. OSLab
