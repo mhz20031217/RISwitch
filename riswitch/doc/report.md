@@ -609,13 +609,60 @@ class ExMemPipelineRegister(w: Int) extends Bundle {
 
 ## 外设的设计
 
-本节介绍本项目中比较复杂和重要的外设。
+本节介绍本项目中比较复杂和重要的外设，除了下面单独列出的，还有 VGA，七段数码管，LED 和开关。
 
 ### 键盘
 
 ### 时钟
 
 ### 字符终端
+
+## 软件的设计
+
+### AM `ARCH=riscv32-switch` 的设计
+
+#### AM 寄存器
+
+增加的寄存器大部分只是对相应的地址（定义依照 Spec 放在 `abstract-machine/am/src/platform/switch/include/switch.h`）进行写入或读取，只有对 `AM_INPUT_KEYBRD` 的读取需要进行转换。
+
+还是使用查找表和宏来实现
+
+```c
+#define K(scan, key) [scan] = AM_KEY_##key,
+
+// all keys are set to AM_KEY_NONE by default
+static int lut[256] = {
+  K(0x1, F9) K(0x3, F5) K(0x4, F3) K(0x5, F1) K(0x6, F2)
+  K(0x7, F12) K(0x9, F10) K(0xA, F8) K(0xB, F6) K(0xC, F4)
+  K(0xD, TAB) K(0xE, GRAVE) K(0x11, LALT) K(0x12, LSHIFT)
+...
+
+static int elut[128] = {
+  K(0x1F, APPLICATION) K(0x11, RALT) K(0x27, APPLICATION) K(0x14, RCTRL)
+  K(0x70, INSERT) K(0x6c, HOME) K(0x7D, PAGEUP) K(0x71, DELETE)
+  K(0x69, END) K(0x7A, PAGEDOWN) K(0x75, UP) K(0x6B, LEFT) 
+  K(0x72, DOWN) K(0x74, RIGHT) K(0x5A, RETURN)
+};
+
+#undef K
+
+void __am_input_keybrd(AM_INPUT_KEYBRD_T *kbd) {
+  uint32_t keycode = inl(KBD_ADDR);
+  uint8_t b0 = keycode, b1 = keycode >> 8, b2 = keycode >> 16;
+
+  if (b1 == 0xf0) { // keyup
+    kbd->keydown = false;
+    kbd->keycode = (b2 == 0xe0) ? elut[b0] : lut[b0];
+  } else { // keydown
+    kbd->keydown = true;
+    kbd->keycode = (b1 == 0xe0) ? elut[b0] : lut[b0];
+  }
+}
+```
+
+### 乘除法
+
+该功能抄袭了 AM `ARCH=riscv32e-npc` 的方式，将 libgcc 中的相应代码包含进来，实现了用加减和移位来实现乘除法，详见 `abstract-machine/am/src/riscv/switch/libgcc`；
 
 ## 展示
 

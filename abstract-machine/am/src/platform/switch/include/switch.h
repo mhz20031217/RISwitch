@@ -12,10 +12,10 @@
 #define SERIAL_PORT     0x80f00000
 #define KBD_ADDR        0x80500000
 #define RTC_ADDR        0x80300000
-#define VGACTL_ADDR     0x80e00000 // not supported yet
+#define VGACTL_ADDR     0x80e00000
 #define AUDIO_ADDR      0x00000000 // not supported yet
 #define DISK_ADDR       0x00000000 // not supported yet
-#define FB_ADDR         0x80800000 // not supported yet
+#define FB_ADDR         0x80800000
 #define AUDIO_SBUF_ADDR 0x00000000 // not supported yet
 #define CMEM_ADDR       0x80400000
 #define SW_ADDR         0x80600000
