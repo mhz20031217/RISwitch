@@ -1,3 +1,4 @@
+`timescale 10ns/1ns
 module clkgen(
     input in,
     output reg out
