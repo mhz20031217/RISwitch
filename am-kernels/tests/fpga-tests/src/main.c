@@ -6,7 +6,7 @@ void delay() {
   uint64_t start = io_read(AM_TIMER_UPTIME).us;
 
   // 1 second
-  while (io_read(AM_TIMER_UPTIME).us - start < 10);
+  while (io_read(AM_TIMER_UPTIME).us - start < 1000000);
 }
 
 void led_test() {
@@ -35,11 +35,11 @@ void cmem_test() {
     }
   }
 
-  // char *hello = "hello, world!";
-  // int len = strlen(hello);
-  // for (int i = 0; i < len; i ++) {
-  //   io_write(AM_CMEM_PUTCH, i, 0, hello[i], 0, 7);
-  // }
+  char *hello = "hello, world!";
+  int len = strlen(hello);
+  for (int i = 0; i < len; i ++) {
+    io_write(AM_CMEM_PUTCH, i, 0, hello[i], 0, 7);
+  }
 }
 
 void serial_test() {
@@ -76,8 +76,10 @@ void keybrd_test() {
     }
     else if (kbd.keydown) {
       printf("Key down: %d\n", kbd.keycode);
+      io_write(AM_SEG, 0x5);
     } else {
       printf("Key up: %d\n", kbd.keycode);
+      io_write(AM_SEG, 0x6);
     }
   }
 }
@@ -85,14 +87,15 @@ void keybrd_test() {
 int main(const char *args) {
   ioe_init();
 
-  //cmem_test();
-  //led_test();  
-  //seg_test();
+  cmem_test();
+  led_test();  
+  seg_test();
 
-  // serial_test();
+  serial_test();
   // timer_test();
 
   keybrd_test();
+  while (true);
 
   return 0;
 }

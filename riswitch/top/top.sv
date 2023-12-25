@@ -1,13 +1,14 @@
+`timescale 10ns/1ns
 module top (
   input CLK_INPUT,
   input [15:0] SW,
   input [4:0] BTN,
   output [15:0] LED,
   `ifdef NVDL
-    output [7:0] SEG0, SEG1, SEG2, SEG3, SEG4, SEG5, SEG6, SEG7,
+  output [7:0] SEG0, SEG1, SEG2, SEG3, SEG4, SEG5, SEG6, SEG7,
   `elsif VIVADO
-    output [7:0] AN,
-    output CA, CB, CC, CD, CE, CF, CG, DP,
+  output [7:0] AN,
+  output CA, CB, CC, CD, CE, CF, CG, DP,
   `endif
   input PS2_CLK, PS2_DAT,
   output [3:0] VGA_R, VGA_G, VGA_B,
@@ -18,20 +19,29 @@ module top (
 );
 
 /********************
-*   CLK (10MHz)    *
+*   CLK             *
 ********************/
 
-wire CLK; // RT: 10MHz, PERF: maxinum frequency provided by platform
-
-`ifdef CLK_RT
+wire CLK_100MHz, CLK_80MHz, CLK_50MHz, CLK_25MHz, CLK_10MHz;
 `ifdef NVDL
-assign CLK = CLK_INPUT;
+assign CLK_100MHz = CLK_INPUT;
+assign CLK_80MHz = CLK_INPUT;
+assign CLK_50MHz = CLK_INPUT;
+assign CLK_25MHz = CLK_INPUT;
+assign CLK_10MHz = CLK_INPUT;
 `elsif VIVADO
-clkgen #(100000000, 10000000) clk_10khz_gen(.in(CLK_INPUT), .out(CLK));
+ClockGenerator clkgen(
+  .reset(1'b0),
+  .clk_in1(CLK_INPUT),
+  .clk_100mhz(CLK_100MHz),
+  .clk_80mhz(CLK_80MHz),
+  .clk_50mhz(CLK_50MHz),
+  .clk_25mhz(CLK_25MHz),
+  .clk_10mhz(CLK_10MHz),
+  .locked()
+);
 `endif
-`elsif CLK_PERF
-assign CLK = CLK_INPUT;
-`endif
+
 
 /***********************************
 *   SEG_CONTENT, SEG_DP, SEG_EN    *
@@ -92,11 +102,7 @@ initial begin
     select = 0;
 end
 
-
-wire clk_1khz;
-clkgen #(100000000, 1000) clk_1khz_gen(.in(CLK_INPUT), .out(clk_1khz));
-
-always @(posedge clk_1khz) begin
+always @(posedge CLK_10MHz) begin
     select <= select + 1;
 end
 
@@ -113,13 +119,40 @@ assign {DP, CG, CF, CE, CD, CC, CB, CA}
 
 `endif
 
+/***************
+*     VGA      *
+***************/
+
 `ifndef NVDL
 wire VGA_VALID_N;
 `endif
 
+wire [9:0] VGA_HADDR, VGA_VADDR;
+wire [11:0] VGA_DATA;
+wire VGA_CLK;
+`ifdef NVDL
+assign VGA_CLK = CLK_INPUT;
+`elsif VIVADO
+assign VGA_CLK = CLK_25MHz;
+`endif
+
+vga_ctrl ctrl(
+  .pclk(VGA_CLK),
+  .reset(BTN[4]),
+  .vga_data(VGA_DATA),
+  .h_addr(VGA_HADDR),
+  .v_addr(VGA_VADDR),
+  .hsync(VGA_HS),
+  .vsync(VGA_VS),
+  .valid(VGA_VALID_N),
+  .vga_r(VGA_R),
+  .vga_g(VGA_G),
+  .vga_b(VGA_B)
+);
+
 /* USERSPACE BEGIN */
 
-wire clock = CLK;
+wire clock = CLK_50MHz;
 wire reset = BTN[4];
 
 localparam addrWidth = 32;
@@ -160,8 +193,10 @@ InstrMem instrMem(
   .instr(imemdataout)
 );
 
-wire sel_dmem, sel_seg, sel_kbd, sel_timer, sel_cmem, sel_vga, sel_led, sel_serial;
+wire sel_dmem, sel_seg, sel_kbd, sel_timer, sel_cmem, sel_fb, sel_vgamode, sel_led, sel_serial;
 wire [31:0] dout_timer, dout_sw, dout_dmem, dout_kbd;
+
+assign dout_sw = {16'b0, SW};
 
 Keyboard mykbd(
         .clk(clock),
@@ -180,9 +215,10 @@ Mmu mmu(
   .sel_seg(sel_seg),
   .sel_kbd(sel_kbd),
   .sel_cmem(sel_cmem),
-  .sel_vga(sel_vga),
+  .sel_fb(sel_fb),
   .sel_led(sel_led),
   .sel_serial(sel_serial),
+  .sel_vgamode(sel_vgamode),
   .dout_timer(dout_timer),
   .dout_sw(dout_sw),
   .dout_kbd(dout_kbd),
@@ -220,37 +256,56 @@ Seg seg(
 assign SEG_EN = 8'b11111111;
 assign SEG_DP = 8'b00000000;
 
-`ifdef VIVADO
-wire clk_vga;
-clkgen #(100000000, 25000000) clk_vga_gen(
-  .in(CLK_INPUT),
-  .out(clk_vga)
-);
-`endif
+wire [11:0] vga_cmem_data, vga_fb_data;
+reg vga_mode;
+reg [1:0] vga_mode_buf;
+initial begin
+  vga_mode = 0;
+end
+always @(posedge dmemwrclk) begin
+  if (dmemwe & sel_vgamode) begin
+    vga_mode <= dmemdatain[0];
+  end
+end
+assign VGA_DATA = (vga_mode) ? vga_cmem_data : vga_fb_data;
 
 VgaCmem vcmem(
+  .vga_clk(VGA_CLK),
   .clock(dmemwrclk),
   .reset(reset),
-  `ifdef NVDL
-  .vga_clk(clock),
-  `elsif VIVADO
-  .vga_clk(clk_vga),
-  `endif
   .sel(sel_cmem),
   .we(dmemwe),
   .din(dmemdatain),
   .addr(dmemaddr),
-  .hsync(VGA_HS),
-  .vsync(VGA_VS),
-  .valid(VGA_VALID_N),
-  .vga_r(VGA_R),
-  .vga_g(VGA_G),
-  .vga_b(VGA_B)
+  .h_addr(VGA_HADDR),
+  .v_addr(VGA_VADDR),
+  .vga_data(vga_cmem_data)
 );
+
+VgaFb vfb(
+  .vga_clk(VGA_CLK),
+  .clock(dmemwrclk),
+  .reset(reset),
+  .sel(sel_fb),
+  .we(dmemwe),
+  .din(dmemdatain),
+  .addr(dmemaddr),
+  .h_addr(VGA_HADDR),
+  .v_addr(VGA_VADDR),
+  .vga_data(vga_fb_data)
+);
+
+`ifdef VIVADO
+wire CLK_1MHz;
+clkgen #(10000000, 1000000) clk_1mhz_gen(
+  .in(CLK_10MHz),
+  .out(CLK_1MHz)
+);
+`endif
 
 Timer timer(
   `ifdef VIVADO
-  .CLK_INPUT(CLK_INPUT),
+  .CLK_1MHz(CLK_1MHz),
   `endif
   .clock(dmemrdclk),
   .reset(reset),
@@ -259,6 +314,7 @@ Timer timer(
   .dout(dout_timer)
 );
 
+`ifdef NVDL
 Serial serial(
   .clock(dmemrdclk),
   .reset(reset),
@@ -266,6 +322,7 @@ Serial serial(
   .we(dmemwe),
   .din(dmemdatain)
 );
+`endif
 
 /* USERSPACE END */
 

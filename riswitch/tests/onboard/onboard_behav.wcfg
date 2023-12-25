@@ -1,0 +1,768 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="onboard_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="onboard" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="0fs"></ZoomStartTime>
+      <ZoomEndTime time="71201fs"></ZoomEndTime>
+      <Cursor1Time time="300000fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="228"></NameColumnWidth>
+      <ValueColumnWidth column_width="74"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="65" />
+   <wvobject type="logic" fp_name="/onboard/clock">
+      <obj_property name="ElementShortName">clock</obj_property>
+      <obj_property name="ObjectShortName">clock</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/onboard/top/CLK_INPUT">
+      <obj_property name="ElementShortName">CLK_INPUT</obj_property>
+      <obj_property name="ObjectShortName">CLK_INPUT</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/onboard/top/SW">
+      <obj_property name="ElementShortName">SW[15:0]</obj_property>
+      <obj_property name="ObjectShortName">SW[15:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/onboard/top/BTN">
+      <obj_property name="ElementShortName">BTN[4:0]</obj_property>
+      <obj_property name="ObjectShortName">BTN[4:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/onboard/top/LED">
+      <obj_property name="ElementShortName">LED[15:0]</obj_property>
+      <obj_property name="ObjectShortName">LED[15:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/onboard/top/AN">
+      <obj_property name="ElementShortName">AN[7:0]</obj_property>
+      <obj_property name="ObjectShortName">AN[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/onboard/top/CA">
+      <obj_property name="ElementShortName">CA</obj_property>
+      <obj_property name="ObjectShortName">CA</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/onboard/top/CB">
+      <obj_property name="ElementShortName">CB</obj_property>
+      <obj_property name="ObjectShortName">CB</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/onboard/top/CC">
+      <obj_property name="ElementShortName">CC</obj_property>
+      <obj_property name="ObjectShortName">CC</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/onboard/top/CD">
+      <obj_property name="ElementShortName">CD</obj_property>
+      <obj_property name="ObjectShortName">CD</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/onboard/top/CE">
+      <obj_property name="ElementShortName">CE</obj_property>
+      <obj_property name="ObjectShortName">CE</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/onboard/top/CF">
+      <obj_property name="ElementShortName">CF</obj_property>
+      <obj_property name="ObjectShortName">CF</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/onboard/top/CG">
+      <obj_property name="ElementShortName">CG</obj_property>
+      <obj_property name="ObjectShortName">CG</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/onboard/top/DP">
+      <obj_property name="ElementShortName">DP</obj_property>
+      <obj_property name="ObjectShortName">DP</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/onboard/top/PS2_CLK">
+      <obj_property name="ElementShortName">PS2_CLK</obj_property>
+      <obj_property name="ObjectShortName">PS2_CLK</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/onboard/top/PS2_DAT">
+      <obj_property name="ElementShortName">PS2_DAT</obj_property>
+      <obj_property name="ObjectShortName">PS2_DAT</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/onboard/top/VGA_R">
+      <obj_property name="ElementShortName">VGA_R[3:0]</obj_property>
+      <obj_property name="ObjectShortName">VGA_R[3:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/onboard/top/VGA_G">
+      <obj_property name="ElementShortName">VGA_G[3:0]</obj_property>
+      <obj_property name="ObjectShortName">VGA_G[3:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/onboard/top/VGA_B">
+      <obj_property name="ElementShortName">VGA_B[3:0]</obj_property>
+      <obj_property name="ObjectShortName">VGA_B[3:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/onboard/top/VGA_HS">
+      <obj_property name="ElementShortName">VGA_HS</obj_property>
+      <obj_property name="ObjectShortName">VGA_HS</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/onboard/top/VGA_VS">
+      <obj_property name="ElementShortName">VGA_VS</obj_property>
+      <obj_property name="ObjectShortName">VGA_VS</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/onboard/top/CLK_100MHz">
+      <obj_property name="ElementShortName">CLK_100MHz</obj_property>
+      <obj_property name="ObjectShortName">CLK_100MHz</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/onboard/top/CLK_80MHz">
+      <obj_property name="ElementShortName">CLK_80MHz</obj_property>
+      <obj_property name="ObjectShortName">CLK_80MHz</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/onboard/top/CLK_50MHz">
+      <obj_property name="ElementShortName">CLK_50MHz</obj_property>
+      <obj_property name="ObjectShortName">CLK_50MHz</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/onboard/top/CLK_25MHz">
+      <obj_property name="ElementShortName">CLK_25MHz</obj_property>
+      <obj_property name="ObjectShortName">CLK_25MHz</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/onboard/top/CLK_10MHz">
+      <obj_property name="ElementShortName">CLK_10MHz</obj_property>
+      <obj_property name="ObjectShortName">CLK_10MHz</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/onboard/top/SEG_CONTENT">
+      <obj_property name="ElementShortName">SEG_CONTENT[31:0]</obj_property>
+      <obj_property name="ObjectShortName">SEG_CONTENT[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/onboard/top/SEG_DP">
+      <obj_property name="ElementShortName">SEG_DP[7:0]</obj_property>
+      <obj_property name="ObjectShortName">SEG_DP[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/onboard/top/SEG_EN">
+      <obj_property name="ElementShortName">SEG_EN[7:0]</obj_property>
+      <obj_property name="ObjectShortName">SEG_EN[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/onboard/top/SEG_CONTENT_BUF">
+      <obj_property name="ElementShortName">SEG_CONTENT_BUF[0:7][3:0]</obj_property>
+      <obj_property name="ObjectShortName">SEG_CONTENT_BUF[0:7][3:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/onboard/top/SEG_DISPLAY_BUF">
+      <obj_property name="ElementShortName">SEG_DISPLAY_BUF[7:0]</obj_property>
+      <obj_property name="ObjectShortName">SEG_DISPLAY_BUF[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/onboard/top/select">
+      <obj_property name="ElementShortName">select[2:0]</obj_property>
+      <obj_property name="ObjectShortName">select[2:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/onboard/top/VGA_VALID_N">
+      <obj_property name="ElementShortName">VGA_VALID_N</obj_property>
+      <obj_property name="ObjectShortName">VGA_VALID_N</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/onboard/top/clock">
+      <obj_property name="ElementShortName">clock</obj_property>
+      <obj_property name="ObjectShortName">clock</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/onboard/top/reset">
+      <obj_property name="ElementShortName">reset</obj_property>
+      <obj_property name="ObjectShortName">reset</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/onboard/top/imemaddr">
+      <obj_property name="ElementShortName">imemaddr[31:0]</obj_property>
+      <obj_property name="ObjectShortName">imemaddr[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/onboard/top/dmemaddr">
+      <obj_property name="ElementShortName">dmemaddr[31:0]</obj_property>
+      <obj_property name="ObjectShortName">dmemaddr[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/onboard/top/imemdataout">
+      <obj_property name="ElementShortName">imemdataout[31:0]</obj_property>
+      <obj_property name="ObjectShortName">imemdataout[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/onboard/top/dmemdatain">
+      <obj_property name="ElementShortName">dmemdatain[31:0]</obj_property>
+      <obj_property name="ObjectShortName">dmemdatain[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/onboard/top/dmemdataout">
+      <obj_property name="ElementShortName">dmemdataout[31:0]</obj_property>
+      <obj_property name="ObjectShortName">dmemdataout[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/onboard/top/imemclk">
+      <obj_property name="ElementShortName">imemclk</obj_property>
+      <obj_property name="ObjectShortName">imemclk</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/onboard/top/dmemrdclk">
+      <obj_property name="ElementShortName">dmemrdclk</obj_property>
+      <obj_property name="ObjectShortName">dmemrdclk</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/onboard/top/dmemwrclk">
+      <obj_property name="ElementShortName">dmemwrclk</obj_property>
+      <obj_property name="ObjectShortName">dmemwrclk</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/onboard/top/dmemop">
+      <obj_property name="ElementShortName">dmemop[2:0]</obj_property>
+      <obj_property name="ObjectShortName">dmemop[2:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/onboard/top/dmemwe">
+      <obj_property name="ElementShortName">dmemwe</obj_property>
+      <obj_property name="ObjectShortName">dmemwe</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/onboard/top/dmemre">
+      <obj_property name="ElementShortName">dmemre</obj_property>
+      <obj_property name="ObjectShortName">dmemre</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/onboard/top/dontcare">
+      <obj_property name="ElementShortName">dontcare[31:0]</obj_property>
+      <obj_property name="ObjectShortName">dontcare[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/onboard/top/sel_dmem">
+      <obj_property name="ElementShortName">sel_dmem</obj_property>
+      <obj_property name="ObjectShortName">sel_dmem</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/onboard/top/sel_seg">
+      <obj_property name="ElementShortName">sel_seg</obj_property>
+      <obj_property name="ObjectShortName">sel_seg</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/onboard/top/sel_kbd">
+      <obj_property name="ElementShortName">sel_kbd</obj_property>
+      <obj_property name="ObjectShortName">sel_kbd</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/onboard/top/sel_timer">
+      <obj_property name="ElementShortName">sel_timer</obj_property>
+      <obj_property name="ObjectShortName">sel_timer</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/onboard/top/sel_cmem">
+      <obj_property name="ElementShortName">sel_cmem</obj_property>
+      <obj_property name="ObjectShortName">sel_cmem</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/onboard/top/sel_vga">
+      <obj_property name="ElementShortName">sel_vga</obj_property>
+      <obj_property name="ObjectShortName">sel_vga</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/onboard/top/sel_led">
+      <obj_property name="ElementShortName">sel_led</obj_property>
+      <obj_property name="ObjectShortName">sel_led</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/onboard/top/sel_serial">
+      <obj_property name="ElementShortName">sel_serial</obj_property>
+      <obj_property name="ObjectShortName">sel_serial</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/onboard/top/dout_timer">
+      <obj_property name="ElementShortName">dout_timer[31:0]</obj_property>
+      <obj_property name="ObjectShortName">dout_timer[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/onboard/top/dout_sw">
+      <obj_property name="ElementShortName">dout_sw[31:0]</obj_property>
+      <obj_property name="ObjectShortName">dout_sw[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/onboard/top/dout_dmem">
+      <obj_property name="ElementShortName">dout_dmem[31:0]</obj_property>
+      <obj_property name="ObjectShortName">dout_dmem[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/onboard/top/dout_kbd">
+      <obj_property name="ElementShortName">dout_kbd[31:0]</obj_property>
+      <obj_property name="ObjectShortName">dout_kbd[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/onboard/top/clk_vga">
+      <obj_property name="ElementShortName">clk_vga</obj_property>
+      <obj_property name="ObjectShortName">clk_vga</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/onboard/top/CLK_1MHz">
+      <obj_property name="ElementShortName">CLK_1MHz</obj_property>
+      <obj_property name="ObjectShortName">CLK_1MHz</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/onboard/top/addrWidth">
+      <obj_property name="ElementShortName">addrWidth[31:0]</obj_property>
+      <obj_property name="ObjectShortName">addrWidth[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/onboard/top/dataWidth">
+      <obj_property name="ElementShortName">dataWidth[31:0]</obj_property>
+      <obj_property name="ObjectShortName">dataWidth[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/onboard/top/instrWidth">
+      <obj_property name="ElementShortName">instrWidth[31:0]</obj_property>
+      <obj_property name="ObjectShortName">instrWidth[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="group" fp_name="group408">
+      <obj_property name="label">Cpu</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject type="logic" fp_name="/onboard/top/cpu/core/clock">
+         <obj_property name="ElementShortName">clock</obj_property>
+         <obj_property name="ObjectShortName">clock</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/onboard/top/cpu/core/reset">
+         <obj_property name="ElementShortName">reset</obj_property>
+         <obj_property name="ObjectShortName">reset</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/onboard/top/cpu/core/io_imem_addr">
+         <obj_property name="ElementShortName">io_imem_addr[31:0]</obj_property>
+         <obj_property name="ObjectShortName">io_imem_addr[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/onboard/top/cpu/core/io_imem_instr">
+         <obj_property name="ElementShortName">io_imem_instr[31:0]</obj_property>
+         <obj_property name="ObjectShortName">io_imem_instr[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/onboard/top/cpu/core/io_dmem_addr">
+         <obj_property name="ElementShortName">io_dmem_addr[31:0]</obj_property>
+         <obj_property name="ObjectShortName">io_dmem_addr[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/onboard/top/cpu/core/io_dmem_din">
+         <obj_property name="ElementShortName">io_dmem_din[31:0]</obj_property>
+         <obj_property name="ObjectShortName">io_dmem_din[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/onboard/top/cpu/core/io_dmem_dout">
+         <obj_property name="ElementShortName">io_dmem_dout[31:0]</obj_property>
+         <obj_property name="ObjectShortName">io_dmem_dout[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/onboard/top/cpu/core/io_dmem_memOp">
+         <obj_property name="ElementShortName">io_dmem_memOp[2:0]</obj_property>
+         <obj_property name="ObjectShortName">io_dmem_memOp[2:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/onboard/top/cpu/core/io_dmem_memWe">
+         <obj_property name="ElementShortName">io_dmem_memWe</obj_property>
+         <obj_property name="ObjectShortName">io_dmem_memWe</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/onboard/top/cpu/core/io_dmem_memRe">
+         <obj_property name="ElementShortName">io_dmem_memRe</obj_property>
+         <obj_property name="ObjectShortName">io_dmem_memRe</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/onboard/top/cpu/core/io_pc">
+         <obj_property name="ElementShortName">io_pc[31:0]</obj_property>
+         <obj_property name="ObjectShortName">io_pc[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/onboard/top/cpu/core/contrGen_io_i">
+         <obj_property name="ElementShortName">contrGen_io_i[31:0]</obj_property>
+         <obj_property name="ObjectShortName">contrGen_io_i[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/onboard/top/cpu/core/contrGen_io_c_aluASrc">
+         <obj_property name="ElementShortName">contrGen_io_c_aluASrc</obj_property>
+         <obj_property name="ObjectShortName">contrGen_io_c_aluASrc</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/onboard/top/cpu/core/contrGen_io_c_aluBSrc">
+         <obj_property name="ElementShortName">contrGen_io_c_aluBSrc[1:0]</obj_property>
+         <obj_property name="ObjectShortName">contrGen_io_c_aluBSrc[1:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/onboard/top/cpu/core/contrGen_io_c_aluOp">
+         <obj_property name="ElementShortName">contrGen_io_c_aluOp[3:0]</obj_property>
+         <obj_property name="ObjectShortName">contrGen_io_c_aluOp[3:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/onboard/top/cpu/core/contrGen_io_c_regWe">
+         <obj_property name="ElementShortName">contrGen_io_c_regWe</obj_property>
+         <obj_property name="ObjectShortName">contrGen_io_c_regWe</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/onboard/top/cpu/core/contrGen_io_c_memToReg">
+         <obj_property name="ElementShortName">contrGen_io_c_memToReg</obj_property>
+         <obj_property name="ObjectShortName">contrGen_io_c_memToReg</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/onboard/top/cpu/core/contrGen_io_c_memRe">
+         <obj_property name="ElementShortName">contrGen_io_c_memRe</obj_property>
+         <obj_property name="ObjectShortName">contrGen_io_c_memRe</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/onboard/top/cpu/core/contrGen_io_c_memWe">
+         <obj_property name="ElementShortName">contrGen_io_c_memWe</obj_property>
+         <obj_property name="ObjectShortName">contrGen_io_c_memWe</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/onboard/top/cpu/core/contrGen_io_c_memOp">
+         <obj_property name="ElementShortName">contrGen_io_c_memOp[2:0]</obj_property>
+         <obj_property name="ObjectShortName">contrGen_io_c_memOp[2:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/onboard/top/cpu/core/contrGen_io_c_branch">
+         <obj_property name="ElementShortName">contrGen_io_c_branch[2:0]</obj_property>
+         <obj_property name="ObjectShortName">contrGen_io_c_branch[2:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/onboard/top/cpu/core/contrGen_io_c_valid">
+         <obj_property name="ElementShortName">contrGen_io_c_valid</obj_property>
+         <obj_property name="ObjectShortName">contrGen_io_c_valid</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/onboard/top/cpu/core/contrGen_io_extOp">
+         <obj_property name="ElementShortName">contrGen_io_extOp[2:0]</obj_property>
+         <obj_property name="ObjectShortName">contrGen_io_extOp[2:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/onboard/top/cpu/core/immGen_io_instr">
+         <obj_property name="ElementShortName">immGen_io_instr[31:0]</obj_property>
+         <obj_property name="ObjectShortName">immGen_io_instr[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/onboard/top/cpu/core/immGen_io_extOp">
+         <obj_property name="ElementShortName">immGen_io_extOp[2:0]</obj_property>
+         <obj_property name="ObjectShortName">immGen_io_extOp[2:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/onboard/top/cpu/core/immGen_io_imm">
+         <obj_property name="ElementShortName">immGen_io_imm[31:0]</obj_property>
+         <obj_property name="ObjectShortName">immGen_io_imm[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/onboard/top/cpu/core/alu_io_aluOp">
+         <obj_property name="ElementShortName">alu_io_aluOp[3:0]</obj_property>
+         <obj_property name="ObjectShortName">alu_io_aluOp[3:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/onboard/top/cpu/core/alu_io_a">
+         <obj_property name="ElementShortName">alu_io_a[31:0]</obj_property>
+         <obj_property name="ObjectShortName">alu_io_a[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/onboard/top/cpu/core/alu_io_b">
+         <obj_property name="ElementShortName">alu_io_b[31:0]</obj_property>
+         <obj_property name="ObjectShortName">alu_io_b[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/onboard/top/cpu/core/alu_io_f">
+         <obj_property name="ElementShortName">alu_io_f[31:0]</obj_property>
+         <obj_property name="ObjectShortName">alu_io_f[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/onboard/top/cpu/core/alu_io_zero">
+         <obj_property name="ElementShortName">alu_io_zero</obj_property>
+         <obj_property name="ObjectShortName">alu_io_zero</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/onboard/top/cpu/core/alu_io_less">
+         <obj_property name="ElementShortName">alu_io_less</obj_property>
+         <obj_property name="ObjectShortName">alu_io_less</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/onboard/top/cpu/core/branchCond_io_branch">
+         <obj_property name="ElementShortName">branchCond_io_branch[2:0]</obj_property>
+         <obj_property name="ObjectShortName">branchCond_io_branch[2:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/onboard/top/cpu/core/branchCond_io_less">
+         <obj_property name="ElementShortName">branchCond_io_less</obj_property>
+         <obj_property name="ObjectShortName">branchCond_io_less</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/onboard/top/cpu/core/branchCond_io_zero">
+         <obj_property name="ElementShortName">branchCond_io_zero</obj_property>
+         <obj_property name="ObjectShortName">branchCond_io_zero</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/onboard/top/cpu/core/branchCond_io_branchSel">
+         <obj_property name="ElementShortName">branchCond_io_branchSel</obj_property>
+         <obj_property name="ObjectShortName">branchCond_io_branchSel</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/onboard/top/cpu/core/branchCond_io_pcSrc">
+         <obj_property name="ElementShortName">branchCond_io_pcSrc</obj_property>
+         <obj_property name="ObjectShortName">branchCond_io_pcSrc</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/onboard/top/cpu/core/branchCond_io_flushIf">
+         <obj_property name="ElementShortName">branchCond_io_flushIf</obj_property>
+         <obj_property name="ObjectShortName">branchCond_io_flushIf</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/onboard/top/cpu/core/branchCond_io_flushId">
+         <obj_property name="ElementShortName">branchCond_io_flushId</obj_property>
+         <obj_property name="ObjectShortName">branchCond_io_flushId</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/onboard/top/cpu/core/forwardUnit_io_mem_rd">
+         <obj_property name="ElementShortName">forwardUnit_io_mem_rd[4:0]</obj_property>
+         <obj_property name="ObjectShortName">forwardUnit_io_mem_rd[4:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/onboard/top/cpu/core/forwardUnit_io_wb_rd">
+         <obj_property name="ElementShortName">forwardUnit_io_wb_rd[4:0]</obj_property>
+         <obj_property name="ObjectShortName">forwardUnit_io_wb_rd[4:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/onboard/top/cpu/core/forwardUnit_io_mem_memToReg">
+         <obj_property name="ElementShortName">forwardUnit_io_mem_memToReg</obj_property>
+         <obj_property name="ObjectShortName">forwardUnit_io_mem_memToReg</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/onboard/top/cpu/core/forwardUnit_io_mem_regWe">
+         <obj_property name="ElementShortName">forwardUnit_io_mem_regWe</obj_property>
+         <obj_property name="ObjectShortName">forwardUnit_io_mem_regWe</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/onboard/top/cpu/core/forwardUnit_io_wb_regWe">
+         <obj_property name="ElementShortName">forwardUnit_io_wb_regWe</obj_property>
+         <obj_property name="ObjectShortName">forwardUnit_io_wb_regWe</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/onboard/top/cpu/core/forwardUnit_io_ex_rs1">
+         <obj_property name="ElementShortName">forwardUnit_io_ex_rs1[4:0]</obj_property>
+         <obj_property name="ObjectShortName">forwardUnit_io_ex_rs1[4:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/onboard/top/cpu/core/forwardUnit_io_ex_rs2">
+         <obj_property name="ElementShortName">forwardUnit_io_ex_rs2[4:0]</obj_property>
+         <obj_property name="ObjectShortName">forwardUnit_io_ex_rs2[4:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/onboard/top/cpu/core/forwardUnit_io_stallIf">
+         <obj_property name="ElementShortName">forwardUnit_io_stallIf</obj_property>
+         <obj_property name="ObjectShortName">forwardUnit_io_stallIf</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/onboard/top/cpu/core/forwardUnit_io_stallId">
+         <obj_property name="ElementShortName">forwardUnit_io_stallId</obj_property>
+         <obj_property name="ObjectShortName">forwardUnit_io_stallId</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/onboard/top/cpu/core/forwardUnit_io_stallEx">
+         <obj_property name="ElementShortName">forwardUnit_io_stallEx</obj_property>
+         <obj_property name="ObjectShortName">forwardUnit_io_stallEx</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/onboard/top/cpu/core/forwardUnit_io_flushEx">
+         <obj_property name="ElementShortName">forwardUnit_io_flushEx</obj_property>
+         <obj_property name="ObjectShortName">forwardUnit_io_flushEx</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/onboard/top/cpu/core/forwardUnit_io_ex_rs1_sel">
+         <obj_property name="ElementShortName">forwardUnit_io_ex_rs1_sel[1:0]</obj_property>
+         <obj_property name="ObjectShortName">forwardUnit_io_ex_rs1_sel[1:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/onboard/top/cpu/core/forwardUnit_io_ex_rs2_sel">
+         <obj_property name="ElementShortName">forwardUnit_io_ex_rs2_sel[1:0]</obj_property>
+         <obj_property name="ObjectShortName">forwardUnit_io_ex_rs2_sel[1:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/onboard/top/cpu/core/forwardUnit_io_id_rs1_sel">
+         <obj_property name="ElementShortName">forwardUnit_io_id_rs1_sel</obj_property>
+         <obj_property name="ObjectShortName">forwardUnit_io_id_rs1_sel</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/onboard/top/cpu/core/forwardUnit_io_id_rs2_sel">
+         <obj_property name="ElementShortName">forwardUnit_io_id_rs2_sel</obj_property>
+         <obj_property name="ObjectShortName">forwardUnit_io_id_rs2_sel</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/onboard/top/cpu/core/regFile_clock">
+         <obj_property name="ElementShortName">regFile_clock</obj_property>
+         <obj_property name="ObjectShortName">regFile_clock</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/onboard/top/cpu/core/regFile_io_ra">
+         <obj_property name="ElementShortName">regFile_io_ra[4:0]</obj_property>
+         <obj_property name="ObjectShortName">regFile_io_ra[4:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/onboard/top/cpu/core/regFile_io_rb">
+         <obj_property name="ElementShortName">regFile_io_rb[4:0]</obj_property>
+         <obj_property name="ObjectShortName">regFile_io_rb[4:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/onboard/top/cpu/core/regFile_io_rw">
+         <obj_property name="ElementShortName">regFile_io_rw[4:0]</obj_property>
+         <obj_property name="ObjectShortName">regFile_io_rw[4:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/onboard/top/cpu/core/regFile_io_we">
+         <obj_property name="ElementShortName">regFile_io_we</obj_property>
+         <obj_property name="ObjectShortName">regFile_io_we</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/onboard/top/cpu/core/regFile_io_busA">
+         <obj_property name="ElementShortName">regFile_io_busA[31:0]</obj_property>
+         <obj_property name="ObjectShortName">regFile_io_busA[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/onboard/top/cpu/core/regFile_io_busB">
+         <obj_property name="ElementShortName">regFile_io_busB[31:0]</obj_property>
+         <obj_property name="ObjectShortName">regFile_io_busB[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/onboard/top/cpu/core/regFile_io_busW">
+         <obj_property name="ElementShortName">regFile_io_busW[31:0]</obj_property>
+         <obj_property name="ObjectShortName">regFile_io_busW[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/onboard/top/cpu/core/fd_reg_pc">
+         <obj_property name="ElementShortName">fd_reg_pc[31:0]</obj_property>
+         <obj_property name="ObjectShortName">fd_reg_pc[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/onboard/top/cpu/core/fd_reg_instr">
+         <obj_property name="ElementShortName">fd_reg_instr[31:0]</obj_property>
+         <obj_property name="ObjectShortName">fd_reg_instr[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/onboard/top/cpu/core/de_reg_pc">
+         <obj_property name="ElementShortName">de_reg_pc[31:0]</obj_property>
+         <obj_property name="ObjectShortName">de_reg_pc[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/onboard/top/cpu/core/de_reg_imm">
+         <obj_property name="ElementShortName">de_reg_imm[31:0]</obj_property>
+         <obj_property name="ObjectShortName">de_reg_imm[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/onboard/top/cpu/core/de_reg_rs1">
+         <obj_property name="ElementShortName">de_reg_rs1[4:0]</obj_property>
+         <obj_property name="ObjectShortName">de_reg_rs1[4:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/onboard/top/cpu/core/de_reg_rs2">
+         <obj_property name="ElementShortName">de_reg_rs2[4:0]</obj_property>
+         <obj_property name="ObjectShortName">de_reg_rs2[4:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/onboard/top/cpu/core/de_reg_rd">
+         <obj_property name="ElementShortName">de_reg_rd[4:0]</obj_property>
+         <obj_property name="ObjectShortName">de_reg_rd[4:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/onboard/top/cpu/core/de_reg_rs1Data">
+         <obj_property name="ElementShortName">de_reg_rs1Data[31:0]</obj_property>
+         <obj_property name="ObjectShortName">de_reg_rs1Data[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/onboard/top/cpu/core/de_reg_rs2Data">
+         <obj_property name="ElementShortName">de_reg_rs2Data[31:0]</obj_property>
+         <obj_property name="ObjectShortName">de_reg_rs2Data[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/onboard/top/cpu/core/de_reg_c_aluASrc">
+         <obj_property name="ElementShortName">de_reg_c_aluASrc</obj_property>
+         <obj_property name="ObjectShortName">de_reg_c_aluASrc</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/onboard/top/cpu/core/de_reg_c_aluBSrc">
+         <obj_property name="ElementShortName">de_reg_c_aluBSrc[1:0]</obj_property>
+         <obj_property name="ObjectShortName">de_reg_c_aluBSrc[1:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/onboard/top/cpu/core/de_reg_c_aluOp">
+         <obj_property name="ElementShortName">de_reg_c_aluOp[3:0]</obj_property>
+         <obj_property name="ObjectShortName">de_reg_c_aluOp[3:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/onboard/top/cpu/core/de_reg_c_regWe">
+         <obj_property name="ElementShortName">de_reg_c_regWe</obj_property>
+         <obj_property name="ObjectShortName">de_reg_c_regWe</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/onboard/top/cpu/core/de_reg_c_memToReg">
+         <obj_property name="ElementShortName">de_reg_c_memToReg</obj_property>
+         <obj_property name="ObjectShortName">de_reg_c_memToReg</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/onboard/top/cpu/core/de_reg_c_memRe">
+         <obj_property name="ElementShortName">de_reg_c_memRe</obj_property>
+         <obj_property name="ObjectShortName">de_reg_c_memRe</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/onboard/top/cpu/core/de_reg_c_memWe">
+         <obj_property name="ElementShortName">de_reg_c_memWe</obj_property>
+         <obj_property name="ObjectShortName">de_reg_c_memWe</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/onboard/top/cpu/core/de_reg_c_memOp">
+         <obj_property name="ElementShortName">de_reg_c_memOp[2:0]</obj_property>
+         <obj_property name="ObjectShortName">de_reg_c_memOp[2:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/onboard/top/cpu/core/de_reg_c_branch">
+         <obj_property name="ElementShortName">de_reg_c_branch[2:0]</obj_property>
+         <obj_property name="ObjectShortName">de_reg_c_branch[2:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/onboard/top/cpu/core/de_reg_c_valid">
+         <obj_property name="ElementShortName">de_reg_c_valid</obj_property>
+         <obj_property name="ObjectShortName">de_reg_c_valid</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/onboard/top/cpu/core/em_reg_aluF">
+         <obj_property name="ElementShortName">em_reg_aluF[31:0]</obj_property>
+         <obj_property name="ObjectShortName">em_reg_aluF[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/onboard/top/cpu/core/em_reg_rs2Data">
+         <obj_property name="ElementShortName">em_reg_rs2Data[31:0]</obj_property>
+         <obj_property name="ObjectShortName">em_reg_rs2Data[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/onboard/top/cpu/core/em_reg_rd">
+         <obj_property name="ElementShortName">em_reg_rd[4:0]</obj_property>
+         <obj_property name="ObjectShortName">em_reg_rd[4:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/onboard/top/cpu/core/em_reg_c_aluASrc">
+         <obj_property name="ElementShortName">em_reg_c_aluASrc</obj_property>
+         <obj_property name="ObjectShortName">em_reg_c_aluASrc</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/onboard/top/cpu/core/em_reg_c_aluBSrc">
+         <obj_property name="ElementShortName">em_reg_c_aluBSrc[1:0]</obj_property>
+         <obj_property name="ObjectShortName">em_reg_c_aluBSrc[1:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/onboard/top/cpu/core/em_reg_c_aluOp">
+         <obj_property name="ElementShortName">em_reg_c_aluOp[3:0]</obj_property>
+         <obj_property name="ObjectShortName">em_reg_c_aluOp[3:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/onboard/top/cpu/core/em_reg_c_regWe">
+         <obj_property name="ElementShortName">em_reg_c_regWe</obj_property>
+         <obj_property name="ObjectShortName">em_reg_c_regWe</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/onboard/top/cpu/core/em_reg_c_memToReg">
+         <obj_property name="ElementShortName">em_reg_c_memToReg</obj_property>
+         <obj_property name="ObjectShortName">em_reg_c_memToReg</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/onboard/top/cpu/core/em_reg_c_memRe">
+         <obj_property name="ElementShortName">em_reg_c_memRe</obj_property>
+         <obj_property name="ObjectShortName">em_reg_c_memRe</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/onboard/top/cpu/core/em_reg_c_memWe">
+         <obj_property name="ElementShortName">em_reg_c_memWe</obj_property>
+         <obj_property name="ObjectShortName">em_reg_c_memWe</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/onboard/top/cpu/core/em_reg_c_memOp">
+         <obj_property name="ElementShortName">em_reg_c_memOp[2:0]</obj_property>
+         <obj_property name="ObjectShortName">em_reg_c_memOp[2:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/onboard/top/cpu/core/em_reg_c_branch">
+         <obj_property name="ElementShortName">em_reg_c_branch[2:0]</obj_property>
+         <obj_property name="ObjectShortName">em_reg_c_branch[2:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/onboard/top/cpu/core/em_reg_c_valid">
+         <obj_property name="ElementShortName">em_reg_c_valid</obj_property>
+         <obj_property name="ObjectShortName">em_reg_c_valid</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/onboard/top/cpu/core/mw_reg_memToReg">
+         <obj_property name="ElementShortName">mw_reg_memToReg</obj_property>
+         <obj_property name="ObjectShortName">mw_reg_memToReg</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/onboard/top/cpu/core/mw_reg_regWe">
+         <obj_property name="ElementShortName">mw_reg_regWe</obj_property>
+         <obj_property name="ObjectShortName">mw_reg_regWe</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/onboard/top/cpu/core/mw_reg_rd">
+         <obj_property name="ElementShortName">mw_reg_rd[4:0]</obj_property>
+         <obj_property name="ObjectShortName">mw_reg_rd[4:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/onboard/top/cpu/core/mw_reg_aluF">
+         <obj_property name="ElementShortName">mw_reg_aluF[31:0]</obj_property>
+         <obj_property name="ObjectShortName">mw_reg_aluF[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/onboard/top/cpu/core/mw_reg_memOut">
+         <obj_property name="ElementShortName">mw_reg_memOut[31:0]</obj_property>
+         <obj_property name="ObjectShortName">mw_reg_memOut[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/onboard/top/cpu/core/pc">
+         <obj_property name="ElementShortName">pc[31:0]</obj_property>
+         <obj_property name="ObjectShortName">pc[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/onboard/top/cpu/core/_pc_T_1">
+         <obj_property name="ElementShortName">_pc_T_1[31:0]</obj_property>
+         <obj_property name="ObjectShortName">_pc_T_1[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/onboard/top/cpu/core/busW">
+         <obj_property name="ElementShortName">busW[31:0]</obj_property>
+         <obj_property name="ObjectShortName">busW[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/onboard/top/cpu/core/_ex_rs1Data_T_3">
+         <obj_property name="ElementShortName">_ex_rs1Data_T_3[31:0]</obj_property>
+         <obj_property name="ObjectShortName">_ex_rs1Data_T_3[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/onboard/top/cpu/core/_ex_rs1Data_T_1">
+         <obj_property name="ElementShortName">_ex_rs1Data_T_1[31:0]</obj_property>
+         <obj_property name="ObjectShortName">_ex_rs1Data_T_1[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/onboard/top/cpu/core/_ex_rs1Data_T_7">
+         <obj_property name="ElementShortName">_ex_rs1Data_T_7[31:0]</obj_property>
+         <obj_property name="ObjectShortName">_ex_rs1Data_T_7[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/onboard/top/cpu/core/ex_rs1Data">
+         <obj_property name="ElementShortName">ex_rs1Data[31:0]</obj_property>
+         <obj_property name="ObjectShortName">ex_rs1Data[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/onboard/top/cpu/core/_branchTarget_T">
+         <obj_property name="ElementShortName">_branchTarget_T[31:0]</obj_property>
+         <obj_property name="ObjectShortName">_branchTarget_T[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/onboard/top/cpu/core/branchTarget">
+         <obj_property name="ElementShortName">branchTarget[31:0]</obj_property>
+         <obj_property name="ObjectShortName">branchTarget[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/onboard/top/cpu/core/id_rd">
+         <obj_property name="ElementShortName">id_rd[4:0]</obj_property>
+         <obj_property name="ObjectShortName">id_rd[4:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/onboard/top/cpu/core/id_rs1">
+         <obj_property name="ElementShortName">id_rs1[4:0]</obj_property>
+         <obj_property name="ObjectShortName">id_rs1[4:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/onboard/top/cpu/core/id_rs2">
+         <obj_property name="ElementShortName">id_rs2[4:0]</obj_property>
+         <obj_property name="ObjectShortName">id_rs2[4:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/onboard/top/cpu/core/regfile_busA">
+         <obj_property name="ElementShortName">regfile_busA[31:0]</obj_property>
+         <obj_property name="ObjectShortName">regfile_busA[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/onboard/top/cpu/core/id_rs1Data">
+         <obj_property name="ElementShortName">id_rs1Data[31:0]</obj_property>
+         <obj_property name="ObjectShortName">id_rs1Data[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/onboard/top/cpu/core/_ex_rs2Data_T_7">
+         <obj_property name="ElementShortName">_ex_rs2Data_T_7[31:0]</obj_property>
+         <obj_property name="ObjectShortName">_ex_rs2Data_T_7[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/onboard/top/cpu/core/ex_rs2Data">
+         <obj_property name="ElementShortName">ex_rs2Data[31:0]</obj_property>
+         <obj_property name="ObjectShortName">ex_rs2Data[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/onboard/top/cpu/core/regfile_busB">
+         <obj_property name="ElementShortName">regfile_busB[31:0]</obj_property>
+         <obj_property name="ObjectShortName">regfile_busB[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/onboard/top/cpu/core/id_rs2Data">
+         <obj_property name="ElementShortName">id_rs2Data[31:0]</obj_property>
+         <obj_property name="ObjectShortName">id_rs2Data[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/onboard/top/cpu/core/_GEN_14">
+         <obj_property name="ElementShortName">_GEN_14</obj_property>
+         <obj_property name="ObjectShortName">_GEN_14</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/onboard/top/cpu/core/_alu_io_b_T_1">
+         <obj_property name="ElementShortName">_alu_io_b_T_1[31:0]</obj_property>
+         <obj_property name="ObjectShortName">_alu_io_b_T_1[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="array" fp_name="/onboard/top/cpu/core/_alu_io_b_T_3">
+         <obj_property name="ElementShortName">_alu_io_b_T_3[31:0]</obj_property>
+         <obj_property name="ObjectShortName">_alu_io_b_T_3[31:0]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/onboard/top/cpu/core/_GEN_52">
+         <obj_property name="ElementShortName">_GEN_52</obj_property>
+         <obj_property name="ObjectShortName">_GEN_52</obj_property>
+      </wvobject>
+   </wvobject>
+</wave_config>

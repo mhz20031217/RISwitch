@@ -1,6 +1,9 @@
+`timescale 10ns/1ns
 `include "../include/config.sv"
 
+`ifdef NVDL
 import "DPI-C" function void imem_read(input int addr, output int data);
+`endif
 
 /* verilator lint_off UNUSEDPARAM */ 
 module InstrMem #(
@@ -14,6 +17,7 @@ module InstrMem #(
 );
 
 `ifdef NVDL
+
 reg [instrWidth-1:0] instrBuf;
 
 always @(posedge clock) begin
@@ -24,15 +28,18 @@ assign instr = instrBuf;
 
 `elsif VIVADO
 
-reg [instrWidth-1:0] mem [depth-1:0];
-
-always @(posedge clock) begin
-  instrBuf <= mem[addr[17:2]];
-end
-
-initial begin
-  $readmemh(`IMEM_IMG, mem);
-end
+//InstrMemGenerator instrMemInternal(
+//  .addra(addr[16:2]),
+//  .clka(clock),
+//  .douta(instr),
+//  .ena(1'b1)
+//);
+  
+InstrMemGeneratorDistributed instrMemInternal(
+  .a(addr[16:2]),
+  .clk(clock),
+  .qspo(instr)
+);
 
 `endif
 

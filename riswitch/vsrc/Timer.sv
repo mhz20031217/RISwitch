@@ -1,10 +1,11 @@
+`timescale 10ns/1ns
 `ifdef NVDL
 import "DPI-C" function void timer_read(input int is_high, output int data);
 `endif
 
 module Timer (
   `ifdef VIVADO
-  input CLK_INPUT,
+  input CLK_1MHz,
   `endif
   input clock,
   input reset,
@@ -22,13 +23,7 @@ end
 `elsif VIVADO
 reg [63:0] uptime;
 
-wire clk_1mhz;
-clkgen #(100000000, 1000000) clk_1mhz_gen(
-  .in(CLK_INPUT),
-  .out(clk_1mhz)
-);
-
-always @(posedge clk_1mhz) begin
+always @(posedge CLK_1MHz) begin
   if (reset) begin
     uptime <= 64'b0;
   end else begin

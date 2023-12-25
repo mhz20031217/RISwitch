@@ -1,3 +1,4 @@
+`timescale 10ns/1ns
 import "DPI-C" function void serial_write(input int ch);
 
 module Serial (

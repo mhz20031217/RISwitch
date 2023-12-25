@@ -1,3 +1,4 @@
+`timescale 10ns/1ns
 module Led (
   input clock,
   input reset,
@@ -16,5 +17,5 @@ always @(posedge clock) begin
     led_out <= led_out;
   end
 end
-  
+
 endmodule

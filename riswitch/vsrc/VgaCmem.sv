@@ -1,15 +1,13 @@
+`timescale 10ns/1ns
 module VgaCmem (
-    input clock, reset,
     input vga_clk,
+    input clock, reset,
     input sel, we,
+    input [9:0] h_addr, v_addr,
     input [31:0] addr,
     input [31:0] din,
-    output hsync, vsync, valid,
-    output [3:0] vga_r, vga_g, vga_b
+    output [11:0] vga_data
 );
-
-wire [9:0] h_addr, v_addr;
-wire [11:0] vga_data;
 
 wire [2:0] fg_color, bg_color, w_fg_color, w_bg_color;
 wire [7:0] ascii, w_ascii;
@@ -28,11 +26,18 @@ assign wr_addr = addr[5:1];
 assign wc_addr = addr[12:6];
 
 assign r_addr = v_addr[8:4];
-assign c_addr = h_addr / 9;
 assign ir_addr = v_addr[3:0];
+
+assign c_addr = h_addr / 9;
 assign ic_addr = h_addr % 9;
 
+//wire [63:0] intermediate;
+//assign intermediate = h_addr * 477218588; // 2^32 / 9
+//assign c_addr = intermediate[63:32]; // intermediate / 2^32
+//assign ic_addr = h_addr - (c_addr*9);
+
 vga_cmem cmem(
+    .vga_clk(vga_clk),
     .clk(clock),
     .r_addr(r_addr),
     .c_addr(c_addr),
@@ -45,20 +50,6 @@ vga_cmem cmem(
     .w_ascii(w_ascii),
     .w_fg_color(w_fg_color),
     .w_bg_color(w_bg_color)
-);
-
-vga_ctrl ctrl(
-    .pclk(clock),
-    .reset(reset),
-    .vga_data(vga_data),
-    .h_addr(h_addr),
-    .v_addr(v_addr),
-    .hsync(hsync),
-    .vsync(vsync),
-    .valid(valid),
-    .vga_r(vga_r),
-    .vga_g(vga_g),
-    .vga_b(vga_b)
 );
 
 vga_bitmap vga_bitmap(
@@ -74,5 +65,5 @@ vga_render render(
     .bg_color(bg_color),
     .vga_data(vga_data)
 );
-    
+
 endmodule

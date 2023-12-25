@@ -29,6 +29,8 @@ void __am_gpu_config(AM_GPU_CONFIG_T *cfg) {
 }
 
 void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
+  if (!ctl) return;
+  if (!ctl->pixels) return;
   for (int i = 0; i < ctl->h; i ++) {
     memcpy(vmem + (i+ctl->y)*w + ctl->x, (uint32_t *)ctl->pixels + i*ctl->w, ctl->w * 4);
   }
