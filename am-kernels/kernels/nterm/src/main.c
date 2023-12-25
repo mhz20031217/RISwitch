@@ -553,9 +553,64 @@ uint64_t fib(int n) {
   return now;
 }
 
+/*
 static void sh_handle_cmd(const char *command) {
   sh_printf("%s\n", command);
   sh_printf("\033[31mHello, \033[32mworld!\033[0m\n");
+}
+*/
+static void sh_handle_cmd(const char *command) {
+    size_t len = strlen(command);
+
+    // 去除末尾可能存在的换行符
+    if (len > 0 && command[len - 1] == '\n')
+    {
+        len--;
+    }
+    if (strncmp(command, "hello", len) == 0)
+    {
+        sh_printf("Hello World!\n");
+    }
+    /* 
+    else if (strncmp(command, "time", len) == 0) 
+    {
+        time_t t;
+        struct tm *tm_info;
+
+        time(&t);
+        tm_info = localtime(&t);
+
+        sh_printf("Current time: %s", asctime(tm_info));
+    } 
+    */
+    else if (strncmp(command, "fib", 3) == 0 && len > 3) 
+    {
+        int n = 0;
+        int offset = 4; // 跳过命令中的 "fib "
+        int count = 0;
+
+        // 手动解析数字
+        while (offset < len && command[offset] != '\n') 
+        {
+            if (command[offset] >= '0' && command[offset] <= '9') {
+                n = n * 10 + (command[offset] - '0');
+            } else {
+                break;
+            }
+            offset++;
+            count++;
+        }
+
+        if (count > 0) {
+            sh_printf("Fibonacci(%d) = %d\n", n, fib(n));
+        } else {
+            sh_printf("Invalid command format for Fibonacci\n");
+        }
+    }
+    else 
+    {
+        sh_printf("Unknown Command\n");
+    }
 }
 
 void builtin_sh_run() {
