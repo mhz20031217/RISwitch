@@ -571,18 +571,19 @@ static void sh_handle_cmd(const char *command) {
     {
         sh_printf("Hello World!\n");
     }
-    /* 
+    
+    
     else if (strncmp(command, "time", len) == 0) 
     {
-        time_t t;
-        struct tm *tm_info;
+        uint64_t uptime = io_read(AM_TIMER_UPTIME).us;
+        uint64_t seconds = uptime / 1000000;
+        uint64_t hours = seconds / 3600;
+        uint64_t minutes = (seconds % 3600) / 60;
+        uint64_t remaining_seconds = seconds % 60;
 
-        time(&t);
-        tm_info = localtime(&t);
-
-        sh_printf("Current time: %s", asctime(tm_info));
+        sh_printf("Uptime: %llu hours, %llu minutes, %llu seconds\n", hours, minutes, remaining_seconds);
     } 
-    */
+    
     else if (strncmp(command, "fib", 3) == 0 && len > 3) 
     {
         int n = 0;
