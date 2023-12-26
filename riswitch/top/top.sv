@@ -199,7 +199,7 @@ wire [31:0] dout_timer, dout_sw, dout_dmem, dout_kbd;
 assign dout_sw = {16'b0, SW};
 
 Keyboard mykbd(
-        .clk(clock),
+        .clk(dmemrdclk),
         .clrn(~reset),
         .ps2_clk(PS2_CLK),
         .ps2_data(PS2_DAT),
