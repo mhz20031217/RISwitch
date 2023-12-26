@@ -572,6 +572,43 @@ static void sh_handle_cmd(const char *command) {
         sh_printf("Hello World!\n");
     }
     
+    else if(strncmp(command, "switch", len) == 0)
+    {
+	uint16_t status = io_read(AM_SWITCH).value;
+	sh_printf("Switch states:");
+	for (int i = 0; i < 16; i++)
+	{
+        	uint16_t bit_value = (status >> i) & 1;
+        	sh_printf(" %d", bit_value);
+        }
+        sh_printf("\n");
+    }
+    
+    else if (strncmp(command, "LED", 3) == 0)
+    {
+        int n = 0;
+        int offset = 4;
+        int count = 0;
+
+        // 手动解析数字
+        while (offset < len && command[offset] != '\n') 
+        {
+            if (command[offset] >= '0' && command[offset] <= '9') {
+                n = n * 10 + (command[offset] - '0');
+            } else {
+                break;
+            }
+            offset++;
+            count++;
+        }
+
+        if (count > 0) {
+            //sh_printf("Fibonacci(%d) = %d\n", n, fib(n));
+            io_write(AM_LED, .value=n);
+        } else {
+            sh_printf("Invalid command format for LED\n");
+        }
+    }    
     
     else if (strncmp(command, "time", len) == 0) 
     {
