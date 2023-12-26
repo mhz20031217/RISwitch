@@ -560,6 +560,9 @@ static void sh_handle_cmd(const char *command) {
   sh_printf("\033[31mHello, \033[32mworld!\033[0m\n");
 }
 */
+
+int dry();
+
 static void sh_handle_cmd(const char *command) {
     size_t len = strlen(command);
 
