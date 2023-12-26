@@ -17,8 +17,6 @@ module Keyboard
     reg nextdata_n = 0;
     reg release_f = 0;
     reg tri_f = 0;
-    
-    reg clk_1000HZ;
 
     assign reset = clrn == 0 ? 1 : overflow;
 
@@ -82,16 +80,5 @@ always@(posedge clk) begin
         end
     end
 end
-
-    //自定义时钟
-    reg [31:0] count_clk = 0;
-    always @(posedge clk)
-    if(count_clk==49999)
-    begin
-        count_clk <=0;
-        clk_1000HZ <= ~clk_1000HZ;
-    end
-    else
-        count_clk <= count_clk+1;
 
 endmodule
