@@ -152,7 +152,7 @@ vga_ctrl ctrl(
 
 /* USERSPACE BEGIN */
 
-wire clock = CLK_50MHz;
+wire clock = CLK_25MHz;
 wire reset = BTN[4];
 
 localparam addrWidth = 32;
