@@ -617,6 +617,17 @@ class ExMemPipelineRegister(w: Int) extends Bundle {
 
 ### 字符终端
 
+在字符终端的设计中，分为 4 个部分：字符显存、字模、渲染器和 VGA 控制器。其中，字符显存能够存储 70x30 的 ASCII 信息，以及相应的前景色、背景色。渲染器中是一个长度为 8 的 Palette，可以用字符显存中的 3 位颜色信息作下标获得当前字符前景、背景色。地址的转换部分，VGA 控制器输出的 $\mathrm{h\_addr}$, $\mathrm{v\_addr}$ 经过变换，得到字符位置和字模位置。
+
+$$
+    \mathrm{r\_addr} = \mathrm{v\_addr} \div 16;\quad \mathrm{c\_addr} = \mathrm{h\_addr} \div 9;\\
+    \mathrm{ir\_addr} = \mathrm{v\_addr} \% 16;\quad \mathrm{ic\_addr} = \mathrm{ir\_addr} \% 9;
+$$
+
+然后分别转发给字符显存和字模，字符显存将当前 ASCII 发给字模，字模输出当前屏幕位置是前景还是背景，发送给渲染器。字符显存将当前的前景色和背景色发送给渲染器，渲染器综合上述信息生成当前像素，发送给 VGA 控制器。
+
+![modules](img/modules.png)
+
 ## 软件的设计
 
 ### AM `ARCH=riscv32-switch` 的设计
