@@ -487,6 +487,7 @@ char handle_key(AM_INPUT_KEYBRD_T *k) {
   }
 
   if (k->keydown) {
+    printf("%d\n", k->keycode);
     const struct ShiftPattern *item = &SHIFT[k->keycode];
     if (shift)
       return item->shift;
