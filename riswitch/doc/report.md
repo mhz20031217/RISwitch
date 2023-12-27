@@ -463,6 +463,14 @@ $ make ARCH=riscv32-switch eval # 虚拟上板
 $ make ARCH=riscv32-switch evalwave # 虚拟上板，结束后自动打开波形
 ```
 
+以下是效果展示
+
+![nterm](img/nvdl_eval01.png)
+
+![universe](img/nvdl_eval02.png)
+
+![color](img/nvdl_eval03.png)
+
 #### 自动生成 Vivado 存储器 IP 核使用的 COE 文件
 
 在 AM 程序文件夹下，执行
