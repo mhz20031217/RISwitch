@@ -761,10 +761,12 @@ void __am_input_keybrd(AM_INPUT_KEYBRD_T *kbd) {
 
 1. Typing-game
 
+![typing](img/nvdl_typing.png)
+
 ![typing](img/fpga_typing.png)
 
+2. flying-motor
 
-
-2. Snake
+![typing]()
 
 3. OSLab
