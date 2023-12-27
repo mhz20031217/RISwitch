@@ -212,7 +212,7 @@ io_write(AM_CMEM_PUTCH, .x = xPos, .y = yPos, .ascii = ch, .fg = fg, .bg = bg);
 
 ## 配套软件开发环境
 
-本节是“一键虚拟上板”的介绍，读者可以克隆本仓库，在自己的 FPGA 上生成 CPU 代码、虚拟上板，或者用 Vivado 生成 Bitstream，在板上运行。
+本节是“一键虚拟上板”的介绍，读者可以克隆本仓库，在自己的电脑上生成 CPU 代码、虚拟上板，或者用 Vivado 生成 Bitstream，在板上运行。
 
 ### 功能和环境要求
 
@@ -496,6 +496,43 @@ $ make ARCH=riscv32-switch vivado # 生成 COE 文件，并由 NVDL Makefile 放
 </center>
 
 
+### 冲突冒险处理
+
+ForwardUnit 根据 EX 阶段和 MEM, WB 阶段寄存器编号的情况决定转发的来源，在 load-use 的情况下生成流水线阻塞和冲刷的信号。
+
+`ex_rs?_sel`: 选择转发到 EX 阶段的数据来源，取值为
+
+```scala
+  val FD_RSDATA = "b00".U(2.W)
+  val FD_MEM    = "b01".U(2.W)
+  val FD_WB     = "b10".U(2.W)
+```
+
+公式为
+
+```scala
+  io.ex_rs?_sel := Mux(
+    io.mem_rd === io.ex_rs? && io.mem_regWe,
+    FD_MEM,
+    Mux(io.wb_rd === io.ex_rs? && io.wb_regWe, FD_WB, FD_RSDATA)
+  )
+```
+
+`stallIf`, `stallId`, `stallEx`, `flushEx`: 阻塞和冲刷信号，用于 load-use 冒险，取值为
+
+```scala
+  val FD_BUS    = 0.U(1.W)
+  val FD_EX     = 1.U(1.W)
+```
+
+公式为
+
+```scala
+  val load_use =
+    (io.mem_memToReg && 
+      (io.ex_rs1 === io.mem_rd || io.ex_rs2 === io.mem_rd))
+```
+
 ### “抄手册”宏
 
 mhz 在在暑假了解了更多软件工程相关的知识后，认为设计应该便于修改，且做到“代码即注释”。在 ICS PA 中做了 riscv32-nemu 后，学到了“抄手册宏”，如下图所示
@@ -712,15 +749,21 @@ void __am_input_keybrd(AM_INPUT_KEYBRD_T *kbd) {
 
 本节展示 RISwitch 计算机系统在仿真和上板时的表现。
 
-### 基础功能
-
-1. NTerm
+### 基础功能 (NTerm)
 
 借助 cjh 移植的 NTerm，软件实现了大小写、换行、退格、多行命令、滚屏、ANSI Escape Code 处理。充分利用了底层硬件提供的 8 种颜色显示的功能。
+
+![nterm](img/nvdl_eval01.png)
+
+![nterm](img/fpga_nterm.png)
 
 ### 扩展功能
 
 1. Typing-game
+
+![typing](img/fpga_typing.png)
+
+
 
 2. Snake
 
