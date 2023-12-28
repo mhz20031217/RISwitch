@@ -11,9 +11,9 @@ wire [3:0] id = addr[23:20];
 wire sel_sw;
 
 assign sel_dmem = (id == 4'h1 || id == 4'h2);
-assign sel_seg = (id == 4'h2);
+assign sel_seg = (id == 4'h9);
 assign sel_kbd = (id == 4'h5);
-assign sel_timer = (id == 4'h9);
+assign sel_timer = (id == 4'h3);
 assign sel_cmem = (id == 4'h4);
 assign sel_fb = (id == 4'h8);
 assign sel_vgamode = (id == 4'he);
