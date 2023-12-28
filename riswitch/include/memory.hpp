@@ -3,8 +3,8 @@
 
 #include <common.hpp>
 
-#define IMEM_SIZE 131072 // 128KB
-#define DMEM_SIZE 131072U // 128KB
+#define IMEM_SIZE 131072U // 128KB
+#define DMEM_SIZE 131072U * 8 // 2048KB
 
 void imem_load(const char *filename);
 

@@ -774,3 +774,59 @@ void __am_input_keybrd(AM_INPUT_KEYBRD_T *kbd) {
 ![flying](img/nvdl_eval02.png)
 
 ![flying](img/fpga_flying.png)
+
+## 实验中遇到的问题和解决方案
+
+### 板上空间不够放下完整的 VGA 显存
+
+减小 VGA 色域，用 2 位表示一个通道，一个像素 6 位，解码时映射到 12 位颜色。
+
+```verilog
+module Conventer2b ( // convert 2b color to 4b
+  input [1:0] color_2b,
+  output [3:0] vga_color
+);
+assign vga_color =
+  (color_2b == 2'b00) ? 4'd0 :
+  (color_2b == 2'b01) ? 4'd5 :
+  (color_2b == 2'b10) ? 4'd10 :
+  (color_2b == 2'b11) ? 4'd15 :
+  4'b0;
+endmodule
+```
+
+### 仿真没有内存限制，但上板有限制，导致仿真行为不一致
+
+链接时加入主存区域划分，在链接脚本中设置内存大小
+
+```ldscript
+ENTRY(_start)
+PHDRS { text PT_LOAD; data PT_LOAD; }
+
+MEMORY {
+  ROM : ORIGIN = 0x80000000, LENGTH = 128K // constrain InstrMem to 128K
+  RAM : ORIGIN = 0x80100000, LENGTH = 128K // constrain DataMem to 128K
+}
+
+SECTIONS {
+  /* _pmem_start and _entry_offset are defined in LDFLAGS */
+  . = _pmem_start + _entry_offset;
+  .text : {
+    *(entry)
+    *(.text*)
+  } > ROM : text // assign .text to ROM
+...
+}
+```
+
+这样，如果链接时发现内存超限，将直接报错提示，避免 Debug。
+
+```
+riscv64-linux-gnu-ld: /home/pc/Learning/02.IT/5.ICS/ics2023/am-kernels/kernels/litenes/build/litenes-riscv32-switch.elf section `.bss' will not fit in region `RAM'
+riscv64-linux-gnu-ld: region `RAM' overflowed by 1401328 bytes
+Memory region         Used Size  Region Size  %age Used
+             ROM:       21076 B       128 KB     16.08%
+             RAM:     1532400 B       128 KB    1169.13%
+```
+
+上面显示出起 mario 是不可能完成的任务，除非加总线，使用 DDR 内存。

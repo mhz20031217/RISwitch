@@ -11,7 +11,7 @@
 
 #define SERIAL_PORT     0x80f00000
 #define KBD_ADDR        0x80500000
-#define RTC_ADDR        0x80300000
+#define RTC_ADDR        0x80900000
 #define VGACTL_ADDR     0x80e00000
 #define AUDIO_ADDR      0x00000000 // not supported yet
 #define DISK_ADDR       0x00000000 // not supported yet
