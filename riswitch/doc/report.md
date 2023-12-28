@@ -34,7 +34,7 @@
 
 ### 由 AM 驱动的应用程序集成开发环境
 
-本项目使用了来自 Project-N 的多个子项目：[Abstract-Machine](https://github.com/NJU-ProjectN/abstract-machine), [NVBoard](https://github.com/NJU-ProjectN/nvboard)，实现 AM 的 `ARCH=riscv32-switch` 架构，借助 Verilator 仿真器，实现了软件开发环境。
+
 
 ## RISwitch 计算机系统规约
 
@@ -376,7 +376,7 @@ $ make PLATFORM=VIVADO MODE=SIM # 仿真，不自动打开波形
 $ make PLATFORM=VIVADO MODE=SIM wave # 仿真，自动打开波形
 ```
 
-至于如何绕过 NVDL 在 Vivado 上直接仿真，新建工程，手动添加文件即可。
+至于如何用 Vivado 直接仿真，新建工程，手动添加文件即可。
 
 ### 使用 AM 编写应用程序并生成镜像
 
@@ -759,21 +759,17 @@ void __am_input_keybrd(AM_INPUT_KEYBRD_T *kbd) {
 
 ### 扩展功能
 
-由于支持除了串口的所有 AM 设备，扩展功能就是在 FPGA 上运行前人写好的 AM 程序，实现“运行诞生于未来的程序”。
-
 1. Typing-game
 
 ![typing](img/nvdl_typing.png)
 
 ![typing](img/fpga_typing.png)
 
-2. 雷电
+2. flying-motor
 
-作者: 171860637
+![typing]()
 
-![flying](img/nvdl_eval02.png)
-
-![flying](img/fpga_flying.png)
+3. OSLab
 
 ## 实验中遇到的问题和解决方案
 
