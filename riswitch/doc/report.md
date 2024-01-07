@@ -8,7 +8,7 @@
 4. DataMem: 128KB;
 5. VGA 彩色模式: 640x480, 64 色;
 6. VGA 字符模式: 70x30, ANSI 8 色;
-7. 设备工作模式: 未实现中断，还是轮询机制;
+7. 设备工作模式: 未实现中断，轮询机制;
 
 ## 项目分工
 
@@ -697,10 +697,6 @@ $$
 
 还是使用查找表和宏来实现，在不超过 4 字节的键盘码中，辨别是通码还是断码只需要判断第 1 个字节是不是 `0xf0` 即可，然后判断第 1 或 2 个字节是否为 `0xe0`，以此为依据，查找 `lut` 或 `elut`。
 
-#### 整数乘除法
-
-该功能抄袭了 AM `ARCH=riscv32e-npc` 的方式，将 libgcc 中的相应代码包含进来，实现了用加减和移位来实现乘除法，详见 `abstract-machine/am/src/riscv/switch/libgcc`；
-
 
 ```c
 #define K(scan, key) [scan] = AM_KEY_##key,
@@ -734,6 +730,10 @@ void __am_input_keybrd(AM_INPUT_KEYBRD_T *kbd) {
   }
 }
 ```
+#### 整数乘除法
+
+该功能抄袭了 AM `ARCH=riscv32e-npc` 的方式，将 libgcc 中的相应代码包含进来，实现了用加减和移位来实现乘除法，详见 `abstract-machine/am/src/riscv/switch/libgcc`；
+
 
 ### 终端程序的设计
 
