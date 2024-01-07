@@ -672,7 +672,39 @@ class ExMemPipelineRegister(w: Int) extends Bundle {
 
 ### 键盘
 
+键盘的实现分为2个部分：
+
+- 键盘控制器模块 `ps2_keyboard`
+
+  这一模块负责接收键盘送来的数据，发送给顶层模块等待处理。本模块中维护了一个 8B 的队列，以防止键盘数据发送过快导致数据来不及处理。当队列不空时，送出 ready 信号，表示此时有数据要处理；当队列溢出时，送出 overflow 信号， overflow 将会由顶层模块处理，然后将缓冲区冲刷为 0 。
+
+- 键盘顶层处理模块 `Keyboarda`
+
+  这一模块负责接收控制器模块发送来的 `ps2_data`，然后将其转为键码送出。同时还要负责与控制器模块进行交互，设置`clrn`、`nextdata_n`。
+
+  例如送给控制器模块的 `reset` 信号如下定义，保证缓冲区 overflow 时进行冲刷：
+
+  ```verilog
+  assign reset = clrn == 0 ? 1 : overflow;
+  ```
+
+  该模块的输出即为上面提到的键盘按键输入寄存器，保存 1 个完整的 PS/2 通码或断码。这里的键码是PS/2键码，从真正的键盘码转换到 AM 的键盘码的操作由 AM 完成。
+
+  本模块设计的重点在于，处理好三字节长的键码。处理的方法和处理 release 情形一样，设置一个标志位 `triple` 用来标识当前键码是否为 3 字节，当其为 1 时，就停止写入输出，而是等待至键码全部传输完成时再写入。
+
 ### 时钟
+
+本模块根据条件编译 (`ifdef` 和 `elsif`) 支持两种不同的设计，一种用于 NVDL，另一种用于 Vivado。
+
+1. **NVDL 设计路径：**
+   - 在 NVDL 设计路径中，直接使用 `timer_read` DPI-C 函数，通过调用该函数实现计时器的读取。
+   - 通过 `posedge clock` 边沿触发，在 `sel` 信号为真时，将 `addr[2]` 作为参数传递给 `timer_read` 函数，将结果通过 `dout` 输出。
+2. **Vivado 设计路径：**
+   - 在 Vivado 设计路径中，使用一个 `uptime` 寄存器来模拟计时器的累积时间。
+   - 使用 `CLK_1MHz` 作为时钟信号，通过 `posedge CLK_1MHz` 边沿触发，实现计时器的累加操作。
+   - 在 `posedge clock` 边沿触发时，根据 `sel` 和 `addr[2]` 的值，选择将 `uptime` 的高32位或低32位写入到 `dout` 中。
+
+本模块的设计要点在于，处理好高32位和低32位输出。在设备规约中已提到，时钟设备必须分两次读取时钟输入寄存器，先读取低 32 位，再读取高 32 位。因此，在这里使用addr[2]来确定本次输出的是高位还是低位。
 
 ### 字符终端
 
@@ -767,7 +799,8 @@ void __am_input_keybrd(AM_INPUT_KEYBRD_T *kbd) {
 
 2. flying-motor
 
-![typing]()
+![flying](img/nvdl_eval02.png)
+![flying](img/)
 
 3. OSLab
 
