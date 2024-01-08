@@ -1,5 +1,11 @@
 # RISwitch 计算机系统和配套集成开发环境
 
+[仓库](https://git.nju.edu.cn/riswitch/riswitch)
+
+[演示](https://www.bilibili.com/video/BV1xt4y1d78A)
+
+[演示 - NJU Box](https://box.nju.edu.cn/f/5c9b2507110844d7b7f3/)
+
 ## 技术指标
 
 1. ISA: rv32i;
@@ -791,18 +797,26 @@ void __am_input_keybrd(AM_INPUT_KEYBRD_T *kbd) {
 
 ### 扩展功能
 
+由于实现了自定义 AM ARCH，大部分 AM 程序都能够正常运行，但 FPGA 板上 RAM 空间实在过小，一些 AM 程序和 OSLab 中的程序会由于堆分配超限而不能运行，比如 OSLab 中的跳一跳。
+
 1. Typing-game
 
 ![typing](img/nvdl_typing.png)
 
 ![typing](img/fpga_typing.png)
 
-2. flying-motor
+2. 雷电
 
-![flying](img/nvdl_eval02.png)
-![flying](img/)
+作者: 171860637
 
-3. OSLab
+![thunder](img/nvdl_eval02.png)
+![thunder](img/fpga_thunder.png)
+
+3. flying-motor
+
+作者: 周涛 171860599
+
+![flying](img/fpga_flying.png)
 
 ## 实验中遇到的问题和解决方案
 
