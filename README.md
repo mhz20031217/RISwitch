@@ -29,3 +29,17 @@
 本项目的初始目标是在 FPGA 上用 Nanos-lite 启动马里奥，所以以 RISwitch (RISC-V + Switch) 为名，后续因为板上空间不够容纳 LiteNES（虚拟上板，修改内存容量后还是能跑的），时间不够大改 CPU 架构实现 CSR 和特权指令以及加总线而放弃。
 
 本项目有着十分完备的基础设施，能够通过虚拟上板的方式弥补没有实现串口调试，物理上板综合时间长的问题。值得一提的是，不同于在 `ARCH=native` 或 `ARCH=riscv32-nemu` 上调试 AM 程序后再在板上验证的方式，本项目的虚拟上板同时能够仿真 RTL，在验证软件的同时测试硬件功能正确。因为保证了虚拟设备在时序等方面和硬件完全一致，实现了“只要虚拟上板能跑，物理上板只可能有时序问题，逻辑一定正确”的效果。
+
+## 开源软件
+
+本项目使用了来自以下开源软件的代码
+
+- [AbstractMachine](https://github.com/NJU-ProjectN/abstract-machine);
+- [NEMU](https://github.com/NJU-ProjectN/nemu): 在 `ARCH=riscv32-nemu` 中测试软件;
+- [NJU Verilated Digital Lab](https://github.com/mhz20031217/nju-verilated-digital-lab): RTL 仿真框架;
+
+搭建开发环境需要以下开源软件
+
+- [Verilator](https://github.com/verilator/verilator): 仿真器;
+- [GTKWave](https://gtkwave.sourceforge.net/): 波形查看器;
+- [NVBoard](https://github.com/NJU-ProjectN/nvboard/): 虚拟 FPGA;
